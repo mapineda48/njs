@@ -1,0 +1,33 @@
+@import "style/utilities";
+
+.table {
+  position: relative;
+  cursor: pointer;
+
+  > span {
+    font-weight: bold;
+  }
+}
+
+.list {
+  position: absolute;
+
+  overflow: auto;
+
+  background-color: white;
+
+  z-index: 10;
+
+  li {
+    display: flex;
+    flex-direction: column-reverse;
+
+    cursor: pointer;
+
+    padding: 0.3em;
+
+    &:hover {
+      background-color: whitesmoke;
+    }
+  }
+}

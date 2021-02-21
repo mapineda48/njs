@@ -1,0 +1,28 @@
+._ {
+  &,
+  > fieldset,
+  > fieldset > div {
+    width: 100%;
+    height: 100%;
+  }
+  &,
+  > fieldset > div {
+    padding: 0.7em;
+  }
+}
+
+.two {
+  display: flex;
+  flex-wrap: wrap;
+
+  overflow: auto;
+
+  > div {
+    //flex-grow: 1;
+    flex-direction: column;
+    flex-basis: 50%;
+
+    //min-width: max-content;
+    padding: .2em;
+  }
+}

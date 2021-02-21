@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2018",
+    "module": "CommonJS",
+    "outDir": "./dist",
+    "noEmit": false,
+    "declaration": true,
+    "importHelpers": true
+  },
+  "include": [
+    "router"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.dev.ts"
+  ]
+}

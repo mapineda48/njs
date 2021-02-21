@@ -1,0 +1,10 @@
+{
+    "types": [
+        "SEARCH",
+        "NOTIFICATE",
+        "PREVIEW",
+        "CREATE",
+        "EDIT",
+        "END_ANIMATION"
+    ]
+}

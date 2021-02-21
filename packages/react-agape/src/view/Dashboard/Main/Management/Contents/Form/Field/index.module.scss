@@ -1,0 +1,16 @@
+@import "style/utilities";
+
+._ {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  label {
+    margin-right: 0.5em;
+    font-weight: bold;
+  }
+
+  @media only screen and (max-width: $mobile) {
+    display: block;
+  }
+}

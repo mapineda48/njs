@@ -1,0 +1,14 @@
+@import "style/variables";
+._ {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    cursor: pointer;
+    font-size: 135%;
+  }
+}

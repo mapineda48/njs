@@ -1,0 +1,49 @@
+@import "style/utilities";
+
+._ {
+  position: relative;
+  display: grid;
+  gap: 0.5em;
+  grid-template-columns: 1fr 1fr 1fr min-content;
+}
+
+.detail {
+  position: relative;
+  width: 100%;
+  grid-column: 1 / 5;
+}
+
+.total {
+  width: auto;
+}
+
+.droplist {
+  position: absolute;
+  display: flex;
+  flex-direction: column-reverse;
+  width: 100%;
+  z-index: 5;
+  overflow: auto;
+
+  background-color: white;
+
+  border-radius: 10px;
+
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
+    0 0px 0 1px rgba(10, 10, 10, 0.02);
+}
+
+.product {
+  cursor: pointer;
+
+  box-sizing: content-box;
+
+  height: 22px;
+  white-space: nowrap;
+
+  padding: 0.5em;
+}
+
+.active {
+  background-color: whitesmoke;
+}

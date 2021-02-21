@@ -1,0 +1,19 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "target": "ES2018",
+        "lib": [
+            "ESNext"
+        ],
+        "importHelpers": true,
+        "noEmit": false,
+        "declaration": true,
+        "outDir": "dist/router"
+    },
+    "include": [
+        "router"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

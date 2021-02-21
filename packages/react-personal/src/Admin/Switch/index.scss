@@ -1,0 +1,50 @@
+@import "~bootstrap/scss/bootstrap-reboot";
+@import "~bootstrap/scss/custom-forms";
+
+$padding: 0.5em;
+
+.main {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: whitesmoke;
+
+  .admin {
+    position: relative;
+
+    width: 95%;
+    height: 95%;
+
+    max-width: 500px;
+    max-height: 500px;
+
+    background-color: white;
+
+    border: 1px solid black;
+
+    border-radius: 8px;
+
+    padding: $padding;
+
+    h2 {
+      text-align: center;
+    }
+
+    .help {
+      position: absolute;
+
+      top: $padding;
+      right: $padding;
+
+      cursor: pointer;
+    }
+  }
+}
+
+.admin-help {
+  max-width: 200px;
+}

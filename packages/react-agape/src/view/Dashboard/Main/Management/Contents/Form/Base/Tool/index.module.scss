@@ -1,0 +1,31 @@
+@import "style/utilities";
+
+$bg-color: grey;
+
+.tool {
+  font-size: 120%;
+  font-weight: bold;
+  cursor: pointer;
+
+  background-color: $bg-color;
+
+  border-radius: 50%;
+  padding: 0.3em;
+  margin-left: 0.1em;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.in:global {
+  animation: bounce-in 0.5s;
+}
+
+.out:global {
+  animation: bounce-out 0.5s;
+}

@@ -1,0 +1,14 @@
+$body: "Roboto", sans-serif;
+$heading: 'Roboto Slab', serif;
+
+body {
+  font-family: $body;
+
+  // h1 {
+  //   font-family: $heading;
+  // }
+
+  nav {
+    font-family: $heading;
+  }
+}

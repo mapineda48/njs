@@ -1,0 +1,1724 @@
+{
+    "searchParams": {
+        "resultType": "json",
+        "searchOnly": false,
+        "oppNum": "",
+        "cfda": "",
+        "sortBy": "openDate|desc",
+        "oppStatuses": "forecasted|posted",
+        "startRecordNum": 0,
+        "eligibilities": "",
+        "fundingInstruments": "",
+        "fundingCategories": "",
+        "agencies": "",
+        "rows": 25,
+        "keyword": "",
+        "keywordEncoded": false
+    },
+    "hitCount": 2195,
+    "startRecord": 0,
+    "oppHits": [
+        {
+            "id": "329382",
+            "number": "NNH20ZDA001N-EPRV",
+            "title": "ROSES 2020: Extreme Precision Radial Velocity Foundation Science",
+            "agencyCode": "NASA-HQ",
+            "agency": "NASA Headquarters",
+            "openDate": "10/09/2020",
+            "closeDate": "12/17/2020",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "43.001"
+            ]
+        },
+        {
+            "id": "328459",
+            "number": "HRSA-21-034",
+            "title": "Maternal and Child Health (MCH) Leadership, Education, and Advancement in Undergraduate Pathways (LEAP) Training Program",
+            "agencyCode": "HHS-HRSA",
+            "agency": "Health Resources and Services Administration",
+            "openDate": "10/09/2020",
+            "closeDate": "01/07/2021",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "93.110"
+            ]
+        },
+        {
+            "id": "329381",
+            "number": "DE-FOA-0002372",
+            "title": "Request for Information on Office of Energy Efficiency &amp; Renewable Energy&rsquo;s Medium- and Heavy-Duty Truck Research and Development Activities &amp; SuperTruck Initiative",
+            "agencyCode": "DOE-NETL",
+            "agency": "National Energy Technology Laboratory",
+            "openDate": "10/09/2020",
+            "closeDate": "11/09/2020",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "81.086"
+            ]
+        },
+        {
+            "id": "329365",
+            "number": "21-512",
+            "title": "Cybersecurity Innovation for Cyberinfrastructure",
+            "agencyCode": "NSF",
+            "agency": "National Science Foundation",
+            "openDate": "10/09/2020",
+            "closeDate": "01/08/2021",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "47.070"
+            ]
+        },
+        {
+            "id": "329366",
+            "number": "19-551",
+            "title": "GROWING CONVERGENCE RESEARCH",
+            "agencyCode": "NSF",
+            "agency": "National Science Foundation",
+            "openDate": "10/09/2020",
+            "closeDate": "02/01/2021",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "47.076",
+                "47.049",
+                "47.070",
+                "47.041",
+                "47.075",
+                "47.074",
+                "47.083",
+                "47.079",
+                "47.050"
+            ]
+        },
+        {
+            "id": "329361",
+            "number": "72065620APS00002",
+            "title": "Supporting Greater Socio-Economic Development and Recovery in Cabo Delgado APS",
+            "agencyCode": "USAID-MOZ",
+            "agency": "Mozambique USAID-Maputo",
+            "openDate": "10/09/2020",
+            "closeDate": "12/15/2021",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "98.001"
+            ]
+        },
+        {
+            "id": "329383",
+            "number": "EPA-G2021-STAR-G1",
+            "title": "Interventions and Communication Strategies to Reduce Health Risks of Wildland Fire Smoke Exposures",
+            "agencyCode": "EPA",
+            "agency": "Environmental Protection Agency",
+            "openDate": "10/09/2020",
+            "closeDate": "12/15/2020",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "66.509"
+            ]
+        },
+        {
+            "id": "329384",
+            "number": "EPA-G2021-STAR-G2",
+            "title": "Early Career: Interventions and Communication Strategies to Reduce Health Risks of Wildland Fire Smoke Exposures",
+            "agencyCode": "EPA",
+            "agency": "Environmental Protection Agency",
+            "openDate": "10/09/2020",
+            "closeDate": "12/15/2020",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "66.509"
+            ]
+        },
+        {
+            "id": "329386",
+            "number": "HHS-2021-ACF-OCS-ET-1959",
+            "title": "Community Services Block Grant (CSBG) CARES Act Rapid-Cycle Impact Projects",
+            "agencyCode": "HHS-ACF-OCS",
+            "agency": "Administration for Children and Families - OCS",
+            "openDate": "10/09/2020",
+            "closeDate": "",
+            "oppStatus": "forecasted",
+            "docType": "forecast",
+            "cfdaList": [
+                "93.569"
+            ]
+        },
+        {
+            "id": "329362",
+            "number": "N00014-21-S-B001",
+            "title": "FY2021 Long Range Broad Agency Announcement (BAA) for Navy and Marine Corps Science and Technology",
+            "agencyCode": "DOD-ONR",
+            "agency": "Office of Naval Research",
+            "openDate": "10/08/2020",
+            "closeDate": "09/30/2021",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "12.300"
+            ]
+        },
+        {
+            "id": "329360",
+            "number": "INL21CA0002-COSTARICA-GBVCITIZENSECURITY",
+            "title": "Response to Gender Based Violence Technical Assistance for Shelters",
+            "agencyCode": "DOS-INL",
+            "agency": "Bureau of International Narcotics-Law Enforcement",
+            "openDate": "10/08/2020",
+            "closeDate": "12/08/2020",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "19.704"
+            ]
+        },
+        {
+            "id": "329375",
+            "number": "PAR-20-307",
+            "title": "Developmental AIDS Research Center on Mental Health and HIV/AIDS (P30 Clinical Trial Optional)",
+            "agencyCode": "HHS-NIH11",
+            "agency": "National Institutes of Health",
+            "openDate": "10/08/2020",
+            "closeDate": "09/13/2023",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "93.242"
+            ]
+        },
+        {
+            "id": "329377",
+            "number": "PAR-20-308",
+            "title": "AIDS Research Center on Mental Health and HIV/AIDS (P30 Clinical Trial Optional)",
+            "agencyCode": "HHS-NIH11",
+            "agency": "National Institutes of Health",
+            "openDate": "10/08/2020",
+            "closeDate": "09/13/2023",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "93.242"
+            ]
+        },
+        {
+            "id": "329378",
+            "number": "PAR-20-306",
+            "title": "National Dental Practice-Based Research Network Clinical Trial or Observational Study Planning and Implementation Cooperative Agreement (UG3/UH3 Clinical Trial Optional)",
+            "agencyCode": "HHS-NIH11",
+            "agency": "National Institutes of Health",
+            "openDate": "10/08/2020",
+            "closeDate": "09/07/2023",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "93.121"
+            ]
+        },
+        {
+            "id": "329363",
+            "number": "PAR-21-030",
+            "title": "Late-Stage Translation of Biomedical and Behavioral Research Results in Arthritis and Musculoskeletal and Skin Diseases from Academic/Non-profit Lab to Marketplace (SBIR [R43/R44] Clinical Trial Not Allowed)",
+            "agencyCode": "HHS-NIH11",
+            "agency": "National Institutes of Health",
+            "openDate": "10/08/2020",
+            "closeDate": "09/05/2022",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "93.846"
+            ]
+        },
+        {
+            "id": "329355",
+            "number": "21-511",
+            "title": "Accelerating Research through International Network-to-Network Collaborations",
+            "agencyCode": "NSF",
+            "agency": "National Science Foundation",
+            "openDate": "10/08/2020",
+            "closeDate": "01/04/2021",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "47.079",
+                "47.070",
+                "47.074",
+                "47.075",
+                "47.049",
+                "47.083",
+                "47.076",
+                "47.041",
+                "47.050"
+            ]
+        },
+        {
+            "id": "329358",
+            "number": "CDC-RFA-GH21-2164",
+            "title": "Shoulder to Shoulder: Accompanying Ministries of Health in Central America in Strengthening Local and Global Health Security",
+            "agencyCode": "HHS-CDC-CGH",
+            "agency": "Centers for Disease Control - CGH",
+            "openDate": "10/08/2020",
+            "closeDate": "",
+            "oppStatus": "forecasted",
+            "docType": "forecast",
+            "cfdaList": [
+                "93.318"
+            ]
+        },
+        {
+            "id": "329359",
+            "number": "RFA-CE-21-002",
+            "title": "Research Grants to Develop or Identify Effective Strategies to Prevent Overdose Involving Illicit Stimulants and Polysubstance Use Involving Stimulants",
+            "agencyCode": "HHS-CDC-HHSCDCERA",
+            "agency": "Centers for Disease Control and Prevention - ERA",
+            "openDate": "10/08/2020",
+            "closeDate": "",
+            "oppStatus": "forecasted",
+            "docType": "forecast",
+            "cfdaList": [
+                "93.136"
+            ]
+        },
+        {
+            "id": "329357",
+            "number": "2021NEA03LFTP",
+            "title": "NEA Literature Fellowships: Translation Projects, FY2022",
+            "agencyCode": "NEA",
+            "agency": "National Endowment for the Arts",
+            "openDate": "10/08/2020",
+            "closeDate": "01/13/2021",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "45.024"
+            ]
+        },
+        {
+            "id": "329331",
+            "number": "72049721RFI00001",
+            "title": "Request for Information (RFI) and Sources Sought: New Marine and Fisheries Program",
+            "agencyCode": "USAID-IND",
+            "agency": "Indonesia USAID-Jakarta",
+            "openDate": "10/08/2020",
+            "closeDate": "",
+            "oppStatus": "forecasted",
+            "docType": "forecast",
+            "cfdaList": [
+                "98.001"
+            ]
+        },
+        {
+            "id": "329368",
+            "number": "RFA-AI-20-056",
+            "title": "Coccidioidomycosis Collaborative Research Centers (U19 Clinical Trial Not Allowed)",
+            "agencyCode": "HHS-NIH11",
+            "agency": "National Institutes of Health",
+            "openDate": "10/08/2020",
+            "closeDate": "02/18/2021",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "93.855"
+            ]
+        },
+        {
+            "id": "329364",
+            "number": "DE-FOA-0002428",
+            "title": "Notice of Intent to issue DE-FOA-0002397 titled University Turbine Systems Research (UTSR) &ndash; Focus on Hydrogen Fuels",
+            "agencyCode": "DOE-NETL",
+            "agency": "National Energy Technology Laboratory",
+            "openDate": "10/08/2020",
+            "closeDate": "12/15/2020",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "81.089"
+            ]
+        },
+        {
+            "id": "329288",
+            "number": "SWMFY2021",
+            "title": "Solid Waste Management Grant Program",
+            "agencyCode": "USDA-RUS",
+            "agency": "Utilities Programs",
+            "openDate": "10/07/2020",
+            "closeDate": "12/31/2020",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "10.762"
+            ]
+        },
+        {
+            "id": "329350",
+            "number": "TATFY21",
+            "title": "Technical Assistance and Training Grant Program",
+            "agencyCode": "USDA-RUS",
+            "agency": "Utilities Programs",
+            "openDate": "10/07/2020",
+            "closeDate": "12/31/2020",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "10.761"
+            ]
+        },
+        {
+            "id": "329329",
+            "number": "21-508",
+            "title": "Transitions to Excellence in Molecular and Cellular Biosciences Research",
+            "agencyCode": "NSF",
+            "agency": "National Science Foundation",
+            "openDate": "10/07/2020",
+            "closeDate": "",
+            "oppStatus": "posted",
+            "docType": "synopsis",
+            "cfdaList": [
+                "47.074"
+            ]
+        }
+    ],
+    "oppStatusOptions": [
+        {
+            "label": "posted",
+            "value": "posted",
+            "count": 1869
+        },
+        {
+            "label": "closed",
+            "value": "closed",
+            "count": 3545
+        },
+        {
+            "label": "archived",
+            "value": "archived",
+            "count": 55460
+        },
+        {
+            "label": "forecasted",
+            "value": "forecasted",
+            "count": 326
+        }
+    ],
+    "dateRangeOptions": [
+        {
+            "label": "Posted Date - Last 3 Days",
+            "value": "3",
+            "count": 33
+        },
+        {
+            "label": "Posted Date - Last 1 Week",
+            "value": "7",
+            "count": 52
+        },
+        {
+            "label": "Posted Date - Last 2 Weeks",
+            "value": "14",
+            "count": 91
+        },
+        {
+            "label": "Posted Date - Last 3 Weeks",
+            "value": "21",
+            "count": 134
+        },
+        {
+            "label": "Posted Date - Last 4 Weeks",
+            "value": "28",
+            "count": 206
+        },
+        {
+            "label": "Posted Date - Last 5 Weeks",
+            "value": "35",
+            "count": 242
+        },
+        {
+            "label": "Posted Date - Last 6 Weeks",
+            "value": "42",
+            "count": 310
+        },
+        {
+            "label": "Posted Date - Last 7 Weeks",
+            "value": "49",
+            "count": 347
+        },
+        {
+            "label": "Posted Date - Last 8 Weeks",
+            "value": "56",
+            "count": 382
+        }
+    ],
+    "suggestion": "",
+    "eligibilities": [
+        {
+            "label": "City or township governments",
+            "value": "02",
+            "count": 1143
+        },
+        {
+            "label": "County governments",
+            "value": "01",
+            "count": 1163
+        },
+        {
+            "label": "For profit organizations other than small businesses",
+            "value": "22",
+            "count": 1134
+        },
+        {
+            "label": "Independent school districts",
+            "value": "05",
+            "count": 1118
+        },
+        {
+            "label": "Individuals",
+            "value": "21",
+            "count": 24
+        },
+        {
+            "label": "Native American tribal governments (Federally recognized)",
+            "value": "07",
+            "count": 1202
+        },
+        {
+            "label": "Native American tribal organizations (other than Federally recognized tribal governments)",
+            "value": "11",
+            "count": 1133
+        },
+        {
+            "label": "Nonprofits having a 501(c)(3) status with the IRS, other than institutions of higher education",
+            "value": "12",
+            "count": 1262
+        },
+        {
+            "label": "Nonprofits that do not have a 501(c)(3) status with the IRS, other than institutions of higher education",
+            "value": "13",
+            "count": 1198
+        },
+        {
+            "label": "Others (see text field entitled \"Additional Information on Eligibility\" for clarification)",
+            "value": "25",
+            "count": 1552
+        },
+        {
+            "label": "Private institutions of higher education",
+            "value": "20",
+            "count": 1249
+        },
+        {
+            "label": "Public and State controlled institutions of higher education",
+            "value": "06",
+            "count": 1276
+        },
+        {
+            "label": "Public housing authorities/Indian housing authorities",
+            "value": "08",
+            "count": 1116
+        },
+        {
+            "label": "Small businesses",
+            "value": "23",
+            "count": 1215
+        },
+        {
+            "label": "Special district governments",
+            "value": "04",
+            "count": 1083
+        },
+        {
+            "label": "State governments",
+            "value": "00",
+            "count": 1185
+        },
+        {
+            "label": "Unrestricted (i.e., open to any type of entity above), subject to any clarification in text field entitled \"Additional Information on Eligibility\"",
+            "value": "99",
+            "count": 345
+        }
+    ],
+    "fundingCategories": [
+        {
+            "label": "Affordable Care Act",
+            "value": "ACA",
+            "count": 1
+        },
+        {
+            "label": "Agriculture",
+            "value": "AG",
+            "count": 49
+        },
+        {
+            "label": "Arts (see \"Cultural Affairs\" in CFDA)",
+            "value": "AR",
+            "count": 16
+        },
+        {
+            "label": "Business and Commerce",
+            "value": "BC",
+            "count": 14
+        },
+        {
+            "label": "Community Development",
+            "value": "CD",
+            "count": 22
+        },
+        {
+            "label": "Consumer Protection",
+            "value": "CP",
+            "count": 32
+        },
+        {
+            "label": "Disaster Prevention and Relief",
+            "value": "DPR",
+            "count": 14
+        },
+        {
+            "label": "Education",
+            "value": "ED",
+            "count": 494
+        },
+        {
+            "label": "Employment, Labor and Training",
+            "value": "ELT",
+            "count": 21
+        },
+        {
+            "label": "Energy",
+            "value": "EN",
+            "count": 24
+        },
+        {
+            "label": "Environment",
+            "value": "ENV",
+            "count": 185
+        },
+        {
+            "label": "Food and Nutrition",
+            "value": "FN",
+            "count": 145
+        },
+        {
+            "label": "Health",
+            "value": "HL",
+            "count": 1353
+        },
+        {
+            "label": "Housing",
+            "value": "HO",
+            "count": 9
+        },
+        {
+            "label": "Humanities (see \"Cultural Affairs\" in CFDA)",
+            "value": "HU",
+            "count": 26
+        },
+        {
+            "label": "Income Security and Social Services",
+            "value": "ISS",
+            "count": 273
+        },
+        {
+            "label": "Information and Statistics",
+            "value": "IS",
+            "count": 1
+        },
+        {
+            "label": "Law, Justice and Legal Services",
+            "value": "LJL",
+            "count": 13
+        },
+        {
+            "label": "Natural Resources",
+            "value": "NR",
+            "count": 60
+        },
+        {
+            "label": "Opportunity Zone Benefits",
+            "value": "OZ",
+            "count": 24
+        },
+        {
+            "label": "Other (see text field entitled \"Explanation of Other Category of Funding Activity\" for clarification)",
+            "value": "O",
+            "count": 121
+        },
+        {
+            "label": "Regional Development",
+            "value": "RD",
+            "count": 11
+        },
+        {
+            "label": "Science and Technology and other Research and Development",
+            "value": "ST",
+            "count": 424
+        },
+        {
+            "label": "Transportation",
+            "value": "T",
+            "count": 7
+        }
+    ],
+    "fundingInstruments": [
+        {
+            "label": "Cooperative Agreement",
+            "value": "CA",
+            "count": 668
+        },
+        {
+            "label": "Grant",
+            "value": "G",
+            "count": 1592
+        },
+        {
+            "label": "Other",
+            "value": "O",
+            "count": 95
+        },
+        {
+            "label": "Procurement Contract",
+            "value": "PC",
+            "count": 40
+        }
+    ],
+    "agencies": [
+        {
+            "subAgencyOptions": [
+                {
+                    "label": "Afghanistan USAID-Kabul",
+                    "value": "USAID-AFG",
+                    "count": 1
+                },
+                {
+                    "label": "Agency for International Development",
+                    "value": "USAID",
+                    "count": 55
+                },
+                {
+                    "label": "Bangladesh USAID-Dhaka",
+                    "value": "USAID-BAN",
+                    "count": 3
+                },
+                {
+                    "label": "Colombia USAID-Bogota",
+                    "value": "USAID-COL",
+                    "count": 2
+                },
+                {
+                    "label": "Democratic Republic of the Congo USAID-Kinshasa",
+                    "value": "USAID-DEM",
+                    "count": 2
+                },
+                {
+                    "label": "East Africa USAID-Kenya",
+                    "value": "USAID-EAF",
+                    "count": 1
+                },
+                {
+                    "label": "Egypt USAID-Cairo",
+                    "value": "USAID-EGY",
+                    "count": 4
+                },
+                {
+                    "label": "Ethiopia USAID-Addis Ababa ",
+                    "value": "USAID-ETH",
+                    "count": 1
+                },
+                {
+                    "label": "Georgia USAID-Tbilisi",
+                    "value": "USAID-GEO",
+                    "count": 1
+                },
+                {
+                    "label": "Germany USAID - Frankfurt",
+                    "value": "USAID-GER",
+                    "count": 2
+                },
+                {
+                    "label": "Ghana USAID-Accra",
+                    "value": "USAID-GHA",
+                    "count": 1
+                },
+                {
+                    "label": "Guatemala USAID-Guatemala City",
+                    "value": "USAID-GUA",
+                    "count": 1
+                },
+                {
+                    "label": "Honduras USAID-Tegucigalpa",
+                    "value": "USAID-HON",
+                    "count": 2
+                },
+                {
+                    "label": "Indonesia USAID-Jakarta",
+                    "value": "USAID-IND",
+                    "count": 2
+                },
+                {
+                    "label": "Jordan USAID-Amman",
+                    "value": "USAID-JOR",
+                    "count": 1
+                },
+                {
+                    "label": "Kazakhstan USAID-Almaty",
+                    "value": "USAID-KAZ",
+                    "count": 1
+                },
+                {
+                    "label": "Kenya USAID-Nairobi",
+                    "value": "USAID-KEN",
+                    "count": 1
+                },
+                {
+                    "label": "Liberia USAID-Monrovia",
+                    "value": "USAID-LIB",
+                    "count": 1
+                },
+                {
+                    "label": "Macedonia USAID-Skopje",
+                    "value": "USAID-MAC",
+                    "count": 1
+                },
+                {
+                    "label": "Middle East Regional Platform USAID-MERP",
+                    "value": "USAID-MERP",
+                    "count": 1
+                },
+                {
+                    "label": "Morocco USAID-Rabat",
+                    "value": "USAID-MOR",
+                    "count": 2
+                },
+                {
+                    "label": "Mozambique USAID-Maputo",
+                    "value": "USAID-MOZ",
+                    "count": 2
+                },
+                {
+                    "label": "Nigeria USAID-Abuja",
+                    "value": "USAID-NIG",
+                    "count": 2
+                },
+                {
+                    "label": "Pakistan USAID-Islamabad",
+                    "value": "USAID-PAK",
+                    "count": 1
+                },
+                {
+                    "label": "Peru USAID-Lima",
+                    "value": "USAID-PER",
+                    "count": 3
+                },
+                {
+                    "label": "Philippines USAID-Manila",
+                    "value": "USAID-PHI",
+                    "count": 6
+                },
+                {
+                    "label": "Rwanda USAID-Kigali ",
+                    "value": "USAID-RWA",
+                    "count": 1
+                },
+                {
+                    "label": "Senegal USAID-Dakar",
+                    "value": "USAID-SEN",
+                    "count": 4
+                },
+                {
+                    "label": "South Africa USAID-Pretoria",
+                    "value": "USAID-SAF",
+                    "count": 4
+                },
+                {
+                    "label": "Sri Lanka USAID-Colombo",
+                    "value": "USAID-SRI",
+                    "count": 1
+                },
+                {
+                    "label": "Tanzania USAID-Dar es Salaam",
+                    "value": "USAID-TAN",
+                    "count": 2
+                },
+                {
+                    "label": "Thailand USAID-Bangkok",
+                    "value": "USAID-THA",
+                    "count": 2
+                },
+                {
+                    "label": "Uganda USAID-Kampala",
+                    "value": "USAID-UGA",
+                    "count": 2
+                },
+                {
+                    "label": "USAID-VIETNAM",
+                    "value": "USAID-VIE",
+                    "count": 1
+                },
+                {
+                    "label": "West Africa USAID-Ghana",
+                    "value": "USAID-WAF",
+                    "count": 1
+                },
+                {
+                    "label": "West Bank, Gaza USAID-West Bank",
+                    "value": "USAID-WES",
+                    "count": 5
+                },
+                {
+                    "label": "Yemen USAID-Sanaa",
+                    "value": "USAID-YEM",
+                    "count": 1
+                },
+                {
+                    "label": "Zimbabwe USAID-Harare",
+                    "value": "USAID-ZIM",
+                    "count": 3
+                }
+            ],
+            "label": "Agency for International Development",
+            "value": "USAID",
+            "count": 127
+        },
+        {
+            "subAgencyOptions": [],
+            "label": "Corporation for National and Community Service",
+            "value": "CNCS",
+            "count": 1
+        },
+        {
+            "subAgencyOptions": [
+                {
+                    "label": "Business and Cooperative Programs",
+                    "value": "USDA-rbcs",
+                    "count": 2
+                },
+                {
+                    "label": "Forest Service",
+                    "value": "USDA-FS",
+                    "count": 1
+                },
+                {
+                    "label": "National Institute of Food and Agriculture",
+                    "value": "USDA-NIFA",
+                    "count": 4
+                },
+                {
+                    "label": "Natural Resources Conservation Service",
+                    "value": "USDA-NRCS",
+                    "count": 2
+                },
+                {
+                    "label": "Utilities Programs",
+                    "value": "USDA-RUS",
+                    "count": 4
+                }
+            ],
+            "label": "Department of Agriculture",
+            "value": "USDA",
+            "count": 13
+        },
+        {
+            "subAgencyOptions": [
+                {
+                    "label": "Department of Commerce",
+                    "value": "DOC",
+                    "count": 31
+                },
+                {
+                    "label": "Economic Development Administration",
+                    "value": "DOC-EDA",
+                    "count": 3
+                },
+                {
+                    "label": "National Institute of Standards and Technology",
+                    "value": "DOC-NIST",
+                    "count": 4
+                },
+                {
+                    "label": "National Telecommunications and Information Admini",
+                    "value": "DOC-NTIA",
+                    "count": 1
+                }
+            ],
+            "label": "Department of Commerce",
+            "value": "DOC",
+            "count": 39
+        },
+        {
+            "subAgencyOptions": [
+                {
+                    "label": "ACC APG - Natick",
+                    "value": "DOD-AMC-ACCAPGN",
+                    "count": 1
+                },
+                {
+                    "label": "ACC-APG-Detrick",
+                    "value": "DOD-AMC-ACCAPGD",
+                    "count": 1
+                },
+                {
+                    "label": "ACC-APG-Edgewood",
+                    "value": "DOD-AMC-ACCAPGE",
+                    "count": 1
+                },
+                {
+                    "label": "AFRL Kirtland AFB",
+                    "value": "DOD-AFRL-AFRLDET8",
+                    "count": 4
+                },
+                {
+                    "label": "Air Force -- Research Lab",
+                    "value": "DOD-AFRL",
+                    "count": 11
+                },
+                {
+                    "label": "Air Force Academy",
+                    "value": "DOD-USAFA",
+                    "count": 1
+                },
+                {
+                    "label": "Air Force Office of Scientific Research",
+                    "value": "DOD-AFOSR",
+                    "count": 5
+                },
+                {
+                    "label": "Army Contracting Command - Benet Laboratories",
+                    "value": "DOD-AMC-ACCBL",
+                    "count": 1
+                },
+                {
+                    "label": "DARPA - Biological Technologies Office",
+                    "value": "DOD-DARPA-BTO",
+                    "count": 1
+                },
+                {
+                    "label": "DARPA - Defense Sciences Office",
+                    "value": "DOD-DARPA-DSO",
+                    "count": 4
+                },
+                {
+                    "label": "DARPA - Information Innovation Office",
+                    "value": "DOD-DARPA-I2O",
+                    "count": 1
+                },
+                {
+                    "label": "DARPA - Microsystems Technology Office ",
+                    "value": "DOD-DARPA-MTO",
+                    "count": 1
+                },
+                {
+                    "label": "DARPA - Strategic Technology Office",
+                    "value": "DOD-DARPA-STO",
+                    "count": 1
+                },
+                {
+                    "label": "DARPA - Tactical Technology Office",
+                    "value": "DOD-DARPA-TTO",
+                    "count": 1
+                },
+                {
+                    "label": "Defense Threat Reduction Agency",
+                    "value": "DOD-DTRA",
+                    "count": 2
+                },
+                {
+                    "label": "Department of Defense",
+                    "value": "DOD",
+                    "count": 1
+                },
+                {
+                    "label": "Dept of the Army -- Materiel Command",
+                    "value": "DOD-AMC",
+                    "count": 10
+                },
+                {
+                    "label": "Dept. of the Army -- USAMRAA",
+                    "value": "DOD-AMRAA",
+                    "count": 23
+                },
+                {
+                    "label": "Engineer Research and Development Center",
+                    "value": "DOD-COE-ERDC",
+                    "count": 1
+                },
+                {
+                    "label": "Munitions Directorate",
+                    "value": "DOD-AFRL-RW",
+                    "count": 2
+                },
+                {
+                    "label": "National Geospatial-Intelligence Agency ",
+                    "value": "DOD-NGIA",
+                    "count": 2
+                },
+                {
+                    "label": "NAVAIR",
+                    "value": "DOD-ONR-AIR",
+                    "count": 1
+                },
+                {
+                    "label": "Naval Information Warfare Center Pacific",
+                    "value": "DOD-ONR-NIWCPAC",
+                    "count": 1
+                },
+                {
+                    "label": "Naval Research Laboratory",
+                    "value": "DOD-ONR-NRL",
+                    "count": 1
+                },
+                {
+                    "label": "Naval Supply Systems Command",
+                    "value": "DOD-ONR-SUP",
+                    "count": 1
+                },
+                {
+                    "label": "NSWC Indian Head",
+                    "value": "DOD-ONR-SEA-NSWCIH",
+                    "count": 1
+                },
+                {
+                    "label": "Office of Naval Research",
+                    "value": "DOD-ONR",
+                    "count": 5
+                }
+            ],
+            "label": "Department of Defense",
+            "value": "DOD",
+            "count": 85
+        },
+        {
+            "subAgencyOptions": [],
+            "label": "Department of Education",
+            "value": "ED",
+            "count": 4
+        },
+        {
+            "subAgencyOptions": [
+                {
+                    "label": "Advanced Research Projects Agency Energy ",
+                    "value": "DOE-ARPAE",
+                    "count": 5
+                },
+                {
+                    "label": "Golden Field Office",
+                    "value": "DOE-GFO",
+                    "count": 5
+                },
+                {
+                    "label": "Headquarters",
+                    "value": "DOE-01",
+                    "count": 1
+                },
+                {
+                    "label": "Idaho Field Office",
+                    "value": "DOE-ID",
+                    "count": 6
+                },
+                {
+                    "label": "National Energy Technology Laboratory",
+                    "value": "DOE-NETL",
+                    "count": 6
+                }
+            ],
+            "label": "Department of Energy",
+            "value": "DOE",
+            "count": 23
+        },
+        {
+            "subAgencyOptions": [
+                {
+                    "label": "Office of Science",
+                    "value": "PAMS-SC",
+                    "count": 2
+                }
+            ],
+            "label": "Department of Energy - Office of Science",
+            "value": "PAMS",
+            "count": 2
+        },
+        {
+            "subAgencyOptions": [
+                {
+                    "label": "Administration for Children & Families - ACYF/FYSB",
+                    "value": "HHS-ACF-FYSB",
+                    "count": 16
+                },
+                {
+                    "label": "Administration for Children and Families",
+                    "value": "HHS-ACF",
+                    "count": 1
+                },
+                {
+                    "label": "Administration for Children and Families - ACYF/CB",
+                    "value": "HHS-ACF-CB",
+                    "count": 6
+                },
+                {
+                    "label": "Administration for Children and Families - OCC",
+                    "value": "HHS-ACF-OCC",
+                    "count": 2
+                },
+                {
+                    "label": "Administration for Children and Families - OCS",
+                    "value": "HHS-ACF-OCS",
+                    "count": 1
+                },
+                {
+                    "label": "Administration for Children and Families - OCSE",
+                    "value": "HHS-ACF-OCSE",
+                    "count": 1
+                },
+                {
+                    "label": "Administration for Children and Families - OHS",
+                    "value": "HHS-ACF-OHS",
+                    "count": 47
+                },
+                {
+                    "label": "Administration for Children and Families - OPRE",
+                    "value": "HHS-ACF-OPRE",
+                    "count": 8
+                },
+                {
+                    "label": "Administration for Children and Families - ORR",
+                    "value": "HHS-ACF-ORR",
+                    "count": 10
+                },
+                {
+                    "label": "Administration for Children and Families-IOAS-OTIP",
+                    "value": "HHS-ACF-OTIP",
+                    "count": 11
+                },
+                {
+                    "label": "Administration for Community Living",
+                    "value": "HHS-ACL",
+                    "count": 10
+                },
+                {
+                    "label": "Agency for Health Care Research and Quality",
+                    "value": "HHS-AHRQ",
+                    "count": 21
+                },
+                {
+                    "label": "Assistant Secretary for Preparedness and Response",
+                    "value": "HHS-OS-ASPR",
+                    "count": 1
+                },
+                {
+                    "label": "Centers for Disease Control - CGH",
+                    "value": "HHS-CDC-CGH",
+                    "count": 43
+                },
+                {
+                    "label": "Centers for Disease Control - NCBDDD",
+                    "value": "HHS-CDC-NCBDDD",
+                    "count": 1
+                },
+                {
+                    "label": "Centers for Disease Control - NCCDPHP",
+                    "value": "HHS-CDC-NCCDPHP",
+                    "count": 8
+                },
+                {
+                    "label": "Centers for Disease Control - NCEH",
+                    "value": "HHS-CDC-NCEH",
+                    "count": 1
+                },
+                {
+                    "label": "Centers for Disease Control - NCHHSTP",
+                    "value": "HHS-CDC-NCHHSTP",
+                    "count": 7
+                },
+                {
+                    "label": "Centers for Disease Control - NCIPC",
+                    "value": "HHS-CDC-NCIPC",
+                    "count": 3
+                },
+                {
+                    "label": "Centers for Disease Control - NCIRD",
+                    "value": "HHS-CDC-NCIRD",
+                    "count": 3
+                },
+                {
+                    "label": "Centers for Disease Control - OD",
+                    "value": "HHS-CDC-OD",
+                    "count": 1
+                },
+                {
+                    "label": "Centers for Disease Control - OPHPR",
+                    "value": "HHS-CDC-OPHPR",
+                    "count": 1
+                },
+                {
+                    "label": "Centers for Disease Control and Prevention - ERA",
+                    "value": "HHS-CDC-HHSCDCERA",
+                    "count": 36
+                },
+                {
+                    "label": "Centers for Medicare & Medicaid Services",
+                    "value": "HHS-CMS",
+                    "count": 2
+                },
+                {
+                    "label": "Food and Drug Administration",
+                    "value": "HHS-FDA",
+                    "count": 34
+                },
+                {
+                    "label": "Health Resources and Services Administration",
+                    "value": "HHS-HRSA",
+                    "count": 33
+                },
+                {
+                    "label": "Indian Health Service",
+                    "value": "HHS-IHS",
+                    "count": 12
+                },
+                {
+                    "label": "National Institutes of Health",
+                    "value": "HHS-NIH11",
+                    "count": 1132
+                },
+                {
+                    "label": "Office of the Assistant Secretary for Health",
+                    "value": "HHS-OPHS",
+                    "count": 8
+                },
+                {
+                    "label": "Office of the National Coordinator",
+                    "value": "HHS-OS-ONC",
+                    "count": 1
+                }
+            ],
+            "label": "Department of Health and Human Services",
+            "value": "HHS",
+            "count": 1461
+        },
+        {
+            "subAgencyOptions": [
+                {
+                    "label": "Department of Homeland Security - FEMA",
+                    "value": "DHS-DHS",
+                    "count": 5
+                },
+                {
+                    "label": "Office of Procurement Operations - Grants Division",
+                    "value": "DHS-OPO",
+                    "count": 2
+                }
+            ],
+            "label": "Department of Homeland Security",
+            "value": "DHS",
+            "count": 7
+        },
+        {
+            "subAgencyOptions": [],
+            "label": "Department of Housing and Urban Development",
+            "value": "HUD",
+            "count": 8
+        },
+        {
+            "subAgencyOptions": [
+                {
+                    "label": "Bureau of International Labor Affairs",
+                    "value": "DOL-ETA-ILAB",
+                    "count": 5
+                },
+                {
+                    "label": "Employment and Training Administration",
+                    "value": "DOL-ETA",
+                    "count": 4
+                },
+                {
+                    "label": "Veterans Employment and Training Service",
+                    "value": "DOL-ETA-VETS",
+                    "count": 1
+                }
+            ],
+            "label": "Department of Labor",
+            "value": "DOL",
+            "count": 10
+        },
+        {
+            "subAgencyOptions": [
+                {
+                    "label": "Bureau of Democracy Human Rights and Labor",
+                    "value": "DOS-DRL",
+                    "count": 1
+                },
+                {
+                    "label": "Bureau Of Educational and Cultural Affairs",
+                    "value": "DOS-ECA",
+                    "count": 2
+                },
+                {
+                    "label": "Bureau of Global Public Affairs",
+                    "value": "DOS-PA",
+                    "count": 1
+                },
+                {
+                    "label": "Bureau of International Narcotics-Law Enforcement",
+                    "value": "DOS-INL",
+                    "count": 7
+                },
+                {
+                    "label": "Bureau of Political-Military Affairs - WRA",
+                    "value": "DOS-PMWRA",
+                    "count": 1
+                },
+                {
+                    "label": "Bureau of Population Refugees and Migration",
+                    "value": "DOS-PRM",
+                    "count": 1
+                },
+                {
+                    "label": "Department of State",
+                    "value": "DOS",
+                    "count": 1
+                },
+                {
+                    "label": "Office of the Secretary",
+                    "value": "DOS-SBUR",
+                    "count": 1
+                },
+                {
+                    "label": "Office to Monitor-Combat Trafficking in Persons",
+                    "value": "DOS-GTIP",
+                    "count": 3
+                },
+                {
+                    "label": "Press and Public Diplomacy",
+                    "value": "DOS-NEA-PPD",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to Australia",
+                    "value": "DOS-AUS",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to Azerbaijan",
+                    "value": "DOS-AZE",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to Cambodia",
+                    "value": "DOS-KHM",
+                    "count": 2
+                },
+                {
+                    "label": "U.S. Mission to Chile",
+                    "value": "DOS-CHL",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to China",
+                    "value": "DOS-CHN",
+                    "count": 2
+                },
+                {
+                    "label": "U.S. Mission to Cuba",
+                    "value": "DOS-CUB",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to Egypt",
+                    "value": "DOS-EGY",
+                    "count": 2
+                },
+                {
+                    "label": "U.S. Mission to Guinea",
+                    "value": "DOS-GIN",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to India",
+                    "value": "DOS-IND",
+                    "count": 2
+                },
+                {
+                    "label": "U.S. Mission to Indonesia",
+                    "value": "DOS-IDN",
+                    "count": 5
+                },
+                {
+                    "label": "U.S. Mission to Kenya",
+                    "value": "DOS-KEN",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to Kuwait",
+                    "value": "DOS-KWT",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to Lebanon",
+                    "value": "DOS-LBN",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to Mali",
+                    "value": "DOS-MLI",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to Mexico",
+                    "value": "DOS-MEX",
+                    "count": 2
+                },
+                {
+                    "label": "U.S. Mission to Mozambique",
+                    "value": "DOS-MOZ",
+                    "count": 2
+                },
+                {
+                    "label": "U.S. Mission to Namibia",
+                    "value": "DOS-NAM",
+                    "count": 2
+                },
+                {
+                    "label": "U.S. Mission to Nigeria",
+                    "value": "DOS-NGA",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to Saudi Arabia",
+                    "value": "DOS-SAU",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to Serbia",
+                    "value": "DOS-SRB",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to the European Union",
+                    "value": "DOS-USEU",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to the Philippines",
+                    "value": "DOS-PHL",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to the United Nations",
+                    "value": "DOS-USUN",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to Turkmenistan",
+                    "value": "DOS-TKM",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to Uganda",
+                    "value": "DOS-UGA",
+                    "count": 1
+                },
+                {
+                    "label": "U.S. Mission to Vietnam",
+                    "value": "DOS-VNM",
+                    "count": 1
+                }
+            ],
+            "label": "Department of State",
+            "value": "DOS",
+            "count": 56
+        },
+        {
+            "subAgencyOptions": [
+                {
+                    "label": "Bureau of Indian Affairs",
+                    "value": "DOI-BIA",
+                    "count": 3
+                },
+                {
+                    "label": "Bureau of Land Management",
+                    "value": "DOI-BLM",
+                    "count": 2
+                },
+                {
+                    "label": "Bureau of Ocean Energy Management",
+                    "value": "DOI-BOEM",
+                    "count": 1
+                },
+                {
+                    "label": "Bureau of Reclamation",
+                    "value": "DOI-BOR",
+                    "count": 6
+                },
+                {
+                    "label": "Fish and Wildlife Service",
+                    "value": "DOI-FWS",
+                    "count": 7
+                },
+                {
+                    "label": "Geological Survey",
+                    "value": "DOI-USGS1",
+                    "count": 11
+                },
+                {
+                    "label": "National Park Service",
+                    "value": "DOI-NPS",
+                    "count": 12
+                },
+                {
+                    "label": "Region 4",
+                    "value": "DOI-FWS-REG4",
+                    "count": 1
+                }
+            ],
+            "label": "Department of the Interior",
+            "value": "DOI",
+            "count": 43
+        },
+        {
+            "subAgencyOptions": [
+                {
+                    "label": "U.S. Dept. of Treasury RESTORE Act Program",
+                    "value": "USDOT-GCR",
+                    "count": 2
+                }
+            ],
+            "label": "Department of the Treasury",
+            "value": "USDOT",
+            "count": 2
+        },
+        {
+            "subAgencyOptions": [
+                {
+                    "label": "Department of Transportation",
+                    "value": "DOT",
+                    "count": 1
+                },
+                {
+                    "label": "DOT - FAA Aviation Research Grants",
+                    "value": "DOT-FAA-FAA ARG",
+                    "count": 1
+                },
+                {
+                    "label": "DOT - FAA Centers of Excellence",
+                    "value": "DOT-FAA-FAA COE",
+                    "count": 2
+                },
+                {
+                    "label": "DOT Federal Highway Administration ",
+                    "value": "DOT-FHWA",
+                    "count": 4
+                },
+                {
+                    "label": "DOT/Federal Transit Administration",
+                    "value": "DOT-FTA",
+                    "count": 2
+                },
+                {
+                    "label": "FAA-COE-TTHP",
+                    "value": "DOT-FAA-FAA COE-TTHP",
+                    "count": 1
+                }
+            ],
+            "label": "Department of Transportation",
+            "value": "DOT",
+            "count": 11
+        },
+        {
+            "subAgencyOptions": [
+                {
+                    "label": "Construction of State Home Facilities",
+                    "value": "VA-CSHF",
+                    "count": 1
+                },
+                {
+                    "label": "VA National Cemetery Administration",
+                    "value": "VA-NCA",
+                    "count": 1
+                }
+            ],
+            "label": "Department of Veterans Affairs",
+            "value": "VA",
+            "count": 2
+        },
+        {
+            "subAgencyOptions": [],
+            "label": "Environmental Protection Agency",
+            "value": "EPA",
+            "count": 10
+        },
+        {
+            "subAgencyOptions": [],
+            "label": "Gulf Coast Ecosystem Restoration Council",
+            "value": "GCERC",
+            "count": 3
+        },
+        {
+            "subAgencyOptions": [],
+            "label": "Institute of Museum and Library Services",
+            "value": "IMLS",
+            "count": 6
+        },
+        {
+            "subAgencyOptions": [],
+            "label": "Millennium Challenge Corporation",
+            "value": "MCC",
+            "count": 1
+        },
+        {
+            "subAgencyOptions": [
+                {
+                    "label": "NASA Goddard Space Flight Center",
+                    "value": "NASA-GSFC",
+                    "count": 1
+                },
+                {
+                    "label": "NASA Headquarters",
+                    "value": "NASA-HQ",
+                    "count": 30
+                },
+                {
+                    "label": "NASA Johnson Space Center",
+                    "value": "NASA-JSC",
+                    "count": 1
+                },
+                {
+                    "label": "National Aeronautics and Space Administration",
+                    "value": "NASA",
+                    "count": 3
+                }
+            ],
+            "label": "National Aeronautics and Space Administration",
+            "value": "NASA",
+            "count": 35
+        },
+        {
+            "subAgencyOptions": [],
+            "label": "National Endowment for the Arts",
+            "value": "NEA",
+            "count": 2
+        },
+        {
+            "subAgencyOptions": [],
+            "label": "National Endowment for the Humanities",
+            "value": "NEH",
+            "count": 12
+        },
+        {
+            "subAgencyOptions": [],
+            "label": "National Science Foundation",
+            "value": "NSF",
+            "count": 229
+        },
+        {
+            "subAgencyOptions": [],
+            "label": "Small Business Administration",
+            "value": "SBA",
+            "count": 3
+        }
+    ],
+    "accessKey": "",
+    "errorMsgs": []
+}

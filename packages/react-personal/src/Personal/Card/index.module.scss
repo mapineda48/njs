@@ -1,0 +1,87 @@
+.flipCard {
+  background-color: transparent;
+  width: 280px;
+  height: 200px;
+  perspective: 1000px;
+
+  margin: 1em;
+
+  .flip {
+    transform: rotateY(180deg);
+  }
+
+  .inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+
+    &:hover {
+      box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .inner,
+  .front,
+  .back {
+    border-radius: 8px;
+  }
+
+  .front,
+  .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+
+  .help {
+    position: absolute;
+
+    top: 0.6em;
+    right: 0.6em;
+
+    cursor: pointer;
+  }
+
+  .front {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    box-sizing: border-box;
+    justify-content: space-around;
+
+    background-color: white;
+    color: black;
+
+    > div:nth-child(3) {
+      font-size: 130%;
+
+      a {
+        text-decoration: none;
+        margin: 0 0.2em;
+
+        color: gray;
+      }
+    }
+  }
+
+  .back {
+    background-color: #2980b9;
+    color: white;
+
+    transform: rotateY(180deg);
+
+    overflow: auto;
+
+    > p:last-child {
+      text-align: justify;
+      padding: 1.5em 1em;
+      margin: 0px;
+    }
+  }
+}

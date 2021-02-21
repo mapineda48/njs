@@ -1,0 +1,33 @@
+@import "style/utilities";
+
+._ {
+  > table {
+    width: 100%;
+
+    th,
+    td {
+      border: 1px solid lighten($primary, $amount: 15);
+
+      white-space: nowrap;
+      padding: 0.2em;
+    }
+
+    th {
+      background-color: lighten($primary, $amount: 25);
+      position: sticky;
+      top: 0;
+    }
+
+    tbody {
+      tr {
+        cursor: pointer;
+
+        background-color: white;
+
+        &:hover {
+          background-color: whitesmoke;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+@import "style/utilities";
+
+._ {
+   width: 100%;
+  // height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1em;
+
+  background-color: white;
+
+  > div {
+    margin: 0.6em;
+  }
+}
+
+.title {
+  h1 {
+    font-size: 160%;
+    font-weight: bold;
+    color: $black-bis;
+  }
+}
+
+.text {
+  width: 55%;
+
+  p {
+    text-align: center;
+    color: $grey-dark;
+  }
+}
+
+.main {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+}
