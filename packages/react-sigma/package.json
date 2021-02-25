@@ -50,7 +50,7 @@
     "test": "react-scripts test",
     "check:types": "tsc",
     "start:router": "nodemon bin/index.ts",
-    "build:web": "mapineda build --url ./",
+    "build:web": "mapineda -E",
     "build:router": "tsc -P tsconfig.node.json",
     "build": "yarn build:web && yarn build:router && yarn tasks",
     "tasks": "ts-node -P tsconfig.node.json tasks/index.ts"

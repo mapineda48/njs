@@ -29,9 +29,15 @@ postgres=# \ir sql/index.sql
 
 ```js
 const express = require("express");
+const { Pool } = require("pg");
 const demo = require("@mapineda48/react-sigma");
 
+const pool = new Pool();
+
 const app = express();
+
+//important
+app.use(express.json());
 
 app.use("/my/path", demo());
 ```
