@@ -116,6 +116,7 @@ export default function Person(props: Props) {
           value={person.full_name}
           onChange={({ currentTarget: { value } }) => form.fullname(value)}
           type="text"
+          maxLength={30}
         />
       </div>
       <div>
@@ -127,6 +128,7 @@ export default function Person(props: Props) {
           value={person.email}
           onChange={({ currentTarget: { value } }) => form.email(value)}
           type="email"
+          maxLength={30}
         />
       </div>
       <div>
