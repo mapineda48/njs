@@ -1,52 +1,48 @@
 import colombia from "./mock";
 import persons from "./mocks";
+import { api } from "shared";
 import type { CreateHttp } from "../../http";
 
 /**
  * This file only exists in development environment, in production version it will be removed by webpack.
  */
+const rejects: string[] = [];
 
-const timePromise = 1000;
-
-const isResolve = true;
-
-/**
- * mock Promise
- */
-const resolve = <T>(value?: T) => {
-  return new Promise<T>((resolve, reject) => {
+async function wait(url: string, needRej = false, time = 1000) {
+  return new Promise<void>((res, rej) => {
     setTimeout(() => {
-      resolve(value as any);
-    }, timePromise);
+      if (!rejects.includes(url) && !needRej) return res();
+      const error = new Error(
+        "This file only exists in development environment, in production version it will be removed by webpack"
+      );
+      rej(error);
+    }, time);
   });
-};
+}
 
-const reject = <T>(value?: T) => {
-  return new Promise<T>((resolve, reject) => {
-    setTimeout(() => {
-      reject(new Error("something wrong on promise"));
-    }, timePromise);
-  });
-};
-
-const currentPromise = isResolve ? resolve : reject;
-
-const createMock: CreateHttp = (api) => {
+const createMock: CreateHttp = (_api) => {
   return {
-    fetchColombia() {
-      return currentPromise(colombia);
+    async fetchColombia() {
+      await wait(api.sigma);
+
+      return colombia;
     },
-    fetchPerson(query) {
-      return currentPromise(persons);
+    async fetchPerson(query) {
+      await wait(api.person);
+
+      return persons;
     },
-    insertPerson(person) {
-      return currentPromise();
+    async insertPerson(person) {
+      await wait(api.person);
+      return;
     },
-    updatePerson(person) {
-      return currentPromise();
+    async updatePerson(person) {
+      await wait(api.person);
+      return;
     },
-    deletePerson(id) {
-      return currentPromise();
+    async deletePerson(id) {
+      await wait(api.person);
+      return;
     },
   };
 };
