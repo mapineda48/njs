@@ -36,6 +36,7 @@
             "**/jasmine*",
             "**/jest*",
             "**/bootstrap",
+            "**/normalize.css",
             "**/@jest",
             "**/react*",
             "**/@angular*",

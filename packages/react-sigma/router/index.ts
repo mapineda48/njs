@@ -4,13 +4,14 @@ import express from "express";
 import sigma from "./redirect";
 import createDML, { query } from "./model";
 import * as msg from "./message";
+import { api } from "../src/shared";
 
 const build = path.join(__dirname, "..", "build");
 
- function apiSigma() {
+function apiSigma() {
   const router = express.Router();
 
-  router.get("/api/sigma/colombia", async (req, res, next) => {
+  router.get(`/${api.sigma}`, async (req, res, next) => {
     try {
       const json = await sigma();
       res.json(json);
@@ -39,12 +40,12 @@ function handlerError(error: any) {
   }
 }
 
- function apiPerson(pool: Pool) {
+function apiPerson(pool: Pool) {
   const dml = createDML(pool);
 
   const router = express.Router();
 
-  const person = "/api/person";
+  const person = `/${api.person}`;
 
   router.get(person, async (req, res, next) => {
     let data: query.Select = {};
@@ -62,8 +63,12 @@ function handlerError(error: any) {
 
       res.json(rows);
     } catch (error) {
-      console.log(data);
-      next(error);
+      //console.log(data);
+      const message = handlerError(error);
+
+      if (message) return res.status(400).json({ message });
+
+      res.status(500).json({ message: msg.error.unhandler });
     }
   });
 
@@ -136,7 +141,7 @@ function handlerError(error: any) {
   return router;
 }
 
- function app() {
+function app() {
   const router = express();
 
   const routes = ["/", "/admin"];
@@ -156,4 +161,4 @@ export = function create(pool: Pool) {
   router.use(app());
 
   return router;
-}
+};

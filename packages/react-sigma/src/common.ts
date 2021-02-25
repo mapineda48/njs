@@ -9,3 +9,12 @@ export function render(children: JSX.Element) {
 
   ReactDOM.render(element, root);
 }
+
+export function hydrate(children: JSX.Element) {
+  const element = React.createElement(React.StrictMode, { children });
+
+  const hydrate =
+    process.env.NODE_ENV === "development" ? ReactDOM.render : ReactDOM.hydrate;
+
+  hydrate(element, root);
+}

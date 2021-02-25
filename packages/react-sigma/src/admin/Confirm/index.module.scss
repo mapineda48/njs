@@ -1,0 +1,35 @@
+._ {
+  width: 100%;
+  max-width: 200px;
+
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .main {
+    //background-color: whitesmoke;
+
+    padding: 0.5em;
+
+    text-align: center;
+
+    .content {
+      padding: 1em 0;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+
+      cursor: pointer;
+
+      .reload {
+        * {
+          font-size: 150%;
+        }
+      }
+    }
+  }
+}

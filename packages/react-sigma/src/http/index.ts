@@ -1,88 +1,102 @@
 import axios from "axios";
 import queryString from "query-string";
-import { Colombia, Record, Insert, Update, Select } from "shared";
-import { isAdmin } from "../router";
-import mock from "./mock";
+import createMock from "../development/http";
 
-const route = isAdmin
-  ? {
-      sigma: "../api/sigma/colombia",
-      person: "../api/person",
-    }
-  : {
-      sigma: "api/sigma/colombia",
-      person: "api/person",
-    };
+import type {
+  ApiRoute,
+  Colombia,
+  Record,
+  Insert,
+  Update,
+  Select,
+} from "shared";
 
-const handlerError = (config: any) => {
-  console.log(config);
+const parseError = (error: any) => {
+  console.log(error);
 
-  const message = config?.response?.data?.message;
+  const message = error?.response?.data?.message;
 
   if (message) {
-    throw new Error(message);
+    return Error(message);
+  } else if (error.message) {
+    return error;
   } else {
-    throw new Error("Error Desconocido");
+    return Error("Unknown Error");
   }
 };
 
-export async function fetchColombia() {
-  try {
-    const { data } = await axios.get(route.sigma);
+export function applyBaseUrl<T extends IApi>(baseUrl: string, obj: T): T {
+  const res: any = { ...obj };
 
-    return data as Colombia;
-  } catch (error) {
-    handlerError(error);
-    return (null as any) as Colombia;
+  for (const key in res) {
+    if (Object.prototype.hasOwnProperty.call(res, key)) {
+      res[key] = baseUrl + res[key];
+    }
   }
+
+  return res;
 }
 
-export async function fetchPerson(query: Select) {
-  try {
-    const url = queryString.stringifyUrl({
-      url: route.person,
-      query: { opt: JSON.stringify(query) },
-    });
+export function create(api: ApiRoute) {
+  return {
+    async fetchColombia() {
+      try {
+        const { data } = await axios.get<Colombia>(api.sigma);
 
-    const { data } = await axios.get(url);
+        return data;
+      } catch (error) {
+        throw parseError(error);
+      }
+    },
 
-    return data as Record[];
-  } catch (error) {
-    handlerError(error);
-    return [];
-  }
+    async fetchPerson(query: Select) {
+      try {
+        const opt = JSON.stringify(query);
+
+        const url = queryString.stringifyUrl({
+          url: api.person,
+          query: { opt },
+        });
+
+        const { data } = await axios.get<Record[]>(url);
+
+        return data;
+      } catch (error) {
+        throw parseError(error);
+      }
+    },
+
+    async insertPerson(person: Insert) {
+      try {
+        await axios.post(api.person, person);
+      } catch (error) {
+        throw parseError(error);
+      }
+    },
+
+    async updatePerson(person: Update) {
+      try {
+        await axios.put(api.person, person);
+      } catch (error) {
+        throw parseError(error);
+      }
+    },
+
+    async deletePerson(id: number) {
+      try {
+        await axios.delete(`${api.person}/${id}`);
+      } catch (error) {
+        throw parseError(error);
+      }
+    },
+  };
 }
 
-export async function insertPerson(person: Insert) {
-  try {
-    await axios.post(route.person, person);
-  } catch (error) {
-    handlerError(error);
-  }
-}
+export default process.env.NODE_ENV === "development" ? createMock : create;
 
-export async function updatePerson(person: Update) {
-  try {
-    await axios.put(route.person, person);
-  } catch (error) {
-    handlerError(error);
-  }
-}
+/**
+ * Types
+ */
+type IApi = { [K: string]: string };
 
-export async function deletePerson(id: number) {
-  try {
-    await axios.delete(`${route.person}/${id}`);
-  } catch (error) {
-    handlerError(error);
-  }
-}
-
-export const http = {
-  fetchColombia,
-  fetchPerson,
-  insertPerson,
-  updatePerson,
-  deletePerson,
-};
-
-export default process.env.NODE_ENV === "development" ? mock : http;
+export type CreateHttp = typeof create;

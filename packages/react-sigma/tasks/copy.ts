@@ -18,6 +18,11 @@ files.push({
   dest: "dist/build",
 });
 
+files.push({
+  src: "sql",
+  dest: "dist/sql",
+});
+
 files.forEach((file) => {
   const src = path.resolve(file.src);
   const dest = path.resolve(file.dest);

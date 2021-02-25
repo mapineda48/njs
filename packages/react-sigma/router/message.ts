@@ -1,10 +1,10 @@
 export const error = {
-  select: "missing query",
+  select: "missing url query",
   delete: "invalid id",
   fullName: "El nombre ya se encuentra ingresado, para editar contacte al administrador del sitio.",
   email: "El email ya se encuentra ingresado, para editar contacte al administrador del sitio",
-  postgres:"Fallo la conxion con Postgresql",
-  unhandler: "Error",
+  postgres:"fail connection model",
+  unhandler: "unhandler error",
 };
 
 export const succes = {

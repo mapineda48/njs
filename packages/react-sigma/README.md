@@ -16,6 +16,15 @@ Before installing, make sure to authenticate with GitHub Package Registry or usi
 
 `$ npm install @mapineda48/react-sigma`
 
+## Schema
+
+```
+$ cd node_modules/@mapineda48/react-sigma
+$ psql postgres://user@host:port
+
+postgres=# \ir sql/index.sql
+```
+
 ## Usage
 
 ```js

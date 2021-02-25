@@ -1,4 +1,4 @@
-import { Select, Insert, Update } from "../../src/shared";
+import { amountResults, Select, Insert, Update } from "../../src/shared";
 
 function setColumn(column: string) {
   return `"${column}"`;
@@ -34,7 +34,7 @@ export function select({ startRow = 0, ...person }: Select) {
     query = `${query} WHERE ${where}`;
   }
 
-  query = `${query} LIMIT 20 OFFSET ${startRow}`;
+  query = `${query} LIMIT ${amountResults} OFFSET ${startRow}`;
 
   return query + ";";
 }

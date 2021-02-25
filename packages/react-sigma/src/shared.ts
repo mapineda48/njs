@@ -1,3 +1,13 @@
+export const api = {
+  sigma: "api/colombia",
+  person: "api/person",
+};
+
+export const amountResults = 20;
+
+/**
+ * Types
+ */
 export interface Person {
   full_name: string;
   email: string;
@@ -20,3 +30,5 @@ export interface Record extends Person {
 }
 
 export type Colombia = { [K: string]: string[] };
+
+export type ApiRoute = typeof api;
