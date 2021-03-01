@@ -1,6 +1,6 @@
 import path from "path";
 import express from "express";
-import { api } from "../src/Admin/shared";
+import { api } from "../src/admin/shared";
 import createSocket from "./socket";
 import { state, setMaps } from "./state";
 import type { Server as Socket } from "socket.io";

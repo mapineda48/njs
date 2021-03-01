@@ -1,4 +1,4 @@
-import type { State } from "../src/Admin/shared";
+import type { State } from "../src/admin/shared";
 
 export let state: State = {
   maps: false,

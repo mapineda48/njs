@@ -1,4 +1,4 @@
-import { event, State } from "../src/Admin/shared";
+import { event, State } from "../src/admin/shared";
 import type { Server as Socket } from "socket.io";
 
 export default function create(socket: Socket) {
