@@ -22,8 +22,6 @@ function scrollIt(target: HTMLElement | null) {
 }
 
 export default function PersonalPage({ lang, skill }: Props) {
-  console.log({ lang, skill });
-
   const home = React.useRef<HTMLElement>(null);
 
   const skills = React.useRef<HTMLElement>(null);
