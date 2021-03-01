@@ -2,21 +2,26 @@ import fs from "fs-extra";
 import path from "path";
 import express from "express";
 import puppeteer from "puppeteer";
+import model from "../src/personal/model";
+import { minifyString } from "./minify";
+
+/**
+ * Generate Model Production
+ */
+const file = path.resolve("build/model.json");
+
+fs.outputJSONSync(file, minifyString(model));
 
 /**
  * Pages target
  */
-const pages = ["/es/index.html", "/index.html"];
+const pages = ["/", "/es/"];
 
 const port = 3000;
 
 const root = path.resolve("build");
 
 const app = express();
-
-app.get("/", (req, res) => {
-  res.send("Hello World!!!");
-});
 
 app.use(express.static(root));
 
@@ -29,7 +34,7 @@ async function start() {
     const promises = pages.map(async (page) => {
       const html = await prerender("http://localhost:3000" + page);
 
-      const file = path.resolve("build", "." + page);
+      const file = path.resolve("build", "." + page + "index.html");
 
       await fs.outputFile(file, html);
 

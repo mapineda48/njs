@@ -1,5 +1,5 @@
 import React from "react";
-import { useAction, IAction } from "mapineda-react/setState";
+import { useAction, Action } from "mapineda-react/useAction";
 import * as reducer from "./reducer";
 import * as thunk from "./thunk";
 
@@ -24,4 +24,4 @@ export interface State {
   maps: Switch;
 }
 
-export type Admin = IAction<typeof reducer, State>;
+export type Admin = Action<typeof reducer, State>;

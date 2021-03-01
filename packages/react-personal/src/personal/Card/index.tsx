@@ -1,15 +1,17 @@
 import React from "react";
 import { FiHelpCircle } from "react-icons/fi";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { Skill as ISkill } from "../skill";
+import { Meta } from "../skill";
 import clsx from "clsx";
 import style from "./index.module.scss";
+
+import type { IconType } from "react-icons";
 
 function Action(props: AProps) {
   return <div {...props} role="button" className={style.help}></div>;
 }
 
-export default function Card(props: Props) {
+export function Card(props: Props) {
   const [state, setState] = React.useState(false);
 
   const flip = React.useCallback(() => setState((state) => !state), [setState]);
@@ -23,7 +25,7 @@ export default function Card(props: Props) {
           <Action title={props.label.help} onClick={flip}>
             <FiHelpCircle />
           </Action>
-          <h1>{props.project}</h1>
+          <h1>{props.title}</h1>
           <div>
             {props.skills.map(({ Icon, title, url }, index) => (
               <a key={index} href={url} target="_blank" rel="noreferrer">
@@ -44,6 +46,8 @@ export default function Card(props: Props) {
   );
 }
 
+export default Card;
+
 /**
  * Types
  */
@@ -56,13 +60,17 @@ export interface Label {
   go: string;
 }
 
-export interface Skill {
-  project: string;
-  skills: ISkill[];
+interface Skill extends Meta {
+  Icon: IconType;
+}
+
+export interface ICard {
+  title: string;
+  skills: Skill[];
   description: string;
   url: string;
 }
 
-export interface Props extends Skill {
+export interface Props extends ICard {
   label: Label;
 }

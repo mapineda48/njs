@@ -1,15 +1,16 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { FaTwitter, FaFacebook, FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import scrollIntoView from "smooth-scroll-into-view-if-needed";
 import Root from "../components/Root";
 import Card from "./Card";
 import { ReactComponent as Brand } from "./brand.svg";
-import miguel from "./miguel.png";
-import * as skill from "./skill";
+import { icon } from "./skill";
 import "./index.scss";
 
-import type { Model } from "./model";
+import type { Language } from "./model";
+import type { Skill } from "./skill";
 
 function scrollIt(target: HTMLElement | null) {
   if (!target) return;
@@ -20,9 +21,9 @@ function scrollIt(target: HTMLElement | null) {
   });
 }
 
-const imgs = Object.values(skill);
+export default function PersonalPage({ lang, skill }: Props) {
+  console.log({ lang, skill });
 
-export default function PersonalPage({ model }: Props) {
   const home = React.useRef<HTMLElement>(null);
 
   const skills = React.useRef<HTMLElement>(null);
@@ -30,12 +31,14 @@ export default function PersonalPage({ model }: Props) {
   const demos = React.useRef<HTMLElement>(null);
 
   React.useEffect(() => {
-    document.documentElement.lang = model.nav.lang.current;
+    document.documentElement.lang = lang.nav.lang.current;
 
-    document.title = model.title;
-  }, [model.nav.lang, model.title]);
+    document.title = lang.title;
+  }, [lang.nav.lang, lang.title]);
 
-  const { nav, main, footer } = model;
+  const { nav, main, footer } = lang;
+
+  const imgs = React.useMemo(() => Object.values(skill), [skill]);
 
   return (
     <Root>
@@ -43,7 +46,7 @@ export default function PersonalPage({ model }: Props) {
         <meta name="robots" content="index,nofollow" />
         <meta name="googlebot" content="index,nofollow" />
         <meta name="description" content={main.home.description} />
-        <meta name="google" content="translate" />
+        <meta name="google" content="notranslate" />
       </Helmet>
       <nav className="header shadow-one">
         <div className="brand" title="Miguel Angel Pineda Vega">
@@ -52,9 +55,9 @@ export default function PersonalPage({ model }: Props) {
         </div>
         <ul className="sections">
           <li>
-            <a href={nav.lang.href} title={nav.lang.title}>
+            <Link to={nav.lang.href} title={nav.lang.title}>
               {nav.lang.next}
-            </a>
+            </Link>
           </li>
           <li title={nav.home}>
             <a onClick={() => scrollIt(home.current)} href="#home">
@@ -120,7 +123,7 @@ export default function PersonalPage({ model }: Props) {
           <div>
             <img
               title="Miguel Angel Pineda Vega"
-              src={miguel}
+              src="/images/photo.png"
               alt="Miguel Pineda"
               className="shadow-one"
             />
@@ -142,23 +145,19 @@ export default function PersonalPage({ model }: Props) {
         </section>
         <section ref={demos} id="demo" className="section demos">
           <div className="projects">
-            {main.demos.map((demo, index) => {
-              const { project, description, skills, url, label } = demo;
+            {main.demo.projects.map((demo, index) => {
+              const { title, description, skills, url } = demo;
               return (
                 <Card
                   key={index}
-                  project={project}
+                  title={title}
                   description={description}
-                  skills={skills}
                   url={url}
-                  label={label}
+                  label={main.demo.label}
+                  skills={skills.map((key) => {
+                    return { ...skill[key], Icon: icon[key] };
+                  })}
                 />
-
-                // <div key={index} className="project shadow-one">
-                //   <h2>{title}</h2>
-                //   <p>{description}</p>
-                //   <a href={link.href}>{link.content}</a>
-                // </div>
               );
             })}
           </div>
@@ -185,5 +184,6 @@ export default function PersonalPage({ model }: Props) {
  */
 
 interface Props {
-  model: Model;
+  lang: Language;
+  skill: Skill;
 }
