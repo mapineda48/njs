@@ -1,7 +1,7 @@
 {
   "name": "@mapineda48/util",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Miguel Angel Pineda Vega",
   "homepage": "https://github.com/mapineda48/djs/util#readme",
   "license": "MIT",
@@ -10,7 +10,7 @@
     "pack-dev": "bin/index.js"
   },
   "engines": {
-    "node": "~14.16.0"
+    "node": "^14.16.0"
   },
   "bugs": {
     "url": "https://github.com/mapineda48/djs/issues"
@@ -30,11 +30,13 @@
   },
   "dependencies": {
     "@types/fs-extra": "^9.0.8",
+    "@types/glob": "^7.1.3",
     "@types/node": "^14.14.31",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
     "eslint": "^7.21.0",
     "fs-extra": "^9.1.0",
+    "glob": "^7.1.6",
     "nodemon": "^2.0.7",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.2"

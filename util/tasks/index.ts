@@ -1,4 +1,4 @@
-import create, { getTsLibVersion } from "../lib";
+import { prepare, getTsLibVersion } from "../lib";
 import {
   name,
   version,
@@ -14,7 +14,7 @@ import {
   dependencies,
 } from "../package.json";
 
-create()
+prepare()
   .package({
     name,
     version,
@@ -30,8 +30,9 @@ create()
     dependencies: {
       tslib: getTsLibVersion(),
       "fs-extra": dependencies["fs-extra"],
+      glob: dependencies.glob,
     },
   })
   .copy(["README.md", "CHANGELOG.md", "LICENSE"])
-  .do()
+  .complete()
   .catch((err: any) => console.log(err));
