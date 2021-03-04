@@ -38,4 +38,5 @@ prepare()
       },
     },
   })
-  .complete();
+  .complete()
+  .catch((err) => console.log(err));
