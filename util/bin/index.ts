@@ -16,10 +16,11 @@ const pckg = path.resolve(root, "package.json");
 
 const data = fs.readJSONSync(pckg);
 
-fs.outputJSONSync(pckg, { ...data, version });
+fs.outputJSONSync(pckg, { ...data, version, private: true }, { spaces: 2 });
 
 console.log(`set version "${version}"`);
 
 execSync("npm pack", { cwd: root, stdio: "inherit" });
+
 
 export = null;
