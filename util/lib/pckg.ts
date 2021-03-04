@@ -2,56 +2,71 @@ import path from "path";
 import fs from "fs-extra";
 import glob from "glob";
 
+export class Builder {
+  private path: string;
+
+  private tasks: Task[] = [];
+
+  private pckg: Task = null as any;
+
+  constructor(path: string) {
+    this.path = path;
+  }
+
+  package(data: any) {
+    this.pckg = () => createPckgDist(this.path, data);
+    return this;
+  }
+
+  copy(files: Files) {
+    if (Array.isArray(files)) {
+      files.forEach((file) => this.tasks.push(() => copy(this.path, file)));
+    } else {
+      this.tasks.push(() => copy(this.path, files));
+    }
+
+    return this;
+  }
+
+  copyGlob(pattern: Pattern, root = false) {
+    const matches = globIt(pattern);
+
+    matches.forEach((match) =>
+      this.tasks.push(() => copy(this.path, match, root))
+    );
+
+    return this;
+  }
+
+  async complete() {
+    this.tasks.push(this.pckg);
+
+    await Promise.all(this.tasks.map((task) => task()));
+
+    this.tasks.length = 0;
+
+    return;
+  }
+}
+
 export function prepare(path = "dist") {
-  const tasks: Task[] = [];
+  return new Builder(path);
+}
 
-  let pckg: Task;
+export function globIt(pattern: Pattern) {
+  if (Array.isArray(pattern)) {
+    return pattern
+      .map((pattern) => glob.sync(pattern))
+      .reduce((prev, curr) => [...prev, ...curr], []);
+  } else if (isString(pattern)) {
+    return glob.sync(pattern);
+  }
 
-  
-  const builder = {
-    package(data: any) {
-      pckg = () => createPckgDist(path, data);
-      return builder;
-    },
+  const includes = glob.sync(pattern.include);
 
-    copy(files: Files) {
-      if (Array.isArray(files)) {
-        files.forEach((file) => tasks.push(() => copy(path, file)));
-      } else {
-        tasks.push(() => copy(path, files));
-      }
+  const excludes = glob.sync(pattern.exclude);
 
-      return builder;
-    },
-
-    copyGlob(pattern: string | string[]) {
-      let matches: string[];
-
-      if (isString(pattern)) {
-        matches = glob.sync(pattern);
-      } else {
-        matches = pattern
-          .map((pattern) => glob.sync(pattern))
-          .reduce((prev, curr) => [...prev, ...curr], []);
-      }
-
-      builder.copy(matches);
-
-      return builder;
-    },
-
-    async complete() {
-      tasks.push(pckg);
-
-      await Promise.all(tasks.map((task) => task()));
-
-      tasks.length = 0;
-
-      return;
-    },
-  };
-
-  return builder;
+  return includes.filter((include) => !excludes.includes(include));
 }
 
 export function getTsLibVersion() {
@@ -84,13 +99,13 @@ export async function createPckgDist(dir: string, pckg: any) {
 /**
  * Copy Files
  */
-export async function copy(dir: string, file: File) {
-  const { src, dest } = parseFile(dir, file);
+export async function copy(dir: string, file: File, inRoot = false) {
+  const { src, dest } = parseFile(dir, file, inRoot);
 
   await fs.copy(src, dest, { overwrite: true });
 }
 
-export function parseFile(dir: string, file: File) {
+export function parseFile(dir: string, file: File, inRoot = false) {
   if (!isString(file)) {
     const src = path.resolve(file.src);
     const dest = path.resolve(file.dest);
@@ -98,7 +113,9 @@ export function parseFile(dir: string, file: File) {
     return { src, dest };
   }
 
-  const root = path.resolve();
+  const [ext] = inRoot ? file.split("/") : [];
+
+  const root = ext ? path.resolve(ext) : path.resolve();
 
   const src = path.resolve(file);
 
@@ -118,3 +135,7 @@ type Task = () => Promise<void>;
 type File = { src: string; dest: string } | string;
 
 type Files = File | File[];
+
+type Glob = { include: string; exclude: string };
+
+type Pattern = string | string[] | Glob;
