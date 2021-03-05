@@ -5,7 +5,7 @@ Live demo [here](https://apinedavegamiguel.herokuapp.com/demos/react-welcome/).
 ## Configuring npm
 
 Before installing, make sure to authenticate with GitHub Package Registry or using a `.npmrc` file. See "[Configuring npm for use with GitHub Package Registry](https://help.github.com/en/articles/configuring-npm-for-use-with-github-package-registry#authenticating-to-github-package-registry)."
-
+cp
 ```
 //registry.npmjs.org/
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
