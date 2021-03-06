@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import http from "./http";
 import App from "./App";
-import { render, initialStateId } from "./common";
+import { render, initialStateId, getBaseUrl } from "./common";
 import reportWebVitals from "./reportWebVitals";
 
 if (initialStateId) {
@@ -10,7 +10,7 @@ if (initialStateId) {
     .fetchInitialState(id)
     .then((state) => {
       render(
-        <BrowserRouter>
+        <BrowserRouter basename={getBaseUrl()}>
           <App initState={state} />
         </BrowserRouter>
       );
@@ -18,7 +18,7 @@ if (initialStateId) {
     .catch((err) => console.error(err));
 } else {
   render(
-    <BrowserRouter>
+    <BrowserRouter basename={getBaseUrl()}>
       <App />
     </BrowserRouter>
   );
