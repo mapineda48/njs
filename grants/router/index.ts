@@ -5,13 +5,15 @@ import { loadHtml } from "../lib/html";
 import { render } from "../lib/ssr";
 import { checkNumber } from "./util";
 import { fetchDetail, fetchOpportunitys } from "./grants";
-import { route, title } from "../src/shared";
+import { route, title, go } from "../src/shared";
 import { handlerError } from "./error";
 
 export = function create(baseUrl = "/") {
   const router = express.Router();
 
   loadHtml(baseUrl);
+
+  router.get("/", (req, res) => res.redirect(go.opportunity("1")));
 
   router.get(route.about, (req, res) => {
     try {
