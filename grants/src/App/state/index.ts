@@ -1,57 +1,50 @@
 import React from "react";
-import * as type from "./type";
-import useAction, { useThunk, Action as TAction } from "util/setState";
-import { OppHits, RestDetail } from "shared";
-import pagination, { Pagination } from "./pagination";
+import { useAction, Action } from "mapineda-react/useAction";
 import * as reducer from "./reducer";
 import * as thunk from "./thunk";
 
-export function create(): State {
+import type { OppHits, RestDetail } from "../../shared";
+
+export function create(state: Init = {}): State {
   return {
-    current: type.OPPORTUNITYS,
-    page: 0,
-    opportunitys: [[]],
-    detail: null,
-    message: null,
-    firstRender: true,
-    pagination: pagination(1),
-    help: true,
+    isLoading: false,
+    message: "",
+    opportunity: {},
+    detail: {},
+    ...state,
   };
 }
 
-export default function () {
-  const [state, setState] = React.useState(create);
+export default function useState(init?: Init) {
+  const [state, setState] = React.useState(() => create(init));
 
-  const action = useAction(setState, reducer);
+  const [grants, http] = useAction(setState, reducer, thunk);
 
-  const grants = useThunk(action, thunk);
-
-  if (state.firstRender) {
-    action.firstRender();
-    grants.fetchPage();
-  }
-
-  return [state, action, grants] as const;
+  return [state, grants, http, setState] as const;
 }
-
-export { type };
 
 /**
- * Typings
+ * Types
  */
-type Type = typeof type[keyof typeof type];
+export type Grants = Action<Reducer, State>;
 
-export interface State {
-  current: Type;
-  page: number;
-  opportunitys: OppHits[][];
-  detail: RestDetail | null;
-  message: any;
-  firstRender: boolean;
-  pagination: Pagination;
-  help: boolean;
+export type Reducer = typeof reducer;
+
+export type Http = ReturnType<typeof useState>[2];
+
+export interface Opportunity {
+  [K: string]: OppHits[];
 }
 
-export type SetState = React.Dispatch<React.SetStateAction<State>>;
+export interface Detail {
+  [K: string]: RestDetail;
+}
 
-export type Action = TAction<typeof reducer, State>;
+export type Init = Partial<State>;
+
+export interface State {
+  isLoading: boolean;
+  message: string;
+  opportunity: Opportunity;
+  detail: Detail;
+}

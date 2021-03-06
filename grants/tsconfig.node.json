@@ -1,27 +1,29 @@
 {
-    "compilerOptions": {
-        "target": "ES2018",
-        "lib": [
-            "ESNext"
-        ],
-        "module": "commonjs",
-        "allowJs": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "noFallthroughCasesInSwitch": true,
-        "resolveJsonModule": true,
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
-        "importHelpers": true,
-        "declaration": true,
-        "moduleResolution": "node",
-        "jsx": "react-jsx",
-        "outDir": "dist"
-    },
-    "include": [
-        "router"
+  "compilerOptions": {
+    "target": "es2018",
+    "lib": [
+      "dom",
+      "esnext"
     ],
-    "exclude": [
-        "node_modules"
-    ]
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "jsx": "react-jsx",
+    "outDir": "dist"
+  },
+  "include": [
+    "router"
+  ],
+  "exclude": [
+    "**/*.dev.ts"
+  ]
 }

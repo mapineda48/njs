@@ -23,6 +23,14 @@ prepare()
     homepage: "https://github.com/mapineda48/djs/grants#readme",
     dependencies: {
       tslib: getTsLibVersion(),
+      axios: dependencies.axios,
+      react: dependencies.react,
+      "react-dom": dependencies["react-dom"],
+      "react-router-dom": dependencies["react-router-dom"],
+      "react-icons": dependencies["react-icons"],
+      "mapineda-react": dependencies["mapineda-react"],
+      "query-string": dependencies["query-string"],
+      clsx: dependencies.clsx,
     },
     peerDependencies: {
       express: dependencies.express,

@@ -1,9 +1,28 @@
-import React from "react";
-import { render } from "./common";
-import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from "react-router-dom";
+import http from "./http";
 import App from "./App";
+import { render, initialStateId } from "./common";
+import reportWebVitals from "./reportWebVitals";
 
-render(<App />);
+if (initialStateId) {
+  const id = parseInt(initialStateId);
+  http
+    .fetchInitialState(id)
+    .then((state) => {
+      render(
+        <BrowserRouter>
+          <App initState={state} />
+        </BrowserRouter>
+      );
+    })
+    .catch((err) => console.error(err));
+} else {
+  render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

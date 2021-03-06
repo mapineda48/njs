@@ -1,19 +1,8 @@
-import express from "express";
-import logger from "morgan";
+import { createServer } from "./app";
 import demo from "../router";
 
-const env = process.env.NODE_ENV || "unknown";
+const { app } = createServer();
 
-const port = parseInt(process.env.PORT || "3000");
-
-const app = express();
-
-const server = app.listen(port, () => {
-  console.log(`server "${env}" listening port ${port}`);
-});
-
-app.use(logger("dev"));
-
-app.use("/demo", demo());
+app.use(demo());
 
 app.get("/", (req, res) => res.send("Hello World"));

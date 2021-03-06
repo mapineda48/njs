@@ -1,81 +1,72 @@
-import path from "path";
 import express from "express";
-import { search, getDetail } from "./redirect";
-import { message } from "../src/shared";
+import api from "./api";
+import { resolve } from "../lib/paths";
+import { loadHtml } from "../lib/html";
+import { render } from "../lib/ssr";
+import { checkNumber } from "./util";
+import { fetchDetail, fetchOpportunitys } from "./grants";
+import { route, title } from "../src/shared";
+import { handlerError } from "./error";
 
-const build = path.join(__dirname, "..", "build");
-
-function checkNumber(value?: any) {
-  if (value === undefined) {
-    return { number: 0, error: "missing number" };
-  }
-
-  const number = parseInt(value);
-
-  if (isNaN(number)) {
-    return { number, error: "invalid number" };
-  }
-
-  return { number };
-}
-
-function unHandlerError(err: any) {
-  console.log(err);
-
-  return { message: "Internal Server Error" };
-}
-
-function api() {
+export = function create(baseUrl = "/") {
   const router = express.Router();
 
-  const url = {
-    search: "/api/rest/search",
-    details: "/api/rest/detail",
-  };
+  loadHtml(baseUrl);
 
-  router.post(url.search, async (req, res, next) => {
+  router.get(route.about, (req, res) => {
     try {
-      const { startRecordNum } = req.body;
+      const html = render(title.about(), req.url);
 
-      const { number, error } = checkNumber(startRecordNum);
-
-      if (error) return res.status(400).json(error);
-
-      await search(number, res);
+      res.send(html);
     } catch (error) {
-      res.status(500).json(unHandlerError(error));
+      const [code, data] = handlerError(error);
+
+      res.status(code).json(data);
     }
   });
 
-  router.post(url.details, async (req, res, next) => {
+  router.get(route.opportunity, async (req, res) => {
     try {
-      const { id } = req.body;
+      const key = req.params.page;
 
-      const { number, error } = checkNumber(id);
+      const page = checkNumber(key);
 
-      if (error) return res.status(400).json(error);
+      const data = await fetchOpportunitys(page);
 
-      await getDetail(number, res);
+      const html = render(title.opportunity(key), req.url, {
+        opportunity: { [key]: data },
+      });
+
+      res.send(html);
     } catch (error) {
-      res.status(500).json(unHandlerError(error));
+      const [code, data] = handlerError(error);
+
+      res.status(code).json(data);
     }
   });
 
-  return router;
-}
+  router.get(route.detail, async (req, res) => {
+    try {
+      const key = req.params.id;
 
-function app() {
-  const router = express.Router();
+      const id = checkNumber(key);
 
-  router.use(express.static(build));
+      const data = await fetchDetail(id);
 
-  return router;
-}
+      const html = render(title.detail(key), req.url, {
+        detail: { [key]: data },
+      });
 
-export = function create() {
-  const router = express.Router();
+      res.send(html);
+    } catch (error) {
+      const [code, data] = handlerError(error);
 
-  router.use(app());
+      res.status(code).json(data);
+    }
+  });
+
+  router.use(express.static(resolve("build")));
+
   router.use(api());
 
   return router;

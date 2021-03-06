@@ -1,4 +1,44 @@
-export const message = "hello world";
+export const amountOpportunitys = 25;
+
+export const route = {
+  opportunity: "/opportunitys/:page/",
+  detail: "/detail/:id/",
+  about: "/about/",
+};
+
+export const api = {
+  state: "api/state",
+  opportunity: "api/opportunity",
+  detail: "api/detail",
+};
+
+export const title = {
+  opportunity(page: string) {
+    return `Opportunitys - ${page}`;
+  },
+
+  detail(id: string) {
+    return `Detail - ${id}`;
+  },
+
+  about() {
+    return "About It";
+  },
+};
+
+export const go = {
+  opportunity(page: string) {
+    return route.opportunity.replace(":page", page);
+  },
+
+  detail(id: string) {
+    return route.detail.replace(":id", id);
+  },
+
+  about() {
+    return route.about;
+  },
+};
 
 /**
  * Types

@@ -1,23 +1,42 @@
 import axios from "axios";
-import { RestOpportunity, RestDetail } from "shared";
-import mock from "./mock";
+import queryString from "query-string";
+import { api, amountOpportunitys, RestOpportunity, RestDetail } from "../shared";
+import mock from "../development/http";
 
-export async function fetchOpportunity(startRecordNum: number) {
-  const url = "api/rest/search";
+import type { Init } from "../App/state";
 
-  const { data } = await axios.post<RestOpportunity>(url, { startRecordNum });
+export const http = {
+  async fetchInitialState(id: number) {
+    const url = queryString.stringifyUrl({
+      url: api.state,
+      query: { id },
+    });
 
-  return data.oppHits;
-}
+    const { data } = await axios.get<Init>(url);
 
-export async function fetchDetail(id: number) {
-  const url = "api/rest/detail";
+    return data;
+  },
 
-  const { data } = await axios.post<RestDetail>(url, { id });
+  async fetchOpportunity(page: number) {
+    const startRecordNum = (page - 1) * amountOpportunitys;
 
-  return data;
-}
+    const { data } = await axios.post<RestOpportunity>(api.opportunity, {
+      startRecordNum,
+    });
 
-const http = { fetchOpportunity, fetchDetail };
+    return data.oppHits;
+  },
+
+  async fetchDetail(id: number) {
+    const { data } = await axios.post<RestDetail>(api.detail, { id });
+
+    return data;
+  },
+};
 
 export default process.env.NODE_ENV === "development" ? mock : http;
+
+/**
+ * Types
+ */
+export type Http = typeof http;
