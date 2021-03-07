@@ -3,6 +3,6 @@ import demo from "../router";
 
 const { app } = createServer();
 
-app.use(demo());
+app.use("/demo", demo("/demo"));
 
 app.get("/", (req, res) => res.send("Hello World"));

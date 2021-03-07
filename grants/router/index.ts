@@ -13,7 +13,7 @@ export = function create(baseUrl = "/") {
 
   loadHtml(baseUrl);
 
-  router.get("/", (req, res) => res.redirect(go.opportunity("1")));
+  router.get("/", (req, res) => res.redirect("." + go.opportunity("1")));
 
   router.get(route.about, (req, res) => {
     try {
