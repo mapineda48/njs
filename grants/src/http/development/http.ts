@@ -1,8 +1,8 @@
 import opp from "./opp";
 import detail from "./detail";
-import { api } from "../shared";
+import { api } from "../../shared";
 
-import type { Http } from "../http";
+import type { Http } from "..";
 
 const rejs: string[] = [api.detail];
 

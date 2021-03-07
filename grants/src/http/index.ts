@@ -1,7 +1,7 @@
 import axios from "axios";
 import queryString from "query-string";
 import { api, amountOpportunitys, RestOpportunity, RestDetail } from "../shared";
-import mock from "../development/http";
+import mock from "./development/http";
 
 import type { Init } from "../App/state";
 
