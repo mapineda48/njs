@@ -6,15 +6,14 @@ let html = "";
 export function loadHtml(baseUrl = "/") {
   const file = resolve("build", "index.html");
 
-  fs.readFile(file, "utf-8", (err, data) => {
-    if (err) return console.error(err);
+  const data = fs.readFileSync(file, "utf-8");
 
-    const href = baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
+  const href = baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
 
-    html = data.replace("<head>", `<head><base href="${href}">`);
-  });
+  html = data.replace("<head>", `<head><base href="${href}">`);
 }
-//<title>React App</title>
+
+
 export function setInHtml(title: string, data: string, state?: number) {
   const res = html.replace(
     "<title>React App</title>",

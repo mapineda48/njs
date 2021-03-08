@@ -1,18 +1,19 @@
 import express from "express";
 import { search, getDetail } from "../grants";
-import { state } from "../../lib/state";
 import { api } from "../../src/shared";
 import { prepareRoute } from "../util";
 import { handlerError } from "../error";
 
+import type { SSR } from "../../lib";
+
 const route = prepareRoute(api);
 
-export default function create() {
+export default function create(ssr: SSR) {
   const router = express.Router();
 
-  router.get(route.state, (req, res) => {
+  router.get(route.state, async (req, res) => {
     try {
-      const init = state.get(req.query.id);
+      const init = await ssr.get(req.query.id);
 
       res.json(init);
     } catch (error) {
@@ -22,16 +23,16 @@ export default function create() {
     }
   });
 
-  router.get(route.state + "/size", (req, res) => {
-    const size = state.size();
+  // router.get(route.state + "/size", (req, res) => {
+  //   const size = state.size();
 
-    res.json({ size });
-  });
+  //   res.json({ size });
+  // });
 
-  router.get(route.state + "/clear", (req, res) => {
-    state.clear();
-    res.json({ message: "state cache cleared." });
-  });
+  // router.get(route.state + "/clear", (req, res) => {
+  //   state.clear();
+  //   res.json({ message: "state cache cleared." });
+  // });
 
   router.post(route.opportunity, async (req, res, next) => {
     try {

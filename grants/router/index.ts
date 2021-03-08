@@ -1,8 +1,7 @@
 import express from "express";
 import api from "./api";
 import { resolve } from "../lib/paths";
-import { loadHtml } from "../lib/html";
-import { render } from "../lib/ssr";
+import { createSsr } from "../lib";
 import { checkNumber } from "./util";
 import { fetchDetail, fetchOpportunitys } from "./grants";
 import { route, title, go } from "../src/shared";
@@ -11,13 +10,13 @@ import { handlerError } from "./error";
 export = function create(baseUrl = "/") {
   const router = express.Router();
 
-  loadHtml(baseUrl);
+  const ssr = createSsr(baseUrl);
 
   router.get("/", (req, res) => res.redirect("." + go.opportunity("1")));
 
-  router.get(route.about, (req, res) => {
+  router.get(route.about, async (req, res) => {
     try {
-      const html = render(title.about(), req.url);
+      const html = await ssr.render(title.about(), req.url);
 
       res.send(html);
     } catch (error) {
@@ -35,7 +34,7 @@ export = function create(baseUrl = "/") {
 
       const data = await fetchOpportunitys(page);
 
-      const html = render(title.opportunity(key), req.url, {
+      const html = await ssr.render(title.opportunity(key), req.url, {
         opportunity: { [key]: data },
       });
 
@@ -55,7 +54,7 @@ export = function create(baseUrl = "/") {
 
       const data = await fetchDetail(id);
 
-      const html = render(title.detail(key), req.url, {
+      const html = await ssr.render(title.detail(key), req.url, {
         detail: { [key]: data },
       });
 
@@ -69,7 +68,7 @@ export = function create(baseUrl = "/") {
 
   router.use(express.static(resolve("build")));
 
-  router.use(api());
+  router.use(api(ssr));
 
   return router;
 };
