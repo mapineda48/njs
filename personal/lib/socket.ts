@@ -3,7 +3,7 @@ import { event, HEADERTOKEN, ROOM_ID } from "../src/production";
 import type { JWT } from "./token";
 import type { State } from "./state";
 import type { Server } from "socket.io";
-import type { PostRoom, PostMessage } from "../src/production/http/client";
+import type { PostRoom, PostMessage } from "../src/production";
 
 export function createSocket(state: State, jwt: JWT, io: Server) {
   const socketMain = {

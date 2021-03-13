@@ -1,5 +1,5 @@
 import type { State } from ".";
-import type { Session, PostMessage } from "production/http";
+import type { Session, PostMessage } from "production";
 
 export function setToken(state: State, session: Session): State {
   return { ...state, token: session.token };

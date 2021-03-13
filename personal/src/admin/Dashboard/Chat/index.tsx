@@ -4,8 +4,7 @@ import { GoRepoForcePush } from "react-icons/go";
 import { useContext } from "admin/Context";
 import { FORCE_OPEN } from "production";
 
-import type { Message }  from "production";
-import type { PostMessage } from "production/http";
+import type { Message, PostMessage } from "production";
 
 export function ChatPanel(props: Props) {
   const { room, current, onChange, onSend } = props;

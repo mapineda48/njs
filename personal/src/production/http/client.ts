@@ -2,7 +2,7 @@ import axios from "axios";
 import queryString from "query-string";
 import { api, HEADERTOKEN } from "..";
 
-import type { Message }  from "..";
+import type { ResGuests, ResOnline, Session, PostMessage, PostRoom } from "..";
 
 export const http = {
   async getGuests(token: string) {
@@ -76,29 +76,3 @@ export default http;
  * Types
  */
 export type Http = typeof http;
-
-/**
- * Types
- */
-export interface Session {
-  token: string;
-}
-
-export interface PostMessage {
-  id: string;
-  message: Message;
-}
-
-export interface PostRoom {
-  room: string;
-}
-
-export interface ResOnline {
-  online: boolean;
-}
-
-export interface ResGuests {
-  guests: string[];
-}
-
-export type { Message };

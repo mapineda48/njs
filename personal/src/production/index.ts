@@ -49,6 +49,26 @@ export const event = {
 /**
  * Types
  */
+ export interface Session {
+  token: string;
+}
+
+export interface PostMessage {
+  id: string;
+  message: Message;
+}
+
+export interface PostRoom {
+  room: string;
+}
+
+export interface ResOnline {
+  online: boolean;
+}
+
+export interface ResGuests {
+  guests: string[];
+}
 
 export interface Message {
   writeByMiguel?: boolean;

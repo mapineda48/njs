@@ -1,5 +1,7 @@
-import http, { PostMessage } from "production/http";
+import http from "production/http";
+
 import type { Chat } from ".";
+import type { PostMessage } from "production";
 
 export async function addMessage(chat: Chat, data: PostMessage) {
   try {

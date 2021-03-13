@@ -7,11 +7,7 @@ import { createSocket } from "../lib/socket";
 import { api, FORCE_OPEN, HEADERTOKEN } from "../src/production";
 
 import type { Server as Io } from "socket.io";
-import type {
-  PostRoom,
-  PostMessage,
-  ResGuests,
-} from "../src/production/http/client";
+import type { PostRoom, PostMessage, ResGuests } from "../src/production";
 
 const build = path.join(__dirname, "..", "build");
 

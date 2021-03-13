@@ -1,6 +1,6 @@
 import { create, State } from ".";
 
-import type { Session } from "production/http";
+import type { Session } from "production";
 
 export function setUsername(state: State, username: string): State {
   return { ...state, username, message: "" };

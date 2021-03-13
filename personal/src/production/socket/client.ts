@@ -3,8 +3,7 @@ import { event, ROOM_ID, HEADERTOKEN } from "..";
 
 import type { Chat } from "../../chat/state";
 import type { Admin } from "../../admin/state";
-import type { PostMessage, ResOnline, PostRoom } from "../http";
-import type { Message } from "..";
+import type { Message, PostMessage, ResOnline, PostRoom } from "..";
 
 export const socket = {
   guess(chat: Chat, id: string) {
