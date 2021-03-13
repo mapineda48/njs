@@ -24,9 +24,11 @@ prepare()
     homepage: "https://github.com/mapineda48/djs/personal#readme",
     dependencies: {
       tslib: getTsLibVersion(),
+      jsonwebtoken: dependencies.jsonwebtoken,
     },
     peerDependencies: {
       express: dependencies.express,
+      "socket.io": dependencies["socket.io"],
     },
     peerDependenciesMeta: {
       "@types/express": {

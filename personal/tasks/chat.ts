@@ -17,6 +17,10 @@ const regExp = {
  * Generate Json File with static routes to use chat
  */
 export async function generateChatJson(remove = false) {
+  const exists = await fs.pathExists(file);
+
+  if(!exists) return;
+
   const html = await fs.readFile(file, "utf-8");
 
   const script = html.match(regExp.script) || [];

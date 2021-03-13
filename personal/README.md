@@ -11,6 +11,7 @@ Before installing, make sure to authenticate with GitHub Package Registry or usi
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 @mapineda48:registry=https://npm.pkg.github.com/
 ```
+
 ## Installation
 
 `$ npm install @mapineda48/personal`
@@ -18,12 +19,19 @@ Before installing, make sure to authenticate with GitHub Package Registry or usi
 ## Usage
 
 ```js
+const http = require("http");
 const express = require("express");
-const demo = require("@mapineda48/personal");
+const { Server } = require("socket.io");
+const personal = require("@mapineda48/personal");
 
 const app = express();
+const server = http.createServer(app);
+const socket = new Server(server);
 
-app.use("/my/path", demo());
+//important
+app.use(express.json());
+
+app.use(personal({ io: socket, username: "foo", password: "12345" }));
 ```
 
 ## License
