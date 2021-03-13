@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { getRandom } from "../src/production";
+import { getRandom } from "../src/service";
 
 export const error = {
   INVALID: "username y/o password it's wrong!!!",

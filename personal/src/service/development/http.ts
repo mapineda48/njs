@@ -1,8 +1,8 @@
-import { api, event, FORCE_OPEN } from "../production";
+import { api, event, FORCE_OPEN } from "..";
 
 import { server, token } from "./socket";
 
-import type { Http } from "../production/http/client";
+import type { Http } from "../http/client";
 
 const rejs: string[] = [];
 

@@ -4,10 +4,10 @@ import { handerError } from "./error";
 import { JWT, Auth } from "../lib/token";
 import { createState } from "../lib/state";
 import { createSocket } from "../lib/socket";
-import { api, FORCE_OPEN, HEADERTOKEN } from "../src/production";
+import { api, FORCE_OPEN, HEADERTOKEN } from "../src/service";
 
 import type { Server as Io } from "socket.io";
-import type { PostRoom, PostMessage, ResGuests } from "../src/production";
+import type { PostRoom, PostMessage, ResGuests } from "../src/service";
 
 const build = path.join(__dirname, "..", "build");
 

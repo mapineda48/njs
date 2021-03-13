@@ -2,9 +2,9 @@ import React from "react";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import { GoRepoForcePush } from "react-icons/go";
 import { useContext } from "admin/Context";
-import { FORCE_OPEN } from "production";
+import { FORCE_OPEN } from "service";
 
-import type { Message, PostMessage } from "production";
+import type { Message, PostMessage } from "service";
 
 export function ChatPanel(props: Props) {
   const { room, current, onChange, onSend } = props;

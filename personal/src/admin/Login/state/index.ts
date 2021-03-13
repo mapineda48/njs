@@ -3,7 +3,7 @@ import { useAction, Action } from "mapineda-react/useAction";
 import * as reducer from "./reducer";
 import * as thunk from "./thunk";
 
-import type { Session } from "production";
+import type { Session } from "service";
 
 export function create(): State {
   return {

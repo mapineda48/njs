@@ -1,7 +1,7 @@
-import http from "production/http";
+import http from "service/http";
 
 import type { Admin } from ".";
-import type { PostMessage } from "production";
+import type { PostMessage } from "service";
 
 export async function addMessage(admin: Admin, data: PostMessage) {
   try {

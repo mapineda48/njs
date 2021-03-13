@@ -1,7 +1,7 @@
 import React from "react";
 import Chat from "./Core";
 import useState from "./state";
-import socket from "production/socket";
+import socket from "service/socket";
 
 export default function ChatWithState() {
   const [state, chat, http] = useState();

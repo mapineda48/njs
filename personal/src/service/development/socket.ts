@@ -1,6 +1,6 @@
-import { event } from "../production";
+import { event } from "..";
 
-import type { Socket } from "../production/socket/client";
+import type { Socket } from "../socket/client";
 
 /**
  * Auth

@@ -9,7 +9,7 @@ import {
 
 import style from "./index.module.scss";
 
-import type { Message }  from "production";
+import type { Message }  from "service";
 
 function ShowMessage(props: PropsMsg) {
   if (props.writeByMiguel) {

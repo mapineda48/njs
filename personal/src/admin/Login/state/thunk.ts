@@ -1,7 +1,7 @@
-import http from "production/http";
+import http from "service/http";
 import type { Login } from ".";
 
-import type { Session } from "production";
+import type { Session } from "service";
 
 export async function login(login: Login) {
   login.loading();

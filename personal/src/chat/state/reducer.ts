@@ -1,7 +1,7 @@
-import { FORCE_OPEN } from "production";
+import { FORCE_OPEN } from "service";
 
 import type { State } from ".";
-import type { Message, ResOnline } from "production";
+import type { Message, ResOnline } from "service";
 
 export function addMessage(state: State, message: Message): State {
   if (message.content === FORCE_OPEN) {

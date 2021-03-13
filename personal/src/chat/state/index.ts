@@ -2,8 +2,8 @@ import React from "react";
 import { useAction, Action } from "mapineda-react/useAction";
 import * as reducer from "./reducer";
 import * as thunk from "./thunk";
-import { getRandom } from "production";
-import type { Message }  from "production";
+import { getRandom } from "service";
+import type { Message }  from "service";
 
 const keySession = "@mapineda48/personal/chat";
 
