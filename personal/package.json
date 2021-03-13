@@ -14,12 +14,14 @@
   "main": "router",
   "dependencies": {
     "@mapineda48/util": "0.0.3",
+    "@popperjs/core": "^2.9.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@types/express": "^4.17.11",
     "@types/fs-extra": "^9.0.8",
     "@types/jest": "^26.0.15",
+    "@types/jsonwebtoken": "^8.5.0",
     "@types/morgan": "^1.9.2",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
@@ -32,7 +34,8 @@
     "dotenv": "8.2.0",
     "express": "^4.17.1",
     "fs-extra": "^9.1.0",
-    "mapineda-react": "0.0.28",
+    "jsonwebtoken": "^8.5.1",
+    "mapineda-react": "0.0.29",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7",
     "normalize.css": "^8.0.1",
@@ -55,6 +58,7 @@
   "scripts": {
     "start": "react-scripts start",
     "test": "react-scripts test",
+    "check:types": "tsc",
     "build:view": "mapineda --build --url / -A",
     "start:bin": "nodemon bin/index.ts",
     "build:router": "tsc -P tsconfig.node.json",
@@ -89,6 +93,11 @@
     "admin": {
       "entry": "src/admin/index.tsx",
       "output": "build/admin",
+      "url": "./"
+    },
+    "chat": {
+      "entry": "src/chat/index.tsx",
+      "output": "build/chat",
       "url": "./"
     },
     "default": "page"

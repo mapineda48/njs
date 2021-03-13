@@ -1,6 +1,7 @@
 import express from "express";
 import logger from "morgan";
 import demo from "../router";
+import { Server as Socket } from "socket.io";
 
 const env = process.env.NODE_ENV || "unknown";
 
@@ -12,8 +13,18 @@ const server = app.listen(port, () => {
   console.log(`server "${env}" listening port ${port}`);
 });
 
+const socket = new Socket(server);
+
+app.use(express.json());
+
 app.use(logger("dev"));
 
-app.use(demo());
+app.use(
+  demo({
+    io: socket,
+    username: process.env.PERSONAL_USERNAME || "foo",
+    password: process.env.PERSONAL_PASSWORD || "12345",
+  })
+);
 
 //app.get("/", (req, res) => res.send("Hello World"));
