@@ -2,13 +2,13 @@ import { Key as KSkill } from "../skill";
 import type { Props as Skill, Label } from "../Card";
 
 export const link = {
-  agape: "/demos/agape",
-  grants: "/demos/grants",
+  agape: "/demos/agape/",
+  grants: "/demos/grants/",
   sigma: {
-    landing: "/demos/sigma",
-    admin: "/demos/sigma/admin",
+    landing: "/demos/sigma/",
+    admin: "/demos/sigma/admin/",
   },
-  valiu: "/demos/valiu",
+  valiu: "/demos/valiu/",
 };
 
 const agape: Skills = ["ts", "scss", "react", "redux", "node", "postgres"];
