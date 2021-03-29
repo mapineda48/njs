@@ -1,17 +1,16 @@
 import path from "path";
 import fs from "fs-extra";
-import { prod as idTag } from "../src/chat/root";
 
 const file = path.resolve("build/chat/index.html");
 
-const json = path.resolve("dist/chat.json");
-
-const root = `<div id="${idTag}"></div>`;
+const json = path.resolve("dist/build/chat.json");
 
 const regExp = {
   script: /<\s*script[^>]*>(.*?)<\s*\/\s*script>/g,
   style: /<link href=".*?" rel="stylesheet">/g,
 };
+
+generateChatJson(true).catch((err) => console.log(err));
 
 /**
  * Generate Json File with static routes to use chat
@@ -19,7 +18,7 @@ const regExp = {
 export async function generateChatJson(remove = false) {
   const exists = await fs.pathExists(file);
 
-  if(!exists) return;
+  if (!exists) return;
 
   const html = await fs.readFile(file, "utf-8");
 
@@ -27,7 +26,7 @@ export async function generateChatJson(remove = false) {
 
   const style = html.match(regExp.style) || [];
 
-  const data = { header: style, body: [root, ...script] };
+  const data = { header: style, body: script };
 
   await fs.outputJSON(json, data, { spaces: 2 });
 

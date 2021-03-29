@@ -1,0 +1,16 @@
+.panel {
+  overflow: hidden;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 1000px;
+  height: 100%;
+  max-height: 550px;
+}
+
+.root {
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+}

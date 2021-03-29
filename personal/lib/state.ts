@@ -1,11 +1,12 @@
+import type { DataRoom } from "../src/app/service";
+
 export function createState() {
   let online = false;
-  let guests: string[] = [];
+  const room: Room = new Map();
 
   return {
     setOnline(state = true) {
       online = state;
-
       return state;
     },
 
@@ -13,18 +14,18 @@ export function createState() {
       return online;
     },
 
-    addRoom(id: string) {
-      guests = [...guests, id];
+    addRoom(data: DataRoom) {
+      room.set(data.id, data);
     },
 
     removeRoom(id: string) {
-      guests = guests.filter((val) => val !== id);
+      room.delete(id);
     },
     getRooms() {
-      return guests;
+      return Array.from(room.values());
     },
     existsRoom(id: string) {
-      return guests.includes(id);
+      return room.has(id);
     },
   };
 }
@@ -32,4 +33,6 @@ export function createState() {
 /**
  * Types
  */
+type Room = Map<string, DataRoom>;
+
 export type State = ReturnType<typeof createState>;

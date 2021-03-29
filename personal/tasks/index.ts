@@ -9,7 +9,6 @@ import {
   repository,
   dependencies,
 } from "../package.json";
-import { generateChatJson } from "./chat";
 
 prepare()
   .copy(["build", "README.md", "CHANGELOG.md", "LICENSE"])
@@ -38,5 +37,3 @@ prepare()
   })
   .complete()
   .catch((err) => console.log(err));
-
-generateChatJson(true).catch((err) => console.log(err));

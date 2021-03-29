@@ -16,11 +16,7 @@
         "declaration": true,
         "moduleResolution": "node",
         "jsx": "react-jsx",
-        "outDir": "dist"
     },
-    "include": [
-        "router"
-    ],
     "exclude": [
         "node_modules"
     ]

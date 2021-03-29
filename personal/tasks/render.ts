@@ -2,15 +2,6 @@ import fs from "fs-extra";
 import path from "path";
 import express from "express";
 import puppeteer from "puppeteer";
-import model from "../src/personal/model";
-import { minifyModel } from "./minify";
-
-/**
- * Generate Model Production
- */
-const file = path.resolve("build/model.json");
-
-fs.outputJSONSync(file, minifyModel(model));
 
 /**
  * Pages target

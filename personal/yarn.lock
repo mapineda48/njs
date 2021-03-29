@@ -7733,10 +7733,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapineda-react@0.0.29:
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/mapineda-react/-/mapineda-react-0.0.29.tgz#a66ecbbe128306a1013d7a24b807d1a8369a8c50"
-  integrity sha512-RFN1smY3NjMEQ4M3zjD2x+qnQXlrUII5C1gv2vJhAWvuW4IG4rpmjzz+Mh2n/Nz7YRrTwXeR+Zk4kTlwxZpb3Q==
+mapineda-react@0.0.30:
+  version "0.0.30"
+  resolved "https://registry.yarnpkg.com/mapineda-react/-/mapineda-react-0.0.30.tgz#1990a74e45b01e673ad3e44c84f6ed944f9b5873"
+  integrity sha512-HRir1Ibs/8zNw7yaEOZsnJD64w1891mHropkn6VkXUQnAQB9eJvfCoZFNP2+Cs+9xc4hCAgwmLXRmJJx357C5w==
   dependencies:
     commander "^7.0.0"
     fs-extra "^9.0.1"

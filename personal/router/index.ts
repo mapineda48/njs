@@ -4,10 +4,10 @@ import { handerError } from "./error";
 import { JWT, Auth } from "../lib/token";
 import { createState } from "../lib/state";
 import { createSocket } from "../lib/socket";
-import { api, FORCE_OPEN, HEADERTOKEN } from "../src/service";
+import { api, FORCE_OPEN, HEADERTOKEN } from "../src/app/service";
 
 import type { Server as Io } from "socket.io";
-import type { PostRoom, PostMessage, ResGuests } from "../src/service";
+import type { DataRoom, DataMessage, ResRooms } from "../src/app/service";
 
 const build = path.join(__dirname, "..", "build");
 
@@ -21,7 +21,7 @@ export = function create({ io, ...auth }: Options) {
   const router = express.Router();
 
   router.post(api.addMessage, (req, res) => {
-    const data: PostMessage = req.body;
+    const data: DataMessage = req.body;
 
     socket.addMessageGuess(data);
 
@@ -35,9 +35,9 @@ export = function create({ io, ...auth }: Options) {
   router.get(api.online, (req, res) => {
     res.json({ online: state.getOnline() });
 
-    const data: PostRoom = req.query as any;
+    const data: DataRoom = req.query as any;
 
-    state.addRoom(data.room);
+    state.addRoom(data);
 
     socket.addRoom(data);
   });
@@ -45,14 +45,14 @@ export = function create({ io, ...auth }: Options) {
   /**
    * Admin Auth
    */
-  router.get(api.getGuests, (req, res) => {
+  router.get(api.getRooms, (req, res) => {
     try {
       const token = req.headers[HEADERTOKEN] as string;
 
       jwt.check(token);
 
-      const data: ResGuests = {
-        guests: state.getRooms(),
+      const data: ResRooms = {
+        rooms: state.getRooms(),
       };
 
       res.json(data);

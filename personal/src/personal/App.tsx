@@ -3,7 +3,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Personal from "./Personal";
 import { lang, Model } from "./model";
 import Root from "components/Root";
-import Chat from "chat/App";
+import Portal from "components/Root/Portal";
+import Chat from "app/chat/App";
 
 export const model = "/model.json";
 
@@ -26,7 +27,9 @@ export default function App(props: Props) {
           </Route>
         </Switch>
       </BrowserRouter>
-      <Chat />
+      <Portal>
+        <Chat />
+      </Portal>
     </Root>
   );
 }

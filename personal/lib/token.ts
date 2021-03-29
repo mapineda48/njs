@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { getRandom } from "../src/service";
+import { getRandom } from "../src/app/service";
 
 export const error = {
   INVALID: "username y/o password it's wrong!!!",
@@ -71,5 +71,3 @@ export interface Auth {
   username: string;
   password: string;
 }
-
-type Payload = Parameters<typeof jwt.sign>[0];

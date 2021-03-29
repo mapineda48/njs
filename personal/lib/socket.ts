@@ -1,13 +1,13 @@
-import { event, HEADERTOKEN, ROOM_ID } from "../src/service";
+import { event, HEADERTOKEN, ROOM_ID } from "../src/app/service";
 
 import type { JWT } from "./token";
 import type { State } from "./state";
 import type { Server } from "socket.io";
-import type { PostRoom, PostMessage } from "../src/service";
+import type { DataRoom, DataMessage } from "../src/app/service";
 
 export function createSocket(state: State, jwt: JWT, io: Server) {
   const socketMain = {
-    addMessageGuess(data: PostMessage) {
+    addMessageGuess(data: DataMessage) {
       const { id, message } = data;
 
       const guest = event.addMessage(id);
@@ -15,7 +15,7 @@ export function createSocket(state: State, jwt: JWT, io: Server) {
       io.emit(guest, message);
     },
 
-    addMessageAdmin(data: PostMessage) {
+    addMessageAdmin(data: DataMessage) {
       const token = jwt.getToken();
 
       const admin = event.addMessage(token);
@@ -23,7 +23,7 @@ export function createSocket(state: State, jwt: JWT, io: Server) {
       io.emit(admin, data);
     },
 
-    addRoom(data: PostRoom) {
+    addRoom(data: DataRoom) {
       const token = jwt.getToken();
 
       const admin = event.addRoom(token);
@@ -32,7 +32,9 @@ export function createSocket(state: State, jwt: JWT, io: Server) {
     },
 
     setOnlineAdmin() {
-      io.emit(event.type.ONLINE, { online: state.setOnline() });
+      const online = state.setOnline();
+
+      io.emit(event.type.ONLINE, { online });
     },
   };
 
