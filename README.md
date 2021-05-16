@@ -1,6 +1,6 @@
 # Nodejs Applications Demos
 
-Some personal nodejs packages.
+Each folder is a [nodejs](https://nodejs.org/es/) package.
 
 ## Keep in mind
 
