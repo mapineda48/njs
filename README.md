@@ -1,4 +1,4 @@
-# Nodejs Applications Demos
+# Nodejs Demos
 
 Each folder is a [nodejs](https://nodejs.org/es/) package.
 
