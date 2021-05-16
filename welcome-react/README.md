@@ -1,6 +1,6 @@
 # Expressjs - React - Welcome
 
-Live demo [here](https://apinedavegamiguel.herokuapp.com/demos/react-welcome/).
+Live demo [here](https://apinedavegamiguel.herokuapp.com/demos/welcome-react/).
 
 ## Configuring npm
 
@@ -13,13 +13,13 @@ cp
 ```
 ## Installation
 
-`$ npm install @mapineda48/react-welcome`
+`$ npm install @mapineda48/welcome-react`
 
 ## Usage
 
 ```js
 const express = require("express");
-const demo = require("@mapineda48/react-welcome");
+const demo = require("@mapineda48/welcome-react");
 
 const app = express();
 

@@ -21,7 +21,7 @@ prepare()
     bugs,
     repository,
     main,
-    homepage: "https://github.com/mapineda48/djs/react-welcome#readme",
+    homepage: "https://github.com/mapineda48/djs/welcome-react#readme",
     dependencies: {
       tslib: getTsLibVersion(),
     },
