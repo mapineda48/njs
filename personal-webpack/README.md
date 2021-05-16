@@ -11,7 +11,7 @@ Before installing, make sure to authenticate with GitHub Package Registry or usi
 ```
 ## Installation
 
-`$ npm install @mapineda48/webpack-common`
+`$ npm install @mapineda48/personal-webpack`
 
 **Install peer dependencies**
 
