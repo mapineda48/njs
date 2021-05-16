@@ -1,6 +1,6 @@
 # Expressjs - React - Router - Server Side Render - Welcome
 
-Live demo [here](https://apinedavegamiguel.herokuapp.com/demos/react-router-welcome/).
+Live demo [here](https://apinedavegamiguel.herokuapp.com/demos/welcome-react-router/).
 
 ## Configuring npm
 
@@ -13,13 +13,13 @@ Before installing, make sure to authenticate with GitHub Package Registry or usi
 ```
 ## Installation
 
-`$ npm install @mapineda48/react-router-welcome`
+`$ npm install @mapineda48/welcome-react-router`
 
 ## Usage
 
 ```js
 const express = require("express");
-const demo = require("@mapineda48/react-router-welcome");
+const demo = require("@mapineda48/welcome-react-router");
 
 const app = express();
 

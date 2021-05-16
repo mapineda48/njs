@@ -11,7 +11,7 @@ import {
   dependencies,
 } from "../package.json";
 
-const homepage = "https://github.com/mapineda48/djs/react-router-welcome#readme";
+const homepage = "https://github.com/mapineda48/djs/welcome-react-router#readme";
 
 const pckg = {
   name,
