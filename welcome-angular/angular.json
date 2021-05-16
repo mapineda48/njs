@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-welcome": {
+    "welcome-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-welcome:build"
+            "browserTarget": "welcome-angular:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-welcome:build:production"
+              "browserTarget": "welcome-angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-welcome:build"
+            "browserTarget": "welcome-angular:build"
           }
         },
         "test": {
@@ -114,15 +114,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "angular-welcome:serve"
+            "devServerTarget": "welcome-angular:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "angular-welcome:serve:production"
+              "devServerTarget": "welcome-angular:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "angular-welcome"
+  "defaultProject": "welcome-angular"
 }

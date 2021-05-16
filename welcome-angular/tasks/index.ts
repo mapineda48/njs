@@ -20,7 +20,7 @@ prepare()
     bugs,
     repository,
     main,
-    homepage: 'https://github.com/mapineda48/djs/angular-welcome#readme',
+    homepage: 'https://github.com/mapineda48/djs/welcome-angular#readme',
     dependencies: {
       tslib: getTsLibVersion(),
     },

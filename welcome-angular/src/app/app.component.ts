@@ -9,6 +9,6 @@ const message =
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'angular-welcome';
+  title = 'welcome-angular';
   message = message;
 }

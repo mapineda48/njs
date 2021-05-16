@@ -1,6 +1,6 @@
 # Expressjs - Angular - Welcome
 
-Live demo [here](https://apinedavegamiguel.herokuapp.com/demos/angular-welcome/).
+Live demo [here](https://apinedavegamiguel.herokuapp.com/demos/welcome-angular/).
 
 ## Configuring npm
 
@@ -14,13 +14,13 @@ Before installing, make sure to authenticate with GitHub Package Registry or usi
 
 ## Installation
 
-`$ npm install @mapineda48/angular-welcome`
+`$ npm install @mapineda48/welcome-angular`
 
 ## Usage
 
 ```js
 const express = require("express");
-const demo = require("@mapineda48/angular-welcome");
+const demo = require("@mapineda48/welcome-angular");
 
 const app = express();
 
