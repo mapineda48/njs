@@ -10,7 +10,7 @@
     "pack-dev": "bin/index.js"
   },
   "engines": {
-    "node": "^14.16.0"
+    "node": "^v16.1.0"
   },
   "bugs": {
     "url": "https://github.com/mapineda48/djs/issues"
