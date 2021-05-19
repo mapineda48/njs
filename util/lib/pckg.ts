@@ -70,14 +70,14 @@ export function globIt(pattern: Pattern) {
 }
 
 export function getTsLibVersion() {
-  const current = require.resolve("tslib/package.json", {
-    paths: [path.resolve()],
-  });
+  const current = path.resolve("node_modules/tslib/package.json");
 
   console.log(`tslib version was obtained from "${current}"`);
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { version } = require(current);
+  const data = fs.readFileSync(current, "utf-8");
+
+  const { version } = JSON.parse(data);
 
   return "^" + version;
 }
