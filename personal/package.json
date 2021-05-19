@@ -64,7 +64,7 @@
     "build:model": "ts-node -P tsconfig.node.json tasks/model.ts",
     "postbuild:chat": "ts-node -P tsconfig.node.json tasks/chat.ts",
     "start:bin": "nodemon bin/index.ts",
-    "build:router": "tsc -P router/tsconfig.json",
+    "build:lib": "tsc -P lib/tsconfig.json",
     "build:web": "tsc -P web/tsconfig.json",
     "tasks": "ts-node -P tsconfig.node.json tasks/index.ts",
     "render": "ts-node -P tsconfig.node.json tasks/render.ts",

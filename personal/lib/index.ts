@@ -1,9 +1,9 @@
-import path from "path";
-import express from "express";
+import * as path from "path";
+import * as express from "express";
 import { handerError } from "./error";
-import { JWT, Auth } from "../lib/token";
-import { createState } from "../lib/state";
-import { createSocket } from "../lib/socket";
+import { JWT, Auth } from "./token";
+import { createState } from "./state";
+import { createSocket } from "./socket";
 import { api, FORCE_OPEN, HEADERTOKEN } from "../src/app/service";
 
 import type { Server as Io } from "socket.io";

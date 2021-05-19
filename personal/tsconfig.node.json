@@ -10,8 +10,6 @@
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
         "resolveJsonModule": true,
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
         "importHelpers": true,
         "declaration": true,
         "moduleResolution": "node",

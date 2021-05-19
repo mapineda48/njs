@@ -1,6 +1,6 @@
 import express from "express";
 import logger from "morgan";
-import demo from "../router";
+import demo from "../lib";
 import { Server as Socket } from "socket.io";
 
 const env = process.env.NODE_ENV || "unknown";
