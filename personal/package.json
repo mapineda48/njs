@@ -11,7 +11,7 @@
     "type": "git",
     "url": "ssh://git@github.com/mapineda48/djs.git"
   },
-  "main": "router",
+  "main": "lib",
   "dependencies": {
     "@mapineda48/util": "0.0.5",
     "@popperjs/core": "^2.9.1",
@@ -61,14 +61,14 @@
     "test": "react-scripts test",
     "check:types": "tsc && tsc -P router/tsconfig.json --noEmit",
     "build:view": "mapineda --build --url / -A",
-    "build:model": "ts-node -P tsconfig.node.json tasks/model.ts",
-    "postbuild:chat": "ts-node -P tsconfig.node.json tasks/chat.ts",
     "start:bin": "nodemon bin/index.ts",
     "build:lib": "tsc -P lib/tsconfig.json",
     "build:web": "tsc -P web/tsconfig.json",
-    "tasks": "ts-node -P tsconfig.node.json tasks/index.ts",
-    "render": "ts-node -P tsconfig.node.json tasks/render.ts",
-    "build": "yarn build:view && yarn build:model && yarn postbuild:chat && yarn render && yarn build:router && yarn build:web && yarn tasks"
+    "tasks": "ts-node -P tasks/tsconfig.json tasks/index.ts",
+    "build:model": "ts-node -P tasks/tsconfig.json tasks/model.ts",
+    "render": "ts-node -P tasks/tsconfig.json tasks/render.ts",
+    "postbuild:chat": "ts-node -P tasks/tsconfig.json tasks/chat.ts",
+    "build": "yarn build:view && yarn build:model && yarn postbuild:chat && yarn render && yarn build:lib && yarn build:web && yarn tasks"
   },
   "eslintConfig": {
     "extends": [

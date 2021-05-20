@@ -1,8 +1,5 @@
 {
-    "extends": "../tsconfig.node.json",
-    "compilerOptions": {
-    },
-    "include": [
-        "index.ts"
-    ]
+  "extends": "../tsconfig.node.json",
+  "compilerOptions": {},
+  "include": ["index.ts"]
 }
