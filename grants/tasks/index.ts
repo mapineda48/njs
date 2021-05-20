@@ -20,7 +20,7 @@ prepare()
     bugs,
     repository,
     main,
-    homepage: "https://github.com/mapineda48/djs/grants#readme",
+    homepage: "https://github.com/mapineda48/njs/grants#readme",
     dependencies: {
       tslib: getTsLibVersion(),
       axios: dependencies.axios,

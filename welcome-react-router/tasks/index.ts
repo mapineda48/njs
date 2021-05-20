@@ -20,7 +20,7 @@ prepare()
     bugs,
     repository,
     main,
-    homepage: "https://github.com/mapineda48/djs/welcome-react-router#readme",
+    homepage: "https://github.com/mapineda48/njs/welcome-react-router#readme",
     dependencies: {
       tslib: getTsLibVersion(),
       react: dependencies.react,

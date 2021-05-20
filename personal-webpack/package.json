@@ -6,14 +6,14 @@
   "license": "MIT",
   "main": "router",
   "bugs": {
-    "url": "https://github.com/mapineda48/djs/issues"
+    "url": "https://github.com/mapineda48/njs/issues"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com/mapineda48/djs.git"
+    "url": "ssh://git@github.com/mapineda48/njs.git"
   },
   "scripts": {
     "start": "cross-env NODE_ENV=\"development\" webpack-dev-server --config config/start.babel.ts",

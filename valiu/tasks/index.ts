@@ -20,7 +20,7 @@ prepare()
     bugs,
     repository,
     main,
-    homepage: "https://github.com/mapineda48/djs/valiu#readme",
+    homepage: "https://github.com/mapineda48/njs/valiu#readme",
     dependencies: {
       tslib: getTsLibVersion(),
       pg: dependencies.pg,

@@ -21,7 +21,7 @@ prepare()
     bugs,
     repository,
     main,
-    homepage: "https://github.com/mapineda48/djs/personal-webpack#readme",
+    homepage: "https://github.com/mapineda48/njs/personal-webpack#readme",
     dependencies: {
       tslib: getTsLibVersion(),
     },

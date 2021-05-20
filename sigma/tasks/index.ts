@@ -20,7 +20,7 @@ prepare()
     bugs,
     repository,
     main,
-    homepage: "https://github.com/mapineda48/djs/sigma#readme",
+    homepage: "https://github.com/mapineda48/njs/sigma#readme",
     dependencies: {
       tslib: getTsLibVersion(),
     },

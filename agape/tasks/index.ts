@@ -20,7 +20,7 @@ prepare()
     bugs,
     repository,
     main,
-    homepage: "https://github.com/mapineda48/djs/agape#readme",
+    homepage: "https://github.com/mapineda48/njs/agape#readme",
     dependencies: {
       tslib: getTsLibVersion(),
       jsonwebtoken: dependencies.jsonwebtoken,
