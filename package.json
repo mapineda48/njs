@@ -1,6 +1,9 @@
 {
   "name": "mapineda48",
   "private": true,
+  "scripts": {
+    "realse":"lerna publish --contents dist"
+  },
   "devDependencies": {
     "lerna": "^4.0.0"
   }
