@@ -1,1 +1,0 @@
-CALL util.drop_all_function('agape');

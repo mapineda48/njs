@@ -1,7 +1,8 @@
 # Nodejs Demos
 
-Each folder is a [nodejs](https://nodejs.org/es/) package.
+[Nodejs](https://nodejs.org/es/) packages.
 
 ## Keep in mind
 
-- [GitHub packages](https://docs.github.com/es/packages/guides/configuring-npm-for-use-with-github-packages)
+- [GitHub packages](https://docs.github.com/es/packages/guides/configuring-npm-for-use-with-github-packages).
+- [Lerna](https://github.com/lerna/lerna).
