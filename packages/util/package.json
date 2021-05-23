@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "Common monorepo utilities",
   "author": "Miguel Pineda <a.pinedavegamiguel@gmail.com>",
-  "homepage": "https://github.com/mapineda48/njs/packages/util#readme",
+  "homepage": "https://github.com/mapineda48/njs/tree/master/packages/util#readme",
   "license": "MIT",
   "main": "lib",
   "bin": {
