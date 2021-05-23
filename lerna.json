@@ -1,7 +1,10 @@
 {
   "version": "independent",
-  "npmClient":"yarn",
-  "packages": [
-    "packages/*"
-  ]
+  "npmClient": "yarn",
+  "packages": ["packages/*"],
+  "command": {
+    "publish": {
+      "registry": "https://npm.pkg.github.com"
+    }
   }
+}
