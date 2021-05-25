@@ -1,7 +1,7 @@
 {
   "name": "@mapineda48/personal",
   "version": "0.0.1",
-  "description": "Personal web page expressjs route.",
+  "description": "Personal web page in expressjs route.",
   "keywords": [
     "expressjs",
     "page",
@@ -11,22 +11,15 @@
     "personal"
   ],
   "author": "Miguel Pineda <a.pinedavegamiguel@gmail.com>",
-  "homepage": "https://github.com/mapineda48/njs#readme",
   "license": "MIT",
-  "main": "lib/personal.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
+  "main": "lib",
   "publishConfig": {
     "registry": "https://registry.yarnpkg.com"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mapineda48/njs.git"
+    "url": "git+https://github.com/mapineda48/njs.git",
+    "directory": "personal"
   },
   "scripts": {
     "start": "mapineda --start",
@@ -40,8 +33,9 @@
     "build:model": "ts-node -P tasks/tsconfig.json tasks/model.ts",
     "render": "ts-node -P tasks/tsconfig.json tasks/render.ts",
     "postbuild:chat": "ts-node -P tasks/tsconfig.json tasks/chat.ts",
-    "build": "yarn build:view && yarn build:model && yarn postbuild:chat && yarn render && yarn build:lib && yarn build:web && yarn tasks",
-    "version": "rm -rf dist && rm -rf build && yarn build"
+    "build": "rm -rf dist build && yarn build:view && yarn build:model && yarn postbuild:chat && yarn render && yarn build:lib && yarn build:web && yarn tasks",
+    "version": "yarn build",
+    "realese": "yarn version && cd dist && npm publish && git push && git push --tags"
   },
   "bugs": {
     "url": "https://github.com/mapineda48/njs/issues"
