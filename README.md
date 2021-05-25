@@ -1,5 +1,8 @@
 # Nodejs Demos
 
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+
+
 [Nodejs](https://nodejs.org/es/) packages.
 
 ## Keep in mind
