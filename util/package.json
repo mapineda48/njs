@@ -1,6 +1,6 @@
 {
   "name": "@mapineda48/util",
-  "version": "0.0.6",
+  "version": "0.0.4",
   "description": "Common monorepo utilities",
   "author": "Miguel Pineda <a.pinedavegamiguel@gmail.com>",
   "homepage": "https://github.com/mapineda48/njs/tree/master/util#readme",
@@ -27,7 +27,7 @@
     "build": "rm -rf dist && yarn build:lib && yarn tasks",
     "pack-dev": "ts-node bin/index.ts",
     "version": "yarn build",
-    "release": "yarn version --message \"@mapineda48/util@%s\" && cd dist && npm publish && git push && git push --tags"
+    "release": "yarn version && cd dist && npm publish && git push && git push --tags"
   },
   "bugs": {
     "url": "https://github.com/mapineda48/njs/issues"
