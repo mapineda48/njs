@@ -27,7 +27,7 @@
     "build": "rm -rf dist && yarn build:lib && yarn tasks",
     "pack-dev": "ts-node bin/index.ts",
     "version": "yarn build",
-    "release": "yarn version -m \"@mapineda48/util@%s\" && cd dist && npm publish && git push && git push --tags"
+    "release": "yarn version --message \"@mapineda48/util@%s\" && cd dist && npm publish && git push && git push --tags"
   },
   "bugs": {
     "url": "https://github.com/mapineda48/njs/issues"
