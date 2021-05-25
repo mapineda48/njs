@@ -1,0 +1,48 @@
+@import "personal/style/variables";
+
+$size: 55px;
+$pos: 0.5em;
+
+.open {
+  width: $size;
+  height: $size;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1500;
+  position: fixed;
+  bottom: $pos;
+  right: $pos;
+
+  background-color: $color-primary;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+  > svg {
+    font-size: 200%;
+  }
+
+  .unread {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    background-color: rgb(75, 94, 134);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

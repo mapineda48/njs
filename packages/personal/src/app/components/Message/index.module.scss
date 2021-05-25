@@ -1,0 +1,42 @@
+@import '../../chat/App/Panel/variables.scss';
+
+.root {
+  display: flex;
+  width: 100%;
+  margin: 0.2em 0;
+  div {
+    overflow: hidden;
+    max-width: 80%;
+    border-radius: 6px;
+    padding: 0.5em;
+
+    /*
+     * https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/
+     */
+    p,
+    a {
+      margin: 0;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+  }
+}
+
+.right {
+  justify-content: flex-end;
+
+  > div {
+    background-color: $color-miguel;
+    margin-right: 0.2em;
+    text-align: left;
+  }
+}
+
+.left {
+  justify-content: flex-start;
+
+  div {
+    background-color: white;
+    margin-left: 0.2em;
+  }
+}
