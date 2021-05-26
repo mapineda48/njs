@@ -1,7 +1,7 @@
 {
   "name": "@mapineda48/personal-webpack",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Miguel Angel Pineda Vega",
   "license": "MIT",
   "main": "lib",
@@ -18,7 +18,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=\"development\" webpack-dev-server --config config/start.babel.ts",
     "start:server": "nodemon bin/index.ts",
-    "build": "yarn build:web && yarn build:router && yarn tasks",
+    "build": "rm -rf dist build && yarn build:web && yarn build:router && yarn tasks",
     "build:web": "cross-env NODE_ENV=\"production\" webpack --config config/build.babel.ts",
     "build:router": "tsc -P tsconfig.node.json",
     "tasks": "yarn babel-node tasks/index.ts",
