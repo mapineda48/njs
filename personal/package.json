@@ -35,7 +35,7 @@
     "postbuild:chat": "ts-node -P tasks/tsconfig.json tasks/chat.ts",
     "build": "rm -rf dist build && yarn build:view && yarn build:model && yarn postbuild:chat && yarn render && yarn build:lib && yarn build:web && yarn tasks",
     "version": "yarn build",
-    "realese": "yarn version && cd dist && npm publish && git push && git push --tags"
+    "release": "yarn version && cd dist && npm publish && git push && git push --tags"
   },
   "bugs": {
     "url": "https://github.com/mapineda48/njs/issues"
