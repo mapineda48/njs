@@ -8,6 +8,7 @@ import {
   bugs,
   repository,
   dependencies,
+  publishConfig,
 } from "../package.json";
 
 prepare()
@@ -21,6 +22,7 @@ prepare()
     repository,
     main,
     homepage: "https://github.com/mapineda48/njs/personal#readme",
+    publishConfig,
     dependencies: {
       tslib: getTsLibVersion(),
       jsonwebtoken: dependencies.jsonwebtoken,

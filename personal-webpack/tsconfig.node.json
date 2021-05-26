@@ -9,7 +9,7 @@
         "noEmit": false,
         "declaration": true,
         "skipLibCheck": true,
-        "outDir": "dist/router"
+        "outDir": "dist/lib"
     },
     "include": [
         "lib"
