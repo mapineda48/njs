@@ -85,6 +85,6 @@ export = function create({ io, ...auth }: Options) {
 /**
  * Types
  */
-interface Options extends Auth {
+export interface Options extends Auth {
   io: Io;
 }
