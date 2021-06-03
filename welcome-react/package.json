@@ -1,0 +1,89 @@
+{
+  "name": "@mapineda48/welcome-react",
+  "description": "Grettings with postgresql and react in express route.",
+  "version": "0.0.0",
+  "private": true,
+  "author": "Miguel Angel Pineda Vega",
+  "license": "MIT",
+  "main": "lib",
+  "bugs": {
+    "url": "https://github.com/mapineda48/njs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/mapineda48/njs.git",
+    "directory": "welcome-react"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/express": "^4.17.11",
+    "@types/jest": "^26.0.15",
+    "@types/morgan": "^1.9.2",
+    "@types/node": "^12.0.0",
+    "@types/pg": "^8.6.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "axios": "^0.21.1",
+    "dotenv": "8.2.0",
+    "express": "^4.17.1",
+    "mapineda48-cra": "^0.0.3",
+    "mapineda48-util": "^0.0.8",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.7",
+    "pg": "^8.6.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.3",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "test": "react-scripts test",
+    "check:types": "tsc && tsc -P lib/tsconfig.json --noEmit",
+    "build:view": "mapineda --build -U ./",
+    "start:bin": "nodemon bin/index.ts",
+    "build:router": "tsc -P lib/tsconfig.json",
+    "tasks": "ts-node -P tasks/tsconfig.json tasks/index.ts",
+    "build": "rm -rf build dist && yarn build:view && yarn build:router && yarn tasks",
+    "build:to:docker": "yarn build:view && yarn tsc -P bin/tsconfig.json && yarn tasks --docker",
+    "version": "yarn build",
+    "release": "yarn version && cd dist && npm publish && git push && git push --tags"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "react-scripts": {
+    "main": {
+      "entry": "src/index.tsx",
+      "url": "./"
+    },
+    "default": "main"
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "ts": "ts-node -r dotenv/config -P lib/tsconfig.json"
+    }
+  }
+}
