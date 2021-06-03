@@ -1,7 +1,7 @@
 {
   "name": "@mapineda48/personal-webpack",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Miguel Angel Pineda Vega",
   "license": "MIT",
   "main": "lib",
