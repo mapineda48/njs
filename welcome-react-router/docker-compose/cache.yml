@@ -1,0 +1,6 @@
+# https://hub.docker.com/_/redis
+
+version: "3.3"
+services:
+  cache:
+    image: redis:6.2.3
