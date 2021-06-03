@@ -1,6 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-import createPopper, { Props as Core } from "mapineda-react/Popper";
+import createPopper, { Props as Core } from "mapineda48-react/Popper";
 import style from "./index.module.scss";
 
 export function createTooltip() {

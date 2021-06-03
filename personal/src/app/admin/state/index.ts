@@ -1,5 +1,5 @@
 import React from "react";
-import { useAction, Action } from "mapineda-react/useAction";
+import { useAction, Action } from "mapineda48-react/useAction";
 import * as reducer from "./reducer";
 import * as thunk from "./thunk";
 import { tab, Tab } from "./type";

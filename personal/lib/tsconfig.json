@@ -1,11 +1,21 @@
 {
-    "extends": "../tsconfig.node.json",
-    "compilerOptions": {
-        "esModuleInterop": false,
-        "allowSyntheticDefaultImports": false,
-        "outDir": "../dist"
-    },
-    "include": [
-        "index.ts"
-    ]
+  "compilerOptions": {
+    "target": "ES2018",
+    "lib": ["ESNext"],
+    "module": "commonjs",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "importHelpers": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": false,
+    "jsx": "react-jsx",
+    "outDir": "../dist"
+  },
+  "include": ["."],
+  "exclude": ["../node_modules"]
 }

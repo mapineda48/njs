@@ -1,4 +1,4 @@
-import { prepare, getTsLibVersion } from "@mapineda48/util";
+import { prepare } from "mapineda48-util";
 import {
   name,
   version,
@@ -11,6 +11,10 @@ import {
   publishConfig,
 } from "../package.json";
 
+const homepage = "https://github.com/mapineda48/njs/tree/master/personal#readme";
+
+const dep = prepare.dep.withTs(dependencies);
+
 prepare()
   .copy(["build", "README.md", "CHANGELOG.md", "LICENSE"])
   .package({
@@ -21,21 +25,11 @@ prepare()
     bugs,
     repository,
     main,
-    homepage: "https://github.com/mapineda48/njs/personal#readme",
+    homepage,
     publishConfig,
-    dependencies: {
-      tslib: getTsLibVersion(),
-      jsonwebtoken: dependencies.jsonwebtoken,
-    },
-    peerDependencies: {
-      express: dependencies.express,
-      "socket.io": dependencies["socket.io"],
-    },
-    peerDependenciesMeta: {
-      "@types/express": {
-        optional: true,
-      },
-    },
+    dependencies: dep.select(["tslib", "jsonwebtoken"]),
+    peerDependencies: dep.select(["express", "@types/express", "socket.io"]),
+    peerDependenciesMeta: dep.select.meta(["@types/express"]),
   })
   .complete()
   .catch((err) => console.log(err));

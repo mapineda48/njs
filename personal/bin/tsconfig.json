@@ -1,7 +1,6 @@
 {
-    "extends": "../tsconfig.node.json",
+    "extends": "../lib/tsconfig.json",
     "include": [
-        "index.ts",
-        "node.d.ts"
+        "."
     ]
 }

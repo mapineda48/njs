@@ -1,6 +1,6 @@
-import express from "express";
-import logger from "morgan";
-import demo from "../lib";
+import * as express from "express";
+import * as logger from "morgan";
+import { createRouter as personal } from "../lib";
 import { Server as Socket } from "socket.io";
 
 const env = process.env.NODE_ENV || "unknown";
@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(logger("dev"));
 
 app.use(
-  demo({
+  personal({
     io: socket,
     username: process.env.PERSONAL_USERNAME || "foo",
     password: process.env.PERSONAL_PASSWORD || "12345",

@@ -22,16 +22,19 @@ Before installing, make sure to authenticate with GitHub Package Registry or usi
 const http = require("http");
 const express = require("express");
 const { Server } = require("socket.io");
-const personal = require("@mapineda48/personal");
+const { createRouter } = require("@mapineda48/personal");
 
 const app = express();
 const server = http.createServer(app);
 const socket = new Server(server);
 
-//important
+/**
+ * Important this middleware
+ * http://expressjs.com/en/api.html#express.json
+ */
 app.use(express.json());
 
-app.use(personal({ io: socket, username: "foo", password: "12345" }));
+app.use(createRouter({ io: socket, username: "foo", password: "12345" }));
 ```
 
 ## License

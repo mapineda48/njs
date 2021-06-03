@@ -4,7 +4,7 @@ import ShowMessage from "../../../components/Message";
 import { useContext } from "app/chat/Context";
 import style from "./index.module.scss";
 
-import type { Props as Core } from "mapineda-react/Popper";
+import type { Props as Core } from "mapineda48-react/Popper";
 import type { Message } from "app/service";
 
 export default function Panel(props: Core) {

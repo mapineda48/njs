@@ -1,5 +1,8 @@
 {
-  "extends": "../tsconfig.node.json",
-  "compilerOptions": {},
-  "include": ["index.ts"]
+  "extends": "../lib/tsconfig.json",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  },
+  "include": ["."]
 }

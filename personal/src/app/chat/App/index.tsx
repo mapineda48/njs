@@ -1,7 +1,7 @@
 import Panel from "./Panel";
 import { IoIosChatboxes } from "react-icons/io";
 import Provider, { useContext } from "../Context";
-import createPopper from "mapineda-react/Popper";
+import createPopper from "mapineda48-react/Popper";
 import { View } from "./util";
 
 import style from "./index.module.scss";
