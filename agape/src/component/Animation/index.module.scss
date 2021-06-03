@@ -1,0 +1,10 @@
+@import "style/utilities";
+
+.active {
+  pointer-events: none;
+  user-select: none;
+}
+
+.hidden {
+  visibility: hidden;
+}

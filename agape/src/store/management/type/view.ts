@@ -1,0 +1,9 @@
+export const OPEN = "MANAGEMENT_OPEN";
+export const SEARCH = "MANAGEMENT_SEARCH";
+export const CREATE = "MANAGEMENT_CREATE";
+export const EDIT = "MANAGEMENT_EDIT";
+export const NOTIFICATE = "MANAGEMENT_NOTIFICATE";
+export const FINISH = "MANAGEMENT_FINISH";
+export const CONFIRM = "MANAGEMENT_CONFIRM";
+export const LOADING = "MANAGEMENT_LOADING";
+export const RESULTS = "MANAGEMENT_RESULTS";

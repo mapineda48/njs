@@ -1,0 +1,22 @@
+._ {
+  position: relative;
+  overflow: hidden;
+
+  user-select: none;
+}
+
+.span {
+  transform: scale(0);
+  border-radius: 100%;
+  position: absolute;
+  opacity: 0.75;
+  background-color: #ffffff;
+  animation: ripple 0.8s;
+}
+
+@keyframes ripple {
+  to {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
