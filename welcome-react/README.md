@@ -52,7 +52,7 @@ Documentation [here](./model/README.md).
 const http = require("http");
 const express = require("express");
 const { Pool } = require("pg");
-const demo = require("@mapineda48/welcome-react");
+const { createRouter } = require("@mapineda48/welcome-react");
 
 const app = express();
 const server = http.createServer(app);
@@ -67,7 +67,7 @@ app.use(express.json());
 /**
  * Demo
  */
-app.use(demo.router(pool));
+app.use(createRouter(pool));
 ```
 
 ## License
