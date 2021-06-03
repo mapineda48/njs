@@ -104,6 +104,7 @@ dist
 .tern-port
 
 # Misc
-
 *.dev.*
 build/
+dist/
+__development__
