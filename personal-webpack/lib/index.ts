@@ -1,9 +1,7 @@
-import express from "express";
-import paths from "./paths";
+import * as express from "express";
+import { src as paths } from "./paths";
 
-create.paths = paths;
-
-function create() {
+export function createRouter() {
   const router = express.Router();
 
   router.use(express.static(paths.static));
@@ -14,5 +12,3 @@ function create() {
 
   return router;
 }
-
-export = create;

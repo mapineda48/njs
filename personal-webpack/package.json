@@ -1,7 +1,7 @@
 {
   "name": "@mapineda48/personal-webpack",
   "private": true,
-  "version": "0.0.3",
+  "version": "0.0.0",
   "author": "Miguel Angel Pineda Vega",
   "license": "MIT",
   "main": "lib",
@@ -13,16 +13,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com/mapineda48/njs.git"
+    "url": "ssh://git@github.com/mapineda48/njs.git",
+    "directory": "personal-webpack"
   },
   "scripts": {
     "start": "cross-env NODE_ENV=\"development\" webpack-dev-server --config config/start.babel.ts",
     "start:server": "nodemon bin/index.ts",
     "build": "rm -rf dist build && yarn build:web && yarn build:router && yarn tasks",
     "build:web": "cross-env NODE_ENV=\"production\" webpack --config config/build.babel.ts",
-    "build:router": "tsc -P tsconfig.node.json",
+    "build:router": "tsc -P lib/tsconfig.json",
     "tasks": "yarn babel-node tasks/index.ts",
-    "check:types": "tsc --noEmit",
+    "check:types": "tsc --noEmit && tsc -P lib/tsconfig.json --noEmit",
     "babel-node": "babel-node --extensions \".ts,.tsx\"",
     "version": "yarn build",
     "release": "yarn version && cd dist && npm publish && git push && git push --tags"
@@ -34,7 +35,6 @@
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-typescript": "^7.10.4",
-    "@mapineda48/util": "0.0.3",
     "@svgr/webpack": "^5.4.0",
     "@types/express": "^4.17.8",
     "@types/fs-extra": "^9.0.1",
@@ -62,6 +62,7 @@
     "file-loader": "^6.1.0",
     "fs-extra": "^9.0.1",
     "html-webpack-plugin": "^4.4.1",
+    "mapineda48-util": "^0.0.8",
     "mini-css-extract-plugin": "^0.11.2",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4",

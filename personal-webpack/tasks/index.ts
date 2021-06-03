@@ -1,4 +1,4 @@
-import { prepare, getTsLibVersion } from "@mapineda48/util";
+import { prepare } from "mapineda48-util";
 import {
   name,
   version,
@@ -7,8 +7,14 @@ import {
   license,
   bugs,
   repository,
-  dependencies,publishConfig
+  dependencies,
+  publishConfig,
 } from "../package.json";
+
+const homepage =
+  "https://github.com/mapineda48/njs/tree/master/personal-webpack#readme";
+
+const dep = prepare.dep.withTs(dependencies);
 
 prepare()
   .copy(["build", "README.md", "CHANGELOG.md", "LICENSE"])
@@ -22,18 +28,10 @@ prepare()
     publishConfig,
     repository,
     main,
-    homepage: "https://github.com/mapineda48/njs/personal-webpack#readme",
-    dependencies: {
-      tslib: getTsLibVersion(),
-    },
-    peerDependencies: {
-      express: dependencies.express,
-    },
-    peerDependenciesMeta: {
-      "@types/express": {
-        optional: true,
-      },
-    },
+    homepage,
+    dependencies: dep.select(["tslib"]),
+    peerDependencies: dep.select(["express", "@types/express"]),
+    peerDependenciesMeta: dep.select.meta(["@types/express"]),
   })
   .complete()
   .catch((err) => console.log(err));
