@@ -59,7 +59,9 @@
     "build:router": "tsc -P lib/tsconfig.json",
     "tasks": "ts-node -P tasks/tsconfig.json tasks/index.ts",
     "build": "rm -rf build dist && yarn build:web && yarn build:router && yarn tasks",
-    "build:to:docker": "yarn build:web && yarn tsc -P bin/tsconfig.json && yarn tasks --docker"
+    "build:to:docker": "yarn build:web && yarn tsc -P bin/tsconfig.json && yarn tasks --docker",
+    "version": "yarn build",
+    "release": "yarn version && cd dist && npm publish && git push && git push --tags"
   },
   "eslintConfig": {
     "extends": [
