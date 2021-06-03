@@ -2,6 +2,65 @@ import path from "path";
 import fs from "fs-extra";
 import glob from "glob";
 
+export function setDepWithTs<T>(dependecies: T) {
+  const ext = { tslib: getTsLibVersion() };
+
+  return setDepFrom({ ...ext, ...dependecies });
+}
+
+/**
+ * Select dependecies from object
+ * @param dep dependecies
+ * @returns
+ */
+export function setDepFrom<T>(dep: T) {
+  const _dep = { ...dep };
+
+  const select = (keys: (keyof T)[]): Partial<T> => {
+    return Object.fromEntries(
+      Object.entries(_dep).filter(([dep]: any) => keys.includes(dep))
+    ) as any;
+  };
+
+  select.meta = (keys: (keyof T)[]): Partial<T> => {
+    const opt = {
+      optional: true,
+    };
+
+    return Object.fromEntries(
+      Object.entries(_dep)
+        .filter(([dep]: any) => keys.includes(dep))
+        .map(([dep]) => [dep, opt])
+    ) as any;
+  };
+
+  return {
+    select,
+    set(key: keyof T, val: string | ((val: SetValMap) => string)) {
+      const current: string = (_dep as any)[key];
+
+      if (typeof val !== "function") {
+        (_dep as any)[key] = val;
+
+        return;
+      }
+
+      const _val = {
+        current() {
+          return current;
+        },
+        exact() {
+          return current.replaceAll("^", "");
+        },
+      };
+
+      (_dep as any)[key] = val(_val);
+    },
+  };
+}
+
+setDepFrom.withTs = setDepWithTs;
+
 export class Builder {
   private path: string;
 
@@ -53,6 +112,8 @@ export function prepare(path = "dist") {
   return new Builder(path);
 }
 
+prepare.dep = setDepFrom;
+
 export function globIt(pattern: Pattern) {
   if (Array.isArray(pattern)) {
     return pattern
@@ -69,17 +130,27 @@ export function globIt(pattern: Pattern) {
   return includes.filter((include) => !excludes.includes(include));
 }
 
+/**
+ * Try to get the tslib version of the current project.
+ * @returns tslib version
+ */
 export function getTsLibVersion() {
-  const current = path.resolve("node_modules/tslib/package.json");
+  const pckg = path.resolve("node_modules/tslib/package.json");
 
-  console.log(`tslib version was obtained from "${current}"`);
+  const notFound = "unknown";
+
+  if (!fs.existsSync(pckg)) {
+    return notFound;
+  }
+
+  console.log(`tslib version was obtained from "${pckg}"`);
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const data = fs.readFileSync(current, "utf-8");
+  const data = fs.readFileSync(pckg, "utf-8");
 
   const { version } = JSON.parse(data);
 
-  return "^" + version;
+  return version ? "^" + version : notFound;
 }
 
 function isString(val: any): val is string {
@@ -155,6 +226,11 @@ export function parseFile(dir: string, file: File, inRoot = false) {
 /**
  * Types
  */
+interface SetValMap {
+  exact: () => string;
+  current: () => string;
+}
+
 type Task = () => Promise<void>;
 
 type File = { src: string; dest: string } | string;
