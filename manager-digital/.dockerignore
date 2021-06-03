@@ -1,0 +1,12 @@
+# dependencies
+node_modules/
+
+# Production
+build/
+dist/
+
+# Model
+model/
+
+# Misc
+docker-compose/

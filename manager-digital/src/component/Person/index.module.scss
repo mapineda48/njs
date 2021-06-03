@@ -1,0 +1,36 @@
+.field {
+  label {
+    font-weight: bold;
+  }
+}
+
+.person {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+
+  .header {
+    position: relative;
+
+    text-align: center;
+
+    .cancel {
+      position: absolute;
+
+      font-size: 115%;
+
+      cursor: pointer;
+
+      top: 0em;
+      right: 0.5em;
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em;
+  }
+}

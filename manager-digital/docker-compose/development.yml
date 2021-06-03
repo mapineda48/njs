@@ -1,0 +1,7 @@
+version: "3.3"
+services:
+  model:
+    ports:
+      - "5432:5432"
+    volumes:
+      - "$PWD/model/sql:/sql"
