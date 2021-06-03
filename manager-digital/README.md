@@ -19,13 +19,13 @@ $ cd docker-compose
 ### Production
 
 ```bash
-$ docker-compose -p "my-app" -f web.yml -f model.yml up -d
+$ docker-compose -p "manager-digital" -f web.yml -f model.yml up -d
 ```
 
 ### Development
 
 ```bash
-$ docker-compose -p "my-app" -f web.yml -f model.yml -f development up
+$ docker-compose -p "manager-digital" -f web.yml -f model.yml -f development up
 ```
 
 ## Package
@@ -52,7 +52,7 @@ Documentation [here](./model/README.md).
 const http = require("http");
 const express = require("express");
 const { Pool } = require("pg");
-const demo = require("@mapineda48/manager-digital");
+const { createRouter } = require("@mapineda48/manager-digital");
 
 const app = express();
 const server = http.createServer(app);
@@ -67,7 +67,7 @@ app.use(express.json());
 /**
  * Demo
  */
-app.use(demo.router(pool));
+app.use(createRouter(pool));
 ```
 
 ## License
