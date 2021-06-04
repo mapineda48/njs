@@ -44,7 +44,7 @@
     "build": "rm -rf dist && yarn build:lib && yarn tasks",
     "tasks": "ts-node -P tasks/tsconfig.json tasks/index.ts",
     "release": "yarn release-mapineda48",
-    "version": "rm -rf dist && yarn build"
+    "version": "yarn build"
   },
   "eslintConfig": {
     "extends": [
