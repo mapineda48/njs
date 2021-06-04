@@ -27,22 +27,12 @@ const RELEASE =
 const ERROR_YARN = 'missing "yarn" check: https://yarnpkg.com/';
 const ERROR_COMMIT = "\nSome files are missing to be confirmed\n";
 
-const SUCESS_YARNRC = "succes create .yarnrc";
-
 /**
  *Release
  */
 if (!fs.existsSync(LOCK)) {
   console.error(ERROR_YARN);
   process.exit();
-}
-
-if (!fs.existsSync(YARNRC)) {
-  const pckg = fs.readJSONSync(PCKG);
-
-  fs.outputFile(PCKG, `version-tag-prefix "${pckg.name}@"`);
-
-  console.log(SUCESS_YARNRC);
 }
 
 const status = execSync(GIT_STATUS).toString();
@@ -54,4 +44,17 @@ if (status.length) {
 
 console.log(RELEASE);
 
-execSync(RELEASE, { stdio: "inherit" });
+const pckg = fs.readJSONSync(PCKG);
+
+/**
+ * https://classic.yarnpkg.com/en/docs/cli/version/#toc-git-tags
+ */
+fs.outputFileSync(YARNRC, `version-tag-prefix "${pckg.name}@"`);
+
+try {
+  execSync(RELEASE, { stdio: "inherit" });
+} catch (error) {
+  console.log(error);
+} finally {
+  fs.removeSync(YARNRC);
+}
