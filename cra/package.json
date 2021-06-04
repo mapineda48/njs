@@ -36,7 +36,7 @@
     "commander": "^7.0.0",
     "fs-extra": "^9.0.1",
     "html-webpack-plugin": "4.5.0",
-    "mapineda48-util": "0.0.7",
+    "mapineda48-util": "^0.0.10",
     "nodemon": "^2.0.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -53,7 +53,7 @@
     "build:bin": "tsc -P bin/tsconfig.json",
     "build": "rm -rf dist && yarn build:bin && yarn tasks",
     "tasks": "ts-node -P tasks/tsconfig.json tasks/index.ts",
-    "release": "yarn version && cd dist && npm publish && git push && git push --tags",
+    "release": "yarn release-mapineda48",
     "version": "rm -rf dist && yarn build"
   },
   "eslintConfig": {

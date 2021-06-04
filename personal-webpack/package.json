@@ -26,7 +26,7 @@
     "check:types": "tsc --noEmit && tsc -P lib/tsconfig.json --noEmit",
     "babel-node": "babel-node --extensions \".ts,.tsx\"",
     "version": "yarn build",
-    "release": "yarn version && cd dist && npm publish && git push && git push --tags"
+    "release": "yarn release-mapineda48"
   },
   "dependencies": {
     "@babel/cli": "^7.11.6",
@@ -62,7 +62,7 @@
     "file-loader": "^6.1.0",
     "fs-extra": "^9.0.1",
     "html-webpack-plugin": "^4.4.1",
-    "mapineda48-util": "^0.0.8",
+    "mapineda48-util": "^0.0.10",
     "mini-css-extract-plugin": "^0.11.2",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4",

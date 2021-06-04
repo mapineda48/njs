@@ -36,7 +36,7 @@
     "fs-extra": "^10.0.0",
     "mapineda48-cra": "^0.0.3",
     "mapineda48-react": "^0.0.1",
-    "mapineda48-util": "^0.0.8",
+    "mapineda48-util": "^0.0.10",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7",
     "pg": "^8.6.0",
@@ -61,7 +61,7 @@
     "build": "rm -rf build dist && yarn build:web && yarn build:router && yarn tasks",
     "build:to:docker": "yarn build:web && yarn tsc -P bin/tsconfig.json && yarn tasks --docker",
     "version": "yarn build",
-    "release": "yarn version && cd dist && npm publish && git push && git push --tags"
+    "release": "yarn release-mapineda48"
   },
   "eslintConfig": {
     "extends": [

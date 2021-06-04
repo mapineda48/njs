@@ -36,7 +36,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mapineda-react": "0.0.28",
-    "mapineda48-util": "^0.0.8",
+    "mapineda48-util": "^0.0.10",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7",
     "pg": "^8.5.1",
@@ -64,7 +64,7 @@
     "build": "rm -rf build dist && yarn build:view && yarn build:router && yarn tasks",
     "build:to:docker": "yarn build:view && yarn tsc -P bin/tsconfig.json && yarn tasks --docker",
     "version": "yarn build",
-    "release": "yarn version && cd dist && npm publish && git push && git push --tags"
+    "release": "yarn release-mapineda48"
   },
   "eslintConfig": {
     "extends": [

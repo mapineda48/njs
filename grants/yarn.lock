@@ -7448,17 +7448,17 @@ mapineda48-cra@^0.0.3:
     commander "^7.0.0"
     tslib "^2.2.0"
 
-mapineda48-react@0.0.1:
+mapineda48-react@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/mapineda48-react/-/mapineda48-react-0.0.1.tgz#399b71a72f1de8aa157ca820080e21df06df2353"
   integrity sha512-F4QFXm44jZx4d7DtGJ/mMrU80mFZjBIfQWzkKpSmS4ap7DKN+mOF9leQL8nQK7Q7u+PZwmGi01nEsdGabIZ2aw==
   dependencies:
     tslib "^2.2.0"
 
-mapineda48-util@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/mapineda48-util/-/mapineda48-util-0.0.8.tgz#10fe136000c685c254521d0c924608c60add58a7"
-  integrity sha512-Y4iWyz0JHJ7ybySosA4MYXLnuWfWmlN/JHG9s5+MvP02uwR8V0UlFb9cQkLeskruqWea3RMcLs3mAsOWM87VMQ==
+mapineda48-util@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/mapineda48-util/-/mapineda48-util-0.0.10.tgz#50d2d64423669c4c1ef691099d7926b119a054b7"
+  integrity sha512-j6WP9Mq3riGZ7Ghvzv7PH6dCCSanOfjgeOBQqZX6MgZfRWOQtFT6K2xvBLKcR3UL1m3mp6w77zr2AeZG3E35cQ==
   dependencies:
     fs-extra "^9.1.0"
     glob "^7.1.6"

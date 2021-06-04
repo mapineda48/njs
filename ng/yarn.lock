@@ -5810,10 +5810,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapineda48-util@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/mapineda48-util/-/mapineda48-util-0.0.8.tgz#10fe136000c685c254521d0c924608c60add58a7"
-  integrity sha512-Y4iWyz0JHJ7ybySosA4MYXLnuWfWmlN/JHG9s5+MvP02uwR8V0UlFb9cQkLeskruqWea3RMcLs3mAsOWM87VMQ==
+mapineda48-util@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/mapineda48-util/-/mapineda48-util-0.0.10.tgz#50d2d64423669c4c1ef691099d7926b119a054b7"
+  integrity sha512-j6WP9Mq3riGZ7Ghvzv7PH6dCCSanOfjgeOBQqZX6MgZfRWOQtFT6K2xvBLKcR3UL1m3mp6w77zr2AeZG3E35cQ==
   dependencies:
     fs-extra "^9.1.0"
     glob "^7.1.6"

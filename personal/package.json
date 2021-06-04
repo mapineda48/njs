@@ -35,7 +35,7 @@
     "postbuild:chat": "ts-node -P tasks/tsconfig.json tasks/chat.ts",
     "build": "rm -rf dist build && yarn build:view && yarn build:model && yarn postbuild:chat && yarn render && yarn build:lib && yarn build:web && yarn tasks",
     "version": "yarn build",
-    "release": "yarn version && cd dist && npm publish && git push && git push --tags"
+    "release": "yarn release-mapineda48"
   },
   "bugs": {
     "url": "https://github.com/mapineda48/njs/issues"
@@ -64,7 +64,7 @@
     "jsonwebtoken": "^8.5.1",
     "mapineda48-cra": "^0.0.3",
     "mapineda48-react": "^0.0.1",
-    "mapineda48-util": "^0.0.8",
+    "mapineda48-util": "^0.0.10",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7",
     "normalize.css": "^8.0.1",

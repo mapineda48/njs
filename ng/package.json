@@ -31,7 +31,7 @@
     "build:bin": "tsc -P bin/tsconfig.json",
     "tasks": "ts-node -P tasks/tsconfig.json tasks/index.ts",
     "build": "rm -rf dist && yarn build:bin && yarn tasks",
-    "release": "yarn version && cd dist && npm publish && git push && git push --tags",
+    "release": "yarn release-mapineda48",
     "version": "rm -rf dist && yarn build"
   },
   "dependencies": {
@@ -44,7 +44,7 @@
     "@angular/platform-browser-dynamic": "~10.1.3",
     "@angular/router": "~10.1.3",
     "@types/webpack-dev-server": "^3.1.7",
-    "mapineda48-util": "^0.0.8",
+    "mapineda48-util": "^0.0.10",
     "rxjs": "~6.6.0",
     "strip-json-comments": "^3.1.1",
     "tslib": "^2.0.0",
