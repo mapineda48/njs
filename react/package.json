@@ -1,6 +1,6 @@
 {
   "name": "mapineda48-react",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "author": "Miguel Angel Pineda Vega",
   "license": "MIT",
@@ -42,7 +42,7 @@
   "scripts": {
     "build:lib": "tsc -P tsconfig.cjs.json && tsc -P tsconfig.mjs.json",
     "build": "rm -rf dist && yarn build:lib && yarn tasks",
-    "tasks": "ts-node -P tsconfig.node.json tasks/index.ts",
+    "tasks": "ts-node -P tasks/tsconfig.json tasks/index.ts",
     "release": "yarn release-mapineda48",
     "version": "rm -rf dist && yarn build"
   },
