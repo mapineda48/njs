@@ -4,7 +4,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - "$PWD/model/sql:/sql"
+      - "../model/sql:/sql"
   cache:
     ports:
       - "6379:6379"
