@@ -1,0 +1,20 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "target": "ES2018",
+        "module": "CommonJS",
+        "outDir": "../dist",
+        "declaration": true,
+        "sourceMap": false,
+        "paths": {},
+        "importHelpers": true,
+        "resolveJsonModule": true
+    },
+    "include": [
+        "."
+    ],
+    "exclude": [
+        "**/*.dev.ts",
+        "**/*.test.ts"
+    ]
+}
