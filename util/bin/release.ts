@@ -48,6 +48,7 @@ const pckg = fs.readJSONSync(PCKG);
 
 /**
  * https://classic.yarnpkg.com/en/docs/cli/version/#toc-git-tags
+ * https://github.com/sindresorhus/np/issues/253
  */
 fs.outputFileSync(YARNRC, `version-tag-prefix "${pckg.name}@"`);
 
