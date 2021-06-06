@@ -28,7 +28,7 @@
     "build": "rm -rf build dist && yarn build:view && yarn build:router && yarn tasks",
     "build:to:docker": "yarn build:view && yarn tsc -P bin/tsconfig.json && yarn tasks --docker",
     "version": "yarn build",
-    "release": "yarn version && cd dist && npm publish && git push && git push --tags"
+    "release": "yarn release-mapineda48"
   },
   "private": true,
   "dependencies": {
