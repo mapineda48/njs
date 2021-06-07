@@ -53,6 +53,7 @@ export function createRouter(pg: Pool, redis: RedisClient, baseUrl = "/") {
 
       res.send(html);
     } catch (error) {
+      console.log(error);
       res.status(500).send("Unhandler server error");
     }
   });
