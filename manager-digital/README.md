@@ -1,6 +1,6 @@
 # Manager Digital
 
-> CRUD persons.
+This [demo](https://apinedavegamiguel.herokuapp.com/demos/manager-digital/) apply a CRUD persons.
 
 # Usage
 
@@ -25,7 +25,7 @@ $ docker-compose -p "manager-digital" -f web.yml -f model.yml up -d
 ### Development
 
 ```bash
-$ docker-compose -p "manager-digital" -f web.yml -f model.yml -f development up
+$ docker-compose -p "manager-digital-dev" -f web.yml -f model.yml -f development up
 ```
 
 ## Package

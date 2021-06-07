@@ -69,7 +69,7 @@ app.use(express.json());
 /**
  * Demo
  */
-app.use(createRouter(pool));
+app.use(createRouter(pool, io));
 ```
 
 ## License

@@ -1,6 +1,6 @@
 # Grants
 
-> Grettings with postgresql and react in express route..
+This [demo](https://apinedavegamiguel.herokuapp.com/demos/grants/) only expose [grants opportunities](https://www.grants.gov/web/grants/search-grants.html) .
 
 # Usage
 
@@ -51,7 +51,6 @@ const { createRouter } = require("@mapineda48/grants");
 
 const app = express();
 const server = http.createServer(app);
-const pool = new Pool();
 
 /**
  * Important this middleware
