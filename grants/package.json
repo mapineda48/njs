@@ -52,7 +52,7 @@
     "start": "react-scripts start",
     "test": "react-scripts test",
     "check:types": "tsc && tsc -P lib/tsconfig.json --noEmit",
-    "build:view": "mapineda --build",
+    "build:view": "mapineda --build -U ./",
     "start:bin": "nodemon bin/index.ts",
     "build:router": "tsc -P lib/tsconfig.json",
     "tasks": "ts-node -P tasks/tsconfig.json tasks/index.ts",
