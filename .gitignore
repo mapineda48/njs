@@ -107,4 +107,5 @@ dist
 *.dev.*
 build/
 dist/
-__development__
+__dev__/
+__temp__/
