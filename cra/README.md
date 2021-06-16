@@ -14,18 +14,21 @@ Before use it you should do bootstrapping with [Create React App](https://github
 
 ### Configurations
 
-set on `package.json`
+set in `react.json` on root project.
 
 ```json
 {
-  "react-scripts": {
-    "main": {
-      "entry": "my/custom/path/entry.js",
-      "output": "my/custom/path/build.js",
-      "url": "my/custom/url"
-    },
-    "default": "main"
-  }
+  "foo": {
+    "entry": "my/custom/path/entry.js",
+    "output": "my/custom/path/build.js",
+    "url": "my/custom/url"
+  },
+  "bar": {
+    "entry": "my/custom/path/entry.js",
+    "output": "my/custom/path/build.js",
+    "url": "my/custom/url"
+  },
+  "default": "foo"
 }
 ```
 
@@ -34,19 +37,19 @@ set on `package.json`
 configuration default entry
 
 ```shell
-yarn mapineda --start
+yarn mp
 ```
 
 argument entry
 
 ```shell
-yarn mapineda --start my/path/entry.js
+yarn mp my/path/entry.js
 ```
 
 argument entry alias
 
 ```shell
-yarn mapineda --start main
+yarn mp foo
 ```
 
 ### build
@@ -54,19 +57,19 @@ yarn mapineda --start main
 configuration default entry
 
 ```shell
-yarn mapineda --build
+yarn mp --build
 ```
 
 argument alias
 
 ```shell
-yarn mapineda --build main
+yarn mp --build main
 ```
 
 argument entry and argument build
 
 ```shell
-yarn mapineda --build my/entry.jsx --output my/build
+yarn mp --build --output my/path/build my/entry.jsx
 ```
 
 ## License
