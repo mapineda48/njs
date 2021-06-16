@@ -31,7 +31,7 @@ prepare()
     publishConfig,
     repository,
     bin: {
-      mapineda: "./bin/index.js",
+      mp: "./bin/index.js",
     },
     engines: { node: engines.node },
     dependencies: dep.select(["tslib", "commander"]),
