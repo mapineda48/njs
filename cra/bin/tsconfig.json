@@ -1,13 +1,4 @@
 {
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "target": "ES2018",
-    "module": "CommonJS",
-    "outDir": "../dist",
-    "noEmit": false,
-    "declaration": false,
-    "importHelpers": true
-  },
-  "include": ["."],
-  "exclude": ["**/*.dev.ts"]
+  "extends": "../lib/tsconfig.json",
+  "include": ["."]
 }
