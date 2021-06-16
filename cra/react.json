@@ -1,0 +1,20 @@
+{
+  "default": "foo",
+  "app": {
+    "main": {
+      "entry": "src/index.tsx",
+      "url": "./",
+      "output": "build"
+    },
+    "foo": {
+      "entry": "src/foo.tsx",
+      "url": "./",
+      "output": "build/foo"
+    },
+    "bar": {
+      "entry": "src/bar.tsx",
+      "url": "./",
+      "output": "build/bar"
+    }
+  }
+}

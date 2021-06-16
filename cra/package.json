@@ -79,18 +79,5 @@
       "ts": "ts-node -P bin/tsconfig.json"
     }
   },
-  "react-scripts": {
-    "main": {
-      "entry": "src/index.tsx",
-      "url": "./",
-      "output": "build"
-    },
-    "foo": {
-      "entry": "src/foo.tsx",
-      "url": "./",
-      "output": "build/foo"
-    },
-    "default": "foo"
-  },
   "devDependencies": {}
 }
