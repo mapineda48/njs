@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet";
 import { FaTwitter, FaFacebook, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import scrollIntoView from "smooth-scroll-into-view-if-needed";
-import Root from "../components/Root";
 import Card from "./Card";
 import { ReactComponent as Brand } from "./brand.svg";
 import { icon } from "./skill";
@@ -39,7 +38,7 @@ export default function PersonalPage({ lang, skill }: Props) {
   const imgs = React.useMemo(() => Object.values(skill), [skill]);
 
   return (
-    <Root>
+    <>
       <Helmet>
         <meta name="robots" content="index,nofollow" />
         <meta name="googlebot" content="index,nofollow" />
@@ -173,7 +172,7 @@ export default function PersonalPage({ lang, skill }: Props) {
           .
         </p>
       </footer>
-    </Root>
+    </>
   );
 }
 

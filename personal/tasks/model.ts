@@ -1,6 +1,6 @@
 import fs from "fs-extra";
 import path from "path";
-import model from "../src/personal/model";
+import model from "../src/model";
 
 /**
  * Generate Model Production

@@ -14,7 +14,7 @@
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": false,
     "jsx": "react-jsx",
-    "outDir": "../dist"
+    "outDir": "../dist/lib"
   },
   "include": ["."],
   "exclude": ["../node_modules"]

@@ -11,7 +11,8 @@ import {
   publishConfig,
 } from "../package.json";
 
-const homepage = "https://github.com/mapineda48/njs/tree/master/personal#readme";
+const homepage =
+  "https://github.com/mapineda48/njs/tree/master/personal#readme";
 
 const dep = prepare.dep.withTs(dependencies);
 
@@ -27,8 +28,8 @@ prepare()
     main,
     homepage,
     publishConfig,
-    dependencies: dep.select(["tslib", "jsonwebtoken"]),
-    peerDependencies: dep.select(["express", "@types/express", "socket.io"]),
+    dependencies: dep.select(["tslib"]),
+    peerDependencies: dep.select(["express", "@types/express"]),
     peerDependenciesMeta: dep.select.meta(["@types/express"]),
   })
   .complete()
