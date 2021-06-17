@@ -1,6 +1,6 @@
 {
   "name": "@mapineda48/personal",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Personal web page in expressjs route.",
   "keywords": [
     "expressjs",
