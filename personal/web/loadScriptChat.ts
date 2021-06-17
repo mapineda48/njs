@@ -14,26 +14,28 @@ export = function fetch() {
  * @param chat Chat
  */
 function appendInDocument(chat: Chat) {
-  const styles = chat.header.map((style) => {
-    const pipe = document.createElement("div");
+  const styles = chat.header.map((style) =>
+    createElmentFromRaw<HTMLStyleElement>(style)
+  );
 
-    pipe.innerHTML = style;
-
-    return pipe.children[0] as HTMLLinkElement;
-  });
-
-  const scripts = chat.body.map((script) => {
-    const pipe = document.createElement("div");
-
-    pipe.innerHTML = script;
-
-    return pipe.children[0] as HTMLScriptElement;
-  });
+  const scripts = chat.body.map((script) =>
+    createElmentFromRaw<HTMLScriptElement>(script)
+  );
 
   styles.forEach((style) => document.head.appendChild(style));
   scripts.forEach((script) => document.body.appendChild(script));
 }
 
+/**
+ * https://stackoverflow.com/questions/10309650/add-elements-to-the-dom-given-plain-text-html-using-only-pure-javascript-no-jqu
+ */
+function createElmentFromRaw<T extends HTMLElement>(element: string): T {
+  const pipeElement = document.createElement("div");
+
+  pipeElement.innerHTML = element;
+
+  return pipeElement.children[0] as any;
+}
 
 /**
  * Types
