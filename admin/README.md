@@ -1,6 +1,6 @@
 # Admin Panel.
 
-> Grettings with postgresql and react in express route..
+> Personal admin panel.
 
 # Usage
 
