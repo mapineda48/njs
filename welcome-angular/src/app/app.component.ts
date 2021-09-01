@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpService } from './http.service';
 
 import type { Data } from '../shared';
-
-const message =
-  process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
 @Component({
   selector: 'app-root',
@@ -15,14 +12,14 @@ export class AppComponent implements OnInit {
   title = 'welcome-angular';
   data: Data = { message: '' };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpService) {}
 
   ngOnInit() {
     if (this.data.message) return;
 
     this.data = { message: 'loading...' };
 
-    this.http.get<Data>('api').subscribe(
+    this.http.fetchGreet().subscribe(
       (data) => (this.data = data),
       (err) => (this.data = { message: err.message })
     );

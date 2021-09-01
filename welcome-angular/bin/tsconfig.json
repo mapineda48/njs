@@ -6,5 +6,6 @@
     "declaration": false
   },
 
-  "include": ["."]
+  "include": ["."],
+  "exclude": ["httpClient.ts"]
 }
