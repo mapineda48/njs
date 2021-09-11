@@ -47,9 +47,11 @@ export function createAction<T, R, A>(
   thunk: A
 ): Actions<T, R, A>;
 export function createAction(setState: any, reducer: any, thunk?: any): any {
-  const result: any = (cb: any) => setState((state: any) => cb(state) || state);
+  const res: any = (cb: any) => setState((state: any) => cb(state) || state);
 
-  result.getState = () => {
+  res.setState = setState;
+
+  res.getState = () => {
     return new Promise((res, rej) => {
       setState((state: any) => {
         res(state);
@@ -65,22 +67,22 @@ export function createAction(setState: any, reducer: any, thunk?: any): any {
     const isObj = typeof value === "object";
 
     if (isFunc) {
-      result[key] = (...args: any[]) => {
+      res[key] = (...args: any[]) => {
         setState((state: any) => value.call(null, state, ...args) || state);
-        return result;
+        return res;
       };
     } else if (isObj) {
-      result[key] = createAction(setState, value);
+      res[key] = createAction(setState, value);
     }
   });
 
   if (!thunk) {
-    return result;
+    return res;
   }
 
-  const resultT = createThunk(result, thunk);
+  const resultT = createThunk(res, thunk);
 
-  return [result, resultT];
+  return [res, resultT];
 }
 
 export const useAction: Create = ((setState: any, reducer: any, thunk: any) => {
@@ -127,6 +129,10 @@ export type Action<T, S> = {
       }
     ? Action<T[K], S>
     : never;
-} & { (cb: (state: S) => S | void): void; getState: () => Promise<S> };
+} & {
+  (cb: (state: S) => S | void): void;
+  getState: () => Promise<S>;
+  setState: SetState<S>;
+};
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
