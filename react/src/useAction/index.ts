@@ -47,18 +47,9 @@ export function createAction<T, R, A>(
   thunk: A
 ): Actions<T, R, A>;
 export function createAction(setState: any, reducer: any, thunk?: any): any {
-  const res: any = (cb: any) => setState((state: any) => cb(state) || state);
+  const res: any = { setState };
 
   res.setState = setState;
-
-  res.getState = () => {
-    return new Promise((res, rej) => {
-      setState((state: any) => {
-        res(state);
-        return state;
-      });
-    });
-  };
 
   Object.keys(reducer).forEach((key) => {
     const value = reducer[key];
@@ -130,8 +121,6 @@ export type Action<T, S> = {
     ? Action<T[K], S>
     : never;
 } & {
-  (cb: (state: S) => S | void): void;
-  getState: () => Promise<S>;
   setState: SetState<S>;
 };
 
