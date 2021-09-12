@@ -118,8 +118,8 @@ export type AsyncAction<T, R> = {
   readonly [K in keyof R]: R[K] extends (
     setState: T,
     ...args: infer A
-  ) => Promise<infer R>
-    ? (...args: A) => Promise<R>
+  ) => infer U
+    ? (...args: A) => U
     : never;
 };
 
