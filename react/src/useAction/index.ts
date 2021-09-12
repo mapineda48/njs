@@ -1,10 +1,15 @@
 import React, { useMemo } from "react";
 
-function isFunc(val: any): val is (...args: any[]) => any {
+const isDev = process.env.NODE_ENV === "development";
+
+export function isFunc(val: any): val is (...args: any[]) => any {
   return typeof val === "function";
 }
 
-export function createSync<T, R>(setState: T, reducer: R): Action<T, R>;
+export function createSync<S, R>(
+  setState: SetState<S>,
+  reducer: R
+): Action<S, R>;
 export function createSync(setState: any, red: any) {
   const res: any = { setState };
 
@@ -53,12 +58,12 @@ export function createThunk(setState: any, dispatch: any, red: any) {
         setState((state: any) => {
           const prom = thunk(state, dispatch);
 
-          if (prom.then) {
-            prom.then(res).catch(rej);
-          } else {
-            rej(new Error("thunk must return a promise"));
+          if (isDev) {
+            if (!prom.then) {
+              rej(new Error("thunk must return a promise"));
+            }
           }
-
+          prom.then(res).catch(rej);
           return state;
         });
       });
@@ -130,13 +135,11 @@ export type AsyncAction<T, R> = {
 
 export type CreateSync = typeof createSync;
 
-export type Action<T, R> = T extends SetState<infer S>
-  ? {
-      readonly [K in keyof R]: R[K] extends (state: S, ...args: infer A) => S
-        ? (...args: A) => Action<T, R>
-        : never;
-    }
-  : never;
+export type Action<S, R> = {
+  readonly [K in keyof R]: R[K] extends (state: S, ...args: infer A) => S
+    ? (...args: A) => Action<S, R>
+    : never;
+};
 
 export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
