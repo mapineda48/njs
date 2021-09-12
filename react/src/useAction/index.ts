@@ -45,10 +45,10 @@ export function createThunk(setState: any, dispatch: any, red: any) {
 
   Object.entries(red).forEach(([key, red]) => {
     if (!isFunc(red)) return;
-    
+
     res[key] = (...args: any[]) => {
       const thunk = red(...args);
-    
+
       return new Promise((res, rej) => {
         setState((state: any) => {
           const prom = thunk(state, dispatch);
@@ -97,6 +97,11 @@ export const useAction: CreateSync = (setState, reducer) => {
 
 export default useAction;
 
+export const action: MainAction = createSync as any;
+
+action.async = createAsync;
+action.thunk = createThunk;
+
 /**
  * Types
  */
@@ -134,3 +139,5 @@ export type Action<T, R> = T extends SetState<infer S>
   : never;
 
 export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
+
+type MainAction = CreateSync & { async: CreateAsync; thunk: CreateThunk };
