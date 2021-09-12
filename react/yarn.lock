@@ -7273,10 +7273,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapineda48-cra@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/mapineda48-cra/-/mapineda48-cra-0.0.3.tgz#4ecf28befaf6a972c64820b8477ca72ddd5bf4e1"
-  integrity sha512-IQc4UUlinEISB83bweC9h5xrWtR21xmwe0UcWdbSr+PyKuUPK5aIZkI5gR9XY2rly9EIWX9m5KSQyvW+/VW+aQ==
+mapineda48-cra@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/mapineda48-cra/-/mapineda48-cra-0.0.4.tgz#879bc561b83154d4564d4feef6af22817d09b912"
+  integrity sha512-Di4a7EyqkCWb2ynarTpqImgJP5XZSse3hON9tBkUnhOAvSytunJ6Coe9v494fdAkoArsc4ut3SIi+GxEdWxnYQ==
   dependencies:
     commander "^7.0.0"
     tslib "^2.2.0"
