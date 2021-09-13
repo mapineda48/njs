@@ -25,27 +25,8 @@ export function createSync(setState: any, red: any) {
   return res;
 }
 
-export function createAsync<T, R>(dispatch: T, reducer: R): AsyncAction<T, R>;
-export function createAsync(dispatch: any, red: any) {
-  const res: any = {};
-
-  Object.entries(red).forEach(([key, val]) => {
-    if (!isFunc(val)) return;
-
-    res[key] = (...args: any[]) => {
-      return val.call(null, dispatch, ...args);
-    };
-  });
-
-  return res;
-}
-
-export function createThunk<T, D, R>(
-  setState: T,
-  dispatch: D,
-  reducer: R
-): ThunkAction<T, D, R>;
-export function createThunk(setState: any, dispatch: any, red: any) {
+export function createThunk<T, R>(setState: T, reducer: R): ThunkAction<T, R>;
+export function createThunk(setState: any, red: any) {
   const res: any = {};
 
   Object.entries(red).forEach(([key, red]) => {
@@ -56,7 +37,7 @@ export function createThunk(setState: any, dispatch: any, red: any) {
 
       return new Promise((res, rej) => {
         setState((state: any) => {
-          const prom = thunk(state, dispatch);
+          const prom = thunk(state);
 
           if (isDev) {
             if (!prom.then) {
@@ -73,17 +54,10 @@ export function createThunk(setState: any, dispatch: any, red: any) {
   return res;
 }
 
-export const useThunk: CreateThunk = (setState, dispatch, reducer) => {
+export const useThunk: CreateThunk = (setState, reducer) => {
   return React.useMemo(
-    () => createThunk(setState, dispatch, reducer),
-    [setState, dispatch, reducer]
-  );
-};
-
-export const useAsync: CreateAsync = (dispatch, reducer) => {
-  return React.useMemo(
-    () => createAsync(dispatch, reducer),
-    [dispatch, reducer]
+    () => createThunk(setState, reducer),
+    [setState, reducer]
   );
 };
 
@@ -102,27 +76,31 @@ export const useAction: CreateSync = (setState, reducer) => {
 
 export default useAction;
 
-export const action: MainAction = createSync as any;
-
-action.async = createAsync;
-action.thunk = createThunk;
+export function action<S>(setState: SetState<S>) {
+  return {
+    sync<R>(reducer: R) {
+      return createSync(setState, reducer);
+    },
+    thunk<R>(reducer: R) {
+      return createThunk(setState, reducer);
+    },
+  };
+}
 
 /**
  * Types
  */
 export type CreateThunk = typeof createThunk;
 
-export type ThunkAction<T, D, R> = T extends SetState<infer S>
+export type ThunkAction<T, R> = T extends SetState<infer S>
   ? {
       readonly [K in keyof R]: R[K] extends (
         ...args: infer A
-      ) => (state: S, dispatch: D) => Promise<infer U>
+      ) => (state: S) => Promise<infer U>
         ? (...args: A) => Promise<U>
         : never;
     }
   : never;
-
-export type CreateAsync = typeof createAsync;
 
 export type AsyncAction<T, R> = {
   readonly [K in keyof R]: R[K] extends (
@@ -142,5 +120,3 @@ export type Action<S, R> = {
 };
 
 export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
-
-type MainAction = CreateSync & { async: CreateAsync; thunk: CreateThunk };
