@@ -22,13 +22,17 @@ export function prepareBuild(app: string, cli: CliOptions) {
     } as PathsArg;
   }
 
-  if (!config?.app) {
-    throw new Error("missing file react.json on root project.");
+  if (!existsConfig || !config?.app) {
+    return null;
   }
 
   const apps = Object.entries(config.app).map(([app, opt]) =>
     requireApp(app, opt)
   );
+
+  if (!apps.length) {
+    return null;
+  }
 
   return [apps, cli.url] as [App[], string];
 }

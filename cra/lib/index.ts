@@ -14,6 +14,11 @@ export function main() {
 
       const config = paths.prepareBuild(path, opt);
 
+      if (!config) {
+        console.log("not found apps");
+        return;
+      }
+
       if (!Array.isArray(config)) {
         cra.build(config);
         return;

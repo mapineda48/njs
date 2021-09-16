@@ -18,15 +18,17 @@ set in `react.json` on root project.
 
 ```json
 {
-  "foo": {
-    "entry": "my/custom/path/entry.js",
-    "output": "my/custom/path/build.js",
-    "url": "my/custom/url"
-  },
-  "bar": {
-    "entry": "my/custom/path/entry.js",
-    "output": "my/custom/path/build.js",
-    "url": "my/custom/url"
+  "app": {
+    "foo": {
+      "entry": "my/custom/path/entry.js",
+      "output": "my/custom/path/build.js",
+      "url": "my/custom/url"
+    },
+    "bar": {
+      "entry": "my/custom/path/entry.js",
+      "output": "my/custom/path/build.js",
+      "url": "my/custom/url"
+    }
   },
   "default": "foo"
 }
