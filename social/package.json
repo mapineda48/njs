@@ -1,6 +1,6 @@
 {
   "name": "@mapineda48/social",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "author": "Miguel Angel Pineda Vega",
   "license": "MIT",
@@ -57,7 +57,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "serve": "nodemon --delay 2",
-    "check:types":"tsc && tsc -P lib/tsconfig.json",
+    "check:types": "tsc && tsc -P lib/tsconfig.json",
     "build:view": "mp -B -A",
     "build:browser": "tsc -P src/browser/tsconfig.json",
     "build:lib": "tsc -P lib/tsconfig.json",
