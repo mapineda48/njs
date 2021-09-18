@@ -1,0 +1,15 @@
+{
+  "app": {
+    "guest": {
+      "entry": "src/guest/index.tsx",
+      "output": "build/guest",
+      "url": "./"
+    },
+    "miguel": {
+      "entry": "src/miguel/index.tsx",
+      "output": "build/miguel",
+      "url": "./"
+    }
+  },
+  "default": "guest"
+}

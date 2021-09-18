@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../dist",
+    "allowSyntheticDefaultImports": false,
+    "esModuleInterop": false,
+    "importHelpers": true,
+    "noEmit": false,
+    "declaration": true,
+    "module": "commonjs"
+  },
+  "include": ["."]
+}
