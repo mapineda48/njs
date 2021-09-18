@@ -61,7 +61,9 @@
     "build:browser": "tsc -P src/browser/tsconfig.json",
     "build:lib": "tsc -P lib/tsconfig.json",
     "task": "ts-node -P tasks/tsconfig.json tasks/index.ts",
-    "build": "rm -rf build dist && yarn build:view && yarn build:browser && yarn build:lib && yarn task"
+    "build": "rm -rf build dist && yarn build:view && yarn build:browser && yarn build:lib && yarn task",
+    "release": "yarn release-mapineda48",
+    "version": "yarn build"
   },
   "eslintConfig": {
     "extends": [
