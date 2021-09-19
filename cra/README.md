@@ -30,7 +30,7 @@ set in `react.json` on root project.
       "url": "my/custom/url"
     }
   },
-  "default": "foo"
+  "main": "foo"
 }
 ```
 

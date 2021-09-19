@@ -1,9 +1,4 @@
-import path from "path";
-import ManifestPlugin from "webpack-manifest-plugin";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-
-import type { Configuration, Entry, Plugin } from "webpack";
-import type { App } from "./paths";
+import type { Configuration } from "webpack";
 
 /**
  * source react-scripts
@@ -16,163 +11,66 @@ export const src = {
   config: require.resolve("react-scripts/config/webpack.config"),
 };
 
-export function builds(apps: App[], url: string) {
-  /**
-   * prevent process exit missing file
-   * https://github.com/facebook/create-react-app/blob/025f2739ceb459c79a281ddc6e60d7fd7322ca24/packages/react-scripts/scripts/build.js#L59
-   */
-  const [app] = apps;
-  overwritePath({ appIndexJs: app.entry });
+loadEnv();
 
-  overwritePaths(apps, url);
+export const cra = {
+  start() {
+    require(src.start);
+  },
+  build() {
+    require(src.build);
+  },
 
-  require(src.build);
-}
+  config(cb: (factory: FactoryConfig, paths: Paths) => FactoryConfig) {
+    setInModule(src.config, (factory) => cb(factory, require(src.paths)));
+    return cra;
+  },
 
-/**
- * overwrite react-scripts's webpack config
- * https://github.com/facebook/create-react-app/blob/025f2739ceb459c79a281ddc6e60d7fd7322ca24/packages/react-scripts/config/webpack.config.js#L74
- */
-export function overwritePaths(apps: App[], url: string) {
-  const paths: Paths = require(src.paths);
+  paths(cb: PartialPaths | ((paths: Paths) => Paths)) {
+    if (typeof cb === "function") {
+      setInModule(src.paths, cb);
+    } else {
+      setInModule(src.paths, (paths) => {
+        return { ...paths, ...cb };
+      });
+    }
 
-  const factory: FactoryConfig = require(src.config);
-
-  const current = factory("production");
-
-  const entry: Entry = {};
-
-  const plugins = extractPlugins(current.plugins);
-
-  const htmls: HtmlWebpackPlugin[] = [];
-
-  apps.forEach((app, index) => {
-    const html = path.join(app.output, "index.html").replace(/^build\//i, "");
-
-    const chunk = index.toString();
-
-    entry[chunk] = path.resolve(app.entry);
-
-    htmls.push(createHTML(html, chunk, paths.appHtml));
-  });
-
-  const config: Configuration = {
-    ...current,
-    entry,
-    output: {
-      ...current.output,
-      path: path.resolve("build"),
-      publicPath: url,
-    },
-    plugins: [...htmls, ...plugins],
-  };
-  const rest = require.cache[src.config];
-
-  delete require.cache[src.config];
-
-  require.cache[src.config] = {
-    ...rest,
-    exports: function () {
-      return config;
-    },
-  };
-
-  return [entry, htmls, config] as const;
-}
-
-/**
- * CreateHTML
- * @param app App
- * https://github.com/facebook/create-react-app/blob/025f2739ceb459c79a281ddc6e60d7fd7322ca24/packages/react-scripts/config/webpack.config.js#L592
- */
-export function createHTML(filename: string, chunk: string, template: string) {
-  return new HtmlWebpackPlugin({
-    inject: true,
-    filename,
-    chunks: [chunk],
-    template,
-    minify: {
-      removeComments: true,
-      collapseWhitespace: true,
-      removeRedundantAttributes: true,
-      useShortDoctype: true,
-      removeEmptyAttributes: true,
-      removeStyleLinkTypeAttributes: true,
-      keepClosingSlash: true,
-      minifyJS: true,
-      minifyCSS: true,
-      minifyURLs: true,
-    },
-  });
-}
-
-/**
- * https://github.com/facebook/create-react-app/blob/025f2739ceb459c79a281ddc6e60d7fd7322ca24/packages/react-scripts/config/webpack.config.js#L592
- */
-export function extractPlugins(plugins: Plugin[] = []) {
-  return plugins.filter(
-    (plugin) =>
-      !(plugin instanceof HtmlWebpackPlugin) &&
-      !(plugin instanceof ManifestPlugin)
-  );
-}
-
-export function build(paths: PathsArg) {
-  overwritePath(paths);
-  require(src.build);
-}
-
-export function start(paths: PathsArg) {
-  overwritePath(paths);
-  require(src.start);
-}
-
-/**
- * Update paths in cache with input
- * https://nodejs.org/api/modules.html#modules_require_cache
- * @param paths object
- * https://github.com/facebook/create-react-app/blob/6a51dcdfb84d1a47294fcbf9d7d569eaf1b4d571/packages/react-scripts/config/paths.js#L60
- */
-export function overwritePath(paths: PathsArg) {
-  deleteCache();
-
-  const current: Paths = require(src.paths);
-
-  const rest = require.cache[src.paths];
-
-  delete require.cache[src.paths];
-
-  require.cache[src.paths] = {
-    ...rest,
-    exports: {
-      ...current,
-      ...paths,
-    },
-  };
-
-  require(src.paths);
-}
+    return cra;
+  },
+};
 
 /**
  * Important!!!
  * https://github.com/facebook/create-react-app/blob/025f2739ceb459c79a281ddc6e60d7fd7322ca24/packages/react-scripts/config/env.js#L15
  */
-export function deleteCache() {
+function loadEnv() {
   (process as any).env.NODE_ENV = process.env.NODE_ENV || "production";
   require(src.env);
 }
+
+function setInModule<T = any>(key: string, cb: (val: T) => T) {
+  const _export: any = require(key);
+
+  const nodeModule = require.cache[key];
+
+  delete require.cache[key];
+
+  require.cache[key] = {
+    ...nodeModule,
+    exports: cb(_export),
+  };
+}
+
 /**
  * Types
  */
 export type Env = Configuration["mode"];
 
+type ArgConfig = (factory: FactoryConfig, paths: Paths) => FactoryConfig;
+
 export type FactoryConfig = (env: Env) => Configuration;
 
-export interface Config {
-  [K: string]: App;
-}
-
-export type PathsArg = Partial<Paths>;
+export type PartialPaths = Partial<Paths>;
 
 export interface Paths {
   dotenv: string;

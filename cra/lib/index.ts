@@ -1,34 +1,11 @@
+import * as fs from "fs-extra";
 import * as cli from "./cli";
-import * as cra from "./cra";
-import * as paths from "./paths";
-import { parseError } from "./error";
+import { start } from "./start";
+import { build } from "./build";
 
 export function main() {
   cli.parse(function run(path, opt) {
-    try {
-      if (!opt.build) {
-        const config = paths.prepareStart(path);
-        cra.start(config);
-        return;
-      }
-
-      const config = paths.prepareBuild(path, opt);
-
-      if (!config) {
-        console.log("not found apps");
-        return;
-      }
-
-      if (!Array.isArray(config)) {
-        cra.build(config);
-        return;
-      }
-
-      const [configs, url] = config;
-
-      cra.builds(configs, url);
-    } catch (error) {
-      parseError(error);
-    }
+    if (!opt.build) return start(path);
+    build(path, opt);
   });
 }

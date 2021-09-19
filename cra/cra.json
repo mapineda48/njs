@@ -1,5 +1,5 @@
 {
-  "default": "foo",
+  "main": "foo",
   "app": {
     "main": {
       "entry": "src/index.tsx",

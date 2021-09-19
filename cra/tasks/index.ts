@@ -16,10 +16,10 @@ const homepage = "https://github.com/mapineda48/njs/tree/master/cra#readme";
 
 const dep = prepare.dep.withTs(dependencies);
 
-dep.set("react-scripts", (val) => '>=3');
+dep.set("react-scripts", (val) => ">=3");
 
 prepare()
-  .copy(["README.md", "CHANGELOG.md", "LICENSE"])
+  .copy(["README.md", "CHANGELOG.md", "LICENSE", "public"])
   .package({
     name,
     version,
