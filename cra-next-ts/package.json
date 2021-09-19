@@ -1,0 +1,73 @@
+{
+  "name": "cra-next-ts",
+  "version": "0.0.0",
+  "private": true,
+  "author": "Miguel Angel Pineda Vega",
+  "license": "MIT",
+  "description": "nextjs",
+  "bugs": {
+    "url": "https://github.com/mapineda48/njs/issues"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/mapineda48/njs.git",
+    "directory": "cra-next-ts"
+  },
+  "engines": {
+    "node": ">=14",
+    "npm": ">=7",
+    "yarn": ">=1.22.5"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "mapineda48-cra": "0.0.6",
+    "mapineda48-react": "0.0.10",
+    "mapineda48-util": "^0.0.10",
+    "next": "^11.1.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "sass": "^1.41.1",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1"
+  },
+  "scripts": {
+    "start": "next dev",
+    "prod": "next dev",
+    "build:ssr": "next build",
+    "tasks": "ts-node -P tasks/tsconfig.json tasks/index.ts",
+    "build":"rm -rf .next dist && yarn build:ssr && yarn tasks",
+    "test": "react-scripts test"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
+}
