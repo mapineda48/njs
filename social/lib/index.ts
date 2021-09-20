@@ -1,3 +1,4 @@
+import * as path from "path";
 import * as express from "express";
 import { api as apiWeb } from "../src/http/type";
 import { createSession } from "./jwt";
@@ -5,8 +6,6 @@ import { parseError } from "./error";
 import { setChat, ServerIO } from "./socket";
 
 const api = prepareApi(apiWeb);
-
-console.log(api);
 
 export function createApi(usename: string, password: string, io: ServerIO) {
   const router = express.Router();
@@ -50,12 +49,14 @@ export function createApi(usename: string, password: string, io: ServerIO) {
   };
   router.use(onError);
 
+  router.use(express.static(path.join(__dirname, "../build")));
+
   return router;
 }
 
 export function prepareApi<T>(api: T): T {
   const res: any = Object.fromEntries(
-    Object.entries(apiWeb).map(([key, val]) => [key, "/miguel/" + val])
+    Object.entries(apiWeb).map(([key, val]) => [key, "/social/miguel/" + val])
   );
 
   return res;

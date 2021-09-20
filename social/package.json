@@ -34,7 +34,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mapineda48-cra": "0.0.5",
+    "mapineda48-cra": "0.0.8",
     "mapineda48-react": "0.0.9",
     "mapineda48-util": "^0.0.10",
     "morgan": "^1.10.0",
@@ -53,7 +53,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "mp",
+    "start": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "serve": "nodemon --delay 2",

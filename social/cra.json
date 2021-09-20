@@ -2,14 +2,12 @@
   "app": {
     "guest": {
       "entry": "src/guest/index.tsx",
-      "output": "build/guest",
-      "url": "./"
+      "output": "build/social/guest"
     },
     "miguel": {
       "entry": "src/miguel/index.tsx",
-      "output": "build/miguel",
-      "url": "./"
+      "output": "build/social/miguel"
     }
   },
-  "default": "guest"
+  "main": "guest"
 }

@@ -29,11 +29,12 @@ if (inIframe) {
   iframe.style.width = "0px";
   iframe.style.height = "0px";
   iframe.style.borderRadius = "4px";
+  iframe.style.border = "none";
   /**
    * Important set transparent body
    * https://www.geeksforgeeks.org/how-to-create-a-transparent-iframe/
    */
-  //document.body.style.backgroundColor = "transparent";
+  document.body.style.backgroundColor = "transparent";
 }
 
 function setSize({ height, width }: Size) {
