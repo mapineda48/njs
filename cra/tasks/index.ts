@@ -19,7 +19,7 @@ const dep = prepare.dep.withTs(dependencies);
 dep.set("react-scripts", (val) => ">=3");
 
 prepare()
-  .copy(["README.md", "CHANGELOG.md", "LICENSE", "public"])
+  .copy(["README.md", "CHANGELOG.md", "LICENSE", "app/public"])
   .package({
     name,
     version,

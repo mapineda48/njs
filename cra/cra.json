@@ -1,5 +1,4 @@
 {
-  "main": "foo",
   "app": {
     "main": {
       "entry": "src/index.tsx",
@@ -16,5 +15,7 @@
       "url": "./",
       "output": "build/bar"
     }
-  }
+  },
+  "root": "app",
+  "ModuleScopePlugin": "off"
 }

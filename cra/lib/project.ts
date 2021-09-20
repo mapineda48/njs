@@ -22,7 +22,8 @@ export interface CRAJSON {
   app?: {
     [K: string]: Partial<AppOpt>;
   };
-  paths?: PartialPaths;
+  root?: string;
+  ModuleScopePlugin?: "off";
 }
 
 export interface AppOpt extends Options {

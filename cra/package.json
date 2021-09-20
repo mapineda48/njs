@@ -48,11 +48,11 @@
     "webpack-manifest-plugin": "2.2.0"
   },
   "scripts": {
-    "start": "ts-node -P bin/tsconfig.json bin/index.ts",
+    "start": "ts-node bin/index.ts",
     "start:dist": "node dist/bin --start",
-    "build:bin": "tsc -P bin/tsconfig.json",
+    "build:bin": "tsc",
     "build": "rm -rf dist && yarn build:bin && yarn tasks",
-    "tasks": "ts-node -P tasks/tsconfig.json tasks/index.ts",
+    "tasks": "ts-node tasks/index.ts",
     "release": "yarn release-mapineda48",
     "version": "rm -rf dist && yarn build"
   },
@@ -76,7 +76,7 @@
   },
   "nodemonConfig": {
     "execMap": {
-      "ts": "ts-node -P bin/tsconfig.json"
+      "ts": "ts-node"
     }
   },
   "devDependencies": {}
