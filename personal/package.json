@@ -38,6 +38,7 @@
     "url": "https://github.com/mapineda48/njs/issues"
   },
   "dependencies": {
+    "@mapineda48/social": "^0.0.1",
     "@popperjs/core": "^2.9.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -57,7 +58,7 @@
     "dotenv": "8.2.0",
     "express": "^4.17.1",
     "fs-extra": "^9.1.0",
-    "mapineda48-cra": "0.0.4",
+    "mapineda48-cra": "0.0.6",
     "mapineda48-react": "^0.0.1",
     "mapineda48-util": "^0.0.10",
     "morgan": "^1.10.0",

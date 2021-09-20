@@ -1,6 +1,5 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { FaTwitter, FaFacebook, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import scrollIntoView from "smooth-scroll-into-view-if-needed";
 import Card from "./Card";
@@ -73,48 +72,6 @@ export default function PersonalPage({ lang, skill }: Props) {
           </li>
         </ul>
       </nav>
-      <ul className="social">
-        <li className="twitter shadow-one">
-          <a
-            href="https://twitter.com/MiguelPinedaTec"
-            title="Twitter"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaTwitter />
-          </a>
-        </li>
-        <li className="facebook shadow-one">
-          <a
-            href="https://www.facebook.com/a.pinedavegamiguel"
-            title="Facebook"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaFacebook />
-          </a>
-        </li>{" "}
-        <li className="github shadow-one">
-          <a
-            href="https://github.com/mapineda48"
-            title="Github"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaGithub />
-          </a>
-        </li>
-        <li className="linkedin shadow-one">
-          <a
-            href="https://co.linkedin.com/in/apinedavegamiguel"
-            title="Github"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaLinkedinIn />
-          </a>
-        </li>
-      </ul>
       <main className="main">
         <section ref={home} id="home" className="section home">
           <div>
