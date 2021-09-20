@@ -53,7 +53,7 @@ function prepareApps() {
         output: {
           ...config.output,
           path: path.resolve("build"),
-          publicPath: "./",
+          publicPath: "",
         },
         plugins: [...htmls, ...plugins],
       };
