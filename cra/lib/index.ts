@@ -5,7 +5,15 @@ import { build } from "./build";
 
 export function main() {
   cli.parse(function run(path, opt) {
-    if (!opt.build) return start(path);
-    build(path, opt);
+    try {
+      if (!opt.build) return start(path);
+      build(path, opt);
+    } catch (error: any) {
+      if (error.ups) {
+        console.error(error.message);
+      } else {
+        console.error(error);
+      }
+    }
   });
 }
