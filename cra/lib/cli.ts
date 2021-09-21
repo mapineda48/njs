@@ -13,6 +13,7 @@ export function parse(fn: Fn) {
     .description(description)
     .option("-B, --build", "react-scripts build")
     .option("-O, --output <path>", "output directory build")
+    .option("-T, --template <path>", "directory html template")
     .option("-U, --url <path>", "the view of the Javascript / HTML page")
     .option("-A, --all-apps", "experimental build entrys")
     .action(fn)
@@ -30,6 +31,7 @@ export interface CliOptions extends Options {
 }
 
 export interface Options {
+  template?: string;
   output?: string;
   url?: string;
 }

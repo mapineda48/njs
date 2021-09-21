@@ -1,18 +1,18 @@
-import path from "path";
 import * as fs from "fs-extra";
 import ManifestPlugin from "webpack-manifest-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { cra } from "./cra";
-import { craJson, AppOpt } from "./project";
+import { getCraConfig, AppOpt } from "./project";
 import { ErrorInApp } from "./error";
+import { resolveRoot, resolveApp } from "./paths";
 
 import type { CliOptions } from "./cli";
 import type { Entry, Plugin } from "webpack";
 
 function prepareApps() {
   /**
-   * if index js is not found, the script compilation will finish, 
-   * set this index, it will not be included in the package but it will 
+   * if index js is not found, the script compilation will finish,
+   * set this index, it will not be included in the package but it will
    * prevent the script from finishing.
    * https://github.com/facebook/create-react-app/blob/b45ae3c9caf10174d53ced1cad01a272d164f8de/packages/react-scripts/scripts/build.js#L59
    */
@@ -21,38 +21,47 @@ function prepareApps() {
   /**
    * Set Webpack config to multiapp
    */
-  cra.config((get, paths) => {
-    const config = get("production");
+  cra.webpack((get, paths) => {
+    return (env) => {
+      const config = get(env);
 
-    const entry: Entry = {};
+      const entry: Entry = {};
 
-    const plugins = extractPlugins(config.plugins);
+      const plugins = extractPlugins(config.plugins);
 
-    const htmls: HtmlWebpackPlugin[] = [];
+      const htmls: HtmlWebpackPlugin[] = [];
 
-    const settings = getSettings();
+      const settings = getSettings();
 
-    if (!settings || !settings.length) {
-      throw new ErrorInApp("no found apps");
-    }
+      if (!settings || !settings.length) {
+        throw new ErrorInApp("no found apps");
+      }
 
-    settings.forEach((app, index) => {
-      const html = path.join(app.output, "index.html").replace(/^build\//i, "");
+      settings.forEach((app, index) => {
+        const html = resolveApp(app.output, "index.html").replace(
+          /^build\//i,
+          ""
+        );
 
-      const chunk = index.toString();
+        const chunk = index.toString();
 
-      entry[chunk] = path.resolve(app.entry);
+        entry[chunk] = resolveApp(app.entry);
 
-      htmls.push(createHTML(html, chunk, paths.appHtml));
-    });
+        htmls.push(
+          createHTML(
+            html,
+            chunk,
+            app.template ? resolveApp(app.template) : paths.appHtml
+          )
+        );
+      });
 
-    return () => {
       return {
         ...config,
         entry,
         output: {
           ...config.output,
-          path: path.resolve("build"),
+          path: paths.appBuild,
           publicPath: "",
         },
         plugins: [...htmls, ...plugins],
@@ -99,6 +108,8 @@ export function extractPlugins(plugins: Plugin[] = []) {
 }
 
 function getSettings() {
+  const craJson = getCraConfig();
+
   if (!craJson.app) return [];
 
   return Object.entries(craJson.app).map(([app, settings = {}]) => {
@@ -114,24 +125,26 @@ function getSettings() {
 }
 
 function prepareApp(app: string, opt: CliOptions) {
+  const craJson = getCraConfig();
+
   if (app) {
     if (fs.existsSync(app)) {
-      cra.paths({ appIndexJs: path.resolve(app) });
+      cra.paths({ appIndexJs: resolveRoot(app) });
     }
 
     const appIndexJs = craJson?.app?.[app]?.entry;
 
     if (appIndexJs) {
-      cra.paths({ appIndexJs: path.resolve(appIndexJs) });
+      cra.paths({ appIndexJs: resolveApp(appIndexJs) });
     }
   } else if (craJson.main) {
     const app = craJson?.app?.[craJson.main];
 
     if (app && app.entry) {
-      cra.paths({ appIndexJs: path.resolve(app.entry) });
+      cra.paths({ appIndexJs: resolveApp(app.entry) });
 
       if (app.output) {
-        cra.paths({ appBuild: path.resolve(app.output) });
+        cra.paths({ appBuild: resolveApp(app.output) });
       }
 
       if (app.url) {
@@ -141,7 +154,7 @@ function prepareApp(app: string, opt: CliOptions) {
   }
 
   if (opt?.output) {
-    cra.paths({ appBuild: path.resolve(opt.output) });
+    cra.paths({ appBuild: resolveRoot(opt.output) });
   }
   if (opt?.url) {
     cra.paths({ publicUrlOrPath: opt.url });

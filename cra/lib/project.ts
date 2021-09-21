@@ -1,16 +1,38 @@
 import fs from "fs-extra";
 import { root, project } from "./paths";
 
-import type { PartialPaths } from "./cra";
 import type { Options } from "./cli";
 
-export const pckg = fs.readJSONSync(root.package);
+let pckg: any = null;
 
-export const craJson: CRAJSON = fs.existsSync(root.craJson)
-  ? fs.readJSONSync(root.craJson)
-  : {};
+let craJson: CRAJSON | null = null;
+
+export function getPackage() {
+  if (!pckg) {
+    const data = fs.readJSONSync(root.package);
+    pckg = data;
+  }
+
+  return pckg;
+}
+
+export function getCraConfig() {
+  if (!craJson) {
+    const data: CRAJSON = fs.existsSync(root.craJson)
+      ? fs.readJSONSync(root.craJson)
+      : {};
+
+    craJson = data;
+
+    return data;
+  }
+
+  return craJson;
+}
 
 export function isNextProject() {
+  const pckg = getPackage();
+
   return !!pckg.dependencies["next"];
 }
 

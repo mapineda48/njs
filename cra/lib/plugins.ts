@@ -7,7 +7,7 @@ const ModuleScopePlugin = require("react-dev-utils/ModuleScopePlugin");
  * https://github.com/facebook/create-react-app/blob/b45ae3c9caf10174d53ced1cad01a272d164f8de/packages/react-scripts/config/webpack.config.js#L314
  */
 export function removeModuleScopePlugin() {
-  cra.config((factory) => {
+  cra.webpack((factory) => {
     return (env) => {
       const config = factory(env);
 

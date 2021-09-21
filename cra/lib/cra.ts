@@ -13,20 +13,16 @@ export const src = {
 
 loadEnv();
 
-export const cra = {
-  start() {
-    require(src.start);
-  },
-  build() {
-    require(src.build);
-  },
+const cbPaths: ArgPaths[] = [];
+const cbWebpack: ArgConfig[] = [];
 
-  config(cb: (factory: FactoryConfig, paths: Paths) => FactoryConfig) {
-    setInModule(src.config, (factory) => cb(factory, require(src.paths)));
-    return cra;
-  },
-
-  paths(cb: PartialPaths | ((paths: Paths) => Paths)) {
+/**
+ * If you are wondering why I apply changes this way, 
+ * during testing keep in mind that all changes need to 
+ * be applied to paths first, as webpack.config depends on it.
+ */
+function applyConfig() {
+  cbPaths.forEach((cb) => {
     if (typeof cb === "function") {
       setInModule(src.paths, cb);
     } else {
@@ -34,7 +30,30 @@ export const cra = {
         return { ...paths, ...cb };
       });
     }
+  });
 
+  cbWebpack.forEach((cb) => {
+    setInModule(src.config, (factory) => cb(factory, require(src.paths)));
+  });
+}
+
+export const cra = {
+  start() {
+    applyConfig();
+    require(src.start);
+  },
+  build() {
+    applyConfig();
+    require(src.build);
+  },
+
+  webpack(cb: (factory: FactoryConfig, paths: Paths) => FactoryConfig) {
+    cbWebpack.push(cb);
+    return cra;
+  },
+
+  paths(cb: PartialPaths | ((paths: Paths) => Paths)) {
+    cbPaths.push(cb);
     return cra;
   },
 };
@@ -64,6 +83,8 @@ function setInModule<T = any>(key: string, cb: (val: T) => T) {
 /**
  * Types
  */
+type ArgPaths = PartialPaths | ((paths: Paths) => Paths);
+
 export type Env = Configuration["mode"];
 
 type ArgConfig = (factory: FactoryConfig, paths: Paths) => FactoryConfig;
@@ -93,4 +114,5 @@ export interface Paths {
   appTypeDeclarations: string;
   ownTypeDeclarations: string;
   moduleFileExtensions: string[];
+  swSrc: string;
 }
