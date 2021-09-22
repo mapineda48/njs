@@ -6,7 +6,7 @@ import { isInApp } from "./error";
 import { getCraConfig } from "./project";
 import { cra } from "./cra";
 import { resolveRoot } from "./paths";
-import { removeModuleScopePlugin, enabledTsPaths } from "./plugins";
+import { removeModuleScopePlugin, enabledTsPaths } from "./util";
 
 export function main() {
   cli.parse(function run(path, opt) {

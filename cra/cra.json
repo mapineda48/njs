@@ -9,7 +9,7 @@
       "entry": "src/foo.tsx",
       "url": "./",
       "output": "build/foo",
-      "template": "public/foo.html"
+      "template": "src/foo.html"
     },
     "bar": {
       "entry": "src/bar.tsx",

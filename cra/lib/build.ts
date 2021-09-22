@@ -9,7 +9,7 @@ import { resolveRoot, resolveApp } from "./paths";
 import type { CliOptions } from "./cli";
 import type { Entry, Plugin } from "webpack";
 
-function prepareApps() {
+function prepareApps(publicPath = "") {
   /**
    * if index js is not found, the script compilation will finish,
    * set this index, it will not be included in the package but it will
@@ -62,7 +62,7 @@ function prepareApps() {
         output: {
           ...config.output,
           path: paths.appBuild,
-          publicPath: "",
+          publicPath,
         },
         plugins: [...htmls, ...plugins],
       };
@@ -163,7 +163,7 @@ function prepareApp(app: string, opt: CliOptions) {
 
 export function build(app: string, opt: CliOptions) {
   if (opt.allApps) {
-    prepareApps();
+    prepareApps(opt.url);
   } else {
     prepareApp(app, opt);
   }
