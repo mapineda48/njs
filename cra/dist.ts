@@ -10,7 +10,7 @@ import {
   dependencies,
   description,
   engines,
-} from "../package.json";
+} from "./package.json";
 
 const homepage = "https://github.com/mapineda48/njs/tree/master/cra#readme";
 

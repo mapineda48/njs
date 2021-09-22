@@ -52,8 +52,8 @@
     "start": "ts-node bin/index.ts",
     "start:dist": "node dist/bin --start",
     "build:bin": "tsc",
-    "build": "rm -rf dist && yarn build:bin && yarn tasks",
-    "tasks": "ts-node tasks/index.ts",
+    "build": "rm -rf dist && yarn build:bin && yarn postbuild",
+    "postbuild": "ts-node dist.ts",
     "release": "yarn release-mapineda48",
     "version": "rm -rf dist && yarn build"
   },
