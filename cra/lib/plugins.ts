@@ -20,7 +20,7 @@ export function removeModuleScopePlugin() {
       }
 
       if (fs.existsSync(appTsConfig)) {
-        if (config.module?.rules) {
+        if (config.module?.rules[1]?.oneOf?.push) {
           // Process any TS outside of the app with ts-loader.
           (config.module.rules[1] as any)?.oneOf.push({
             test: /\.ts$/,
