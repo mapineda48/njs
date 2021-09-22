@@ -5,8 +5,8 @@ import { build } from "./build";
 import { isInApp } from "./error";
 import { getCraConfig } from "./project";
 import { cra } from "./cra";
-import { setRoot, resolveRoot } from "./paths";
-import { removeModuleScopePlugin } from "./plugins";
+import { resolveRoot } from "./paths";
+import { removeModuleScopePlugin, enabledTsPaths } from "./plugins";
 
 export function main() {
   cli.parse(function run(path, opt) {
@@ -14,19 +14,29 @@ export function main() {
       const craJson = getCraConfig();
 
       if (craJson.root) {
-        cra.paths(setRoot(craJson.root));
+        cra.root(craJson.root);
       }
 
       if (craJson?.ModuleScopePlugin === "off") {
         removeModuleScopePlugin();
+        enabledTsPaths();
       }
 
       if (opt.template) {
         cra.paths({ appHtml: resolveRoot(opt.template) });
       }
 
-      if (!opt.build) return start(path);
-      build(path, opt);
+      if (opt.worker) {
+        cra.paths({ swSrc: resolveRoot(opt.worker) });
+      }
+
+      if (opt.build) {
+        build(path, opt);
+      } else if (opt.test) {
+        console.log("tests still not implement");
+      } else {
+        start(path);
+      }
     } catch (err: any) {
       if (isInApp(err)) {
         console.error(err.message);

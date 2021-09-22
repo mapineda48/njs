@@ -1,3 +1,4 @@
+import { resolveRoot } from "./paths";
 import type { Configuration } from "webpack";
 
 /**
@@ -8,28 +9,27 @@ export const src = {
   paths: require.resolve("react-scripts/config/paths"),
   start: require.resolve("react-scripts/scripts/start"),
   build: require.resolve("react-scripts/scripts/build"),
+  test: require.resolve("react-scripts/scripts/test"),
   config: require.resolve("react-scripts/config/webpack.config"),
+  modules: require.resolve("react-scripts/config/modules"),
+  verifyTypeScriptSetup: require.resolve(
+    "react-scripts/scripts/utils/verifyTypeScriptSetup"
+  ),
 };
 
 loadEnv();
 
-const cbPaths: ArgPaths[] = [];
+const cbPaths: ((paths: Paths) => Paths)[] = [];
 const cbWebpack: ArgConfig[] = [];
 
 /**
- * If you are wondering why I apply changes this way, 
- * during testing keep in mind that all changes need to 
+ * If you are wondering why I apply changes this way,
+ * during testing keep in mind that all changes need to
  * be applied to paths first, as webpack.config depends on it.
  */
 function applyConfig() {
   cbPaths.forEach((cb) => {
-    if (typeof cb === "function") {
-      setInModule(src.paths, cb);
-    } else {
-      setInModule(src.paths, (paths) => {
-        return { ...paths, ...cb };
-      });
-    }
+    setInModule(src.paths, cb);
   });
 
   cbWebpack.forEach((cb) => {
@@ -46,17 +46,69 @@ export const cra = {
     applyConfig();
     require(src.build);
   },
+  test() {
+    applyConfig();
+    require(src.test);
+  },
 
   webpack(cb: (factory: FactoryConfig, paths: Paths) => FactoryConfig) {
     cbWebpack.push(cb);
     return cra;
   },
 
-  paths(cb: PartialPaths | ((paths: Paths) => Paths)) {
-    cbPaths.push(cb);
-    return cra;
+  modules() {
+    require(src.modules);
   },
+
+  paths: modPaths,
+  verifyTypeScriptSetup,
+  root: setRoot,
 };
+
+function setRoot(root: string) {
+  const resolve = (...args: string[]) => resolveRoot(root, ...args);
+
+  setInModule<Paths>(src.paths, (paths) => {
+    return {
+      ...paths,
+      appPath: resolve(),
+      appBuild: resolve("build"),
+      appIndexJs: resolve("src/index.tsx"),
+      appPublic: resolve("public"),
+      appHtml: resolve("public/index.html"),
+      appSrc: resolve("src"),
+      appTsConfig: resolve("tsconfig.json"),
+      appJsConfig: resolve("jsconfig.json"),
+      appTypeDeclarations: resolve("src/react-app-env.d.ts"),
+      testsSetup: resolve("src/setupTests.ts"),
+      proxySetup: resolve("src/setupProxy.js"),
+      swSrc: resolve("src/service-worker.js"),
+    };
+  });
+}
+
+function verifyTypeScriptSetup(cb: (cb: () => void) => () => void): void;
+function verifyTypeScriptSetup(): () => void;
+function verifyTypeScriptSetup(cb?: any) {
+  if (!cb) return require(src.verifyTypeScriptSetup);
+
+  setInModule(src.verifyTypeScriptSetup, cb);
+}
+
+function modPaths(): Paths;
+function modPaths(cb: (paths: Paths) => Paths): void;
+function modPaths(paths: PartialPaths): void;
+function modPaths(val?: any) {
+  if (!val) return require(src.paths);
+
+  if (typeof val === "function") {
+    cbPaths.push(val);
+  } else {
+    cbPaths.push((paths) => {
+      return { ...paths, ...val };
+    });
+  }
+}
 
 /**
  * Important!!!
