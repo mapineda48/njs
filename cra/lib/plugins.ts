@@ -9,7 +9,7 @@ const ModuleScopePlugin = require("react-dev-utils/ModuleScopePlugin");
  * https://github.com/facebook/create-react-app/blob/b45ae3c9caf10174d53ced1cad01a272d164f8de/packages/react-scripts/config/webpack.config.js#L314
  */
 export function removeModuleScopePlugin() {
-  cra.webpack((factory) => {
+  cra.webpack((factory, { appTsConfig }) => {
     return (env) => {
       const config = factory(env);
 
@@ -17,6 +17,21 @@ export function removeModuleScopePlugin() {
         config.resolve.plugins = config.resolve.plugins.filter(
           (plugin) => !(plugin instanceof ModuleScopePlugin)
         );
+      }
+
+      if (fs.existsSync(appTsConfig)) {
+        if (config.module?.rules) {
+          // Process any TS outside of the app with ts-loader.
+          (config.module.rules[1] as any)?.oneOf.push({
+            test: /\.ts$/,
+            loader: require.resolve("ts-loader"),
+            exclude: /node_modules/,
+            options: {
+              transpileOnly: true,
+              configFile: appTsConfig,
+            },
+          });
+        }
       }
 
       return config;
