@@ -5,5 +5,5 @@
 ## Usage
 
 ```
-const util = require('mapineda48-util');
+const util = require('mp48-util');
 ```
