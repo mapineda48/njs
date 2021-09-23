@@ -1,4 +1,4 @@
-import { prepare, getTsLibVersion } from "../lib";
+import dist from "./lib";
 import {
   name,
   version,
@@ -12,9 +12,11 @@ import {
   publishConfig,
   repository,
   dependencies,
-} from "../package.json";
+} from "./package.json";
 
-prepare()
+const dep = dist.dep(dependencies, true);
+
+dist()
   .package({
     name,
     version,
@@ -27,11 +29,7 @@ prepare()
     bugs,
     publishConfig,
     repository,
-    dependencies: {
-      tslib: getTsLibVersion(),
-      "fs-extra": dependencies["fs-extra"],
-      glob: dependencies.glob,
-    },
+    dependencies: dep(["tslib", "fs-extra", "glob"]),
   })
   .copy(["README.md", "CHANGELOG.md", "LICENSE"])
   .complete()

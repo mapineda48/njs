@@ -5,7 +5,7 @@ import fs from "fs-extra";
 import glob from "glob";
 import { execSync } from "child_process";
 
-const [bin, file, dir] = process.argv;
+const [, , dir] = process.argv;
 
 if (!dir) {
   console.error("missing directory");

@@ -1,6 +1,6 @@
 {
-  "name": "mapineda48-util",
-  "version": "0.0.10",
+  "name": "mp48-util",
+  "version": "0.0.0",
   "description": "Common utilities",
   "author": "Miguel Pineda <a.pinedavegamiguel@gmail.com>",
   "homepage": "https://github.com/mapineda48/njs/tree/master/util#readme",
@@ -8,7 +8,7 @@
   "main": "lib",
   "bin": {
     "pack-dev": "bin/index.js",
-    "release-mapineda48": "bin/release.js"
+    "mp48-release": "bin/release.js"
   },
   "engines": {
     "node": ">=14"
@@ -24,8 +24,8 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
     "build:lib": "tsc",
-    "tasks": "ts-node tasks/index.ts",
-    "build": "rm -rf dist && yarn build:lib && yarn tasks",
+    "postbuild": "ts-node postbuild.ts",
+    "build": "rm -rf dist && yarn build:lib",
     "pack-dev": "ts-node bin/index.ts",
     "version": "yarn build",
     "release": "ts-node bin/release.ts"

@@ -6,6 +6,8 @@ import path from "path";
 import fs from "fs-extra";
 import { execSync } from "child_process";
 
+const [, , mod = "dist"] = process.argv;
+
 /**
  * Files
  */
@@ -18,8 +20,7 @@ const YARNRC = path.resolve(".yarnrc");
  */
 const GIT_STATUS = "git status . -s";
 
-const RELEASE =
-  "yarn version && cd dist && npm publish && git push && git push --tags";
+const RELEASE = `yarn version && cd ${mod} && npm publish && git push && git push --tags`;
 
 /**
  * Constants
