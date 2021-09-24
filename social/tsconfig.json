@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "ES2019",
+    "lib": ["esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -9,13 +9,14 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "module": "CommonJS",
+    "outDir": "./dist/lib",
+    "noEmit": false,
+    "declaration": false,
+    "importHelpers": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "**/*.dev.ts", "**/*.dev.tsx"]
+  "include": ["lib"],
+  "exclude": ["node_modules", "frontend", "**/*.dev.ts"]
 }

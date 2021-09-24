@@ -1,7 +1,7 @@
 import io from "socket.io-client";
-import { event, NAMESPACE, TOKEN } from "./type";
+import { event, NAMESPACE, TOKEN } from "@socket";
 
-import type { Message } from "./type";
+import type { Message } from "@socket";
 
 export const prod = {
   io,

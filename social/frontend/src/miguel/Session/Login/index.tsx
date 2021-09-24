@@ -1,9 +1,9 @@
 import React from "react";
-import useAction from "mapineda48-react/useAction";
+import { initAction } from "mp48-react/useAction";
 import { client as http } from "../../../http";
 import clsx from "clsx";
 
-const action = {
+const useState = initAction({
   message(state: State, message: string): State {
     return { ...state, message, loading: false };
   },
@@ -19,12 +19,10 @@ const action = {
   reset(state: State): State {
     return create();
   },
-};
+});
 
 export default function LogIn(props: Props) {
-  const [state, setState] = React.useState(create);
-
-  const login = useAction(setState, action);
+  const [state, , login] = useState(create);
 
   const missingCredetials = !state.user || !state.password;
 

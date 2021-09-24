@@ -34,10 +34,10 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mapineda48-cra": "0.0.8",
-    "mapineda48-react": "0.0.9",
-    "mapineda48-util": "^0.0.10",
     "morgan": "^1.10.0",
+    "mp48-cra": "^0.0.2",
+    "mp48-react": "^0.0.1",
+    "mp48-util": "^0.0.3",
     "nodemon": "^2.0.7",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
@@ -50,20 +50,22 @@
     "socket.io-client": "^4.1.2",
     "ts-node": "^10.0.0",
     "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "@types/debug": "^4.1.5",
+    "debug": "^4.3.1",
+    "kill-port": "^1.6.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "serve": "nodemon --delay 2",
-    "check:types": "tsc && tsc -P lib/tsconfig.json",
-    "build:view": "mp -B -A",
-    "build:browser": "tsc -P src/browser/tsconfig.json",
-    "build:lib": "tsc -P lib/tsconfig.json",
-    "task": "ts-node -P tasks/tsconfig.json tasks/index.ts",
-    "build": "rm -rf build dist && yarn build:view && yarn build:browser && yarn build:lib && yarn task",
-    "release": "yarn release-mapineda48",
+    "check:types": "yarn types && yarn frontend:types",
+    "types": "tsc --noEmit",
+    "frontend:types": "tsc -P frontend/tsconfig.json --noEmit",
+    "frontend:build": "rm -rf frontend/build && mp -B -A",
+    "frontend:browser": "tsc -P frontend/src/browser/tsconfig.json",
+    "build:lib": "tsc",
+    "postbuild": "ts-node postbuild.ts",
+    "build": "rm -rf dist && yarn frontend:build && yarn frontend:browser && yarn build:lib",
+    "release": "yarn mp48-release",
     "version": "yarn build"
   },
   "eslintConfig": {
@@ -86,12 +88,7 @@
   },
   "nodemonConfig": {
     "execMap": {
-      "ts": "ts-node -r dotenv/config -P lib/tsconfig.json"
+      "ts": "ts-node -r dotenv/config"
     }
-  },
-  "devDependencies": {
-    "@types/debug": "^4.1.5",
-    "debug": "^4.3.1",
-    "kill-port": "^1.6.1"
   }
 }

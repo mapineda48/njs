@@ -5,7 +5,7 @@ import useState from "./state";
 import Iframe from "./Iframe";
 import Chat from "./Chat";
 import { createGuest } from "../../socket/guest";
-import { MIGUEL } from "../../socket/type";
+import { MIGUEL } from "@socket";
 import { root } from "../../common";
 
 const guest = createGuest();

@@ -1,7 +1,7 @@
-import { NAMESPACE, GUEST, TOKEN, event, MIGUEL } from "../src/socket/type";
+import { NAMESPACE, GUEST, TOKEN, event, MIGUEL } from "./type";
 
 import type { Namespace, Server as ServerIO, Socket } from "socket.io";
-import type { Message } from "../src/socket/type";
+import type { Message } from "./type";
 
 /**
  * We store the IDs of the clients so that when Miguel

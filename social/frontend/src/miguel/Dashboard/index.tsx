@@ -1,13 +1,13 @@
 import React from "react";
 import ShowMessage from "../../components/Message";
-import useAction from "mapineda48-react/useAction";
+import useAction from "mp48-react/useAction";
 import { useSession } from "../Session";
 import { IMessage } from "../../components/Message";
-import { MIGUEL } from "../../socket/type";
+import { MIGUEL } from "@socket";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 
-import type { Message } from "../../socket/type";
+import type { Message } from "@socket";
 
 const action = {
   notify(state: State, notification: string): State {

@@ -1,9 +1,9 @@
-import * as child from "child_process";
-import * as path from "path";
-import * as express from "express";
-import * as logger from "morgan";
+import child from "child_process";
+import path from "path";
+import express from "express";
+import logger from "morgan";
 import { Server as ServerIO } from "socket.io";
-import { createApi as social } from "../lib";
+import social from "../lib";
 
 const port = 3000;
 
@@ -12,8 +12,6 @@ const port = 3000;
  * https://www.npmjs.com/package/kill-port
  */
 child.execSync(`kill-port ${port}`);
-
-const index = path.resolve("bin/index.html");
 
 const build = path.resolve("build");
 
@@ -31,6 +29,6 @@ app.use(logger("dev"));
 
 app.use(express.static(build));
 
-app.use(social("foo", "12345", io));
+app.use("/social", social("foo", "12345", io));
 
-app.get("/", (req, res) => res.sendFile(index));
+app.get("/", (req, res) => res.redirect("/social/guest"));

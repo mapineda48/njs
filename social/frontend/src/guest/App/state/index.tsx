@@ -1,13 +1,13 @@
 import React from "react";
-import { useAction, Action } from "mapineda48-react/useAction";
-import { createStorage } from "mapineda48-react/storage";
-import { MIGUEL, FORCE_OPEN } from "../../../socket/type";
+import { initAction, Action } from "mp48-react/useAction";
+import { createStorage } from "mp48-react/storage";
+import { MIGUEL, FORCE_OPEN } from "@socket";
 
 import type { IMessage as Message } from "../../../components/Message";
 
 const cache = createStorage<State>("/mapineda48/social/guest/chat");
 
-const reducer = {
+const useState = initAction({
   addMessage(state: State, message: Message): State {
     if (message.data === FORCE_OPEN) {
       return { ...state, open: true, unread: 0 };
@@ -25,10 +25,10 @@ const reducer = {
   toggle(state: State): State {
     return { ...state, unread: 0, open: !state.open };
   },
-};
+});
 
-export default function useState() {
-  const [state, setState] = React.useState((): State => {
+export default function useGuest() {
+  const [state, , social] = useState((): State => {
     return {
       messages: [],
       unread: 0,
@@ -38,17 +38,13 @@ export default function useState() {
     };
   });
 
-  const social = useAction(setState, reducer);
-
   return [state, social] as const;
 }
 
 /**
  * Types
  */
-export type Chat = Action<State, Reducer>;
-
-export type Reducer = typeof reducer;
+export type Chat = ReturnType<typeof useState>[2];
 
 export interface State {
   open: boolean;

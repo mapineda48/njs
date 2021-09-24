@@ -19,7 +19,7 @@ Before installing, make sure to authenticate with GitHub Package Registry or usi
 ```js
 const http = require("http");
 const express = require("express");
-const social = require("@mapineda48/social").default;
+const social = require("@mapineda48/social");
 const { Server } = require("socket.io");
 
 const app = express();
@@ -35,7 +35,7 @@ app.use(express.json());
 /**
  * Demo
  */
-app.use(social("foo", "12345", io));
+app.use("/my/path", social("foo", "12345", io));
 ```
 
 ## License

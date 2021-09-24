@@ -1,12 +1,12 @@
 {
+  "root": "frontend",
+  "ModuleScopePlugin": "off",
   "app": {
     "guest": {
-      "entry": "src/guest/index.tsx",
-      "output": "build/social/guest"
+      "entry": "src/guest/index.tsx"
     },
     "miguel": {
-      "entry": "src/miguel/index.tsx",
-      "output": "build/social/miguel"
+      "entry": "src/miguel/index.tsx"
     }
   },
   "main": "guest"

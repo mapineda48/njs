@@ -1,7 +1,7 @@
 import axios from "axios";
-import { api } from "./type";
+import { api } from "@api";
 
-import type { ResLogIn } from "./type";
+import type { ResLogIn } from "@api";
 
 export const prod = {
   axios,

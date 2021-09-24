@@ -1,8 +1,8 @@
 import io from "socket.io-client";
-import { createStorage } from "mapineda48-react/storage";
-import { event, NAMESPACE, GUEST } from "./type";
+import { createStorage } from "mp48-react/storage";
+import { event, NAMESPACE, GUEST } from "@socket";
 
-import type { Message } from "./type";
+import type { Message } from "@socket";
 
 export const opt = {
   io,
