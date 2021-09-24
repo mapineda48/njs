@@ -1,9 +1,14 @@
-const id = Symbol();
-
-export class ErrorInApp extends Error {
-  public [id] = true;
+class Friendly {
+  constructor(public message: string) {}
 }
 
-export function isInApp(error: any): error is ErrorInApp {
-  return Boolean(error[id]);
+export function parse(error: any) {
+  if (!(error instanceof Friendly)) {
+    console.error(error);
+    process.exit(1);
+  }
+
+  console.log(error.message);
 }
+
+export default Friendly;

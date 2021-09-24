@@ -2,8 +2,8 @@ import path from "path";
 import { getCraConfig } from "./project";
 
 export const root = {
-  package: resolveRoot("package.json"),
-  craJson: resolveRoot("cra.json"),
+  package: resolve("package.json"),
+  craJson: resolve("cra.json"),
 };
 
 export const project = {
@@ -15,14 +15,14 @@ export function resolveMod(...args: string[]) {
   return path.join(__dirname, "..", ...args);
 }
 
-export function resolveRoot(...args: string[]) {
+export function resolve(...args: string[]) {
   return path.resolve(...args);
 }
 
 export function resolveApp(...paths: string[]) {
   const craJson = getCraConfig();
 
-  if (!craJson.root) return resolveRoot(...paths);
+  if (!craJson.root) return resolve(...paths);
 
   return path.resolve(craJson.root, ...paths);
 }

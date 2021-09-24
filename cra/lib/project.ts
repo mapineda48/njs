@@ -1,8 +1,6 @@
 import fs from "fs-extra";
 import { root, project } from "./paths";
 
-import type { Options } from "./cli";
-
 let pckg: any = null;
 
 let craJson: CRAJSON | null = null;
@@ -42,12 +40,13 @@ export function isNextProject() {
 export interface CRAJSON {
   main?: string;
   app?: {
-    [K: string]: Partial<AppOpt>;
+    [K: string]: Partial<Options>;
   };
   root?: string;
   ModuleScopePlugin?: "off";
 }
 
-export interface AppOpt extends Options {
+export interface Options {
   entry: string;
+  template: string;
 }

@@ -4,30 +4,27 @@ Minimal overwrite react-scripts config without eject.
 
 ## Before Installation
 
-Before use it you should do bootstrapping with [Create React App](https://github.com/facebook/create-react-app).
+Before bootstrapping with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Installation
 
-`$ yarn add mapineda48-cra`
+`$ yarn add mp48-cra`
 
 ## Usage
 
 ### Configurations
 
-set in `react.json` on root project.
+set in `cra.json` on root project.
 
 ```json
 {
   "app": {
     "foo": {
-      "entry": "my/custom/path/entry.js",
-      "output": "my/custom/path/build.js",
-      "url": "my/custom/url"
+      "entry": "my/custom/path/entry.js"
     },
     "bar": {
       "entry": "my/custom/path/entry.js",
-      "output": "my/custom/path/build.js",
-      "url": "my/custom/url"
+      "template": "public/my/custom/path/index.html"
     }
   },
   "main": "foo"

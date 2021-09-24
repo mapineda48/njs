@@ -7488,15 +7488,6 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapineda48-util@^0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/mapineda48-util/-/mapineda48-util-0.0.10.tgz#50d2d64423669c4c1ef691099d7926b119a054b7"
-  integrity sha512-j6WP9Mq3riGZ7Ghvzv7PH6dCCSanOfjgeOBQqZX6MgZfRWOQtFT6K2xvBLKcR3UL1m3mp6w77zr2AeZG3E35cQ==
-  dependencies:
-    fs-extra "^9.1.0"
-    glob "^7.1.6"
-    tslib "^1.14.1"
-
 md5.js@^1.3.4:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/md5.js/-/md5.js-1.3.5.tgz#b5d07b8e3216e3e27cd728d72f70d1e6a342005f"
@@ -7749,6 +7740,15 @@ move-concurrently@^1.0.1:
     mkdirp "^0.5.1"
     rimraf "^2.5.4"
     run-queue "^1.0.3"
+
+mp48-util@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/mp48-util/-/mp48-util-0.0.3.tgz#4631c3cb39f6dae907cf496cf0a4778e141dd9e3"
+  integrity sha512-CZ7myn9zWAv294FnqiSraZHKgKeVi5MW3U3UDGWHwTdMNnWqIeseLF7A7/pJmNMkYs/K9bQGSZkbT+d3uj46Cw==
+  dependencies:
+    fs-extra "^9.1.0"
+    glob "^7.1.6"
+    tslib "^1.14.1"
 
 ms@2.0.0:
   version "2.0.0"

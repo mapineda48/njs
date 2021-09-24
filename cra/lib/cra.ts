@@ -1,4 +1,5 @@
-import { resolveRoot } from "./paths";
+import { setInCache } from "mp48-util/lib/node";
+import { resolve } from "./paths";
 import type { Configuration } from "webpack";
 
 /**
@@ -29,11 +30,11 @@ const cbWebpack: ArgConfig[] = [];
  */
 function applyConfig() {
   cbPaths.forEach((cb) => {
-    setInModule(src.paths, cb);
+    setInCache(src.paths, cb);
   });
 
   cbWebpack.forEach((cb) => {
-    setInModule(src.config, (factory) => cb(factory, require(src.paths)));
+    setInCache(src.config, (factory) => cb(factory, require(src.paths)));
   });
 }
 
@@ -66,23 +67,23 @@ export const cra = {
 };
 
 function setRoot(root: string) {
-  const resolve = (...args: string[]) => resolveRoot(root, ...args);
+  const set = (...args: string[]) => resolve(root, ...args);
 
-  setInModule<Paths>(src.paths, (paths) => {
+  setInCache<Paths>(src.paths, (paths) => {
     return {
       ...paths,
-      appPath: resolve(),
-      appBuild: resolve("build"),
-      appIndexJs: resolve("src/index.tsx"),
-      appPublic: resolve("public"),
-      appHtml: resolve("public/index.html"),
-      appSrc: resolve("src"),
-      appTsConfig: resolve("tsconfig.json"),
-      appJsConfig: resolve("jsconfig.json"),
-      appTypeDeclarations: resolve("src/react-app-env.d.ts"),
-      testsSetup: resolve("src/setupTests.ts"),
-      proxySetup: resolve("src/setupProxy.js"),
-      swSrc: resolve("src/service-worker.js"),
+      appPath: set(),
+      appBuild: set("build"),
+      appIndexJs: set("src/index.tsx"),
+      appPublic: set("public"),
+      appHtml: set("public/index.html"),
+      appSrc: set("src"),
+      appTsConfig: set("tsconfig.json"),
+      appJsConfig: set("jsconfig.json"),
+      appTypeDeclarations: set("src/react-app-env.d.ts"),
+      testsSetup: set("src/setupTests.ts"),
+      proxySetup: set("src/setupProxy.js"),
+      swSrc: set("src/service-worker.js"),
     };
   });
 }
@@ -92,7 +93,7 @@ function verifyTypeScriptSetup(): () => void;
 function verifyTypeScriptSetup(cb?: any) {
   if (!cb) return require(src.verifyTypeScriptSetup);
 
-  setInModule(src.verifyTypeScriptSetup, cb);
+  setInCache(src.verifyTypeScriptSetup, cb);
 }
 
 function modPaths(): Paths;
@@ -119,24 +120,9 @@ function loadEnv() {
   require(src.env);
 }
 
-function setInModule<T = any>(key: string, cb: (val: T) => T) {
-  const _export: any = require(key);
-
-  const nodeModule = require.cache[key];
-
-  delete require.cache[key];
-
-  require.cache[key] = {
-    ...nodeModule,
-    exports: cb(_export),
-  };
-}
-
 /**
  * Types
  */
-type ArgPaths = PartialPaths | ((paths: Paths) => Paths);
-
 export type Env = Configuration["mode"];
 
 type ArgConfig = (factory: FactoryConfig, paths: Paths) => FactoryConfig;

@@ -1,20 +1,14 @@
 {
   "app": {
     "main": {
-      "entry": "src/index.tsx",
-      "url": "./",
-      "output": "build"
+      "entry": "src/index.tsx"
     },
     "foo": {
       "entry": "src/foo.tsx",
-      "url": "./",
-      "output": "build/foo",
-      "template": "src/foo.html"
+      "template": "public/some/path/index.html"
     },
     "bar": {
-      "entry": "src/bar.tsx",
-      "url": "./",
-      "output": "build/bar"
+      "entry": "src/bar.tsx"
     }
   },
   "root": "app",

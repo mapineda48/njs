@@ -1,10 +1,10 @@
 {
-  "name": "mapineda48-cra",
-  "version": "0.0.13",
+  "name": "mp48-cra",
+  "version": "0.0.0",
   "private": true,
   "author": "Miguel Angel Pineda Vega",
   "license": "MIT",
-  "description": "Minimal overwrite react-scripts config without eject.",
+  "description": "Minimal overwrite react-scripts",
   "bugs": {
     "url": "https://github.com/mapineda48/njs/issues"
   },
@@ -36,7 +36,7 @@
     "commander": "^7.0.0",
     "fs-extra": "^9.0.1",
     "html-webpack-plugin": "4.5.0",
-    "mapineda48-util": "^0.0.10",
+    "mp48-util": "0.0.3",
     "nodemon": "^2.0.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -50,11 +50,11 @@
   },
   "scripts": {
     "start": "ts-node bin/index.ts",
-    "start:dist": "node dist/bin --start",
+    "start:dist": "node dist/bin",
     "build:bin": "tsc",
-    "build": "rm -rf dist && yarn build:bin && yarn postbuild",
-    "postbuild": "ts-node dist.ts",
-    "release": "yarn release-mapineda48",
+    "build": "rm -rf dist && yarn build:bin",
+    "postbuild": "ts-node postbuild.ts",
+    "release": "yarn mp48-release",
     "version": "rm -rf dist && yarn build"
   },
   "eslintConfig": {

@@ -1,4 +1,4 @@
-import { prepare } from "mapineda48-util";
+import dist from "mp48-util";
 import {
   name,
   version,
@@ -14,12 +14,10 @@ import {
 
 const homepage = "https://github.com/mapineda48/njs/tree/master/cra#readme";
 
-const dep = prepare.dep.withTs(dependencies);
+const dep = dist.dep({ ...dependencies, "react-scripts": ">=4" }, true);
 
-dep.set("react-scripts", (val) => ">=4");
-
-prepare()
-  .copy(["README.md", "CHANGELOG.md", "LICENSE", "app/public"])
+dist()
+  .copy(["README.md", "CHANGELOG.md", "LICENSE", "app/public/index.html"])
   .package({
     name,
     version,
@@ -34,8 +32,8 @@ prepare()
       mp: "./bin/index.js",
     },
     engines: { node: engines.node },
-    dependencies: dep.select(["tslib", "commander", "ts-loader"]),
-    peerDependencies: dep.select(["react-scripts"]),
+    dependencies: dep(["tslib", "commander", "ts-loader"]),
+    peerDependencies: dep(["react-scripts"]),
   })
   .complete()
   .catch((err) => console.log(err));
