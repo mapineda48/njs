@@ -32,7 +32,7 @@ dist()
       mp: "./bin/index.js",
     },
     engines: { node: engines.node },
-    dependencies: dep(["tslib", "commander", "ts-loader"]),
+    dependencies: dep(["tslib", "commander", "ts-loader", "mp48-util"]),
     peerDependencies: dep(["react-scripts"]),
   })
   .complete()
