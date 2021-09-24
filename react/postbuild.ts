@@ -1,4 +1,4 @@
-import { prepare } from "mapineda48-util";
+import dist from "mp48-util";
 import {
   name,
   version,
@@ -10,13 +10,13 @@ import {
   dependencies,
   description,
   engines,
-} from "../package.json";
+} from "./package.json";
 
 const homepage = "https://github.com/mapineda48/njs/tree/master/react#readme";
 
-const dep = prepare.dep.withTs(dependencies);
+const dep = dist.dep(dependencies, true);
 
-prepare()
+dist()
   .copy(["README.md", "CHANGELOG.md", "LICENSE"])
   .package({
     name,
@@ -35,8 +35,8 @@ prepare()
         require: "./cjs/*/index.js",
       },
     },
-    dependencies: dep.select(["tslib"]),
-    peerDependencies: dep.select(["react", "react-dom", "@popperjs/core"]),
+    dependencies: dep(["tslib"]),
+    peerDependencies: dep(["react", "react-dom", "@popperjs/core"]),
   })
   .complete()
   .catch((err) => console.log(err));

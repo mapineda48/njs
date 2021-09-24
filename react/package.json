@@ -1,6 +1,6 @@
 {
-  "name": "mapineda48-react",
-  "version": "0.0.10",
+  "name": "mp48-react",
+  "version": "0.0.0",
   "private": true,
   "author": "Miguel Angel Pineda Vega",
   "license": "MIT",
@@ -29,8 +29,8 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
-    "mapineda48-cra": "0.0.4",
-    "mapineda48-util": "^0.0.10",
+    "mp48-cra": "0.0.2",
+    "mp48-util": "^0.0.3",
     "nodemon": "^2.0.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -41,9 +41,9 @@
   },
   "scripts": {
     "build:lib": "tsc -P tsconfig.cjs.json && tsc -P tsconfig.mjs.json",
-    "build": "rm -rf dist && yarn build:lib && yarn tasks",
-    "tasks": "ts-node -P tasks/tsconfig.json tasks/index.ts",
-    "release": "yarn release-mapineda48",
+    "build": "rm -rf dist && yarn build:lib",
+    "postbuild": "ts-node -P tsconfig.node.json postbuild.ts",
+    "release": "yarn mp48-release",
     "version": "yarn build"
   },
   "eslintConfig": {
@@ -68,13 +68,5 @@
     "execMap": {
       "ts": "ts-node -P tsconfig.node.json"
     }
-  },
-  "react-scripts": {
-    "main": {
-      "entry": "src/index.tsx",
-      "url": "./",
-      "output": "build"
-    },
-    "default": "main"
   }
 }

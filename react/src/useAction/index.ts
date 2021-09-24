@@ -1,57 +1,79 @@
-import React, { useMemo } from "react";
+import React from "react";
 
 const isDev = process.env.NODE_ENV === "development";
+
+/**
+ * initialize react hook useState with reducer actions
+ * @param reducer reducer
+ */
+export function initAction<T>(
+  reducer: T
+): T extends { [key: string]: (state: infer S, ...args: any[]) => any }
+  ? T extends { [key: string]: (state: S, ...args: any) => S }
+    ? (initState: S | (() => S)) => [S, SetState<S>, Action<S, T>]
+    : never
+  : never;
+export function initAction(red: any): any {
+  return function useStateAction(val: any) {
+    const [state, setState] = React.useState(val);
+
+    const action = React.useMemo(() => createAction(setState, red), [setState]);
+
+    return [state, setState, action];
+  };
+}
 
 export function isFunc(val: any): val is (...args: any[]) => any {
   return typeof val === "function";
 }
 
-export function createSync<S, R>(
+export function createAction<S, R>(
   setState: SetState<S>,
   reducer: R
 ): Action<S, R>;
-export function createSync(setState: any, red: any) {
-  const res: any = { setState };
-
-  Object.entries(red).forEach(([key, val]) => {
-    if (!isFunc(val)) return;
-
-    res[key] = (...args: any[]) => {
-      setState((state: any) => val.call(null, state, ...args));
-      return res;
-    };
-  });
-
-  return res;
+export function createAction(setState: any, red: any) {
+  return Object.fromEntries(
+    Object.entries(red)
+      // Only functions
+      .filter(([, val]) => isFunc(val))
+      // use setState with actions
+      .map(([key, val]: any) => {
+        const action = function (this: any, ...args: any[]) {
+          setState((state: any) => val.call(null, state, ...args));
+          return this;
+        };
+        return [key, action];
+      })
+  );
 }
 
 export function createThunk<T, R>(setState: T, reducer: R): ThunkAction<T, R>;
 export function createThunk(setState: any, red: any) {
-  const res: any = {};
+  return Object.fromEntries(
+    Object.entries(red)
+      .filter(([, val]) => isFunc(val))
+      .map(([key, val]: any) => {
+        const action = (...args: any[]) => {
+          const thunk = val(...args);
 
-  Object.entries(red).forEach(([key, red]) => {
-    if (!isFunc(red)) return;
+          return new Promise((res, rej) => {
+            setState((state: any) => {
+              const prom = thunk(state);
 
-    res[key] = (...args: any[]) => {
-      const thunk = red(...args);
+              if (isDev) {
+                if (!prom.then) {
+                  rej(new Error("thunk must return a promise"));
+                }
+              }
+              prom.then(res).catch(rej);
+              return state;
+            });
+          });
+        };
 
-      return new Promise((res, rej) => {
-        setState((state: any) => {
-          const prom = thunk(state);
-
-          if (isDev) {
-            if (!prom.then) {
-              rej(new Error("thunk must return a promise"));
-            }
-          }
-          prom.then(res).catch(rej);
-          return state;
-        });
-      });
-    };
-  });
-
-  return res;
+        return [key, action];
+      })
+  );
 }
 
 export const useThunk: CreateThunk = (setState, reducer) => {
@@ -67,9 +89,9 @@ export const useThunk: CreateThunk = (setState, reducer) => {
  * its use is intended for small to medium applications, which is just a project to
  * test what you have learned about react.
  */
-export const useAction: CreateSync = (setState, reducer) => {
+export const useAction: createAction = (setState, reducer) => {
   return React.useMemo(
-    () => createSync(setState, reducer),
+    () => createAction(setState, reducer),
     [setState, reducer]
   );
 };
@@ -79,7 +101,7 @@ export default useAction;
 export function action<S>(setState: SetState<S>) {
   return {
     sync<R>(reducer: R) {
-      return createSync(setState, reducer);
+      return createAction(setState, reducer);
     },
     thunk<R>(reducer: R) {
       return createThunk(setState, reducer);
@@ -111,7 +133,7 @@ export type AsyncAction<T, R> = {
     : never;
 };
 
-export type CreateSync = typeof createSync;
+export type createAction = typeof createAction;
 
 export type Action<S, R> = {
   readonly [K in keyof R]: R[K] extends (state: S, ...args: infer A) => S
