@@ -5,12 +5,7 @@ import fs from "fs-extra";
 import glob from "glob";
 import { execSync } from "child_process";
 
-const [, , dir] = process.argv;
-
-if (!dir) {
-  console.error("missing directory");
-  process.exit(1);
-}
+const [, , dir = ""] = process.argv;
 
 const version = [0, 0, Date.now()].join(".");
 
