@@ -4,7 +4,7 @@ React component library.
 
 ## Installation
 
-`$ npm install mapineda48-react`
+`$ npm install mp48-react`
 
 ## License
 
