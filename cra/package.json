@@ -55,7 +55,7 @@
     "build": "rm -rf dist && yarn build:bin",
     "postbuild": "ts-node postbuild.ts",
     "release": "yarn mp48-release",
-    "version": "rm -rf dist && yarn build"
+    "version": "yarn build"
   },
   "eslintConfig": {
     "extends": [
