@@ -1,4 +1,4 @@
-import { prepare } from "mapineda48-util";
+import dist from "mp48-util";
 import {
   name,
   version,
@@ -9,15 +9,15 @@ import {
   repository,
   dependencies,
   publishConfig,
-} from "../package.json";
+} from "./package.json";
 
 const homepage =
   "https://github.com/mapineda48/njs/tree/master/personal#readme";
 
-const dep = prepare.dep.withTs(dependencies);
+const dep = dist.dep(dependencies, true);
 
-prepare()
-  .copy(["build", "README.md", "CHANGELOG.md", "LICENSE"])
+dist()
+  .copy(["frontend/build", "README.md", "CHANGELOG.md", "LICENSE"])
   .package({
     name,
     version,
@@ -28,9 +28,9 @@ prepare()
     main,
     homepage,
     publishConfig,
-    dependencies: dep.select(["tslib"]),
-    peerDependencies: dep.select(["express", "@types/express"]),
-    peerDependenciesMeta: dep.select.meta(["@types/express"]),
+    dependencies: dep(["tslib"]),
+    peerDependencies: dep(["express", "@types/express"]),
+    peerDependenciesMeta: dep.meta(["@types/express"]),
   })
   .complete()
   .catch((err) => console.log(err));

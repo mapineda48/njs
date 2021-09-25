@@ -1,6 +1,6 @@
 {
   "name": "@mapineda48/personal",
-  "version": "0.0.4",
+  "version": "0.0.1632519673931",
   "description": "Personal web page in expressjs route.",
   "keywords": [
     "expressjs",
@@ -22,17 +22,19 @@
     "directory": "personal"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "test": "react-scripts test",
-    "build:view": "react-scripts build",
+    "frontend": "mp",
+    "frontend:types": "tsc -P frontend/tsconfig.json --noEmit",
+    "frontend:build": "rm -rf frontend/build && mp -B -A -U /",
+    "frontend:model": "ts-node frontend/model.ts",
+    "frontend:render": "ts-node frontend/render.ts",
+    "frontend:dist": "yarn frontend:build && yarn frontend:model && yarn frontend:render",
+    "types": "tsc --noEmit",
+    "build:lib": "tsc",
     "check:types": "tsc && tsc -P lib/tsconfig.json --noEmit",
-    "build:lib": "tsc -P lib/tsconfig.json",
-    "tasks": "ts-node -P tasks/tsconfig.json tasks/index.ts",
-    "build:model": "ts-node -P tasks/tsconfig.json tasks/model.ts",
-    "render": "ts-node -P tasks/tsconfig.json tasks/render.ts",
-    "build": "rm -rf dist build && yarn build:view && yarn build:model && yarn render && yarn build:lib && yarn tasks",
+    "build": "rm -rf dist && yarn build:lib && yarn frontend:dist",
+    "postbuild": "ts-node postbuild.ts",
     "version": "yarn build",
-    "release": "yarn release-mapineda48"
+    "release": "yarn mp48-release"
   },
   "bugs": {
     "url": "https://github.com/mapineda48/njs/issues"
@@ -58,10 +60,10 @@
     "dotenv": "8.2.0",
     "express": "^4.17.1",
     "fs-extra": "^9.1.0",
-    "mapineda48-cra": "0.0.6",
-    "mapineda48-react": "^0.0.1",
-    "mapineda48-util": "^0.0.10",
     "morgan": "^1.10.0",
+    "mp48-cra": "^0.0.2",
+    "mp48-react": "^0.0.1",
+    "mp48-util": "^0.0.3",
     "nodemon": "^2.0.7",
     "normalize.css": "^8.0.1",
     "puppeteer": "^8.0.0",
@@ -97,7 +99,8 @@
   },
   "nodemonConfig": {
     "execMap": {
-      "ts": "ts-node -r dotenv/config -P lib/tsconfig.json"
+      "ts": "ts-node -r dotenv/config"
     }
-  }
+  },
+  "private": true
 }

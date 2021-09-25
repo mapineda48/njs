@@ -1,12 +1,17 @@
-import * as path from "path";
-import * as express from "express";
+import { createRouter } from "./route";
+import { pages } from "./pages";
 
-export const build = path.join(__dirname, "..", "build");
-
-export function createRouter() {
-  const router = express.Router();
-
-  router.use(express.static(build));
-
-  return router;
+function mod() {
+  return createRouter();
 }
+
+mod.pages = pages;
+
+export = mod;
+
+/**
+ * Types
+ */
+
+type Router = typeof createRouter;
+type Pages = typeof pages;

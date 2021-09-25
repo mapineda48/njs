@@ -1,0 +1,17 @@
+{
+  "root": "frontend",
+  "main": "web",
+  "app": {
+    "web": {
+      "entry": "src/index.ts"
+    },
+    "notfound": {
+      "entry": "src/not-found/index.js",
+      "template": "public/.pages/not-found.html"
+    },
+    "unauthorized": {
+      "entry": "src/unauthorized/index.js",
+      "template": "public/.pages/unauthorized.html"
+    }
+  }
+}

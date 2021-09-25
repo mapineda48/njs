@@ -10,7 +10,7 @@ const pages = ["/", "/es/"];
 
 const port = 3000;
 
-const build = path.resolve("build");
+const build = path.join(__dirname, "build");
 
 const index = path.join(build, "index.html");
 
@@ -36,7 +36,7 @@ async function start(routes: string[]) {
   const pages = routes.map((page) => {
     return {
       route: "http://localhost:3000" + page,
-      file: path.resolve("build", "." + page + "index.html"),
+      file: path.join(build, "." + page + "index.html"),
     };
   });
 

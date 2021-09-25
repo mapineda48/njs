@@ -1,7 +1,7 @@
 import axios from "axios";
 import { mountChat } from "@mapineda48/social/browser";
 import App, { model } from "./App";
-import { hydrate, render } from "common";
+import { hydrate, render } from "./common";
 
 import type { Model } from "./model";
 

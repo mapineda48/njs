@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import reportWebVitals from "./reportWebVitals";
+import reportWebVitals from "../reportWebVitals";
 
 export const root = document.getElementById("root");
 

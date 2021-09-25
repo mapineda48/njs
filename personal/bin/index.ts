@@ -1,6 +1,6 @@
-import * as express from "express";
-import * as logger from "morgan";
-import { createRouter as personal } from "../lib";
+import express from "express";
+import logger from "morgan";
+import personal from "../lib";
 
 const env = process.env.NODE_ENV || "unknown";
 
@@ -16,6 +16,4 @@ app.use(express.json());
 
 app.use(logger("dev"));
 
-app.use(
-  personal()
-);
+app.use(personal());
