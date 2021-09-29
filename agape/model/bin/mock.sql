@@ -1,1 +1,0 @@
-\ir ../sql/mock/index.sql

@@ -1,0 +1,12 @@
+{
+  "root": "view",
+  "ModuleScopePlugin": "off",
+  "app": {
+    "landing": {
+      "entry": "src/landing/index.tsx"
+    },
+    "crud": {
+      "entry": "src/crud/index.tsx"
+    }
+  }
+}

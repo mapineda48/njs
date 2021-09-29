@@ -1,9 +1,0 @@
-# https://docs.docker.com/compose/gettingstarted/
-# https://docs.docker.com/compose/environment-variables/
-
-version: "3.3"
-services:
-  model:
-    build: ../model
-    environment:
-      POSTGRES_PASSWORD: "12345"

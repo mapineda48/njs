@@ -1,1 +1,0 @@
-\ir ../sql/index.sql

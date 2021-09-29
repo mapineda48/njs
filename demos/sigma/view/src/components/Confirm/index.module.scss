@@ -1,0 +1,33 @@
+._ {
+  background-color: white;
+
+  width: 200px;
+  max-width: 200px;
+  //height: 180px;
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  padding: 1em;
+
+  h1 {
+    font-size: 130%;
+    font-weight: bold;
+  }
+
+  p {
+    overflow-wrap: break-word;
+    text-align: center;
+  }
+
+  .btns button {
+    margin: .3em;
+  }
+  :global {
+    animation: bounce-in 500ms ease-in;
+  }
+}
