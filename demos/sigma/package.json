@@ -2,6 +2,21 @@
   "name": "@mapineda48/demos-sigma",
   "version": "0.0.0",
   "private": true,
+  "author": "Miguel Pineda <a.pinedavegamiguel@gmail.com>",
+  "license": "MIT",
+  "main": "lib",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mapineda48/njs.git",
+    "directory": "personal"
+  },
+  "description": "React Demos",
+  "bugs": {
+    "url": "https://github.com/mapineda48/njs/issues"
+  },
   "dependencies": {
     "@mapineda48/social": "^0.0.3",
     "@testing-library/jest-dom": "^5.11.4",
@@ -21,8 +36,8 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "morgan": "^1.10.0",
-    "mp48-cra": "^0.0.2",
-    "mp48-react": "^0.0.1",
+    "mp48-cra": "0.0.3",
+    "mp48-react": "0.0.2",
     "mp48-util": "^0.0.3",
     "nodemon": "^2.0.13",
     "pg": "^8.7.1",
@@ -37,7 +52,14 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "types": "tsc --noEmit",
+    "version": "yarn build",
+    "release": "yarn mp48-release",
+    "postbuild": "ts-node postbuild.ts",
+    "build": "yarn lib:build && yarn view:build && yarn lib:build:esm",
+    "types": "yarn lib:types && yarn view:types",
+    "lib:types": "tsc --noEmit",
+    "lib:build:esm": "tsc -P tsconfig.esm.json",
+    "lib:build": "rm -rf dist && tsc",
     "view:build": "rm -rf view/build && mp -B -A",
     "view:types": "tsc -P view/tsconfig.json"
   },

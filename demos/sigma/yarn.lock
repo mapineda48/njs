@@ -7878,20 +7878,20 @@ move-concurrently@^1.0.1:
     rimraf "^2.5.4"
     run-queue "^1.0.3"
 
-mp48-cra@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/mp48-cra/-/mp48-cra-0.0.2.tgz#c8cb7925d465c44c8475e9ca7ca0de1fe587fd9d"
-  integrity sha512-nulN9TwpZfJ06I96+LKJXs/qAOi8ozVYEosBgvxu2v2VSMS7lK5nGfEC66uBZXFuM57NJOwKVSBZ9oftigOkNQ==
+mp48-cra@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/mp48-cra/-/mp48-cra-0.0.3.tgz#2d9b20dffaf741c83d9a9a7c86452f759c947172"
+  integrity sha512-rb0L/LaWI08fjb3O7cluDJrKXB8YtzbM9kJ1jhIFpkBwNe3Jl9Y3mcgfhaUxBziGCbj35E604tDdG8OMUnNzWw==
   dependencies:
     commander "^7.0.0"
     mp48-util "0.0.3"
     ts-loader "8.2.0"
     tslib "^2.2.0"
 
-mp48-react@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/mp48-react/-/mp48-react-0.0.1.tgz#410fc0aa7393f26d6b03c1dacae21f75c71c6758"
-  integrity sha512-SLpGZXbg7vB0IbhND8xswVZUAP1UFWKU0oLmQANxISFVt+UOZr57CMsYzPu+DG6uO5FyurV7IZ01f/JILYl7kA==
+mp48-react@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/mp48-react/-/mp48-react-0.0.2.tgz#81b92ce1f5c47b832eff710460072c1dde14f5e3"
+  integrity sha512-KscGlDQdhV5rTV0q57v4Nk3o3tWcygOgu7LQj1UDsrSxgWpI5dJK75HeHVgmujmXEueNF9AfxZMfrPfkTQnaKQ==
   dependencies:
     tslib "^2.2.0"
 

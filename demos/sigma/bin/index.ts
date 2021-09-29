@@ -1,7 +1,7 @@
 import express from "express";
 import logger from "morgan";
 import { Pool } from "pg";
-import demo from "../lib";
+import { createRouter as demo, route } from "../lib";
 
 const { port, env, pgUri } = parseEnv();
 

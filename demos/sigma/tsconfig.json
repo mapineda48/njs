@@ -20,7 +20,7 @@
     "jsx": "react-jsx",
     "outDir": "dist/lib",
     "declaration": true,
-    "noEmit": true
+    "importHelpers": true
   },
   "include": [
     "lib"
