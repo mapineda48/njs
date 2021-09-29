@@ -2,12 +2,41 @@ import fs from "fs-extra";
 import ManifestPlugin from "webpack-manifest-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { cra } from "./cra";
-import { resolveApp } from "./paths";
+import { resolveApp, path } from "./paths";
 import { getCraConfig } from "./project";
 const ModuleScopePlugin = require("react-dev-utils/ModuleScopePlugin");
 
 import type { Options } from "./project";
 import type { Entry, Plugin } from "webpack";
+
+/**
+ * Used solely during development for mocker node_modules, 
+ * I must use jest, but this is simply an alternative
+ * Inspired by 
+ * https://stackoverflow.com/questions/47486785/how-to-avoid-bundling-mock-modules-on-webpack-build
+ * @param aliasJson 
+ */
+export function mockWithAlias(aliasJson: string) {
+  const data = fs.readJSONSync(aliasJson) as { [K: string]: string };
+
+  const dir = path.dirname(aliasJson);
+
+  const alias = Object.fromEntries(
+    Object.entries(data).map(([mod, file]) => [mod, path.join(dir, file)])
+  );
+
+  cra.webpack((factory) => {
+    return (env) => {
+      const config = factory(env);
+
+      if (config.resolve?.alias) {
+        config.resolve.alias = { ...config.resolve.alias, ...alias };
+      }
+
+      return config;
+    };
+  });
+}
 
 export function prepareApps(publicPath = "") {
   /**

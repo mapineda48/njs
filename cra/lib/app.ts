@@ -6,6 +6,7 @@ import {
   removeModuleScopePlugin,
   enabledTsPaths,
   prepareApps,
+  mockWithAlias,
 } from "./webpack";
 
 import type { Flag } from "./cli";
@@ -88,6 +89,10 @@ export function app(path: string, cli: Flag) {
   } else if (cli.test) {
     console.log("tests still not implement");
   } else {
+    if (cli.mock) {
+      mockWithAlias(resolve(cli.mock));
+    }
+
     cra.start();
   }
 }

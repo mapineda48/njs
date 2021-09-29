@@ -11,6 +11,8 @@ export const project = {
   appHtml: resolveMod("app/public/index.html"),
 };
 
+export { path };
+
 export function resolveMod(...args: string[]) {
   return path.join(__dirname, "..", ...args);
 }

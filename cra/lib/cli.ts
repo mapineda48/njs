@@ -20,6 +20,7 @@ export function parse(app: App) {
     .option("-W, --worker <path>", "worker path")
     .option("-U, --url <path>", "the view of the Javascript / HTML page")
     .option("-A, --all-apps", "experimental build entrys")
+    .option("-M, --mock <path>", "alias to mock module")
     .action(app)
     .parse();
 }
@@ -36,4 +37,5 @@ export interface Flag extends Omit<Options, "entry"> {
   output?: string;
   url?: string;
   worker?: string;
+  mock?: string;
 }
