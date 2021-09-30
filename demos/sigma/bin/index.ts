@@ -1,7 +1,8 @@
 import express from "express";
 import logger from "morgan";
 import { Pool } from "pg";
-import { createRouter as demo, route } from "../lib";
+import sigma from "../lib";
+import route from "../lib/route";
 
 const { port, env, pgUri } = parseEnv();
 
@@ -19,9 +20,9 @@ app.use(express.json());
 
 app.use(logger("dev"));
 
-app.use("/demo", demo(pg));
+app.get("/", (req, res) => res.redirect(route));
 
-app.get("/", (req, res) => res.send("Hello World"));
+app.use(sigma(pg));
 
 function parseEnv() {
   const port = parseInt(process.env.PORT || "3000");
