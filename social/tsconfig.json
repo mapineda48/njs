@@ -14,7 +14,7 @@
     "module": "CommonJS",
     "outDir": "./dist/lib",
     "noEmit": false,
-    "declaration": false,
+    "declaration": true,
     "importHelpers": true
   },
   "include": ["lib"],
