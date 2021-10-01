@@ -28,6 +28,7 @@ dist()
     bugs,
     publishConfig,
     repository,
+    main: "lib",
     peerDependencies: dep([
       "tslib",
       "express",
