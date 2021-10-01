@@ -12,5 +12,5 @@ export function createSocial(username: string, password: string, io: ServerIO) {
 
   router.use(express.static(path.join(__dirname, frontend)));
 
-  return router;
+  return express.Router().use("/social", router);
 }

@@ -29,6 +29,6 @@ app.use(logger("dev"));
 
 app.use(express.static(build));
 
-app.use("/social", social("foo", "12345", io));
+app.use(social("foo", "12345", io));
 
 app.get("/", (req, res) => res.redirect("/social/guest"));
