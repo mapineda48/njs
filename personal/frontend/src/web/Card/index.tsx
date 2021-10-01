@@ -1,7 +1,7 @@
 import React from "react";
 import { FiHelpCircle } from "react-icons/fi";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { Meta } from "../skill";
+import { Skill as Meta } from "../skill";
 import clsx from "clsx";
 import style from "./index.module.scss";
 

@@ -2,13 +2,11 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import scrollIntoView from "smooth-scroll-into-view-if-needed";
-import Card from "./Card";
+import sigma from "@mapineda48/demos-sigma/esm/route";
+import Card, { Label as CardLabel } from "./Card";
 import { ReactComponent as Brand } from "./brand.svg";
-import { icon } from "./skill";
+import skill from "./skill";
 import "./index.scss";
-
-import type { Language } from "./model";
-import type { Skill } from "./skill";
 
 function scrollIt(target: HTMLElement | null) {
   if (!target) return;
@@ -19,7 +17,7 @@ function scrollIt(target: HTMLElement | null) {
   });
 }
 
-export default function PersonalPage({ lang, skill }: Props) {
+export default function PersonalPage({ model, changeTo }: Props) {
   const home = React.useRef<HTMLElement>(null);
 
   const skills = React.useRef<HTMLElement>(null);
@@ -27,12 +25,10 @@ export default function PersonalPage({ lang, skill }: Props) {
   const demos = React.useRef<HTMLElement>(null);
 
   React.useEffect(() => {
-    document.documentElement.lang = lang.nav.lang.current;
+    document.documentElement.lang = model.lang.current;
 
-    document.title = lang.title;
-  }, [lang.nav.lang, lang.title]);
-
-  const { nav, main, footer } = lang;
+    document.title = model.title;
+  }, [model.title, model.lang]);
 
   const imgs = React.useMemo(() => Object.values(skill), [skill]);
 
@@ -41,7 +37,7 @@ export default function PersonalPage({ lang, skill }: Props) {
       <Helmet>
         <meta name="robots" content="index,nofollow" />
         <meta name="googlebot" content="index,nofollow" />
-        <meta name="description" content={main.home.description} />
+        <meta name="description" content={model.description} />
         <meta name="google" content="notranslate" />
       </Helmet>
       <nav className="header shadow-one">
@@ -51,23 +47,23 @@ export default function PersonalPage({ lang, skill }: Props) {
         </div>
         <ul className="sections">
           <li>
-            <Link to={nav.lang.href} title={nav.lang.title}>
-              {nav.lang.next}
+            <Link to={changeTo} title={model.lang.title}>
+              {model.lang.next.toUpperCase()}
             </Link>
           </li>
-          <li title={nav.home}>
+          <li title={model.nav.home}>
             <a onClick={() => scrollIt(home.current)} href="#home">
-              {nav.home}
+              {model.nav.home}
             </a>
           </li>
-          <li title={nav.skill}>
+          <li title={model.nav.skill}>
             <a onClick={() => scrollIt(skills.current)} href="#skill">
-              {nav.skill}
+              {model.nav.skill}
             </a>
           </li>
-          <li title={nav.demo}>
+          <li title={model.nav.demos}>
             <a onClick={() => scrollIt(demos.current)} href="#demo">
-              {nav.demo}
+              {model.nav.demos}
             </a>
           </li>
         </ul>
@@ -82,47 +78,45 @@ export default function PersonalPage({ lang, skill }: Props) {
               className="shadow-one"
             />
           </div>
-          <p>{main.home.description}</p>
+          <p>{model.description}</p>
         </section>
         <section ref={skills} id="skill" className="section">
           <div className="skills">
-            {imgs.map((img, index) => {
-              return (
-                <div key={index} className="skill" title={img.title}>
-                  <a href={img.url} target="_blank" rel="noreferrer">
-                    <img src={img.image} alt={img.title} />
-                  </a>
-                </div>
-              );
-            })}
+            {Object.values(skill).map((img, index) => (
+              <div key={index} className="skill" title={img.title}>
+                <a href={img.url} target="_blank" rel="noreferrer">
+                  <img src={img.image} alt={img.title} />
+                </a>
+              </div>
+            ))}
           </div>
         </section>
         <section ref={demos} id="demo" className="section demos">
           <div className="projects">
-            {main.demo.projects.map((demo, index) => {
-              const { title, description, skills, url } = demo;
-              return (
-                <Card
-                  key={index}
-                  title={title}
-                  description={description}
-                  url={url}
-                  label={main.demo.label}
-                  skills={skills.map((key) => {
-                    return { ...skill[key], Icon: icon[key] };
-                  })}
-                />
-              );
-            })}
+            <Card
+              title="Sigma"
+              description={model.demos.sigma}
+              url={sigma}
+              label={model.card}
+              skills={[
+                skill.html,
+                skill.css,
+                skill.js,
+                skill.ts,
+                skill.react,
+                skill.node,
+                skill.express,
+              ]}
+            />
           </div>
         </section>
       </main>
       <footer className="footer">
         <p>
           <strong>apinedavegamiguel</strong> por{" "}
-          <a href="https://jgthms.com">Miguel Pineda</a>. {footer.source + " "}
+          <a href="https://jgthms.com">Miguel Pineda</a>. {model.source + " "}
           <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
-          {footer.web + " "}
+          {model.license + " "}
           <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
             CC BY NC SA 4.0
           </a>
@@ -138,6 +132,27 @@ export default function PersonalPage({ lang, skill }: Props) {
  */
 
 interface Props {
-  lang: Language;
-  skill: Skill;
+  changeTo: string;
+  model: Model;
+}
+
+export interface Model {
+  lang: {
+    current: string;
+    next: string;
+    title: string;
+  };
+  title: string;
+  nav: {
+    home: string;
+    skill: string;
+    demos: string;
+  };
+  description: string;
+  demos: {
+    sigma: string;
+  };
+  card: CardLabel;
+  source: string;
+  license: string;
 }

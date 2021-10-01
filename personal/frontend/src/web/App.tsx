@@ -1,33 +1,19 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Personal from "./Personal";
-import { lang, Model } from "./model";
 
-export const model = "/model.json";
+import type { Data } from "./model";
 
-export default function App(props: Props) {
+export default function App({ data }: { data: Data }) {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={lang.en}>
-          <Personal
-            lang={props.model.route[lang.en]}
-            skill={props.model.skill}
-          />
+        <Route exact path="/">
+          <Personal changeTo="/es" model={data.en} />
         </Route>
-        <Route exact path={lang.es}>
-          <Personal
-            lang={props.model.route[lang.es]}
-            skill={props.model.skill}
-          />
+        <Route exact path="/es">
+          <Personal changeTo="/" model={data.es} />
         </Route>
       </Switch>
     </BrowserRouter>
   );
-}
-
-/**
- * Types
- */
-interface Props {
-  model: Model;
 }

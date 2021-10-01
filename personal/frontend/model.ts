@@ -7,30 +7,25 @@ import model from "./src/web/model";
  */
 const file = path.join(__dirname, "build/model.json");
 
-fs.outputJSONSync(file, minifyModel(model));
+fs.outputJSONSync(file, minify(model as any));
 
-export function isString(val: any): val is string {
-  return typeof val === "string";
+function minify(data: Data): any {
+  return Object.fromEntries(
+    Object.entries(data).map(([key, val]) => {
+      if (typeof val === "string") {
+        return [
+          key,
+          val.replace(/\n/g, "").replace(/^\s+|\s+$|\s+(?=\s)/g, ""),
+        ];
+      }
+      return [key, minify(val)];
+    })
+  );
 }
 
-export function minifyString(val: string): string {
-  return val.replace(/\n/g, "").replace(/^\s+|\s+$|\s+(?=\s)/g, "");
-}
-
-export function minifyModel(model: any): any {
-  if (Array.isArray(model)) {
-    return model.map((val) => minifyModel(val));
-  }
-  if (isString(model)) {
-    return minifyString(model);
-  }
-
-  const res: any = {};
-
-  Object.keys(model).forEach((key) => {
-    const val = model[key];
-    res[key] = minifyModel(val);
-  });
-
-  return res;
+/**
+ * Types
+ */
+interface Data {
+  [K: string]: string | Data;
 }
