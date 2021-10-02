@@ -1458,10 +1458,10 @@
   resolved "https://npm.pkg.github.com/download/@mapineda48/demos-sigma/0.0.4/19ab6f940c4a59586ba024a6c1548ae2b7f055efa23c1bd6c0ab3488fd0bc08c#83c86ca3218f645130a852ea2ef9b54a5e0e0095"
   integrity sha512-thixVhWdj+cJsaX52PwEr/JRrzw4FT1+Q6b0KtNM6YCZYFLDjCCD2c7HxOE/mA5YJPaUgfEw/RDpFHOQbbXUpg==
 
-"@mapineda48/social@0.0.6":
-  version "0.0.6"
-  resolved "https://npm.pkg.github.com/download/@mapineda48/social/0.0.6/4f0f4d48d671d474933398445327c0bdddbc52b7751c664aad2bbf070c06382d#2fe986e8d7ebfd613b49a5add0f13778459c0358"
-  integrity sha512-VTit28GD/11xLwl+7ti1OeTdx9GLxHsrWpzkxt5fJr3XrH+95D3lezwEtuX6rjIJTROViM+gXC1IWwRjWxk8rw==
+"@mapineda48/social@0.0.9":
+  version "0.0.9"
+  resolved "https://npm.pkg.github.com/download/@mapineda48/social/0.0.9/42c1463e2dc7e1f6f1d5ed45a0fa4cf98167c65c42d54d093a44d3e60ad493c4#0ec17b6293f451b7069c9392fe31f586d37e4a5f"
+  integrity sha512-dN6drSVuZ5zDhEVlep8CYVIIHNs7tPyFiWt0Z1XLavPEj+kG0f77dw1VAZueRs0QrOVWfNUp8WWKXhYUYihleg==
   dependencies:
     jsonwebtoken "^8.5.1"
     tslib "^2.1.0"

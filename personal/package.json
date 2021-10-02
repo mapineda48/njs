@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@mapineda48/demos-sigma": "0.0.4",
-    "@mapineda48/social": "0.0.6",
+    "@mapineda48/social": "0.0.9",
     "@popperjs/core": "^2.9.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
