@@ -1,6 +1,6 @@
 {
   "name": "@mapineda48/social",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": true,
   "author": "Miguel Angel Pineda Vega",
   "license": "MIT",
@@ -61,10 +61,10 @@
     "types": "tsc --noEmit",
     "frontend:types": "tsc -P frontend/tsconfig.json --noEmit",
     "frontend:build": "rm -rf frontend/build && mp -B -A",
-    "frontend:browser": "tsc -P frontend/src/browser/tsconfig.json",
+    "frontend:guest": "tsc -P frontend/guest/tsconfig.json",
     "build:lib": "tsc",
     "postbuild": "ts-node postbuild.ts",
-    "build": "rm -rf dist && yarn frontend:build && yarn frontend:browser && yarn build:lib",
+    "build": "rm -rf dist && yarn frontend:build && yarn frontend:guest && yarn build:lib",
     "release": "yarn mp48-release",
     "version": "yarn build"
   },
