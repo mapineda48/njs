@@ -32,7 +32,10 @@ export function mountChat(src = route) {
   iframe.style.height = "0px";
   iframe.src = src;
 
-  document.body.appendChild(iframe);
+  /**
+   * https://stackoverflow.com/questions/2007357/how-to-set-dom-element-as-the-first-child
+   */
+  document.body.insertBefore(iframe, document.body.firstChild);
 
   cache = () => {
     document.body.removeChild(iframe);

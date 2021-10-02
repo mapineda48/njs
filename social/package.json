@@ -61,10 +61,10 @@
     "types": "tsc --noEmit",
     "frontend:types": "tsc -P frontend/tsconfig.json --noEmit",
     "frontend:build": "rm -rf frontend/build && mp -B -A",
-    "frontend:guest": "tsc -P frontend/guest/tsconfig.json",
+    "frontend:lib": "tsc -P frontend/lib/tsconfig.json",
     "build:lib": "tsc",
     "postbuild": "ts-node postbuild.ts",
-    "build": "rm -rf dist && yarn frontend:build && yarn frontend:guest && yarn build:lib",
+    "build": "rm -rf dist && yarn frontend:build && yarn frontend:lib && yarn build:lib",
     "release": "yarn mp48-release",
     "version": "yarn build"
   },
