@@ -1,4 +1,5 @@
 import express from "express";
+import helmet from "helmet";
 import logger from "morgan";
 import { Server as ServerIO } from "socket.io";
 import { Pool } from "pg";
@@ -22,11 +23,22 @@ const pg = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      useDefaults: true,
+      directives: {
+        frameSrc: ["'self'"],
+      },
+    },
+  })
+);
+
 app.use(express.json());
 
 app.use(logger("dev"));
 
-app.use("/social", social("foo", "12345", io));
+app.use(social("foo", "12345", io));
 
 app.use(personal());
 

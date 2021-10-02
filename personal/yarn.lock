@@ -1458,10 +1458,10 @@
   resolved "https://npm.pkg.github.com/download/@mapineda48/demos-sigma/0.0.4/19ab6f940c4a59586ba024a6c1548ae2b7f055efa23c1bd6c0ab3488fd0bc08c#83c86ca3218f645130a852ea2ef9b54a5e0e0095"
   integrity sha512-thixVhWdj+cJsaX52PwEr/JRrzw4FT1+Q6b0KtNM6YCZYFLDjCCD2c7HxOE/mA5YJPaUgfEw/RDpFHOQbbXUpg==
 
-"@mapineda48/social@0.0.5":
-  version "0.0.5"
-  resolved "https://npm.pkg.github.com/download/@mapineda48/social/0.0.5/f8cec12be378c1a68036ec1c09ff360e6d8096529ed7c83dae44c1056760b3b2#84754752574587561a56c67d3e05fb1ca1a4f50b"
-  integrity sha512-TBO20UrXf3iJPnh71nUFEEP5TieOHPrFi+Mp8GQwqo+thj1nXu5e4mjrZW7rlAfXBuWfYZXPLZqZ8cvdBLli/w==
+"@mapineda48/social@0.0.6":
+  version "0.0.6"
+  resolved "https://npm.pkg.github.com/download/@mapineda48/social/0.0.6/4f0f4d48d671d474933398445327c0bdddbc52b7751c664aad2bbf070c06382d#2fe986e8d7ebfd613b49a5add0f13778459c0358"
+  integrity sha512-VTit28GD/11xLwl+7ti1OeTdx9GLxHsrWpzkxt5fJr3XrH+95D3lezwEtuX6rjIJTROViM+gXC1IWwRjWxk8rw==
   dependencies:
     jsonwebtoken "^8.5.1"
     tslib "^2.1.0"
@@ -5874,6 +5874,11 @@ he@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
+
+helmet@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/helmet/-/helmet-4.6.0.tgz#579971196ba93c5978eb019e4e8ec0e50076b4df"
+  integrity sha512-HVqALKZlR95ROkrnesdhbbZJFi/rIVSoNq6f3jA/9u6MIbTsPh3xZwihjeI5+DO/2sOV6HMHooXcEOuwskHpTg==
 
 hex-color-regex@^1.1.0:
   version "1.1.0"

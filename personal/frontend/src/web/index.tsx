@@ -1,11 +1,8 @@
 import axios from "axios";
-import { mountChat } from "@mapineda48/social/browser";
 import App from "./App";
 import { hydrate } from "./common";
 
 import type { Data } from "./model";
-
-mountChat();
 
 axios
   .get<Data>("/model.json")
