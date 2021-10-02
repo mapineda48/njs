@@ -24,6 +24,7 @@ const size = {
  * Prepare iframe to display widget.
  */
 if (inIframe) {
+  iframe.style.display = "initial";
   iframe.style.position = "fixed";
   iframe.style.zIndex = "1000";
   iframe.style.width = "0px";
