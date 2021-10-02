@@ -9,7 +9,11 @@ const frontend = path.join(__dirname, "../view/build");
 export function createRouter(pool: Pool) {
   const router = express.Router();
 
-  router.get("/", (req, res) => res.redirect("./crud/"));
+  const home = path.join(route, "crud");
+
+  router.get("/", (req, res) => {
+    res.redirect(home);
+  });
 
   router.use(express.static(frontend));
 
