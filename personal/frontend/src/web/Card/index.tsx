@@ -25,7 +25,7 @@ export function Card(props: Props) {
           <Action title={props.label.help} onClick={flip}>
             <FiHelpCircle />
           </Action>
-          <h1>{props.title}</h1>
+          <h1 title={props.description}>{props.title}</h1>
           <div>
             {props.skills.map(({ Icon, title, url }, index) => (
               <a key={index} href={url} target="_blank" rel="noreferrer">

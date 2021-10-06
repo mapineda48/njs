@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import scrollIntoView from "smooth-scroll-into-view-if-needed";
 import sigma from "@mapineda48/demos-sigma/esm/route";
+import grants from "@mapineda48/demos-grants/esm/baseUrl";
 import Card, { Label as CardLabel } from "./Card";
 import { ReactComponent as Brand } from "./brand.svg";
 import skill from "./skill";
@@ -106,6 +107,22 @@ export default function PersonalPage({ model, changeTo }: Props) {
                 skill.react,
                 skill.node,
                 skill.express,
+                skill.postgres
+              ]}
+            />
+            <Card
+              title="Grants"
+              description={model.demos.grants}
+              url={grants}
+              label={model.card}
+              skills={[
+                skill.html,
+                skill.css,
+                skill.js,
+                skill.ts,
+                skill.react,
+                skill.node,
+                skill.express,
               ]}
             />
           </div>
@@ -151,6 +168,7 @@ export interface Model {
   description: string;
   demos: {
     sigma: string;
+    grants: string;
   };
   card: CardLabel;
   source: string;

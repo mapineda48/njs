@@ -40,7 +40,8 @@
     "url": "https://github.com/mapineda48/njs/issues"
   },
   "dependencies": {
-    "@mapineda48/demos-sigma": "0.0.4",
+    "@mapineda48/demos-grants": "^0.0.1",
+    "@mapineda48/demos-sigma": "^0.0.5",
     "@mapineda48/social": "0.0.9",
     "@popperjs/core": "^2.9.1",
     "@testing-library/jest-dom": "^5.11.4",
@@ -63,7 +64,7 @@
     "fs-extra": "^9.1.0",
     "helmet": "^4.6.0",
     "morgan": "^1.10.0",
-    "mp48-cra": "^0.0.2",
+    "mp48-cra": "0.0.3",
     "mp48-react": "0.0.2",
     "mp48-util": "^0.0.3",
     "nodemon": "^2.0.7",
