@@ -1,0 +1,90 @@
+{
+  "name": "@mapineda48/demos-grants",
+  "version": "0.0.0",
+  "private": true,
+  "author": "Miguel Pineda <a.pinedavegamiguel@gmail.com>",
+  "license": "MIT",
+  "main": "lib",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mapineda48/njs.git",
+    "directory": "demos/grants"
+  },
+  "description": "React Demos",
+  "bugs": {
+    "url": "https://github.com/mapineda48/njs/issues"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/express": "^4.17.13",
+    "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^26.0.15",
+    "@types/morgan": "^1.9.3",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.3.0",
+    "axios": "^0.22.0",
+    "bootstrap": "^5.1.1",
+    "clsx": "^1.1.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "fs-extra": "^10.0.0",
+    "morgan": "^1.10.0",
+    "mp48-cra": "^0.0.3",
+    "mp48-react": "^0.0.2",
+    "mp48-util": "^0.0.3",
+    "nodemon": "^2.0.13",
+    "query-string": "^7.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "4.0.3",
+    "sass": "^1.42.1",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1"
+  },
+  "scripts": {
+    "version": "yarn build",
+    "release": "yarn mp48-release",
+    "postbuild": "ts-node postbuild.ts",
+    "build": "rm -rf dist && yarn frontend:build && yarn lib:build && yarn lib:build:esm",
+    "types": "yarn lib:types && yarn frontend:types",
+    "lib:types": "tsc --noEmit",
+    "lib:build:esm": "tsc -P tsconfig.esm.json",
+    "lib:build": "tsc",
+    "frontend:start": "mp",
+    "frontend:build": "mp -B -U ./",
+    "frontend:types": "tsc -P frontend/tsconfig.json"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "frontend/build/*"
+    ]
+  }
+}
