@@ -1,8 +1,11 @@
 import axios from "axios";
 import { BrowserRouter } from "react-router-dom";
+import { mountChat } from "@mapineda48/social/frontend/lib";
 import App from "./App";
 import { render, getBaseUrl, getStateId } from "./common";
 import { InitState } from "./backend";
+
+mountChat();
 
 const state = getStateId();
 
