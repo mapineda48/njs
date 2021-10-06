@@ -30,6 +30,7 @@ dist()
     repository,
     main: "lib",
     dependencies: dep([
+      "fs-extra",
       "react",
       "react-dom",
       "react-icons",
@@ -37,7 +38,7 @@ dist()
       "mp48-react",
       "axios",
       "query-string",
-      "clsx"
+      "clsx",
     ]),
     peerDependencies: dep(["tslib", "express", "@types/express"]),
     peerDependenciesMeta: dep.meta(["@types/express"]),
