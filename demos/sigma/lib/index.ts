@@ -2,7 +2,7 @@ import path from "path";
 import { Pool } from "pg";
 import express from "express";
 import api from "./api";
-import route from "./route";
+import route from "./baseUrl";
 
 const frontend = path.join(__dirname, "../view/build");
 
