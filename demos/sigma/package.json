@@ -56,13 +56,13 @@
     "version": "yarn build",
     "release": "yarn mp48-release",
     "postbuild": "ts-node postbuild.ts",
-    "build": "yarn lib:build && yarn view:build && yarn lib:build:esm",
-    "types": "yarn lib:types && yarn view:types",
+    "build": "yarn lib:build && yarn frontend:build && yarn frontend:lib",
+    "types": "yarn lib:types && yarn frontend:types",
     "lib:types": "tsc --noEmit",
-    "lib:build:esm": "tsc -P tsconfig.esm.json",
     "lib:build": "rm -rf dist && tsc",
-    "view:build": "rm -rf view/build && mp -B -A",
-    "view:types": "tsc -P view/tsconfig.json"
+    "frontend:build": "rm -rf frontend/build && mp -B -A",
+    "frontend:types": "tsc -P frontend/tsconfig.json",
+    "frontend:lib": "tsc -P tsconfig.esm.json"
   },
   "eslintConfig": {
     "extends": [

@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "esnext",
-    "outDir": "dist/esm"
+    "outDir": "dist/frontend/lib"
   },
-  "include": ["lib/route.ts"]
+  "include": ["lib/baseUrl.ts"]
 }

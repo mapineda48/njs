@@ -17,7 +17,7 @@ const homepage =
 const dep = dist.dep(dependencies, true);
 
 dist()
-  .copy(["README.md", "CHANGELOG.md", "LICENSE", "view/build"])
+  .copy(["README.md", "CHANGELOG.md", "LICENSE", "frontend/build"])
   .package({
     name,
     version,

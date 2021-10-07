@@ -1,5 +1,5 @@
 {
-  "root": "view",
+  "root": "frontend",
   "ModuleScopePlugin": "off",
   "app": {
     "landing": {
