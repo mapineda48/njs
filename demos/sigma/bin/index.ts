@@ -2,7 +2,7 @@ import express from "express";
 import logger from "morgan";
 import { Pool } from "pg";
 import sigma from "../lib";
-import route from "../lib/route";
+import route from "../lib/baseUrl";
 
 const { port, env, pgUri } = parseEnv();
 
