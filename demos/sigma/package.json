@@ -29,6 +29,7 @@
     "@types/pg": "^8.6.1",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.3.1",
     "@types/webpack-env": "^1.16.2",
     "axios": "^0.21.4",
     "bootstrap": "^5.1.1",
@@ -60,7 +61,7 @@
     "types": "yarn lib:types && yarn frontend:types",
     "lib:types": "tsc --noEmit",
     "lib:build": "rm -rf dist && tsc",
-    "frontend:build": "rm -rf frontend/build && mp -B -A",
+    "frontend:build": "rm -rf frontend/build && mp -B",
     "frontend:types": "tsc -P frontend/tsconfig.json",
     "frontend:lib": "tsc -P tsconfig.esm.json"
   },

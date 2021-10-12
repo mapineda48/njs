@@ -1,8 +1,6 @@
-import extra from "../../../public/image/image.png";
-import logo from "../../../public/image/logo.png";
+import extra from "./image.png";
+import logo from "./logo.png";
 
-const isDev = process.env.NODE_ENV === "development";
-
-const image = { extra: isDev ? extra : "../image/image.png", logo };
+const image = { extra, logo };
 
 export default image;

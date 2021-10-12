@@ -1,3 +1,9 @@
+export const route = {
+  home: "/",
+  landing: "/landing",
+  crud: "/crud",
+};
+
 export const api = {
   sigma: "api/colombia",
   person: "api/person",

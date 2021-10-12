@@ -1,10 +1,11 @@
 import axios from "axios";
 import queryString from "query-string";
 import { getApi, Success } from "@api";
+import baseUrl from "@backend/baseUrl";
 
 import type { Colombia, Person, Select, Update, Record } from "@model";
 
-export const api = getApi("../");
+export const api = getApi(baseUrl);
 
 export async function fetchColombia() {
   const { data } = await axios.get(api.sigma);

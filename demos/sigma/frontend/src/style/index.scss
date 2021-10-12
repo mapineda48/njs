@@ -3,6 +3,182 @@
 @import "~bootstrap/scss/forms";
 @import "keyframes";
 
+#root .crud {
+  $color1: #011f4b;
+  $color2: #03396c;
+  $color3: #005b96;
+  $color4: #6497b1;
+  $color5: #b3cde0;
+
+  $height-header: 76px;
+
+  .header {
+    width: 100%;
+    height: $height-header;
+    position: fixed;
+    top: 0;
+
+    background-color: $color4;
+    .title {
+      background-color: $color3;
+      padding-bottom: 0.3em;
+      h2 {
+        margin: 0;
+        text-align: center;
+      }
+    }
+
+    .action {
+      background-color: $color4;
+
+      text-align: center;
+
+      button {
+        border: 0;
+        background-color: transparent;
+        font-size: 130%;
+      }
+    }
+  }
+
+  .notification {
+    $height: 100px;
+
+    position: fixed;
+    height: $height;
+    top: calc((100vh - $height) / 2);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .records {
+    margin-top: $height-header;
+
+    background-color: white;
+
+    table {
+      width: 100%;
+    }
+
+    th {
+      top: $height-header;
+      position: sticky;
+      background-color: $color4;
+    }
+
+    tbody button {
+      border: 0;
+      background: transparent;
+    }
+
+    tbody tr:hover {
+      cursor: pointer;
+      background-color: $color5;
+    }
+  }
+}
+
+#root .landing {
+  position: relative;
+
+  @media only screen and (max-width: 768px) {
+    width: auto;
+    height: auto;
+  }
+
+  &,
+  * {
+    box-sizing: border-box;
+  }
+
+  font-family: "Roboto", sans-serif;
+
+  nav {
+    font-family: "Roboto Slab", serif;
+  }
+
+  .app {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    background-color: white;
+
+    > div {
+      margin: 0.6em;
+    }
+  }
+
+  .title {
+    h1 {
+      font-size: 160%;
+      font-weight: bold;
+      color: black;
+    }
+  }
+
+  .text {
+    width: 55%;
+
+    p {
+      text-align: center;
+      color: grey;
+    }
+  }
+
+  .main {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    @media only screen and (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+}
+
+#root .home {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
+  height: 100vh;
+
+  justify-content: center;
+  align-items: center;
+
+  .item {
+    max-width: 300px;
+
+    cursor: pointer;
+
+    padding: 1em;
+
+    margin: 1em;
+
+    transition: all 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    .icon {
+      font-size: 200%;
+      text-align: center;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    p {
+      text-align: justify;
+    }
+  }
+}
+
 .panel {
   border-radius: 6px;
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),

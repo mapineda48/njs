@@ -72,15 +72,22 @@ export default function CRUD() {
 
   const records = React.useMemo(() => Object.values(state.data), [state.data]);
 
-  const onScrollEnd = React.useMemo(() => {
-    if (!state.canFetch || state.loading) return;
+  React.useEffect(() => {
+    if (!state.canFetch || state.loading || state.message) return;
 
-    return (event: ScrollEvent) => {
-      const { offsetHeight, scrollHeight, scrollTop } = event.currentTarget;
+    const onScrollEnd = (e: ScrollNative) => {
+      const { scrollingElement } = document;
 
-      const scrolled = ((offsetHeight + scrollTop) * 100) / scrollHeight;
+      if (!scrollingElement) return;
 
-      if (scrolled < 85) return;
+      const { scrollHeight, scrollTop } = scrollingElement;
+
+      /**
+       * https://stackoverflow.com/questions/3898130/check-if-a-user-has-scrolled-to-the-bottom/3898152
+       */
+      const shouldFetch = scrollHeight - scrollTop <= window.innerHeight + 50;
+
+      if (!shouldFetch) return;
 
       model.loading();
 
@@ -91,8 +98,14 @@ export default function CRUD() {
         })
         .catch(console.error)
         .finally(() => model.loading(false));
+
+      document.removeEventListener("scroll", onScrollEnd);
     };
-  }, [state.canFetch, state.loading, model]);
+
+    document.addEventListener("scroll", onScrollEnd);
+
+    return () => document.removeEventListener("scroll", onScrollEnd);
+  }, [state.canFetch, state.loading,state.message, model]);
 
   const existsData = Boolean(records.length);
 
@@ -107,10 +120,10 @@ export default function CRUD() {
   }
 
   return (
-    <div className="app">
-      <div className="crud panel">
-        <div className="head">
-          <h2>Registros</h2>
+    <div className="crud">
+      <div className="header">
+        <div className="title">
+          <h2>Sigma CRUD</h2>
         </div>
         <div className="action">
           <button
@@ -167,113 +180,116 @@ export default function CRUD() {
             <BiSearchAlt />
           </button>
         </div>
-        {!existsData && state.loading && <div>loading...</div>}
-        {!existsData && state.message && <div>{state.message}</div>}
-        {existsData && (
-          <div className="records" onScroll={onScrollEnd}>
-            <table>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Nombre</th>
-                  <th>Email</th>
-                  <th>Ciudad</th>
-                  <th>Departamento</th>
-                </tr>
-              </thead>
-              <tbody>
-                {records.map((record, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>
-                        <button
-                          title={`editar a ${record.full_name}`}
-                          onClick={() => {
-                            appendToBody((portal) => {
-                              return (
-                                <div className="overlay" style={portal.style}>
-                                  <PersonCRUD
-                                    panel
-                                    person={record}
-                                    label="Editar"
-                                    onClose={() => {
-                                      portal.remove();
-                                    }}
-                                    onRequired={(person) => {
-                                      confirm({
-                                        message: `Actualizar ${record.full_name}`,
-                                        async onConfirm() {
-                                          try {
-                                            const data = {
-                                              id: record.id,
-                                              ...person,
-                                            };
-                                            const { message } =
-                                              await api.update(data);
-
-                                            confirm({
-                                              message,
-                                              onConfirm() {
-                                                model.update(data);
-                                              },
-                                            });
-                                          } catch (error) {
-                                            confirm({ error });
-                                          } finally {
-                                            portal.remove();
-                                          }
-                                        },
-                                        onCancel() {},
-                                      });
-                                    }}
-                                  />
-                                </div>
-                              );
-                            });
-                          }}
-                        >
-                          <BiEdit />
-                        </button>
-
-                        <button
-                          title={`eliminar a ${record.full_name}`}
-                          onClick={() => {
-                            confirm({
-                              message: `eliminar a ${record.full_name}`,
-                              async onConfirm() {
-                                try {
-                                  const { message } = await api.delete(
-                                    record.id
-                                  );
-                                  confirm({
-                                    message,
-                                    onConfirm() {
-                                      model.delete(record.id);
-                                    },
-                                  });
-                                } catch (error: any) {
-                                  confirm({ error });
-                                }
-                              },
-                              onCancel() {},
-                            });
-                          }}
-                        >
-                          <MdDelete />
-                        </button>
-                      </td>
-                      <td title={record.full_name}>{record.full_name}</td>
-                      <td title={record.email}>{record.email}</td>
-                      <td title={record.city}>{record.city}</td>
-                      <td title={record.department}>{record.department}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
       </div>
+      {!existsData && state.loading && (
+        <div className="notification">loading...</div>
+      )}
+      {!existsData && state.message && (
+        <div className="notification">{state.message}</div>
+      )}
+      {existsData && (
+        <div className="records">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Ciudad</th>
+                <th>Departamento</th>
+              </tr>
+            </thead>
+            <tbody>
+              {records.map((record, index) => {
+                return (
+                  <tr key={index}>
+                    <td>
+                      <button
+                        title={`editar a ${record.full_name}`}
+                        onClick={() => {
+                          appendToBody((portal) => {
+                            return (
+                              <div className="overlay" style={portal.style}>
+                                <PersonCRUD
+                                  panel
+                                  person={record}
+                                  label="Editar"
+                                  onClose={() => {
+                                    portal.remove();
+                                  }}
+                                  onRequired={(person) => {
+                                    confirm({
+                                      message: `Actualizar ${record.full_name}`,
+                                      async onConfirm() {
+                                        try {
+                                          const data = {
+                                            id: record.id,
+                                            ...person,
+                                          };
+                                          const { message } = await api.update(
+                                            data
+                                          );
+
+                                          confirm({
+                                            message,
+                                            onConfirm() {
+                                              model.update(data);
+                                            },
+                                          });
+                                        } catch (error) {
+                                          confirm({ error });
+                                        } finally {
+                                          portal.remove();
+                                        }
+                                      },
+                                      onCancel() {},
+                                    });
+                                  }}
+                                />
+                              </div>
+                            );
+                          });
+                        }}
+                      >
+                        <BiEdit />
+                      </button>
+
+                      <button
+                        title={`eliminar a ${record.full_name}`}
+                        onClick={() => {
+                          confirm({
+                            message: `eliminar a ${record.full_name}`,
+                            async onConfirm() {
+                              try {
+                                const { message } = await api.delete(record.id);
+                                confirm({
+                                  message,
+                                  onConfirm() {
+                                    model.delete(record.id);
+                                  },
+                                });
+                              } catch (error: any) {
+                                confirm({ error });
+                              }
+                            },
+                            onCancel() {},
+                          });
+                        }}
+                      >
+                        <MdDelete />
+                      </button>
+                    </td>
+                    <td title={record.full_name}>{record.full_name}</td>
+                    <td title={record.email}>{record.email}</td>
+                    <td title={record.city}>{record.city}</td>
+                    <td title={record.department}>{record.department}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }
@@ -302,3 +318,5 @@ interface State {
     [K: number]: Record;
   };
 }
+
+type ScrollNative = DocumentEventMap["scroll"];
