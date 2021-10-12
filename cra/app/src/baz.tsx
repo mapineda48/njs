@@ -8,6 +8,7 @@ function App() {
 ReactDOM.render(
   <React.StrictMode>
     <App />
+    <a href="">foo</a>
   </React.StrictMode>,
   document.getElementById("root")
 );

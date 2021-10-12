@@ -87,7 +87,7 @@ export function app(path: string, cli: Flag) {
   if (cli.build) {
     cra.build();
   } else if (cli.test) {
-    console.log("tests still not implement");
+    cra.test();
   } else {
     if (cli.mock) {
       mockWithAlias(resolve(cli.mock));
