@@ -1,21 +1,21 @@
-# mapineda-ng
+# mp48-ng
 
 Allow to set entry point by cli argument.
 
 ## Installation
 
-`$ npm install mapineda48-ng`
+`$ npm install mp48-ng`
 
 ## Usage
 
 ```
-mapineda-ng <path>
+mp <path>
 ```
 
 ## Example
 
 ```
-yarn mapineda-ng src/some/path/main.ts
+yarn mp src/some/path/main.ts
 ```
 
 ## Important

@@ -1,2 +1,3 @@
-export * from './backup';
-export * from './overwrite';
+import prepare from './prepare';
+
+export = prepare;

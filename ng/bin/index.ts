@@ -1,11 +1,9 @@
 #!/usr/bin/env node
 export = null;
 
-import { prepareBakup, overWrite, restoreBackup } from '../lib';
-
 import { spawn } from 'child_process';
 
-const restores = ['--restore-backup', '-R'];
+import prepare from '../lib/prepare';
 
 const ng = require.resolve('@angular/cli/bin/ng');
 
@@ -16,14 +14,7 @@ if (!main) {
 }
 
 (async () => {
-  if (isRestore(main)) {
-    await restoreBackup();
-    return;
-  }
-
-  await prepareBakup();
-
-  await overWrite(main);
+  const restore = await prepare(main);
 
   const child = spawn('node', [ng, 'serve', ...rest], { stdio: 'inherit' });
 
@@ -32,12 +23,8 @@ if (!main) {
   });
 
   child.on('exit', (code) => {
-    restoreBackup()
-      .catch((err) => console.log(err))
-      .finally(() => process.exit(code));
+    restore()
+      .catch(console.error)
+      .finally(() => process.exit(code || 1));
   });
-})().catch((err) => console.log(err));
-
-function isRestore(val: string) {
-  return restores.includes(val);
-}
+})().catch(console.error);

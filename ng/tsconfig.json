@@ -1,18 +1,23 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
+    "target": "ES2018",
+    "lib": ["esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es2015",
-    "module": "es2020",
-    "lib": ["es2018", "dom"]
+    "resolveJsonModule": true,
+    "module": "CommonJS",
+    "outDir": "dist",
+    "noEmit": false,
+    "declaration": false,
+    "importHelpers": true
   },
-  "exclude": ["node_modules", "**/*.dev.ts"]
+  "include": ["bin"],
+  "exclude": ["node_modules", "app", "**/*.dev.ts"]
 }
