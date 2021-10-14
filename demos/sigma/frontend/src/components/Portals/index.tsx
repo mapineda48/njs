@@ -31,7 +31,7 @@ export default function Portals(props: { children: React.ReactNode }) {
   const Elements = state.map((Element, index) => (
     <Element
       key={index}
-      style={{ zIndex: 1000 + index * 100 }}
+      style={{ zIndex: 1500 + index * 100 }}
       remove={() => {
         portal.splice(index);
       }}

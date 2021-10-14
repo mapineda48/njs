@@ -1,5 +1,4 @@
 import React from "react";
-import { mountChat } from "@mapineda48/social/browser";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { BiEdit, BiSearchAlt } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
@@ -11,8 +10,6 @@ import { useConfirm } from "components/Confirm";
 import PersonCRUD from "components/Person";
 
 import type { Select, Record } from "@model";
-
-mountChat();
 
 const useState = initAction({
   query(state: State, query: Select): State {
@@ -63,7 +60,16 @@ const useState = initAction({
   },
 });
 
+let isMount = false;
+
 export default function CRUD() {
+  React.useEffect(() => {
+    isMount = true;
+    return () => {
+      isMount = false;
+    };
+  }, []);
+
   const appendToBody = usePortalBody();
 
   const confirm = useConfirm();
@@ -72,8 +78,10 @@ export default function CRUD() {
 
   const records = React.useMemo(() => Object.values(state.data), [state.data]);
 
+  const enabledFetch = state.canFetch && !state.loading && !state.message;
+
   React.useEffect(() => {
-    if (!state.canFetch || state.loading || state.message) return;
+    if (!enabledFetch) return;
 
     const onScrollEnd = (e: ScrollNative) => {
       const { scrollingElement } = document;
@@ -93,11 +101,9 @@ export default function CRUD() {
 
       api
         .select(state.query)
-        .then((records) => {
-          model.addData(records);
-        })
+        .then((records) => isMount && model.addData(records))
         .catch(console.error)
-        .finally(() => model.loading(false));
+        .finally(() => isMount && model.loading(false));
 
       document.removeEventListener("scroll", onScrollEnd);
     };
@@ -105,19 +111,21 @@ export default function CRUD() {
     document.addEventListener("scroll", onScrollEnd);
 
     return () => document.removeEventListener("scroll", onScrollEnd);
-  }, [state.canFetch, state.loading,state.message, model]);
+  }, [enabledFetch, model, state.query]);
 
   const existsData = Boolean(records.length);
 
-  if (!existsData && !state.loading && !state.message && state.canFetch) {
+  React.useEffect(() => {
+    if (existsData || !enabledFetch) return;
+
     model.loading();
 
     api
       .select(state.query)
-      .then((records) => model.addData(records))
-      .catch((err) => model.message(err.message))
-      .finally(() => model.loading(false));
-  }
+      .then((records) => isMount && model.addData(records))
+      .catch((err) => isMount && model.message(err.message))
+      .finally(() => isMount && model.loading(false));
+  }, [enabledFetch, existsData, model, state.query]);
 
   return (
     <div className="crud">
@@ -169,8 +177,9 @@ export default function CRUD() {
                     panel
                     onClose={portal.remove}
                     onPartial={(person) => {
-                      model.query({ startRow: 0, ...person });
                       portal.remove();
+                      if (!isMount) return;
+                      model.query({ startRow: 0, ...person });
                     }}
                   />
                 </div>
@@ -233,6 +242,7 @@ export default function CRUD() {
                                           confirm({
                                             message,
                                             onConfirm() {
+                                              if (!isMount) return;
                                               model.update(data);
                                             },
                                           });
@@ -265,6 +275,7 @@ export default function CRUD() {
                                 confirm({
                                   message,
                                   onConfirm() {
+                                    if (!isMount) return;
                                     model.delete(record.id);
                                   },
                                 });
@@ -307,8 +318,6 @@ function init(): State {
 /**
  * Types
  */
-type ScrollEvent = React.UIEvent<HTMLDivElement, UIEvent>;
-
 interface State {
   query: Select;
   loading: boolean;

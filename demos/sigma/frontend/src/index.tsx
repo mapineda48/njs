@@ -1,11 +1,14 @@
 import { BrowserRouter, Route } from "react-router-dom";
+import { mountChat } from "@mapineda48/social/browser";
 import { render } from "common";
 import { route } from "@api";
 import baseUrl from "@backend/baseUrl";
 import Portals from "components/Portals";
 import Home from "./Home";
-import Landing from "./landing/App";
-import CRUD from "./crud/App";
+import Landing from "./Landing";
+import CRUD from "./Crud";
+
+mountChat();
 
 render(
   <Portals>

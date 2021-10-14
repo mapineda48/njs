@@ -14,9 +14,11 @@
 
   .header {
     width: 100%;
-    height: $height-header;
-    position: fixed;
+    position: sticky;
     top: 0;
+    z-index: 1020;
+
+    height: $height-header;
 
     background-color: $color4;
     .title {
@@ -53,17 +55,17 @@
   }
 
   .records {
-    margin-top: $height-header;
-
     background-color: white;
+    overflow-y: auto;
+    width: 100%;
+
+    position: relative;
 
     table {
       width: 100%;
     }
 
     th {
-      top: $height-header;
-      position: sticky;
       background-color: $color4;
     }
 
