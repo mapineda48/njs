@@ -2,7 +2,7 @@ import React from "react";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { BiEdit, BiSearchAlt } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-import { initAction } from "mp48-react/useAction";
+import { initAction } from "mp48-react/useState";
 import { amountResults } from "@model";
 import { person as api } from "api";
 import { usePortalBody } from "components/Portals";

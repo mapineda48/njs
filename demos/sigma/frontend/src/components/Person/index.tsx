@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { FaRegTimesCircle } from "react-icons/fa";
-import { initAction } from "mp48-react/useAction";
+import { initAction } from "mp48-react/useState";
 import { getPartial } from "./util";
 import { fetchColombia } from "api";
 import { useConfirm } from "components/Confirm";

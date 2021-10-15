@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import React from "react";
-import { initAction } from "mp48-react/useAction";
+import { initAction } from "mp48-react/useState";
 
 const useState = initAction({
   push(state: State, Element: Component): State {
