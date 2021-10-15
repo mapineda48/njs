@@ -10,15 +10,11 @@
   $color4: #6497b1;
   $color5: #b3cde0;
 
-  $height-header: 76px;
-
   .header {
     width: 100%;
     position: sticky;
     top: 0;
     z-index: 1020;
-
-    height: $height-header;
 
     background-color: $color4;
     .title {
@@ -61,12 +57,17 @@
 
     position: relative;
 
+    padding-bottom: 1em;
+
     table {
       width: 100%;
     }
 
     th {
       background-color: $color4;
+      position: sticky;
+      top: 0px;
+      z-index: 1;
     }
 
     tbody button {
