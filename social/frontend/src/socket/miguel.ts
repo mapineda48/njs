@@ -3,17 +3,10 @@ import { event, NAMESPACE, TOKEN } from "@socket";
 
 import type { Message } from "@socket";
 
-export const prod = {
-  io,
-  url: NAMESPACE,
-};
-
 export default createSocket;
 
 export function createSocket(token: string) {
-  const { url, io } = prod;
-
-  const socket = io(url, {
+  const socket = io(NAMESPACE, {
     auth: {
       [TOKEN]: token,
     },

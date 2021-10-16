@@ -15,8 +15,8 @@ const size = {
     width: "40px",
   },
   max: {
-    height: "410px",
-    width: "340px",
+    height: "99vh",
+    width: "99vw",
   },
 };
 
@@ -26,11 +26,16 @@ const size = {
 if (inIframe) {
   iframe.style.display = "initial";
   iframe.style.position = "fixed";
+  iframe.style.right = "0px";
+  iframe.style.top = "50%";
+  iframe.style.transform = "translate(0px, -50%)";
   iframe.style.zIndex = "1000";
   iframe.style.width = "0px";
   iframe.style.height = "0px";
   iframe.style.borderRadius = "4px";
   iframe.style.border = "none";
+  iframe.style.maxHeight = "410px";
+  iframe.style.maxWidth = "340px";
   /**
    * Important set transparent body
    * https://www.geeksforgeeks.org/how-to-create-a-transparent-iframe/
@@ -39,42 +44,26 @@ if (inIframe) {
 }
 
 function setSize({ height, width }: Size) {
+  iframe.style.width = width;
+  iframe.style.height = height;
+}
+
+export default function Iframe(props: Props): JSX.Element {
   if (process.env.NODE_ENV === "development") {
     if (!inIframe) {
       throw new Error("This component must be called inside an iframe");
     }
   }
 
-  iframe.style.width = width;
-  iframe.style.height = height;
-  iframe.style.top = `calc((100vh - ${height}) / 2)`;
-  iframe.style.right = "0px";
-}
-
-export default function Iframe(props: Props): JSX.Element {
-  const canOpen = inIframe && props.open;
-
   React.useEffect(() => {
     if (!inIframe) return;
 
-    if (canOpen) return setSize(size.max);
+    if (props.open) return setSize(size.max);
 
     setSize(size.min);
-  }, [canOpen]);
+  }, [props.open]);
 
   return props.children as any;
-}
-
-export function getIframe() {
-  if (!inIframe) return null;
-
-  return function open(state = true) {
-    if (state) {
-      return setSize(size.max);
-    }
-
-    setSize(size.min);
-  };
 }
 
 /**

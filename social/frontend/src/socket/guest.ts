@@ -4,11 +4,6 @@ import { event, NAMESPACE, GUEST } from "@socket";
 
 import type { Message } from "@socket";
 
-export const opt = {
-  io,
-  url: NAMESPACE,
-};
-
 export default createGuest;
 
 const cache = createStorage<string>("/mapineda48/social/guest/id");
@@ -16,9 +11,7 @@ const cache = createStorage<string>("/mapineda48/social/guest/id");
 const id = cache.get() || cache.set(getRandom());
 
 export function createGuest() {
-  const { url, io } = opt;
-
-  const socket = io(url, {
+  const socket = io(NAMESPACE, {
     auth: {
       [GUEST]: id,
     },
