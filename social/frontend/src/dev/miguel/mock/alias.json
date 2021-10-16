@@ -1,0 +1,4 @@
+{
+  "socket.io-client": "io",
+  "axios": "axios"
+}
