@@ -38,7 +38,7 @@
     "jsonwebtoken": "^8.5.1",
     "kill-port": "^1.6.1",
     "morgan": "^1.10.0",
-    "mp48-cra": "^0.0.2",
+    "mp48-cra": "0.0.4",
     "mp48-react": "^0.0.1",
     "mp48-util": "^0.0.3",
     "nodemon": "^2.0.7",

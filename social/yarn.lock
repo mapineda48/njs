@@ -7891,10 +7891,10 @@ move-concurrently@^1.0.1:
     rimraf "^2.5.4"
     run-queue "^1.0.3"
 
-mp48-cra@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/mp48-cra/-/mp48-cra-0.0.2.tgz#c8cb7925d465c44c8475e9ca7ca0de1fe587fd9d"
-  integrity sha512-nulN9TwpZfJ06I96+LKJXs/qAOi8ozVYEosBgvxu2v2VSMS7lK5nGfEC66uBZXFuM57NJOwKVSBZ9oftigOkNQ==
+mp48-cra@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/mp48-cra/-/mp48-cra-0.0.4.tgz#1941292a8cdf463c81bd43088016e7a272b61e51"
+  integrity sha512-Rjqb6bMzFy4NCorLKT8zBtl8QnMvF+bcAweA/yBA5Y/v48XaJJ85rj0qZ7VL6rNC0a94kwbw/HhNvqcxvw1kdA==
   dependencies:
     commander "^7.0.0"
     mp48-util "0.0.3"
