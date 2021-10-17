@@ -17,7 +17,7 @@ const homepage = "https://github.com/mapineda48/njs/tree/master/social#readme";
 const dep = dist.dep(dependencies, true);
 
 dist()
-  .copy(["frontend/build", "README.md", "CHANGELOG.md", "LICENSE"])
+  .copy(["frontend/build", "README.md", "CHANGELOG.md", "LICENSE", "model"])
   .package({
     name,
     version,
@@ -28,9 +28,15 @@ dist()
     main,
     homepage,
     publishConfig,
-    dependencies: dep(["tslib", "jsonwebtoken"]),
-    peerDependencies: dep(["express", "@types/express", "socket.io"]),
-    peerDependenciesMeta: dep.meta(["@types/express"]),
+    dependencies: dep(["tslib", "jsonwebtoken", "web-push"]),
+    peerDependencies: dep([
+      "express",
+      "@types/express",
+      "socket.io",
+      "pg",
+      "@types/pg",
+    ]),
+    peerDependenciesMeta: dep.meta(["@types/express", "@types/pg"]),
   })
   .complete()
   .catch((err) => console.log(err));
