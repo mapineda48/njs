@@ -1,9 +1,8 @@
 import React from "react";
 import Login from "./Login";
 import createSocket, { Socket } from "../../socket/miguel";
-import { client as http } from "../../http";
 
-export const Context = React.createContext<Session>(null as any);
+export const Context = React.createContext<StateSession>(null as any);
 
 export function useSession() {
   const state = React.useContext(Context);
@@ -16,7 +15,7 @@ export function useSession() {
 }
 
 export default function Session(props: Props) {
-  const [state, setState] = React.useState<Session | null>(null);
+  const [state, setState] = React.useState<StateSession | null>(null);
 
   if (!state) {
     return (
@@ -27,16 +26,6 @@ export default function Session(props: Props) {
           setState({
             token,
             socket,
-            async logout() {
-              try {
-                await http.logout(token);
-              } catch (error) {
-                console.error(error);
-              } finally {
-                setState(null);
-                socket.disconnect();
-              }
-            },
           });
         }}
       />
@@ -53,8 +42,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-interface Session {
+interface StateSession {
   token: string;
   socket: Socket;
-  logout: () => Promise<void>;
 }

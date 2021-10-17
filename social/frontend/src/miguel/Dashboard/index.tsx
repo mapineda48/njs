@@ -1,11 +1,13 @@
 import React from "react";
-import ShowMessage from "../../components/Message";
-import useAction from "mp48-react/useAction";
-import { useSession } from "../Session";
-import { IMessage } from "../../components/Message";
-import { MIGUEL } from "@socket";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 import { RiLogoutBoxRFill } from "react-icons/ri";
+import { MdNotifications } from "react-icons/md";
+import useAction from "mp48-react/useAction";
+import { MIGUEL } from "@socket";
+import ShowMessage from "../../components/Message";
+import { useSession } from "../Session";
+import useNotify from "../useWorker";
+import { IMessage } from "../../components/Message";
 
 import type { Message } from "@socket";
 
@@ -75,7 +77,9 @@ const action = {
 };
 
 export default function Dashboard() {
-  const { socket, logout } = useSession();
+  const enabledNotifications = useNotify();
+
+  const socket = useSession().socket;
 
   const [state, setState] = React.useState(initState);
 
@@ -98,7 +102,7 @@ export default function Dashboard() {
     return () => {
       removeAdd();
     };
-  }, [dashboard]);
+  }, [dashboard, socket]);
 
   console.log(state);
 
@@ -161,8 +165,13 @@ export default function Dashboard() {
       <div className="head">
         <h2>Guests Online</h2>
 
-        <div className="out" onClick={logout}>
-          <RiLogoutBoxRFill />
+        <div className="out">
+          <div onClick={() => enabledNotifications().catch(console.error)}>
+            <MdNotifications />
+          </div>
+          <div>
+            <RiLogoutBoxRFill />
+          </div>
         </div>
       </div>
       <Loading />

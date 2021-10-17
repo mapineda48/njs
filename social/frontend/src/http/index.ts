@@ -16,8 +16,5 @@ export const client = {
     });
 
     return res.data as ResLogIn;
-  },
-  async logout(token: string) {
-    await prod.axios.post(prod.url + api.logout, { token });
-  },
+  }
 };

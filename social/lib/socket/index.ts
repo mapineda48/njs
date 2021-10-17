@@ -1,7 +1,11 @@
 import { NAMESPACE, GUEST, TOKEN, event, MIGUEL } from "./type";
+import * as auth from "../auth";
+import { prepareToSend } from "../web-push";
 
-import type { Namespace, Server as ServerIO, Socket } from "socket.io";
+import type { PushSubscription } from "web-push";
+import type { Namespace, Server, Server as ServerIO, Socket } from "socket.io";
 import type { Message } from "./type";
+import type { Store } from "../store";
 
 /**
  * We store the IDs of the clients so that when Miguel
@@ -14,7 +18,7 @@ const guests = new Set<string>();
  */
 let miguel: Socket | null = null;
 
-export function connectMiguel(socket: Socket) {
+export function connectMiguel(socket: Socket, store: Store) {
   miguel = socket;
 
   const rooms = getGuestsAvailable();
@@ -33,6 +37,48 @@ export function connectMiguel(socket: Socket) {
     cb(null, rooms);
   });
 
+  /**
+   * Get publicKey to create worker on client that enabled notification when miguel have a guest
+   */
+  socket.on(event.getPublicKey, async (cb) => {
+    try {
+      const { publicKey } = await store.getVapidKeys();
+
+      cb(null, publicKey);
+    } catch (error) {
+      cb({ message: "unhandler error " });
+
+      console.error(error);
+    }
+  });
+
+  /**
+   * Save subscription
+   */
+  socket.on(event.saveSubscription, async (sub: PushSubscription, cb) => {
+    try {
+      await store.saveSubscription(sub);
+
+      cb(null);
+    } catch (error) {
+      cb({ message: "unhandler error " });
+
+      console.error(error);
+    }
+  });
+
+  socket.on(event.removeSubscription, async (sub: PushSubscription, cb) => {
+    try {
+      await store.removeSubscription(sub);
+
+      cb(null);
+    } catch (error) {
+      cb({ message: "unhandler error " });
+
+      console.error(error);
+    }
+  });
+
   socket.on(event.addMessage, (room, data) => {
     const message: Message = { room, writeBy: MIGUEL, data };
 
@@ -45,6 +91,8 @@ export function connectMiguel(socket: Socket) {
     const rooms = getGuestsAvailable();
 
     socket.to(rooms).emit(event.isOnlineMiguel, false);
+
+    auth.logout();
   });
 }
 
@@ -52,7 +100,9 @@ export function getGuestsAvailable() {
   return Array.from(guests);
 }
 
-function connectGuest(socket: Socket, id: string) {
+function connectGuest(socket: Socket, id: string, store: Store) {
+  const sendNotify = prepareToSend(store);
+
   socket.join(id);
 
   socket.nsp.emit(event.guestOnline);
@@ -63,6 +113,14 @@ function connectGuest(socket: Socket, id: string) {
     const message: Message = { room: id, writeBy: id, data: "connect" };
 
     miguel.emit(event.addMessage, message);
+  } else {
+    /**
+     * Notify to miguel guest connect
+     */
+    sendNotify({
+      title: "Tienes un visitante",
+      body: "Saludalo",
+    });
   }
 
   socket.emit(event.isOnlineMiguel, Boolean(miguel));
@@ -89,7 +147,7 @@ function connectGuest(socket: Socket, id: string) {
   });
 }
 
-export function authorize(isToken: IsToken) {
+export function authorize(store: Store) {
   return async function onAuthorize(socket: Socket, next: Next) {
     const guest = socket.handshake.auth[GUEST];
 
@@ -100,10 +158,10 @@ export function authorize(isToken: IsToken) {
     }
 
     if (guest) {
-      connectGuest(socket, guest);
+      connectGuest(socket, guest, store);
       return next();
-    } else if (await isToken(token)) {
-      connectMiguel(socket);
+    } else if (auth.isToken(token)) {
+      connectMiguel(socket, store);
       return next();
     }
 
@@ -111,10 +169,10 @@ export function authorize(isToken: IsToken) {
   };
 }
 
-export function setChat(io: ServerIO, isToken: IsToken) {
+export function setChat(io: Server, store: Store) {
   const nsp = io.of(NAMESPACE);
 
-  nsp.use(authorize(isToken));
+  nsp.use(authorize(store));
 
   return nsp;
 }
@@ -122,8 +180,6 @@ export function setChat(io: ServerIO, isToken: IsToken) {
 /**
  * Types
  */
-type IsToken = (token: string) => Promise<boolean>;
-
 type Next = Parameters<Parameters<Namespace["use"]>[0]>[1];
 
 export type { ServerIO };

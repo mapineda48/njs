@@ -13,6 +13,9 @@ export const event = {
   addMessage: "add-message",
   isOnlineMiguel: "is-online-miguel",
   roomsAvailable: "rooms-available",
+  getPublicKey: "public key to worker",
+  saveSubscription: "save-subscription",
+  removeSubscription:"remove subscription"
 };
 
 /**

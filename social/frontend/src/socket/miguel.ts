@@ -49,6 +49,36 @@ export function createSocket(token: string) {
         });
       });
     },
+
+    async getPublicKey() {
+      return new Promise<string>((res, rej) => {
+        socket.emit(event.getPublicKey, (err: any, publicKey: string) => {
+          if (err) return rej(err);
+
+          res(publicKey);
+        });
+      });
+    },
+
+    async saveSubscription(sub: PushSubscription) {
+      return new Promise<void>((res, rej) => {
+        socket.emit(event.saveSubscription, sub, (err: any) => {
+          if (err) return rej(err);
+
+          res();
+        });
+      });
+    },
+
+    async removeSubscription(sub: PushSubscription) {
+      return new Promise<void>((res, rej) => {
+        socket.emit(event.removeSubscription, sub, (err: any) => {
+          if (err) return rej(err);
+
+          res();
+        });
+      });
+    },
   };
 }
 

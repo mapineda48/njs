@@ -1,41 +1,21 @@
 import * as express from "express";
 import { api as apiWeb } from "./type";
-import { createSession } from "../jwt";
 import { parseError } from "../error";
-import { setChat, ServerIO } from "../socket";
+
+import type { Auth } from "../auth";
 
 const api = prepareApi(apiWeb);
 
-export default function createApi(
-  usename: string,
-  password: string,
-  io: ServerIO
-) {
+export default function createApi(login: Auth) {
   const router = express.Router();
-
-  const session = createSession(usename, password);
-
-  setChat(io, session.isToken);
 
   router.post(api.login, async (req, res, next) => {
     try {
       const { username, password } = req.body;
 
-      const token = await session(username, password);
+      const token = await login(username, password);
 
       res.json({ token });
-    } catch (error) {
-      next(error);
-    }
-  });
-
-  router.post(api.logout, async (req, res, next) => {
-    try {
-      const { token } = req.body;
-
-      await session.logout(token);
-
-      res.json({ message: "success" });
     } catch (error) {
       next(error);
     }

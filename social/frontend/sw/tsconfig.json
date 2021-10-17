@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "esnext",
+      "WebWorker",
+      "WebWorker.ImportScripts",
+      "Webworker.Iterable"
+    ],
+    "skipLibCheck": true,
+    "strict": true,
+    "module": "esnext",
+    "outDir": "../build/",
+    "removeComments": true
+  },
+  "include": ["."]
+}
