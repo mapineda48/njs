@@ -1,5 +1,3 @@
-export const FORCE_OPEN = "@mapineda48/personal/force-open/chat";
-
 export const NAMESPACE = "/mapineda48/chat";
 
 export const GUEST = "Guest-Id";
@@ -9,13 +7,14 @@ export const TOKEN = "Miguel-Token";
 export const MIGUEL = "Need work please contact me.";
 
 export const event = {
-  guestOnline: "guest-online",
-  addMessage: "add-message",
-  isOnlineMiguel: "is-online-miguel",
-  roomsAvailable: "rooms-available",
-  getPublicKey: "public key to worker",
-  saveSubscription: "save-subscription",
-  removeSubscription:"remove subscription"
+  GUEST_ONLINE: "0",
+  ADD_MESSAGE: "1",
+  MIGUEL_ONLINE: "2",
+  ROOMS_AVAILABLE: "3",
+  PUBLIC_KEY: "4",
+  SAVE_SUBSCRIPTION: "5",
+  REMOVE_SUBSCRIPTION: "6",
+  FORCE_OPEN: "7",
 };
 
 /**

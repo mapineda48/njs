@@ -1,5 +1,5 @@
 import io from "socket.io-client";
-import { event, NAMESPACE, TOKEN } from "@socket";
+import { event as e, NAMESPACE, TOKEN } from "@socket";
 
 import type { Message } from "@socket";
 
@@ -22,10 +22,10 @@ export function createSocket(token: string) {
   return {
     socket,
     onAddMessage(cb: (message: Message) => void) {
-      return on(event.addMessage, cb);
+      return on(e.ADD_MESSAGE, cb);
     },
     onIsOnlineMiguel(cb: (state: boolean) => void) {
-      return on(event.isOnlineMiguel, cb);
+      return on(e.MIGUEL_ONLINE, cb);
     },
 
     onError(cb: (err: any) => void) {
@@ -37,12 +37,12 @@ export function createSocket(token: string) {
     },
 
     addMessage(room: string, data: string) {
-      socket.emit(event.addMessage, room, data);
+      socket.emit(e.ADD_MESSAGE, room, data);
     },
 
     async fetchRooms() {
       return new Promise<string[]>((res, rej) => {
-        socket.emit(event.roomsAvailable, (err: any, rooms: string[]) => {
+        socket.emit(e.ROOMS_AVAILABLE, (err: any, rooms: string[]) => {
           if (err) return rej(err);
 
           res(rooms);
@@ -52,7 +52,7 @@ export function createSocket(token: string) {
 
     async getPublicKey() {
       return new Promise<string>((res, rej) => {
-        socket.emit(event.getPublicKey, (err: any, publicKey: string) => {
+        socket.emit(e.PUBLIC_KEY, (err: any, publicKey: string) => {
           if (err) return rej(err);
 
           res(publicKey);
@@ -62,7 +62,7 @@ export function createSocket(token: string) {
 
     async saveSubscription(sub: PushSubscription) {
       return new Promise<void>((res, rej) => {
-        socket.emit(event.saveSubscription, sub, (err: any) => {
+        socket.emit(e.SAVE_SUBSCRIPTION, sub, (err: any) => {
           if (err) return rej(err);
 
           res();
@@ -72,7 +72,7 @@ export function createSocket(token: string) {
 
     async removeSubscription(sub: PushSubscription) {
       return new Promise<void>((res, rej) => {
-        socket.emit(event.removeSubscription, sub, (err: any) => {
+        socket.emit(e.REMOVE_SUBSCRIPTION, sub, (err: any) => {
           if (err) return rej(err);
 
           res();

@@ -1,4 +1,4 @@
-import { event, MIGUEL } from "@socket";
+import { event as e, MIGUEL } from "@socket";
 
 import type { Message } from "@socket";
 /**
@@ -65,13 +65,13 @@ let isOnlineMiguel = false;
 export const mockMiguel = {
   toggleOnline() {
     isOnlineMiguel = !isOnlineMiguel;
-    server.emit(event.isOnlineMiguel, isOnlineMiguel);
+    server.emit(e.MIGUEL_ONLINE, isOnlineMiguel);
   },
 
   addMessage(data: string) {
     const message: Message = { writeBy: MIGUEL, data, room: "unknown" };
 
-    server.emit(event.addMessage, message);
+    server.emit(e.ADD_MESSAGE, message);
   },
 };
 
@@ -90,16 +90,16 @@ export default function mockIO() {
     off(e: string, ...args: any[]) {
       server.off(e, ...args);
     },
-    emit(e: string, ...args: any[]) {
+    emit(event: string, ...args: any[]) {
       const [data] = args;
 
-      if (e === event.addMessage) {
+      if (event === e.ADD_MESSAGE) {
         const message: Message = { writeBy: id, data, room: "known" };
-        server.emit(e, message);
+        server.emit(event, message);
         return;
       }
 
-      server.emit(e, data);
+      server.emit(event, data);
     },
   } as any;
 }

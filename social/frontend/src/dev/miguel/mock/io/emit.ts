@@ -1,4 +1,4 @@
-import { event, MIGUEL } from "@socket";
+import { event as e, MIGUEL } from "@socket";
 import { server } from "./server";
 import { wait } from "../axios";
 
@@ -6,7 +6,7 @@ import type { Message } from "@socket";
 
 const api = new Map();
 
-api.set(event.saveSubscription, (sub: any, cb: any) => {
+api.set(e.SAVE_SUBSCRIPTION, (sub: any, cb: any) => {
   wait().then(() => {
     console.log("save sub");
     console.log(sub);
@@ -15,7 +15,7 @@ api.set(event.saveSubscription, (sub: any, cb: any) => {
   });
 });
 
-api.set(event.getPublicKey, (cb: any) => {
+api.set(e.PUBLIC_KEY, (cb: any) => {
   wait().then(() => {
     cb(null, "foo public key");
   });
@@ -27,12 +27,12 @@ while (rooms.length < 25) {
   rooms.push(Date.now() + rooms.length + "");
 }
 
-api.set(event.addMessage, (data: any) => {
+api.set(e.ADD_MESSAGE, (data: any) => {
   const message: Message = { room: rooms[0], writeBy: MIGUEL, data };
-  server.emit(event.addMessage, message);
+  server.emit(e.ADD_MESSAGE, message);
 });
 
-api.set(event.roomsAvailable, (cb: any) => {
+api.set(e.ROOMS_AVAILABLE, (cb: any) => {
   wait("foo").then(() => {
     cb(null, rooms);
 
@@ -51,7 +51,7 @@ api.set(event.roomsAvailable, (cb: any) => {
     messages.forEach((m, i) => {
       wait(m.data, i * 1000)
         .then(() => {
-          server.emit(event.addMessage, m);
+          server.emit(e.ADD_MESSAGE, m);
         })
         .catch(console.error);
     });

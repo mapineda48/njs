@@ -1,4 +1,4 @@
-import { NAMESPACE, GUEST, TOKEN, event, MIGUEL } from "./type";
+import { event as e, NAMESPACE, GUEST, TOKEN, MIGUEL } from "./type";
 import * as auth from "../auth";
 import { prepareToSend } from "../web-push";
 
@@ -28,19 +28,19 @@ export function connectMiguel(socket: Socket, store: Store) {
   /**
    * Join all rooms available
    */
-  socket.to(rooms).emit(event.isOnlineMiguel, true);
+  socket.to(rooms).emit(e.MIGUEL_ONLINE, true);
 
   /**
    * Send rooms to client
    */
-  socket.on(event.roomsAvailable, (cb) => {
+  socket.on(e.ROOMS_AVAILABLE, (cb) => {
     cb(null, rooms);
   });
 
   /**
    * Get publicKey to create worker on client that enabled notification when miguel have a guest
    */
-  socket.on(event.getPublicKey, async (cb) => {
+  socket.on(e.PUBLIC_KEY, async (cb) => {
     try {
       const { publicKey } = await store.getVapidKeys();
 
@@ -55,7 +55,7 @@ export function connectMiguel(socket: Socket, store: Store) {
   /**
    * Save subscription
    */
-  socket.on(event.saveSubscription, async (sub: PushSubscription, cb) => {
+  socket.on(e.SAVE_SUBSCRIPTION, async (sub: PushSubscription, cb) => {
     try {
       await store.saveSubscription(sub);
 
@@ -67,7 +67,7 @@ export function connectMiguel(socket: Socket, store: Store) {
     }
   });
 
-  socket.on(event.removeSubscription, async (sub: PushSubscription, cb) => {
+  socket.on(e.REMOVE_SUBSCRIPTION, async (sub: PushSubscription, cb) => {
     try {
       await store.removeSubscription(sub);
 
@@ -79,10 +79,10 @@ export function connectMiguel(socket: Socket, store: Store) {
     }
   });
 
-  socket.on(event.addMessage, (room, data) => {
+  socket.on(e.ADD_MESSAGE, (room, data) => {
     const message: Message = { room, writeBy: MIGUEL, data };
 
-    socket.nsp.to(room).emit(event.addMessage, message);
+    socket.nsp.to(room).emit(e.ADD_MESSAGE, message);
   });
 
   socket.on("disconnect", () => {
@@ -90,7 +90,7 @@ export function connectMiguel(socket: Socket, store: Store) {
 
     const rooms = getGuestsAvailable();
 
-    socket.to(rooms).emit(event.isOnlineMiguel, false);
+    socket.to(rooms).emit(e.MIGUEL_ONLINE, false);
 
     auth.logout();
   });
@@ -105,14 +105,14 @@ function connectGuest(socket: Socket, id: string, store: Store) {
 
   socket.join(id);
 
-  socket.nsp.emit(event.guestOnline);
+  socket.nsp.emit(e.GUEST_ONLINE);
 
   if (miguel) {
     miguel.join(id);
 
     const message: Message = { room: id, writeBy: id, data: "connect" };
 
-    miguel.emit(event.addMessage, message);
+    miguel.emit(e.ADD_MESSAGE, message);
   } else {
     /**
      * Notify to miguel guest connect
@@ -123,12 +123,12 @@ function connectGuest(socket: Socket, id: string, store: Store) {
     });
   }
 
-  socket.emit(event.isOnlineMiguel, Boolean(miguel));
+  socket.emit(e.MIGUEL_ONLINE, Boolean(miguel));
 
-  socket.on(event.addMessage, (data) => {
+  socket.on(e.ADD_MESSAGE, (data) => {
     const message: Message = { room: id, writeBy: id, data };
 
-    socket.nsp.to(id).emit(event.addMessage, message);
+    socket.nsp.to(id).emit(e.ADD_MESSAGE, message);
   });
 
   /**
@@ -143,7 +143,7 @@ function connectGuest(socket: Socket, id: string, store: Store) {
 
     const message: Message = { room: id, writeBy: id, data: "disconnect" };
 
-    miguel.emit(event.addMessage, message);
+    miguel.emit(e.ADD_MESSAGE, message);
   });
 }
 
