@@ -1,7 +1,15 @@
 import io from "socket.io-client";
-import { event as e, NAMESPACE, TOKEN } from "@socket";
+import { NAMESPACE, TOKEN } from "@socket/type";
+import {
+  ADD_MESSAGE,
+  MIGUEL_ONLINE,
+  REMOVE_SUBSCRIPTION,
+  ROOMS_AVAILABLE,
+  PUBLIC_KEY,
+  SAVE_SUBSCRIPTION,
+} from "@socket/event";
 
-import type { Message } from "@socket";
+import type { Message } from "@socket/type";
 
 export default createSocket;
 
@@ -22,10 +30,10 @@ export function createSocket(token: string) {
   return {
     socket,
     onAddMessage(cb: (message: Message) => void) {
-      return on(e.ADD_MESSAGE, cb);
+      return on(ADD_MESSAGE, cb);
     },
     onIsOnlineMiguel(cb: (state: boolean) => void) {
-      return on(e.MIGUEL_ONLINE, cb);
+      return on(MIGUEL_ONLINE, cb);
     },
 
     onError(cb: (err: any) => void) {
@@ -37,12 +45,12 @@ export function createSocket(token: string) {
     },
 
     addMessage(room: string, data: string) {
-      socket.emit(e.ADD_MESSAGE, room, data);
+      socket.emit(ADD_MESSAGE, room, data);
     },
 
     async fetchRooms() {
       return new Promise<string[]>((res, rej) => {
-        socket.emit(e.ROOMS_AVAILABLE, (err: any, rooms: string[]) => {
+        socket.emit(ROOMS_AVAILABLE, (err: any, rooms: string[]) => {
           if (err) return rej(err);
 
           res(rooms);
@@ -52,7 +60,7 @@ export function createSocket(token: string) {
 
     async getPublicKey() {
       return new Promise<string>((res, rej) => {
-        socket.emit(e.PUBLIC_KEY, (err: any, publicKey: string) => {
+        socket.emit(PUBLIC_KEY, (err: any, publicKey: string) => {
           if (err) return rej(err);
 
           res(publicKey);
@@ -62,7 +70,7 @@ export function createSocket(token: string) {
 
     async saveSubscription(sub: PushSubscription) {
       return new Promise<void>((res, rej) => {
-        socket.emit(e.SAVE_SUBSCRIPTION, sub, (err: any) => {
+        socket.emit(SAVE_SUBSCRIPTION, sub, (err: any) => {
           if (err) return rej(err);
 
           res();
@@ -72,7 +80,7 @@ export function createSocket(token: string) {
 
     async removeSubscription(sub: PushSubscription) {
       return new Promise<void>((res, rej) => {
-        socket.emit(e.REMOVE_SUBSCRIPTION, sub, (err: any) => {
+        socket.emit(REMOVE_SUBSCRIPTION, sub, (err: any) => {
           if (err) return rej(err);
 
           res();

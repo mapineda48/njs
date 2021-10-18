@@ -1,8 +1,9 @@
 import io from "socket.io-client";
 import { createStorage } from "mp48-react/storage";
-import { event as e, NAMESPACE, GUEST } from "@socket";
+import { NAMESPACE, GUEST } from "@socket/type";
+import { ADD_MESSAGE, MIGUEL_ONLINE } from "@socket/event";
 
-import type { Message } from "@socket";
+import type { Message } from "@socket/type";
 
 export default createGuest;
 
@@ -27,10 +28,10 @@ export function createGuest() {
   return {
     socket,
     onAddMessage(cb: (message: Message) => void) {
-      return on(e.ADD_MESSAGE, cb);
+      return on(ADD_MESSAGE, cb);
     },
     onIsOnlineMiguel(cb: (state: boolean) => void) {
-      return on(e.MIGUEL_ONLINE, cb);
+      return on(MIGUEL_ONLINE, cb);
     },
 
     onError(cb: (err: any) => void) {
@@ -39,7 +40,7 @@ export function createGuest() {
 
     async addMessage(data: string) {
       return new Promise<void>((res, rej) => {
-        socket.emit(e.ADD_MESSAGE, data, function onAddMessage(err: any) {
+        socket.emit(ADD_MESSAGE, data, function onAddMessage(err: any) {
           if (!err) return res();
           rej(err);
         });

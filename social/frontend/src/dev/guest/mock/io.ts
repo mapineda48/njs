@@ -1,6 +1,7 @@
-import { event as e, MIGUEL } from "@socket";
+import { MIGUEL } from "@socket/type";
+import * as e from "@socket/event";
 
-import type { Message } from "@socket";
+import type { Message } from "@socket/type";
 /**
  * Mock Server Socket
  */

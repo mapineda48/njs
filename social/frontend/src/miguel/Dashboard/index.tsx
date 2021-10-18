@@ -3,13 +3,13 @@ import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { MdNotifications } from "react-icons/md";
 import useAction from "mp48-react/useAction";
-import { MIGUEL } from "@socket";
+import { MIGUEL } from "@socket/type";
 import ShowMessage from "../../components/Message";
 import { useSession } from "../Session";
 import useNotify from "../useWorker";
 import { IMessage } from "../../components/Message";
 
-import type { Message } from "@socket";
+import type { Message } from "@socket/type";
 
 const action = {
   notify(state: State, notification: string): State {

@@ -22,8 +22,8 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
     "paths": {
-      "@socket": [
-        "../../lib/socket/type"
+      "@socket/*": [
+        "../../lib/socket/*"
       ],
       "@api": [
         "../../lib/api/type"

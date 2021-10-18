@@ -1,8 +1,9 @@
-import { event as e, MIGUEL } from "@socket";
+import { MIGUEL } from "@socket/type";
+import * as e from "@socket/event";
 import { server } from "./server";
 import { wait } from "../axios";
 
-import type { Message } from "@socket";
+import type { Message } from "@socket/type";
 
 const api = new Map();
 

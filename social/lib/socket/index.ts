@@ -1,4 +1,5 @@
-import { event as e, NAMESPACE, GUEST, TOKEN, MIGUEL } from "./type";
+import { NAMESPACE, GUEST, TOKEN, MIGUEL } from "./type";
+import * as e from "./event";
 import * as auth from "../auth";
 import { prepareToSend } from "../web-push";
 
