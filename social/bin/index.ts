@@ -48,6 +48,23 @@ app.use(
 
 app.get("/", (req, res) => res.redirect("/social/guest"));
 
+app.get("/in-iframe", (req, res) => {
+  res.send(`
+          <!DOCTYPE html>
+          <html lang="en">
+            <head>
+              <meta charset="UTF-8" />
+              <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <title>Document</title>
+            </head>
+            <body>
+              <iframe src="/social/guest/" style="display: none"></iframe>
+            </body>
+          </html>
+  `);
+});
+
 const sendNotify = prepareToSend(initStore(pg));
 
 process.stdin.on("data", (buff) => {

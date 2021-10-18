@@ -13,6 +13,32 @@ const guest = createGuest();
 export default function App() {
   const [state, chat] = useState();
 
+  React.useMemo(() => {
+    if (!state.online) return;
+
+    const win = window.parent;
+
+    const href = win.location.href;
+    const agent = win.navigator.userAgent;
+
+    guest.appNotify(href);
+    guest.appNotify(agent);
+
+    root.classList.add("enabled-chat");
+
+    return () => {
+      root.classList.remove("enabled-chat");
+    };
+  }, [state.online]);
+
+  React.useMemo(() => {
+    if (state.open) {
+      guest.appNotify("chat open");
+    } else {
+      guest.appNotify("chat close");
+    }
+  }, [state.open]);
+
   React.useEffect(() => {
     const removeAdd = guest.onAddMessage(({ data, writeBy }) => {
       chat.addMessage({
@@ -25,22 +51,17 @@ export default function App() {
 
     const removeError = guest.onError((data) => console.error(data));
 
+    const removeForceOpen = guest.onForceOpen(() => {
+      chat.openChat();
+    });
+
     return () => {
       removeAdd();
       removeOnline();
       removeError();
+      removeForceOpen();
     };
   }, []);
-
-  React.useEffect(() => {
-    if (!state.online) return;
-
-    root.classList.add("enabled-chat");
-
-    return () => {
-      root.classList.remove("enabled-chat");
-    };
-  }, [state.online]);
 
   return (
     <Iframe open={state.open}>
@@ -86,12 +107,16 @@ export default function App() {
       </li>
       {state.online && (
         <li className="button-chat shadow-one" onClick={chat.toggle}>
-          <a title="Miguel is Online">
+          <div title="Miguel is Online">
             <AiFillWechat />
-          </a>
+          </div>
           {!!state.unread && <div className="unread">{state.unread}</div>}
           {state.open && (
-            <Chat messages={state.messages} onSend={guest.addMessage} />
+            <Chat
+              messages={state.messages}
+              onToggle={chat.toggle}
+              onSend={guest.addMessage}
+            />
           )}
         </li>
       )}

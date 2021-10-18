@@ -22,19 +22,19 @@ let miguel: Socket | null = null;
 export function connectMiguel(socket: Socket, store: Store) {
   miguel = socket;
 
-  const rooms = getGuestsAvailable();
-
-  socket.join(rooms);
-
-  /**
-   * Join all rooms available
-   */
-  socket.to(rooms).emit(e.MIGUEL_ONLINE, true);
-
   /**
    * Send rooms to client
    */
   socket.on(e.ROOMS_AVAILABLE, (cb) => {
+    const rooms = getGuestsAvailable();
+
+    /**
+     * Join all rooms available
+     */
+    socket.join(rooms);
+
+    socket.to(rooms).emit(e.MIGUEL_ONLINE, true);
+
     cb(null, rooms);
   });
 
@@ -80,7 +80,12 @@ export function connectMiguel(socket: Socket, store: Store) {
     }
   });
 
-  socket.on(e.ADD_MESSAGE, (room, data) => {
+  socket.on(e.ADD_MESSAGE, (room: string, data: string) => {
+    if (data === "/open") {
+      socket.nsp.to(room).emit(e.FORCE_OPEN);
+      return;
+    }
+
     const message: Message = { room, writeBy: MIGUEL, data };
 
     socket.nsp.to(room).emit(e.ADD_MESSAGE, message);
@@ -130,6 +135,14 @@ function connectGuest(socket: Socket, id: string, store: Store) {
     const message: Message = { room: id, writeBy: id, data };
 
     socket.nsp.to(id).emit(e.ADD_MESSAGE, message);
+  });
+
+  socket.on(e.GUEST_APP_NOFIFY, (data: string) => {
+    if (!miguel) return;
+
+    const message: Message = { room: id, writeBy: id, data };
+
+    miguel.emit(e.ADD_MESSAGE, message);
   });
 
   /**

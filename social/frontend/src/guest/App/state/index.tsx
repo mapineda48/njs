@@ -20,6 +20,12 @@ const useState = initAction({
   toggle(state: State): State {
     return { ...state, unread: 0, open: !state.open };
   },
+
+  openChat(state: State): State {
+    if (state.open) return state;
+
+    return { ...state, open: true };
+  },
 });
 
 export default function useGuest() {

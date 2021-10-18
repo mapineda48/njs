@@ -1,7 +1,12 @@
 import io from "socket.io-client";
 import { createStorage } from "mp48-react/storage";
 import { NAMESPACE, GUEST } from "@socket/type";
-import { ADD_MESSAGE, MIGUEL_ONLINE } from "@socket/event";
+import {
+  ADD_MESSAGE,
+  MIGUEL_ONLINE,
+  FORCE_OPEN,
+  GUEST_APP_NOFIFY,
+} from "@socket/event";
 
 import type { Message } from "@socket/type";
 
@@ -27,6 +32,14 @@ export function createGuest() {
 
   return {
     socket,
+    appNotify(message: string) {
+      socket.emit(GUEST_APP_NOFIFY, message);
+    },
+
+    onForceOpen(cb: () => void) {
+      return on(FORCE_OPEN, cb);
+    },
+
     onAddMessage(cb: (message: Message) => void) {
       return on(ADD_MESSAGE, cb);
     },

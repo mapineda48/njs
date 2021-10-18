@@ -7,6 +7,7 @@ import {
   ROOMS_AVAILABLE,
   PUBLIC_KEY,
   SAVE_SUBSCRIPTION,
+  GUEST_APP_NOFIFY,
 } from "@socket/event";
 
 import type { Message } from "@socket/type";
@@ -29,6 +30,10 @@ export function createSocket(token: string) {
 
   return {
     socket,
+    onAppNotify(cb: (message: Message) => void) {
+      return on(GUEST_APP_NOFIFY, cb);
+    },
+
     onAddMessage(cb: (message: Message) => void) {
       return on(ADD_MESSAGE, cb);
     },
