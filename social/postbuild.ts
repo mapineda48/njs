@@ -28,7 +28,7 @@ dist()
     main,
     homepage,
     publishConfig,
-    dependencies: dep(["tslib", "jsonwebtoken", "web-push"]),
+    dependencies: dep(["tslib", "jsonwebtoken", "web-push", "ms"]),
     peerDependencies: dep([
       "express",
       "@types/express",
