@@ -69,7 +69,7 @@
     "postbuild": "ts-node postbuild.ts",
     "release": "yarn mp48-release",
     "version": "yarn build",
-    "build": "rm -rf dist && yarn frontend:dist && yarn build:lib",
+    "build": "rm -rf dist && yarn frontend:dist && yarn lib:build",
     "types": "yarn lib:types && yarn frontend:types",
     "lib:types": "tsc --noEmit",
     "lib:build": "tsc",
