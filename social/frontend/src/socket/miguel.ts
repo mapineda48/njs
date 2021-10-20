@@ -2,20 +2,20 @@ import io from "socket.io-client";
 import { NAMESPACE, TOKEN } from "@socket/type";
 import {
   ADD_MESSAGE,
-  MIGUEL_ONLINE,
   REMOVE_SUBSCRIPTION,
-  ROOMS_AVAILABLE,
   PUBLIC_KEY,
   SAVE_SUBSCRIPTION,
-  GUEST_APP_NOFIFY,
+  APP_NOFIFY,
+  MIGUEL_READY,
+  GUEST_ONLINE,
 } from "@socket/event";
 
 import type { Message } from "@socket/type";
 
 export default createSocket;
 
-export function createSocket(token: string) {
-  const socket = io(NAMESPACE, {
+export function createSocket(token: string, uri = NAMESPACE) {
+  const socket = io(uri, {
     auth: {
       [TOKEN]: token,
     },
@@ -28,19 +28,23 @@ export function createSocket(token: string) {
     };
   };
 
+  socket.on(GUEST_ONLINE, (id: string) => {
+    // Join to room id
+    socket.emit(GUEST_ONLINE, id);
+  });
+
   return {
     socket,
+    ready() {
+      socket.emit(MIGUEL_READY);
+    },
     onAppNotify(cb: (message: Message) => void) {
-      return on(GUEST_APP_NOFIFY, cb);
+      return on(APP_NOFIFY, cb);
     },
 
     onAddMessage(cb: (message: Message) => void) {
       return on(ADD_MESSAGE, cb);
     },
-    onIsOnlineMiguel(cb: (state: boolean) => void) {
-      return on(MIGUEL_ONLINE, cb);
-    },
-
     onError(cb: (err: any) => void) {
       return on("error", cb);
     },
@@ -51,16 +55,6 @@ export function createSocket(token: string) {
 
     addMessage(room: string, data: string) {
       socket.emit(ADD_MESSAGE, room, data);
-    },
-
-    async fetchRooms() {
-      return new Promise<string[]>((res, rej) => {
-        socket.emit(ROOMS_AVAILABLE, (err: any, rooms: string[]) => {
-          if (err) return rej(err);
-
-          res(rooms);
-        });
-      });
     },
 
     async getPublicKey() {

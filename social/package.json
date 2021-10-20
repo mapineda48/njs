@@ -18,6 +18,8 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.9.2",
+    "@socket.io/cluster-adapter": "^0.1.0",
+    "@socket.io/sticky": "^1.0.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -64,19 +66,18 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "serve": "nodemon --delay 2",
-    "check:types": "yarn types && yarn frontend:types",
-    "types": "tsc --noEmit",
+    "postbuild": "ts-node postbuild.ts",
+    "release": "yarn mp48-release",
+    "version": "yarn build",
+    "build": "rm -rf dist && yarn frontend:dist && yarn build:lib",
+    "types": "yarn lib:types && yarn frontend:types",
+    "lib:types": "tsc --noEmit",
+    "lib:build": "tsc",
     "frontend:types": "tsc -P frontend/tsconfig.json --noEmit",
     "frontend:build": "rm -rf frontend/build && mp -B -A",
     "frontend:lib": "tsc -P frontend/lib/tsconfig.json",
     "frontend:sw": "tsc -P frontend/sw/tsconfig.json",
-    "frontend:dist": "yarn frontend:build && yarn frontend:sw && yarn frontend:lib",
-    "build:lib": "tsc",
-    "postbuild": "ts-node postbuild.ts",
-    "build": "rm -rf dist && yarn frontend:dist && yarn build:lib",
-    "release": "yarn mp48-release",
-    "version": "yarn build"
+    "frontend:dist": "yarn frontend:build && yarn frontend:sw && yarn frontend:lib"
   },
   "eslintConfig": {
     "extends": [

@@ -2,8 +2,8 @@ import * as path from "path";
 import * as express from "express";
 import { ServerIO, setChat } from "./socket";
 import api from "./api";
-import { initAuth } from "./auth";
-import initStore from "./store";
+import Auth from "./auth";
+import Store from "./store";
 
 import type { Pool } from "pg";
 
@@ -14,13 +14,13 @@ export function createSocial(options: Options) {
 
   const router = express.Router();
 
-  const store = initStore(pg);
+  const store = new Store(pg);
 
-  setChat(io, store);
+  const auth = new Auth({ username, password, key: keyToTokens, store });
 
-  const session = initAuth(keyToTokens, username, password);
+  setChat({ io, store, auth });
 
-  router.use(api(session));
+  router.use(api(auth));
 
   router.use(express.static(path.join(__dirname, frontend)));
 

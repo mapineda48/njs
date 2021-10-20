@@ -3,7 +3,7 @@ import { useSession } from "../Session";
 const path = "/social/miguel/sw.js";
 
 export default function useNotify() {
-  const { socket } = useSession();
+  const session = useSession();
 
   return async function register() {
     if (!("serviceWorker" in navigator)) {
@@ -12,14 +12,14 @@ export default function useNotify() {
     }
     console.log("Service working is supported");
 
-    const publicKey = await socket.getPublicKey();
+    const publicKey = await session.getPublicKey();
 
     const [sub, old] = await subscribe(publicKey);
 
-    await socket.saveSubscription(sub);
+    await session.saveSubscription(sub);
 
     if (old) {
-      await socket.removeSubscription(old);
+      await session.removeSubscription(old);
     }
 
     console.log("ready to receive web push");

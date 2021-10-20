@@ -2,7 +2,7 @@ import React from "react";
 import Login from "./Login";
 import createSocket, { Socket } from "../../socket/miguel";
 
-export const Context = React.createContext<StateSession>(null as any);
+export const Context = React.createContext<Socket>(null as any);
 
 export function useSession() {
   const state = React.useContext(Context);
@@ -15,18 +15,14 @@ export function useSession() {
 }
 
 export default function Session(props: Props) {
-  const [state, setState] = React.useState<StateSession | null>(null);
+  const [state, setState] = React.useState<Socket | null>(null);
 
   if (!state) {
     return (
       <Login
         onToken={(token) => {
           const socket = createSocket(token);
-
-          setState({
-            token,
-            socket,
-          });
+          setState(socket);
         }}
       />
     );
@@ -40,9 +36,4 @@ export default function Session(props: Props) {
  */
 interface Props {
   children: React.ReactNode;
-}
-
-interface StateSession {
-  token: string;
-  socket: Socket;
 }

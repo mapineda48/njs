@@ -6,14 +6,14 @@ import type { Auth } from "../auth";
 
 const api = prepareApi(apiWeb);
 
-export default function createApi(login: Auth) {
+export default function createApi(auth: Auth) {
   const router = express.Router();
 
   router.post(api.login, async (req, res, next) => {
     try {
       const { username, password } = req.body;
 
-      const token = await login(username, password);
+      const token = await auth.login(username, password);
 
       res.json({ token });
     } catch (error) {

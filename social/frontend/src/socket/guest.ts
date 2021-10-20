@@ -1,25 +1,21 @@
 import io from "socket.io-client";
-import { createStorage } from "mp48-react/storage";
 import { NAMESPACE, GUEST } from "@socket/type";
 import {
   ADD_MESSAGE,
   MIGUEL_ONLINE,
   FORCE_OPEN,
-  GUEST_APP_NOFIFY,
+  APP_NOFIFY,
+  GUEST_NOTIFY,
 } from "@socket/event";
 
 import type { Message } from "@socket/type";
 
 export default createGuest;
 
-const cache = createStorage<string>("/mapineda48/social/guest/id");
-
-const id = cache.get() || cache.set(getRandom());
-
-export function createGuest() {
-  const socket = io(NAMESPACE, {
+export function createGuest(uri = NAMESPACE) {
+  const socket = io(uri, {
     auth: {
-      [GUEST]: id,
+      [GUEST]: "hi miguel im cool guest",
     },
   });
 
@@ -30,10 +26,14 @@ export function createGuest() {
     };
   };
 
+  let miguel = "";
+
   return {
     socket,
     appNotify(message: string) {
-      socket.emit(GUEST_APP_NOFIFY, message);
+      if (!miguel) return;
+
+      socket.emit(APP_NOFIFY, miguel, message);
     },
 
     onForceOpen(cb: () => void) {
@@ -41,23 +41,42 @@ export function createGuest() {
     },
 
     onAddMessage(cb: (message: Message) => void) {
-      return on(ADD_MESSAGE, cb);
+      return on(ADD_MESSAGE, (message) => {
+        cb(message);
+      });
     },
+
     onIsOnlineMiguel(cb: (state: boolean) => void) {
-      return on(MIGUEL_ONLINE, cb);
+      return on(MIGUEL_ONLINE, (id: string) => {
+        /**
+         * the event was detected again
+         * but miguel and the guest are synchronized.
+         */
+        if (id === miguel) return;
+
+        const state = Boolean(id);
+
+        /**
+         * I forward the event to the server so that the
+         * server socket notifies the miguel socket of
+         * the existence of this guest.
+         */
+        if (state) {
+          socket.emit(MIGUEL_ONLINE, id);
+        }
+
+        miguel = id;
+
+        cb(state);
+      });
     },
 
     onError(cb: (err: any) => void) {
       return on("error", cb);
     },
 
-    async addMessage(data: string) {
-      return new Promise<void>((res, rej) => {
-        socket.emit(ADD_MESSAGE, data, function onAddMessage(err: any) {
-          if (!err) return res();
-          rej(err);
-        });
-      });
+    addMessage(data: string) {
+      socket.emit(ADD_MESSAGE, data);
     },
   };
 }

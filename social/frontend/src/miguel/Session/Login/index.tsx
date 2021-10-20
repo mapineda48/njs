@@ -34,6 +34,10 @@ export default function LogIn(props: Props) {
     "Sign In"
   );
 
+  React.useEffect(() => {
+    document.title = "Login";
+  }, []);
+
   return (
     <form
       className="login panel"

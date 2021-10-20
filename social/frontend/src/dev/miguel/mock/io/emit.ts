@@ -33,31 +33,6 @@ api.set(e.ADD_MESSAGE, (data: any) => {
   server.emit(e.ADD_MESSAGE, message);
 });
 
-api.set(e.ROOMS_AVAILABLE, (cb: any) => {
-  wait("foo").then(() => {
-    cb(null, rooms);
-
-    const [id] = rooms;
-
-    const messages: Message[] = [];
-
-    while (messages.length < 10) {
-      messages.push({
-        room: id,
-        writeBy: id,
-        data: Date.now() + messages.length + "",
-      });
-    }
-
-    messages.forEach((m, i) => {
-      wait(m.data, i * 1000)
-        .then(() => {
-          server.emit(e.ADD_MESSAGE, m);
-        })
-        .catch(console.error);
-    });
-  });
-});
 
 export default function emit(this: any, e: string, ...args: any[]) {
   const cb = api.get(e);

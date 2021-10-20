@@ -43,7 +43,7 @@ export default function App() {
     const removeAdd = guest.onAddMessage(({ data, writeBy }) => {
       chat.addMessage({
         data,
-        right: writeBy === MIGUEL,
+        right: writeBy !== guest.socket.id,
       });
     });
 
@@ -54,6 +54,8 @@ export default function App() {
     const removeForceOpen = guest.onForceOpen(() => {
       chat.openChat();
     });
+
+    document.title = "Welcome Guest";
 
     return () => {
       removeAdd();

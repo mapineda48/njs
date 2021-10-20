@@ -1,4 +1,4 @@
-import webPush from "web-push";
+import webPush, { VapidKeys } from "web-push";
 import ms from "ms";
 
 import type { Store } from "../store";
@@ -8,14 +8,15 @@ const subject = "mailto:example@yourdomain.org";
 let vapidDetails: VapidDetails = null as any;
 
 /**
- * To avoid a flood of messages, there must be a 10 minute 
+ * To avoid a flood of messages, there must be a 10 minute
  * difference between message and message.
  */
 const timeLimit = ms("10m");
-let lastMessage = 0;
 
 export function prepareToSend(store: Store) {
   return async function sendNotify(payload: Payload) {
+    const lastMessage = await store.map.get<number>("lastMessage");
+
     const timeMessage = Date.now();
 
     if (lastMessage) {
@@ -27,12 +28,22 @@ export function prepareToSend(store: Store) {
     }
 
     if (!vapidDetails) {
-      const vapidKeys = await store.getVapidKeys();
+      const vapidKeys = await store.map.get<VapidKeys>("vapidKeys");
 
-      vapidDetails = { subject, ...vapidKeys };
+      if (!vapidKeys) {
+        const vapidKeys = webPush.generateVAPIDKeys();
+
+        await store.map.set("vapidKeys", vapidKeys);
+
+        vapidDetails = { subject, ...vapidKeys };
+      } else {
+        vapidDetails = { subject, ...vapidKeys };
+      }
     }
 
-    const subs = await store.selectSubscriptions();
+    const subs = await store.subscription.select();
+
+    if (!subs.length) return;
 
     const data = JSON.stringify(payload);
 
@@ -40,7 +51,7 @@ export function prepareToSend(store: Store) {
       webPush.sendNotification(sub, data, { vapidDetails });
     });
 
-    lastMessage = timeMessage;
+    await store.map.set("lastMessage", timeMessage);
   };
 }
 

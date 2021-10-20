@@ -3,13 +3,10 @@ import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { MdNotifications } from "react-icons/md";
 import useAction from "mp48-react/useAction";
-import { MIGUEL } from "@socket/type";
 import ShowMessage from "../../components/Message";
 import { useSession } from "../Session";
 import useNotify from "../useWorker";
 import { IMessage } from "../../components/Message";
-
-import type { Message } from "@socket/type";
 
 const action = {
   notify(state: State, notification: string): State {
@@ -28,14 +25,7 @@ const action = {
     return { ...state, id };
   },
 
-  addMessage(state: State, payload: Message): State {
-    const { room, writeBy, data } = payload;
-
-    const message: IMessage = {
-      right: writeBy !== MIGUEL,
-      data,
-    };
-
+  addMessage(state: State, room: string, message: IMessage): State {
     if (!state.room[room]) {
       return {
         ...state,
@@ -79,32 +69,27 @@ const action = {
 export default function Dashboard() {
   const enabledNotifications = useNotify();
 
-  const socket = useSession().socket;
+  const session = useSession();
 
   const [state, setState] = React.useState(initState);
 
   const dashboard = useAction(setState, action);
 
   React.useEffect(() => {
-    const removeAdd = socket.onAddMessage(dashboard.addMessage);
+    const removeAdd = session.onAddMessage(({ room, writeBy, data }) => {
+      dashboard.addMessage(room, {
+        right: writeBy !== session.socket.id,
+        data,
+      });
+    });
 
-    dashboard.loading();
+    session.ready();
 
-    socket
-      .fetchRooms()
-      .then(dashboard.setRooms)
-      .catch((err) => {
-        console.error(err);
-        dashboard.notify(err.message || "unknown");
-      })
-      .finally(() => dashboard.loading(false));
-
+    document.title = "Dashboard";
     return () => {
       removeAdd();
     };
-  }, [dashboard, socket]);
-
-  console.log(state);
+  }, [dashboard, session]);
 
   const Loading = React.useCallback(() => {
     if (!state.loading) return null;
@@ -205,7 +190,7 @@ export default function Dashboard() {
 
                 if (!state.message) return;
 
-                socket.addMessage(state.id, state.message);
+                session.addMessage(state.id, state.message);
                 dashboard.message("");
               }}
             >

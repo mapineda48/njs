@@ -1,41 +1,37 @@
 import { NAMESPACE, GUEST, TOKEN, MIGUEL } from "./type";
 import * as e from "./event";
-import * as auth from "../auth";
 import { prepareToSend } from "../web-push";
 
-import type { PushSubscription } from "web-push";
+import type { VapidKeys, PushSubscription } from "web-push";
 import type { Namespace, Server, Server as ServerIO, Socket } from "socket.io";
 import type { Message } from "./type";
 import type { Store } from "../store";
+import type { Auth } from "../auth";
+import ms from "ms";
 
-/**
- * We store the IDs of the clients so that when Miguel
- * is online to notify him.
- */
-const guests = new Set<string>();
+export function connectMiguel(socket: Socket, store: Store, auth: Auth) {
+  const { id, nsp } = socket;
 
-/**
- * Miguel's socket reference
- */
-let miguel: Socket | null = null;
-
-export function connectMiguel(socket: Socket, store: Store) {
-  miguel = socket;
+  socket.on(e.MIGUEL_READY, () => {
+    nsp.emit(e.MIGUEL_ONLINE, id);
+  });
 
   /**
-   * Send rooms to client
+   * Guests report to Miguel with this event
    */
-  socket.on(e.ROOMS_AVAILABLE, (cb) => {
-    const rooms = getGuestsAvailable();
+  socket.on(e.GUEST_ONLINE, (guest: string) => {
+    if (socket.rooms.has(guest)) return;
+    socket.join(guest);
 
-    /**
-     * Join all rooms available
-     */
-    socket.join(rooms);
+    const message: Message = {
+      room: guest,
+      writeBy: guest,
+      data: "connect",
+    };
 
-    socket.to(rooms).emit(e.MIGUEL_ONLINE, true);
+    socket.emit(e.ADD_MESSAGE, message);
 
-    cb(null, rooms);
+    socket.to(guest).emit(e.MIGUEL_ONLINE, id);
   });
 
   /**
@@ -43,9 +39,15 @@ export function connectMiguel(socket: Socket, store: Store) {
    */
   socket.on(e.PUBLIC_KEY, async (cb) => {
     try {
-      const { publicKey } = await store.getVapidKeys();
+      const vapidKeys = await store.map.get<VapidKeys>("vapidKeys");
 
-      cb(null, publicKey);
+      if (!vapidKeys) {
+        cb({ message: "not found vapidKeys" });
+
+        return;
+      }
+
+      cb(null, vapidKeys.publicKey);
     } catch (error) {
       cb({ message: "unhandler error " });
 
@@ -58,7 +60,7 @@ export function connectMiguel(socket: Socket, store: Store) {
    */
   socket.on(e.SAVE_SUBSCRIPTION, async (sub: PushSubscription, cb) => {
     try {
-      await store.saveSubscription(sub);
+      await store.subscription.insert(sub);
 
       cb(null);
     } catch (error) {
@@ -70,7 +72,7 @@ export function connectMiguel(socket: Socket, store: Store) {
 
   socket.on(e.REMOVE_SUBSCRIPTION, async (sub: PushSubscription, cb) => {
     try {
-      await store.removeSubscription(sub);
+      await store.subscription.delete(sub);
 
       cb(null);
     } catch (error) {
@@ -82,86 +84,68 @@ export function connectMiguel(socket: Socket, store: Store) {
 
   socket.on(e.ADD_MESSAGE, (room: string, data: string) => {
     if (data === "/open") {
-      socket.nsp.to(room).emit(e.FORCE_OPEN);
+      nsp.to(room).emit(e.FORCE_OPEN);
       return;
     }
 
     const message: Message = { room, writeBy: MIGUEL, data };
 
-    socket.nsp.to(room).emit(e.ADD_MESSAGE, message);
+    nsp.to(room).emit(e.ADD_MESSAGE, message);
   });
 
   socket.on("disconnect", () => {
-    miguel = null;
+    nsp.emit(e.MIGUEL_ONLINE, "");
 
-    const rooms = getGuestsAvailable();
-
-    socket.to(rooms).emit(e.MIGUEL_ONLINE, false);
-
-    auth.logout();
+    auth.logout().catch(console.error);
   });
 }
 
-export function getGuestsAvailable() {
-  return Array.from(guests);
-}
-
-function connectGuest(socket: Socket, id: string, store: Store) {
-  const sendNotify = prepareToSend(store);
+function connectGuest(socket: Socket, foo: string, store: Store) {
+  const { id, nsp } = socket;
 
   socket.join(id);
 
-  socket.nsp.emit(e.GUEST_ONLINE);
+  nsp.emit(e.GUEST_ONLINE, id);
 
-  if (miguel) {
-    miguel.join(id);
+  const timeOut = setTimeout(() => {
+    const sendNotify = prepareToSend(store);
 
-    const message: Message = { room: id, writeBy: id, data: "connect" };
-
-    miguel.emit(e.ADD_MESSAGE, message);
-  } else {
-    /**
-     * Notify to miguel guest connect
-     */
     sendNotify({
       title: "Tienes un visitante",
       body: "Saludalo",
     });
-  }
-
-  socket.emit(e.MIGUEL_ONLINE, Boolean(miguel));
-
-  socket.on(e.ADD_MESSAGE, (data) => {
-    const message: Message = { room: id, writeBy: id, data };
-
-    socket.nsp.to(id).emit(e.ADD_MESSAGE, message);
-  });
-
-  socket.on(e.GUEST_APP_NOFIFY, (data: string) => {
-    if (!miguel) return;
-
-    const message: Message = { room: id, writeBy: id, data };
-
-    miguel.emit(e.ADD_MESSAGE, message);
-  });
+  }, ms("5s"));
 
   /**
-   * Save guest id
+   * The socket on the client receives the event from Miguel
+   * is online, Notify Miguel of the presence of this guest.
    */
-  guests.add(id);
+  socket.on(e.MIGUEL_ONLINE, (miguel: string) => {
+    nsp.to(miguel).emit(e.GUEST_ONLINE, id);
+
+    clearTimeout(timeOut);
+  });
+
+  socket.on(e.ADD_MESSAGE, (data: string) => {
+    const message: Message = { room: id, writeBy: id, data };
+
+    nsp.to(id).emit(e.ADD_MESSAGE, message);
+  });
+
+  socket.on(e.APP_NOFIFY, (miguel: string, data: string) => {
+    const message: Message = { room: id, writeBy: id, data };
+
+    nsp.to(miguel).emit(e.ADD_MESSAGE, message);
+  });
 
   socket.on("disconnect", () => {
-    guests.delete(id);
-
-    if (!miguel) return;
-
     const message: Message = { room: id, writeBy: id, data: "disconnect" };
 
-    miguel.emit(e.ADD_MESSAGE, message);
+    nsp.to(id).emit(e.ADD_MESSAGE, message);
   });
 }
 
-export function authorize(store: Store) {
+export function authorize(store: Store, auth: Auth) {
   return async function onAuthorize(socket: Socket, next: Next) {
     const guest = socket.handshake.auth[GUEST];
 
@@ -174,8 +158,8 @@ export function authorize(store: Store) {
     if (guest) {
       connectGuest(socket, guest, store);
       return next();
-    } else if (auth.isToken(token)) {
-      connectMiguel(socket, store);
+    } else if (await auth.isToken(token)) {
+      connectMiguel(socket, store, auth);
       return next();
     }
 
@@ -183,10 +167,12 @@ export function authorize(store: Store) {
   };
 }
 
-export function setChat(io: Server, store: Store) {
+export function setChat(options: Opt) {
+  const { io, store, auth } = options;
+
   const nsp = io.of(NAMESPACE);
 
-  nsp.use(authorize(store));
+  nsp.use(authorize(store, auth));
 
   return nsp;
 }
@@ -194,6 +180,12 @@ export function setChat(io: Server, store: Store) {
 /**
  * Types
  */
+export interface Opt {
+  io: Server;
+  store: Store;
+  auth: Auth;
+}
+
 type Next = Parameters<Parameters<Namespace["use"]>[0]>[1];
 
 export type { ServerIO };

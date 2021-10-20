@@ -1,44 +1,75 @@
-import webPush from "web-push";
-import * as query from "./query";
 import type { Pool } from "pg";
-import type { VapidKeys, PushSubscription } from "web-push";
+import type { PushSubscription } from "web-push";
 
-export default function createStore(pg: Pool) {
-  return {
-    async removeSubscription(sub: PushSubscription) {
-      await pg.query(query.subscription.delete(sub));
-    },
+export default class Store {
+  public subscription: CRUDSubscription;
+  public map: CRUDMap;
 
-    async selectSubscriptions() {
-      const { rows } = await pg.query(query.subscription.select);
+  constructor(private pg: Pool) {
+    this.subscription = new CRUDSubscription(this.pg);
+    this.map = new CRUDMap(this.pg);
+  }
+}
 
-      return rows.map((row) => row.data) as PushSubscription[];
-    },
+export class CRUDMap {
+  async delete(key: string) {
+    const query = `DELETE FROM "social"."document" WHERE "id" = $1::TEXT`;
 
-    async saveSubscription(sub: PushSubscription) {
-      await pg.query(query.subscription.insert(sub));
-    },
+    return this.pg.query(query, [key]);
+  }
 
-    async getVapidKeys(): Promise<VapidKeys> {
-      const { rows } = await pg.query(query.vapidKeys.select);
+  async set(key: string, value: any) {
+    const query = `INSERT INTO "social"."document"("id","data") VALUES ($1::TEXT, $2::jsonb) ON CONFLICT (id) DO UPDATE SET "data" = $2::jsonb`;
 
-      if (rows.length) {
-        const [{ data }] = rows;
+    await this.pg.query(query, [key, JSON.stringify(value)]);
+  }
 
-        return data;
-      }
+  async get<T = any>(key: string): Promise<T | null> {
+    const query = `SELECT "data" FROM "social"."document" WHERE "id" = $1::TEXT`;
 
-      const vapidKeys = webPush.generateVAPIDKeys();
+    const { rows } = await this.pg.query(query, [key]);
 
-      await pg.query(query.vapidKeys.insert(vapidKeys));
+    if (!rows.length) {
+      return null;
+    }
 
-      return vapidKeys;
-    },
-  };
+    const [{ data }] = rows;
+
+    return data;
+  }
+
+  constructor(private pg: Pool) {}
+}
+
+export class CRUDSubscription {
+  async delete(subscription: PushSubscription) {
+    const query = `DELETE FROM "social"."document" WHERE "id" = 'sub_' || $1::TEXT`;
+
+    return this.pg.query(query, [subscription.endpoint]);
+  }
+
+  async insert(subscription: PushSubscription) {
+    const query = `INSERT INTO "social"."document"("id","data") VALUES ('sub_' || $1::TEXT, $2::jsonb)`;
+
+    return this.pg.query(query, [
+      subscription.endpoint,
+      JSON.stringify(subscription),
+    ]);
+  }
+
+  async select() {
+    const query = `SELECT "data" FROM "social"."document" WHERE "id"~ 'sub_'`;
+
+    const { rows } = await this.pg.query(query);
+
+    return rows.map(({ data }) => data) as PushSubscription[];
+  }
+
+  constructor(private pg: Pool) {}
 }
 
 /**
  * Types
  */
 
-export type Store = ReturnType<typeof createStore>;
+export type { Store };

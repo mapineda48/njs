@@ -1,12 +1,10 @@
 import child from "child_process";
 import path from "path";
 import express from "express";
-import logger from "morgan";
 import { Server as ServerIO } from "socket.io";
 import { Pool } from "pg";
+import logger from "morgan";
 import social from "../lib";
-import { prepareToSend } from "../lib/web-push";
-import initStore from "../lib/store";
 
 const port = 3000;
 
@@ -63,12 +61,4 @@ app.get("/in-iframe", (req, res) => {
             </body>
           </html>
   `);
-});
-
-const sendNotify = prepareToSend(initStore(pg));
-
-process.stdin.on("data", (buff) => {
-  const [title, body] = buff.toString().replace(/\n/, "").split(" ");
-
-  sendNotify({ title, body }).catch(console.error);
 });
