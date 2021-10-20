@@ -2,13 +2,13 @@ import React from "react";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { MdNotifications } from "react-icons/md";
-import useAction from "mp48-react/useAction";
+import { initAction } from "mp48-react/useState";
 import ShowMessage from "../../components/Message";
 import { useSession } from "../Session";
 import useNotify from "../useWorker";
 import { IMessage } from "../../components/Message";
 
-const action = {
+const useState = initAction({
   notify(state: State, notification: string): State {
     return { ...state, notification };
   },
@@ -64,16 +64,14 @@ const action = {
   message(state: State, message: string): State {
     return { ...state, message };
   },
-};
+});
 
 export default function Dashboard() {
   const enabledNotifications = useNotify();
 
   const session = useSession();
 
-  const [state, setState] = React.useState(initState);
-
-  const dashboard = useAction(setState, action);
+  const [state, , dashboard] = useState(initState);
 
   React.useEffect(() => {
     const removeAdd = session.onAddMessage(({ room, writeBy, data }) => {

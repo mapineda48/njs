@@ -1,10 +1,7 @@
 import React from "react";
-import { initAction } from "mp48-react/useAction";
-import { createStorage } from "mp48-react/storage";
+import { initAction } from "mp48-react/useState";
 
 import type { IMessage as Message } from "../../../components/Message";
-
-const cache = createStorage<State>("/mapineda48/social/guest/chat");
 
 const useState = initAction({
   addMessage(state: State, message: Message): State {
@@ -35,7 +32,6 @@ export default function useGuest() {
       unread: 0,
       open: false,
       online: false,
-      ...(cache.get() || {}),
     };
   });
 

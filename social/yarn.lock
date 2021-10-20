@@ -8002,10 +8002,10 @@ mp48-cra@0.0.4:
     ts-loader "8.2.0"
     tslib "^2.2.0"
 
-mp48-react@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/mp48-react/-/mp48-react-0.0.1.tgz#410fc0aa7393f26d6b03c1dacae21f75c71c6758"
-  integrity sha512-SLpGZXbg7vB0IbhND8xswVZUAP1UFWKU0oLmQANxISFVt+UOZr57CMsYzPu+DG6uO5FyurV7IZ01f/JILYl7kA==
+mp48-react@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/mp48-react/-/mp48-react-0.0.3.tgz#12c6f65f5e1467e2c1041c206c683cb7354fa719"
+  integrity sha512-bXEEnRpK63eqGHWsCaJSEQvXV1ncCaH78GSMfrYudhBpG7eUjnal1hMnHYjxk/7THwKZSWIK8K6M+br6NpMdAQ==
   dependencies:
     tslib "^2.2.0"
 
