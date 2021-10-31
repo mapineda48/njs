@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import scrollIntoView from "smooth-scroll-into-view-if-needed";
-import sigma from "@mapineda48/demos-sigma/esm/route";
+import sigma from "@mapineda48/demos-sigma/frontend/lib/baseUrl";
 import grants from "@mapineda48/demos-grants/esm/baseUrl";
 import Card, { Label as CardLabel } from "./Card";
 import { ReactComponent as Brand } from "./brand.svg";
@@ -31,7 +31,7 @@ export default function PersonalPage({ model, changeTo }: Props) {
     document.title = model.title;
   }, [model.title, model.lang]);
 
-  const imgs = React.useMemo(() => Object.values(skill), [skill]);
+  const imgs = React.useMemo(() => Object.values(skill), []);
 
   return (
     <>

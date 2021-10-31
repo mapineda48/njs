@@ -40,9 +40,9 @@
     "url": "https://github.com/mapineda48/njs/issues"
   },
   "dependencies": {
-    "@mapineda48/demos-grants": "^0.0.1",
-    "@mapineda48/demos-sigma": "^0.0.5",
-    "@mapineda48/social": "0.0.9",
+    "@mapineda48/demos-grants": "^0.0.2",
+    "@mapineda48/demos-sigma": "^0.0.8",
+    "@mapineda48/social": "0.0.14",
     "@popperjs/core": "^2.9.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
