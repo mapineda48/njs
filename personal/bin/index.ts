@@ -27,7 +27,15 @@ app.use(express.json());
 
 app.use(logger("dev"));
 
-app.use(social("foo", "12345", io));
+app.use(
+  social({
+    io,
+    keyToTokens: "12345",
+    password: "12345",
+    username: "foo",
+    pg,
+  })
+);
 
 app.use(personal());
 

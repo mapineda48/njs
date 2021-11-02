@@ -1,19 +1,22 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Personal from "./Personal";
+import { HelmetProvider } from "react-helmet-async";
+import Web from "./Web";
 
 import type { Data } from "./model";
 
 export default function App({ data }: { data: Data }) {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/">
-          <Personal changeTo="/es" model={data.en} />
-        </Route>
-        <Route exact path="/es">
-          <Personal changeTo="/" model={data.es} />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            <Web changeTo="/es" model={data.en} />
+          </Route>
+          <Route exact path="/es">
+            <Web changeTo="/" model={data.es} />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }

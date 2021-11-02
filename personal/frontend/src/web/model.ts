@@ -1,4 +1,4 @@
-import type { Model } from "./Personal";
+import type { Model } from "./Web";
 
 export const es: Model = {
   title: "Bienvenido - Miguel Angel Pineda Vega",
@@ -12,16 +12,13 @@ export const es: Model = {
     skill: "Habilidades",
     demos: "Demos",
   },
-  description: `
-  Desarrollador nodejs full-stack, con conocimientos: progressive web
-  app, single pages application,server side render, web microservice;
-  adicionalmente manejo básico de repositorios git (github),
-  intermedio en el desarrollo de interfaces de usuario con reactjs,
-  capaz de trabajar bajo los paradigmas de programación funcional
-  dirigida por eventos, orientada a objetos, estructura; me considero
-  apasionado por el mundo de la informática por ello siempre busco
-  mantenerme al día con lo último en tecnología, capacidad de trabajo
-  en equipo y adaptabilidad a lo requerido a cada contexto.`,
+  home: `
+  Desarrollador de software fullstack con buen dominio de NodeJs, 
+  implementación de API Rest, diseño de PWA, SPA,SSR, etc, con 
+  librerías tales como ReactJs y/o frameworks como AngularJs, control 
+  de versiones mediante Git, siempre en busca de nuevos retos que le 
+  permiten seguir creciendo como profesional.
+  `,
   demos: {
     sigma: `
     Aqui veras en el frontend la implementación de una SPA con un espectacular 
@@ -61,16 +58,13 @@ export const en: Model = {
     skill: "Skill",
     demos: "Demos",
   },
-  description: `
-  Full-stack nodejs developer, with knowledge: progressive web
-  app, single pages application, server side render, web microservice;
-  additionally basic handling of git repositories (github),
-  intermediate in the development of user interfaces with reactjs,
-  able to work under functional programming paradigms
-  event-driven, object-oriented, structure; I consider myself
-  passionate about the world of computing that's why I always look for
-  keep up to date with the latest technology, work capacity
-  in team and adaptability to what is required to each context.`,
+  home: `
+  Fullstack software developer with good command of NodeJs,
+  API Rest implementation, PWA design, SPA, SSR, etc, with
+  libraries such as ReactJs and / or frameworks such as AngularJs, control
+  versions using Git, always looking for new challenges that
+  allow you to continue growing as a professional.
+  `,
   demos: {
     sigma: `
     Here you will see in the frontend the implementation of a SPA with a 

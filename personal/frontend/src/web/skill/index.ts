@@ -1,3 +1,4 @@
+import image from "../img";
 import { FaReact, FaHtml5 } from "react-icons/fa";
 import {
   SiTypescript,
@@ -14,100 +15,98 @@ import { IconType } from "react-icons";
 const html: Skill = {
   Icon: FaHtml5,
   title: "HTML",
-  image: "/images/html.png",
+  image: image.html,
   url: "https://www.w3.org/html/",
 };
 
 const css: Skill = {
   Icon: IoLogoCss3,
   title: "CSS",
-  image: "/images/css.png",
+  image: image.css,
   url: "https://www.w3.org/Style/CSS/",
 };
 
 const scss: Skill = {
   Icon: IoLogoSass,
   title: "SCSS",
-  image: "/images/sass.png",
+  image: image.sass,
   url: "https://sass-lang.com/",
 };
 
 const styled: Skill = {
   Icon: MdHelpOutline,
   title: "Styled",
-  image: "/images/styled.png",
+  image: image.styled,
   url: "https://www.styled-components.com/",
 };
 
 const js: Skill = {
   Icon: IoLogoJavascript,
   title: "Javascript",
-  image: "/images/js.png",
+  image: image.js,
   url: "https://en.wikipedia.org/wiki/JavaScript",
 };
 
 const ts: Skill = {
   Icon: SiTypescript,
   title: "Typescript",
-  image: "/images/ts.png",
+  image: image.ts,
   url: "https://www.typescriptlang.org/",
 };
 
 const react: Skill = {
   Icon: FaReact,
   title: "ReactJs",
-  image: "/images/react.png",
+  image: image.react,
   url: "https://reactjs.org/",
 };
 
 const mui: Skill = {
   Icon: MdHelpOutline,
   title: "Mui",
-  image: "/images/mui.png",
-  url: "foo",
+  image: image.mui,
+  url: "https://mui.com/",
 };
 
 const vue: Skill = {
   Icon: SiVueDotJs,
   title: "VueJs",
-  image: "/images/vue.png",
+  image: image.vue,
   url: "https://vuejs.org/",
 };
 
 const redux: Skill = {
   Icon: SiRedux,
   title: "ReduxJs",
-  image: "/images/redux.png",
-
+  image: image.redux,
   url: "https://redux.js.org/",
 };
 
 const node: Skill = {
   Icon: DiNodejs,
   title: "NodeJs",
-  image: "/images/node.png",
+  image: image.node,
   url: "https://nodejs.org/en/",
 };
 
 const postgres: Skill = {
   Icon: SiPostgresql,
   title: "PostgreSQL",
-  image: "/images/postgres.png",
+  image: image.postgres,
   url: "https://www.postgresql.org/",
 };
 
 const mongo: Skill = {
   Icon: SiMongodb,
   title: "MongoDB",
-  image: "/images/mongo.png",
-
+  image: image.mongo,
   url: "https://www.mongodb.com/",
 };
 
 const express: Skill = {
   Icon: MdHelpOutline,
   title: "ExpressJs",
-  image: "/images/express.png",
+  image: image.express,
   url: "https://expressjs.com/",
 };
 
@@ -115,13 +114,13 @@ export const skill = {
   html,
   css,
   js,
-  scss,
   ts,
   styled,
+  vue,
+  scss,
   react,
   mui,
   redux,
-  vue,
   node,
   express,
   mongo,

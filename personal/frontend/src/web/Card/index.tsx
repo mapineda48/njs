@@ -19,13 +19,13 @@ export function Card(props: Props) {
   const reset = React.useCallback(() => setState(false), [setState]);
 
   return (
-    <div className={style.flipCard} onMouseLeave={state ? reset : undefined}>
+    <div data-aos="zoom-in" className={style.flipCard} onMouseLeave={state ? reset : undefined}>
       <div className={clsx([style.inner, state && style.flip])}>
         <div className={style.front}>
           <Action title={props.label.help} onClick={flip}>
             <FiHelpCircle />
           </Action>
-          <h1 title={props.description}>{props.title}</h1>
+          <h3 title={props.description}>{props.title}</h3>
           <div>
             {props.skills.map(({ Icon, title, url }, index) => (
               <a key={index} href={url} target="_blank" rel="noreferrer">
