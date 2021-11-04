@@ -1,6 +1,6 @@
 {
   "name": "@mapineda48/demos-api-rest",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Demos API Rest",
   "author": "Miguel Pineda <a.pinedavegamiguel@gmail.com>",
   "license": "MIT",
@@ -21,7 +21,7 @@
     "release": "yarn mp48-release",
     "postbuild": "ts-node postbuild.ts",
     "build:esm": "tsc -P tsconfig.esm.json",
-    "build": "rm -rf dist && tsc && build:esm",
+    "build": "rm -rf dist && tsc && yarn build:esm",
     "lint": "eslint . --ext .ts",
     "types": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"
