@@ -1,6 +1,6 @@
 {
   "name": "@mapineda48/demos-api-rest",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Demos API Rest",
   "author": "Miguel Pineda <a.pinedavegamiguel@gmail.com>",
   "license": "MIT",
@@ -22,7 +22,7 @@
     "postbuild": "ts-node postbuild.ts",
     "build": "rm -rf dist && tsc",
     "lint": "eslint . --ext .ts",
-    "types":"tsc --noEmit",
+    "types": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
