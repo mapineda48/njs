@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import sigma from "@mapineda48/demos-sigma/frontend/lib/baseUrl";
 import grants from "@mapineda48/demos-grants/esm/baseUrl";
+import apiRest from "@mapineda48/demos-api-rest/frontend/lib/baseUrl";
 import Card, { Label as CardLabel } from "./Card";
 import scrollIntoView from "smooth-scroll-into-view-if-needed";
 import AOS from "aos";
@@ -84,6 +85,21 @@ export default function Web(props: Props) {
       <section ref={demos} id="demo" className="demos">
         <div className="projects">
           <Card
+            title="Api Rest"
+            description={model.demos.rest}
+            url={apiRest}
+            label={model.card}
+            skills={[
+              skill.js,
+              skill.ts,
+              skill.node,
+              skill.express,
+              skill.swagger,
+              skill.sequelize,
+            ]}
+          />
+
+          <Card
             title="Sigma"
             description={model.demos.sigma}
             url={sigma}
@@ -153,6 +169,7 @@ export interface Model {
   demos: {
     sigma: string;
     grants: string;
+    rest: string;
   };
   card: CardLabel;
   source: string;

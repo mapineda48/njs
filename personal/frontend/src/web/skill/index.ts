@@ -5,12 +5,30 @@ import {
   SiRedux,
   SiPostgresql,
   SiMongodb,
-  SiVueDotJs,
+  SiVuedotjs,
+  SiSwagger,
+  SiSequelize,
+  SiExpress,
+  SiStyledcomponents,
+  SiMaterialui
 } from "react-icons/si";
 import { IoLogoJavascript, IoLogoCss3, IoLogoSass } from "react-icons/io";
 import { DiNodejs } from "react-icons/di";
-import { MdHelpOutline } from "react-icons/md";
 import { IconType } from "react-icons";
+
+const sequelize: Skill = {
+  Icon: SiSequelize,
+  title: "Sequelize",
+  image: image.sequelize,
+  url: "https://sequelize.org/",
+};
+
+const swagger: Skill = {
+  Icon: SiSwagger,
+  title: "Swagger",
+  image: image.swagger,
+  url: "https://swagger.io/",
+};
 
 const html: Skill = {
   Icon: FaHtml5,
@@ -34,7 +52,7 @@ const scss: Skill = {
 };
 
 const styled: Skill = {
-  Icon: MdHelpOutline,
+  Icon: SiStyledcomponents,
   title: "Styled",
   image: image.styled,
   url: "https://www.styled-components.com/",
@@ -62,14 +80,14 @@ const react: Skill = {
 };
 
 const mui: Skill = {
-  Icon: MdHelpOutline,
+  Icon: SiMaterialui,
   title: "Mui",
   image: image.mui,
   url: "https://mui.com/",
 };
 
 const vue: Skill = {
-  Icon: SiVueDotJs,
+  Icon: SiVuedotjs,
   title: "VueJs",
   image: image.vue,
   url: "https://vuejs.org/",
@@ -104,7 +122,7 @@ const mongo: Skill = {
 };
 
 const express: Skill = {
-  Icon: MdHelpOutline,
+  Icon: SiExpress,
   title: "ExpressJs",
   image: image.express,
   url: "https://expressjs.com/",
@@ -123,6 +141,8 @@ export const skill = {
   redux,
   node,
   express,
+  sequelize,
+  swagger,
   mongo,
   postgres,
 };

@@ -20,6 +20,11 @@ export const es: Model = {
   permiten seguir creciendo como profesional.
   `,
   demos: {
+    rest:`
+    Este módulo contiene la API Rest, con el propósito de solo poner 
+    en práctica lo que he aprendido, buscando siempre seguir los 
+    estándares de la industria, documentado con swagger.
+    `,
     sigma: `
     Aqui veras en el frontend la implementación de una SPA con un espectacular 
     landing que le permite al publico registra su informacion para algun tipo 
@@ -66,6 +71,11 @@ export const en: Model = {
   allow you to continue growing as a professional.
   `,
   demos: {
+    rest:`
+    This module contains the Rest API, with the purpose of only 
+    putting into practice what I have learned, always seeking 
+    to follow the industry standards, documented with swagger.
+    `,
     sigma: `
     Here you will see in the frontend the implementation of a SPA with a 
     spectacular landing that allows the public to register their information 

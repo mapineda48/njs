@@ -13,6 +13,8 @@ import sass from "./sass.png";
 import styled from "./styled.png";
 import vue from "./vue.png";
 import mongo from "./mongo.png";
+import swagger from "./swagger.png";
+import sequelize from "./sequelize.png";
 
 const image = {
   personal,
@@ -30,6 +32,8 @@ const image = {
   sass,
   styled,
   vue,
+  swagger,
+  sequelize
 };
 
 export default image;
