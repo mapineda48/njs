@@ -20,6 +20,7 @@
     "version": "yarn build",
     "release": "yarn mp48-release",
     "postbuild": "ts-node postbuild.ts",
+    "build:esm": "tsc -P tsconfig.esm.json",
     "build": "rm -rf dist && tsc",
     "lint": "eslint . --ext .ts",
     "types": "tsc --noEmit",
