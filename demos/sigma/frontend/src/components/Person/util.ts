@@ -1,5 +1,4 @@
-import type { Person as State, Colombia, Person } from "@model";
-
+import type { Person } from "@model/person";
 
 export function getPartial<T>(val: T): Partial<T>;
 export function getPartial(val: any): any {
@@ -10,7 +9,7 @@ export function getPartial(val: any): any {
 
 export function initPerson(): Person {
   return {
-    full_name: "",
+    fullName: "",
     city: "",
     department: "",
     email: "",

@@ -1,49 +1,29 @@
 import express from "express";
 import sigma from "../redirect";
-import createDML from "../model";
-import * as query from "../model/query";
+import createModel from "../models";
 import { getApi } from "./type";
 import Error, { parse as parseErr } from "../error";
 
-import type { Pool } from "pg";
-import type { Success } from "./type";
-import { Person, Record } from "../model/type";
+import type { Router } from "express";
+import type { Sequelize } from "sequelize";
+import type { Person, Record } from "../models/person";
 
 const api = getApi();
 
-export function createSigma() {
-  const router = express.Router();
-
-  router.get(api.sigma, async (req, res, next) => {
-    try {
-      const json = await sigma();
-      res.json(json);
-    } catch (error) {
-      next(error);
-    }
-  });
-
-  return router;
-}
-
-export function createCrudPerson(pool: Pool) {
-  const router = express.Router();
-
-  const dml = createDML(pool);
+export async function addCrudPerson(router: Router, seq: Sequelize) {
+  const model = await createModel(seq);
 
   router.get(api.person, async (req, res, next) => {
-    let data: query.Select = {};
-
     try {
-      const opt: any = req.query.q;
+      const data: any = req.query.q;
 
-      if (!opt) {
+      if (!data) {
         throw new Error(400, "missing query");
       }
 
-      data = JSON.parse(opt);
+      const opt = JSON.parse(data);
 
-      const rows = await dml.select(data);
+      const rows = await model.person.findAll(opt);
 
       res.json(rows);
     } catch (error) {
@@ -56,15 +36,15 @@ export function createCrudPerson(pool: Pool) {
    */
   router.post(api.person, async (req, res, next) => {
     try {
-      const { person } = req.body as { person?: Person };
+      const person = req.body as Person;
 
       if (!person) {
         throw new Error(404, "missing data");
       }
 
-      await dml.insert(person);
+      const record = await model.person.create(person);
 
-      res.json({ message: `Registrado "${person.full_name}"` });
+      res.json(record);
     } catch (error) {
       next(error);
     }
@@ -75,15 +55,27 @@ export function createCrudPerson(pool: Pool) {
    */
   router.put(api.person, async (req, res, next) => {
     try {
-      const { person } = req.body as { person: Record };
+      const data = req.body as Record;
 
-      if (!person) {
+      if (!data) {
         throw new Error(404, "missing data");
       }
 
-      await dml.update(person);
+      const record = await model.person.findOne({
+        where: {
+          id: data.id,
+        },
+      });
 
-      res.json({ message: `${person.full_name} Actualizado` });
+      if (!record) {
+        res.status(404).json({ message: "not found" });
+
+        return;
+      }
+
+      record.update(data);
+
+      res.json(record);
     } catch (error) {
       next(error);
     }
@@ -103,7 +95,11 @@ export function createCrudPerson(pool: Pool) {
         new Error(400, "invalid id");
       }
 
-      await dml.delete(id);
+      await model.person.destroy({
+        where: {
+          id,
+        },
+      });
 
       res.json({ meesage: "Eliminado" });
     } catch (error) {
@@ -118,16 +114,26 @@ export function createCrudPerson(pool: Pool) {
   };
 
   router.use(onErr);
-
-  return router;
 }
 
-export default function createRoute(pool: Pool) {
+export default function create(seq: Sequelize) {
   const router = express.Router();
 
-  router.use(createSigma());
+  addCrudPerson(router, seq).then((err) => {
+    throw err;
+  });
 
-  router.use(createCrudPerson(pool));
+  /**
+   * Sigma API
+   */
+  router.get(api.sigma, async (req, res, next) => {
+    try {
+      const json = await sigma();
+      res.json(json);
+    } catch (error) {
+      next(error);
+    }
+  });
 
   return router;
 }

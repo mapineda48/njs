@@ -1,5 +1,5 @@
 import { BrowserRouter, Route } from "react-router-dom";
-import { mountChat } from "@mapineda48/social/browser";
+import { mountChat } from "@mapineda48/social/frontend/lib";
 import { render } from "common";
 import { route } from "@api";
 import baseUrl from "@backend/baseUrl";

@@ -3,16 +3,16 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { BiEdit, BiSearchAlt } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { initAction } from "mp48-react/useState";
-import { amountResults } from "@model";
+import { amountResults } from "@model/type";
 import { person as api } from "api";
 import { usePortalBody } from "components/Portals";
 import { useConfirm } from "components/Confirm";
 import PersonCRUD from "components/Person";
 
-import type { Select, Record } from "@model";
+import type { FindOpt, Record } from "@model/person";
 
 const useState = initAction({
-  query(state: State, query: Select): State {
+  query(state: State, query: FindOpt): State {
     return { ...init(), query };
   },
   loading(state: State, loading = true): State {
@@ -30,14 +30,16 @@ const useState = initAction({
       records.map((record) => [record.id, record])
     );
 
+    const { query } = state;
+
     const startRow =
-      state.query.startRow === undefined ? 0 : state.query.startRow + 20;
+      query.offset === undefined ? 0 : query.offset + amountResults;
 
     return {
       ...state,
       query: {
         ...state.query,
-        startRow,
+        offset: startRow,
       },
       canFetch: records.length === amountResults,
       data: { ...state.data, ...data },
@@ -144,11 +146,16 @@ export default function CRUD() {
                     label="Agregar"
                     onRequired={(person) => {
                       confirm({
-                        message: `Agregar a ${person.full_name}`,
+                        message: `Agregar a ${person.fullName}`,
                         async onConfirm() {
                           try {
-                            const { message } = await api.insert(person);
-                            confirm({ message });
+                            const record = await api.insert(person);
+
+                            const message = record.fullName + " registrado";
+
+                            confirm({
+                              message,
+                            });
                           } catch (error) {
                             confirm({ error });
                           }
@@ -179,7 +186,7 @@ export default function CRUD() {
                     onPartial={(person) => {
                       portal.remove();
                       if (!isMount) return;
-                      model.query({ startRow: 0, ...person });
+                      model.query({ offset: 0, where: person });
                     }}
                   />
                 </div>
@@ -214,7 +221,7 @@ export default function CRUD() {
                   <tr key={index}>
                     <td>
                       <button
-                        title={`editar a ${record.full_name}`}
+                        title={`editar a ${record.fullName}`}
                         onClick={() => {
                           appendToBody((portal) => {
                             return (
@@ -228,22 +235,20 @@ export default function CRUD() {
                                   }}
                                   onRequired={(person) => {
                                     confirm({
-                                      message: `Actualizar ${record.full_name}`,
+                                      message: `Actualizar ${record.fullName}`,
                                       async onConfirm() {
                                         try {
-                                          const data = {
-                                            id: record.id,
+                                          const current = await api.update({
+                                            ...record,
                                             ...person,
-                                          };
-                                          const { message } = await api.update(
-                                            data
-                                          );
+                                          });
 
                                           confirm({
-                                            message,
+                                            message:
+                                              current.fullName + " Actualizado",
                                             onConfirm() {
                                               if (!isMount) return;
-                                              model.update(data);
+                                              model.update(current);
                                             },
                                           });
                                         } catch (error) {
@@ -265,15 +270,15 @@ export default function CRUD() {
                       </button>
 
                       <button
-                        title={`eliminar a ${record.full_name}`}
+                        title={`eliminar a ${record.fullName}`}
                         onClick={() => {
                           confirm({
-                            message: `eliminar a ${record.full_name}`,
+                            message: `eliminar a ${record.fullName}`,
                             async onConfirm() {
                               try {
-                                const { message } = await api.delete(record.id);
+                                await api.delete(record.id);
                                 confirm({
-                                  message,
+                                  message: record.fullName + " Elimando",
                                   onConfirm() {
                                     if (!isMount) return;
                                     model.delete(record.id);
@@ -290,7 +295,7 @@ export default function CRUD() {
                         <MdDelete />
                       </button>
                     </td>
-                    <td title={record.full_name}>{record.full_name}</td>
+                    <td title={record.fullName}>{record.fullName}</td>
                     <td title={record.email}>{record.email}</td>
                     <td title={record.city}>{record.city}</td>
                     <td title={record.department}>{record.department}</td>
@@ -307,7 +312,7 @@ export default function CRUD() {
 
 function init(): State {
   return {
-    query: { startRow: 0 },
+    query: { offset: 0 },
     loading: false,
     message: "",
     data: {},
@@ -319,7 +324,7 @@ function init(): State {
  * Types
  */
 interface State {
-  query: Select;
+  query: FindOpt;
   loading: boolean;
   message: string;
   canFetch: boolean;

@@ -27,8 +27,8 @@
       "@api": [
         "../../lib/api/type"
       ],
-      "@model": [
-        "../../lib/model/type"
+      "@model/*": [
+        "../../lib/models/*"
       ]
     }
   },

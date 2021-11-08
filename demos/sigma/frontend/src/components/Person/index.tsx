@@ -8,13 +8,14 @@ import { useConfirm } from "components/Confirm";
 
 import style from "./index.module.scss";
 
-import type { Colombia, Person } from "@model";
+import type { Colombia } from "@model/type";
+import type { Person } from "@model/person";
 
 let cache = "";
 
 const useState = initAction({
-  fullName(state: State, full_name: string): State {
-    return { ...state, full_name };
+  fullName(state: State, fullName: string): State {
+    return { ...state, fullName };
   },
   email(state: State, email: string): State {
     return { ...state, email };
@@ -39,7 +40,7 @@ const useState = initAction({
 
 function init(person?: Partial<Person>): State {
   return {
-    full_name: "",
+    fullName: "",
     email: "",
     city: "",
     department: "",
@@ -73,15 +74,16 @@ export default function PersonCRUD(props: Props) {
     return () => {
       mount = false;
     };
-  }, [state.colombia, confirm]);
+  }, [state.colombia, confirm, person]);
 
   /**
    * Preapre list
    */
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const colombia = state.colombia || {};
 
   const departments = React.useMemo(() => {
-    const [_default, ...departments] = Object.keys(colombia);
+    const [, ...departments] = Object.keys(colombia);
 
     return ["", ...departments];
   }, [colombia]);
@@ -178,7 +180,7 @@ export default function PersonCRUD(props: Props) {
           className="form-control"
           required={required}
           disabled={isDisabled}
-          value={state.full_name}
+          value={state.fullName}
           onChange={({ currentTarget: { value } }) => person.fullName(value)}
           type="text"
           maxLength={30}

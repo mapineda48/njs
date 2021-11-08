@@ -17,8 +17,9 @@
   "bugs": {
     "url": "https://github.com/mapineda48/njs/issues"
   },
+  "proxy": "http://localhost:4000",
   "dependencies": {
-    "@mapineda48/social": "^0.0.3",
+    "@mapineda48/social": "^0.0.14",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -26,7 +27,6 @@
     "@types/jest": "^26.0.15",
     "@types/morgan": "^1.9.3",
     "@types/node": "^12.0.0",
-    "@types/pg": "^8.6.1",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.3.1",
@@ -42,6 +42,7 @@
     "mp48-util": "^0.0.3",
     "nodemon": "^2.0.13",
     "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -49,7 +50,8 @@
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "sass": "^1.42.1",
-    "ts-node": "^10.2.1",
+    "sequelize": "^6.9.0",
+    "ts-node": "^10.4.0",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
@@ -63,7 +65,8 @@
     "lib:build": "rm -rf dist && tsc",
     "frontend:build": "rm -rf frontend/build && mp -B",
     "frontend:types": "tsc -P frontend/tsconfig.json",
-    "frontend:lib": "tsc -P tsconfig.esm.json"
+    "frontend:lib": "tsc -P tsconfig.esm.json",
+    "frontend:start": "mp"
   },
   "eslintConfig": {
     "extends": [

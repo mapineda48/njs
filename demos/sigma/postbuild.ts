@@ -29,14 +29,8 @@ dist()
     publishConfig,
     repository,
     main: "lib",
-    peerDependencies: dep([
-      "tslib",
-      "express",
-      "@types/express",
-      "pg",
-      "@types/pg",
-    ]),
-    peerDependenciesMeta: dep.meta(["@types/express", "@types/pg"]),
+    peerDependencies: dep(["tslib", "express", "@types/express", "sequelize"]),
+    peerDependenciesMeta: dep.meta(["@types/express"]),
   })
   .complete()
   .catch((err) => console.log(err));

@@ -43,10 +43,10 @@ export default function Landing() {
               onRequired={async (person, form) => {
                 setLoading(true);
                 try {
-                  const { message } = await api.insert(person);
+                  const record = await api.insert(person);
 
                   confirm({
-                    message,
+                    message: record.fullName + " Fue agregado",
                     onConfirm() {
                       form.reset();
                       setLoading(false);
@@ -66,12 +66,4 @@ export default function Landing() {
       </div>
     </div>
   );
-}
-
-/**
- * Types
- */
-interface State {
-  loading: boolean;
-  message: string;
 }
