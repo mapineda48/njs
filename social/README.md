@@ -1,4 +1,4 @@
-# Social.
+# Social
 
 ## Package
 
@@ -19,8 +19,10 @@ Before installing, make sure to authenticate with GitHub Package Registry or usi
 ```js
 const http = require("http");
 const express = require("express");
-const social = require("@mapineda48/social");
 const { Server } = require("socket.io");
+const { Sequelize } = require("sequelize");
+const { createClient } = require("redis");
+const social = require("@mapineda48/social");
 
 const app = express();
 const server = http.createServer(app);
@@ -32,10 +34,27 @@ const io = new Server(server);
  */
 app.use(express.json());
 
+/*
+ * https://sequelize.org/
+ */
+const seq = new Sequelize(process.env.DATABASE_URL);
+
+
+const redis = createClient({ url: process.env.REDIS_URL });
+
 /**
  * Demo
  */
-app.use("/my/path", social("foo", "12345", io));
+app.use(
+  social({
+    io,
+    seq,
+    redis,
+    username: "foo",
+    password: "12345",
+    keyToTokens: "foo",
+  })
+);
 ```
 
 ## License

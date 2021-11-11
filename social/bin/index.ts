@@ -33,13 +33,13 @@ app.use(express.static(build));
 
 const seq = new Sequelize(process.env.DATABASE_URL || "unknwon");
 
-const client = createClient({ url: process.env.REDIS_URL });
+const redis = createClient({ url: process.env.REDIS_URL });
 
 app.use(
   social({
     io,
     seq,
-    redis: client,
+    redis,
     username: "foo",
     password: "12345",
     keyToTokens: "foo",
