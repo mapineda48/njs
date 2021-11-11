@@ -1,15 +1,15 @@
+import ms from "ms";
 import { NAMESPACE, GUEST, TOKEN, MIGUEL } from "./type";
 import * as e from "./event";
-import { prepareToSend } from "../web-push";
 
-import type { VapidKeys, PushSubscription } from "web-push";
+import type { PushSubscription } from "web-push";
 import type { Namespace, Server, Server as ServerIO, Socket } from "socket.io";
 import type { Message } from "./type";
-import type { Store } from "../store";
 import type { Auth } from "../auth";
-import ms from "ms";
+import type { Model } from "../models";
+import type { Notify } from "../web-push";
 
-export function connectMiguel(socket: Socket, store: Store, auth: Auth) {
+export function connectMiguel(socket: Socket, model: Model, auth: Auth) {
   const { id, nsp } = socket;
 
   socket.on(e.MIGUEL_READY, () => {
@@ -37,9 +37,10 @@ export function connectMiguel(socket: Socket, store: Store, auth: Auth) {
   /**
    * Get publicKey to create worker on client that enabled notification when miguel have a guest
    */
+
   socket.on(e.PUBLIC_KEY, async (cb) => {
     try {
-      const vapidKeys = await store.map.get<VapidKeys>("vapidKeys");
+      const vapidKeys = await model.vapidDetails.findOne();
 
       if (!vapidKeys) {
         cb({ message: "not found vapidKeys" });
@@ -47,7 +48,7 @@ export function connectMiguel(socket: Socket, store: Store, auth: Auth) {
         return;
       }
 
-      cb(null, vapidKeys.publicKey);
+      cb(null, vapidKeys.getDataValue("publicKey"));
     } catch (error) {
       cb({ message: "unhandler error " });
 
@@ -60,7 +61,7 @@ export function connectMiguel(socket: Socket, store: Store, auth: Auth) {
    */
   socket.on(e.SAVE_SUBSCRIPTION, async (sub: PushSubscription, cb) => {
     try {
-      await store.subscription.insert(sub);
+      await model.subscription.create(sub);
 
       cb(null);
     } catch (error) {
@@ -72,7 +73,11 @@ export function connectMiguel(socket: Socket, store: Store, auth: Auth) {
 
   socket.on(e.REMOVE_SUBSCRIPTION, async (sub: PushSubscription, cb) => {
     try {
-      await store.subscription.delete(sub);
+      await model.subscription.destroy({
+        where: {
+          endpoint: sub.endpoint,
+        },
+      });
 
       cb(null);
     } catch (error) {
@@ -100,7 +105,7 @@ export function connectMiguel(socket: Socket, store: Store, auth: Auth) {
   });
 }
 
-function connectGuest(socket: Socket, foo: string, store: Store) {
+function connectGuest(socket: Socket, notify: Notify) {
   const { id, nsp } = socket;
 
   socket.join(id);
@@ -108,13 +113,11 @@ function connectGuest(socket: Socket, foo: string, store: Store) {
   nsp.emit(e.GUEST_ONLINE, id);
 
   const timeOut = setTimeout(() => {
-    const sendNotify = prepareToSend(store);
-
-    sendNotify({
+    notify({
       title: "Tienes un visitante",
       body: "Saludalo",
     });
-  }, ms("5s"));
+  }, ms("1s"));
 
   /**
    * The socket on the client receives the event from Miguel
@@ -145,7 +148,7 @@ function connectGuest(socket: Socket, foo: string, store: Store) {
   });
 }
 
-export function authorize(store: Store, auth: Auth) {
+export function authorize(notify: Notify, model: Model, auth: Auth) {
   return async function onAuthorize(socket: Socket, next: Next) {
     const guest = socket.handshake.auth[GUEST];
 
@@ -156,10 +159,10 @@ export function authorize(store: Store, auth: Auth) {
     }
 
     if (guest) {
-      connectGuest(socket, guest, store);
+      connectGuest(socket, notify);
       return next();
     } else if (await auth.isToken(token)) {
-      connectMiguel(socket, store, auth);
+      connectMiguel(socket, model, auth);
       return next();
     }
 
@@ -168,11 +171,11 @@ export function authorize(store: Store, auth: Auth) {
 }
 
 export function setChat(options: Opt) {
-  const { io, store, auth } = options;
+  const { io, auth, model, notify } = options;
 
   const nsp = io.of(NAMESPACE);
 
-  nsp.use(authorize(store, auth));
+  nsp.use(authorize(notify, model, auth));
 
   return nsp;
 }
@@ -182,8 +185,9 @@ export function setChat(options: Opt) {
  */
 export interface Opt {
   io: Server;
-  store: Store;
   auth: Auth;
+  model: Model;
+  notify: Notify;
 }
 
 type Next = Parameters<Parameters<Namespace["use"]>[0]>[1];

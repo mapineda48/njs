@@ -1,11 +1,10 @@
-import webPush, { VapidKeys } from "web-push";
+import webPush from "web-push";
 import ms from "ms";
 
-import type { Store } from "../store";
 import type { Payload } from "./type";
-
-const subject = "mailto:example@yourdomain.org";
-let vapidDetails: VapidDetails = null as any;
+import type { Cache } from "../cache";
+import type { Model } from "../models";
+import type { VapidDetails } from "../models/VapidDetails";
 
 /**
  * To avoid a flood of messages, there must be a 10 minute
@@ -13,53 +12,52 @@ let vapidDetails: VapidDetails = null as any;
  */
 const timeLimit = ms("10m");
 
-export function prepareToSend(store: Store) {
+export default function prepareToSend(
+  cache: Cache,
+  model: Model,
+  vapidDetails: VapidDetails
+) {
   return async function sendNotify(payload: Payload) {
-    const lastMessage = await store.map.get<number>("lastMessage");
+    const lastMessage = await cache.get("lastMessage");
 
     const timeMessage = Date.now();
 
     if (lastMessage) {
-      const elapsed = timeMessage - lastMessage;
+      const elapsed = timeMessage - parseInt(lastMessage);
 
       if (elapsed < timeLimit) {
         return Promise.resolve();
       }
     }
 
-    if (!vapidDetails) {
-      const vapidKeys = await store.map.get<VapidKeys>("vapidKeys");
-
-      if (!vapidKeys) {
-        const vapidKeys = webPush.generateVAPIDKeys();
-
-        await store.map.set("vapidKeys", vapidKeys);
-
-        vapidDetails = { subject, ...vapidKeys };
-      } else {
-        vapidDetails = { subject, ...vapidKeys };
-      }
-    }
-
-    const subs = await store.subscription.select();
+    const subs = await model.subscription.findAll();
 
     if (!subs.length) return;
 
     const data = JSON.stringify(payload);
 
     subs.forEach((sub) => {
-      webPush.sendNotification(sub, data, { vapidDetails });
+      webPush
+        .sendNotification(sub.get(), data, {
+          vapidDetails,
+        })
+        .catch((err) => {
+          /**
+           * push subscription has unsubscribed or expired.
+           */
+          if (err.statusCode === 410) {
+            sub.destroy().catch(console.error);
+          }
+
+          console.error(err);
+        });
     });
 
-    await store.map.set("lastMessage", timeMessage);
+    await cache.set("lastMessage", timeMessage.toString());
   };
 }
 
 /**
  * Types
  */
-interface VapidDetails {
-  publicKey: string;
-  privateKey: string;
-  subject: string;
-}
+export type Notify = ReturnType<typeof prepareToSend>;

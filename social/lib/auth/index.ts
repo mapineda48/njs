@@ -1,6 +1,6 @@
 import * as jwt from "jsonwebtoken";
 import { ErrorInApp } from "../error";
-import type { Store } from "../store";
+import type { Cache } from "../cache";
 
 /**
  * ok ... if you are thinking why I have not followed any convention
@@ -9,16 +9,20 @@ import type { Store } from "../store";
  */
 
 export default class Auth {
-  async logout() {
-    const { store } = this.options;
+  getCache() {
+    return this.options.cache;
+  }
 
-    await store.map.delete("token");
+  async logout() {
+    const { cache } = this.options;
+
+    await cache.delete("token");
   }
 
   async isToken(token: string) {
-    const { store } = this.options;
+    const { cache } = this.options;
 
-    const current = await store.map.get<string>("token");
+    const current = await cache.get("token");
 
     if (!current || token !== current) {
       return false;
@@ -39,7 +43,7 @@ export default class Auth {
 
     const payload = { username, password };
 
-    const { store } = options;
+    const { cache } = options;
 
     return new Promise<string>((resolve, reject) => {
       jwt.sign(payload, options.key, opt, (error, res) => {
@@ -47,7 +51,7 @@ export default class Auth {
 
         const token = res || "unknwon";
 
-        store.map
+        cache
           .set("token", token)
           .then(() => {
             resolve(token);
@@ -63,11 +67,11 @@ export default class Auth {
 /**
  * Types
  */
-export type { Auth };
+export type { Auth, Cache };
 
 interface Opt {
   key: string;
   username: string;
   password: string;
-  store: Store;
+  cache: Cache;
 }

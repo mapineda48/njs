@@ -1,3 +1,3 @@
-import { createSocial } from "./route";
+import router from "./route";
 
-export = createSocial;
+export = router;

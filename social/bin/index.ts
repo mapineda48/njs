@@ -2,8 +2,9 @@ import child from "child_process";
 import path from "path";
 import express from "express";
 import { Server as ServerIO } from "socket.io";
-import { Pool } from "pg";
 import logger from "morgan";
+import { Sequelize } from "sequelize";
+import { createClient } from "redis";
 import social from "../lib";
 
 const port = 3000;
@@ -30,17 +31,18 @@ app.use(logger("dev"));
 
 app.use(express.static(build));
 
-const pg = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
+const seq = new Sequelize(process.env.DATABASE_URL || "unknwon");
+
+const client = createClient({ url: process.env.REDIS_URL });
 
 app.use(
   social({
     io,
-    keyToTokens: "foo",
+    seq,
+    redis: client,
     username: "foo",
     password: "12345",
-    pg,
+    keyToTokens: "foo",
   })
 );
 
