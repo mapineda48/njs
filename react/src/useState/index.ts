@@ -82,7 +82,7 @@ export function initAction(red: any): any {
 
     const action: any = React.useMemo(() => {
       return Object.fromEntries(
-        Object.entries(action)
+        Object.entries(red)
           // Only functions
           .filter(([, val]) => isFunc(val))
           // use setState with actions
