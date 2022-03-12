@@ -1,5 +1,5 @@
 import image from "../img";
-import { FaReact, FaHtml5 } from "react-icons/fa";
+import { FaReact, FaHtml5, FaJava } from "react-icons/fa";
 import {
   SiTypescript,
   SiRedux,
@@ -10,11 +10,34 @@ import {
   SiSequelize,
   SiExpress,
   SiStyledcomponents,
-  SiMaterialui
+  SiMaterialui,
+  SiCsharp,
+  SiSpringboot,
 } from "react-icons/si";
 import { IoLogoJavascript, IoLogoCss3, IoLogoSass } from "react-icons/io";
 import { DiNodejs } from "react-icons/di";
 import { IconType } from "react-icons";
+
+const csharp: Skill = {
+  Icon: SiCsharp,
+  title: "C#",
+  image: image.cSharp,
+  url: "https://docs.microsoft.com/en-us/dotnet/csharp/",
+};
+
+const springBoot: Skill = {
+  Icon: SiSpringboot,
+  title: "SpringBoot",
+  image: image.springBoot,
+  url: "https://spring.io/",
+};
+
+const java: Skill = {
+  Icon: FaJava,
+  title: "Java",
+  image: image.java,
+  url: "https://www.java.com/",
+};
 
 const sequelize: Skill = {
   Icon: SiSequelize,
@@ -145,6 +168,9 @@ export const skill = {
   swagger,
   mongo,
   postgres,
+  java,
+  springBoot,
+  csharp,
 };
 
 export default skill;

@@ -11,6 +11,9 @@ import { ReactComponent as Brand } from "./brand.svg";
 import image from "./img";
 import skill from "./skill";
 
+const ocho = "https://github.com/mapineda48/java/tree/master/ocho";
+const climate = "https://github.com/mapineda48/net-core/tree/master/climate";
+
 export default function Web(props: Props) {
   const { model, changeTo } = props;
 
@@ -130,6 +133,37 @@ export default function Web(props: Props) {
               skill.express,
             ]}
           />
+          <Card
+            title="Ocho"
+            description={model.demos.ocho}
+            url={ocho}
+            label={model.card}
+            skills={[
+              skill.html,
+              skill.css,
+              skill.js,
+              skill.ts,
+              skill.react,
+              skill.node,
+              skill.java,
+              skill.springBoot
+            ]}
+          />
+          <Card
+            title="Climate"
+            description={model.demos.climate}
+            url={climate}
+            label={model.card}
+            skills={[
+              skill.html,
+              skill.css,
+              skill.js,
+              skill.ts,
+              skill.react,
+              skill.node,
+              skill.csharp,
+            ]}
+          />
         </div>
       </section>
     </React.Fragment>
@@ -170,6 +204,8 @@ export interface Model {
     sigma: string;
     grants: string;
     rest: string;
+    ocho:string;
+    climate:string
   };
   card: CardLabel;
   source: string;

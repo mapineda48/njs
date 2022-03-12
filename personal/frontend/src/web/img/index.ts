@@ -15,6 +15,9 @@ import vue from "./vue.png";
 import mongo from "./mongo.png";
 import swagger from "./swagger.png";
 import sequelize from "./sequelize.png";
+import java from './java.png';
+import springBoot from './springboot.png';
+import cSharp from './csharp.png';
 
 const image = {
   personal,
@@ -33,7 +36,10 @@ const image = {
   styled,
   vue,
   swagger,
-  sequelize
+  sequelize,
+  java,
+  springBoot,
+  cSharp
 };
 
 export default image;

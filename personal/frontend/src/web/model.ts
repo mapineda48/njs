@@ -41,6 +41,15 @@ export const es: Model = {
     aún más el valor que tiene los proyectos como los que llevan el equipo 
     de Nextjs
     `,
+    ocho:`
+    Tienda de venta de computadores La Ocho, donde encuentras lo mejor 
+    relacionado con tecnología, para video juego, diseño gráfico, oficina 
+    o doméstico, acércate para tener el gusto de atenderte.
+    `,
+    climate:`
+    Antes de salir de caso mantente bien informado con lo último en noticias 
+    y no permitas que el clima te sorprenda visitanos para saber si debes
+     llevar el paraguas cuando salgas de casa.`
   },
   card: {
     go: "Ir",
@@ -92,6 +101,16 @@ export const en: Model = {
     that led me to appreciate even more the value of projects such as those 
     that they carry the Nextjs team
     `,
+    ocho:`
+    La Ocho computer sales store, where you find the best related to technology,
+     for video games, graphic design, office or home, come to have the pleasure
+      of serving you.
+    `,
+    climate:`
+    Before leaving the case, stay well informed with the latest news and don't 
+    let the weather surprise you, visit us to find out if you should carry an 
+    umbrella when you leave home.
+    `
   },
   card: {
     go: "Go",
