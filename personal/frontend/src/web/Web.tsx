@@ -5,7 +5,6 @@ import sigma from "@mapineda48/demos-sigma/frontend/lib/baseUrl";
 import grants from "@mapineda48/demos-grants/esm/baseUrl";
 import apiRest from "@mapineda48/demos-api-rest/frontend/lib/baseUrl";
 import Card, { Label as CardLabel } from "./Card";
-import scrollIntoView from "smooth-scroll-into-view-if-needed";
 import AOS from "aos";
 import { ReactComponent as Brand } from "./brand.svg";
 import image from "./img";
@@ -52,17 +51,17 @@ export default function Web(props: Props) {
             </Link>
           </li>
           <li title={model.nav.home}>
-            <a onClick={() => scrollIt(home.current)} href="#home">
+            <a href="#home">
               {model.nav.home}
             </a>
           </li>
           <li title={model.nav.skill}>
-            <a onClick={() => scrollIt(skills.current)} href="#skill">
+            <a href="#skill">
               {model.nav.skill}
             </a>
           </li>
           <li title={model.nav.demos}>
-            <a onClick={() => scrollIt(demos.current)} href="#demo">
+            <a href="#demo">
               {model.nav.demos}
             </a>
           </li>
@@ -171,15 +170,6 @@ export default function Web(props: Props) {
       </section>
     </React.Fragment>
   );
-}
-
-function scrollIt(target: HTMLElement | null) {
-  if (!target) return;
-  scrollIntoView(target, {
-    scrollMode: "if-needed",
-    block: "nearest",
-    inline: "nearest",
-  });
 }
 
 /**
