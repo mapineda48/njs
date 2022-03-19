@@ -83,8 +83,8 @@ $color-header: #806c9f;
   }
 
   img {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
     border-radius: 50%;
   }
@@ -172,10 +172,6 @@ $color-header: #806c9f;
   flex-direction: column;
 
   &:nth-child(odd) {
-    background-color: #ffffff;
-  }
-
-  &:nth-child(even) {
     background-color: #f7f7f7;
   }
 }

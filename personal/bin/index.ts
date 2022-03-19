@@ -17,26 +17,26 @@ const server = app.listen(port, () => {
   console.log(`server "${env}" listening port ${port}`);
 });
 
-const io = new ServerIO(server);
+// const io = new ServerIO(server);
 
-const pg = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
+// const pg = new Pool({
+//   connectionString: process.env.DATABASE_URL,
+// });
 
 app.use(express.json());
 
 app.use(logger("dev"));
 
-app.use(
-  social({
-    io,
-    keyToTokens: "12345",
-    password: "12345",
-    username: "foo",
-    pg,
-  })
-);
+// app.use(
+//   social({
+//     io,
+//     keyToTokens: "12345",
+//     password: "12345",
+//     username: "foo",
+//     pg,
+//   })
+// );
 
 app.use(personal());
 
-app.use(sigma(pg));
+//app.use(sigma(pg));

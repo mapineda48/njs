@@ -10,6 +10,7 @@ import AOS from "aos";
 import { ReactComponent as Brand } from "./brand.svg";
 import image from "./img";
 import skill from "./skill";
+import Particles from "./Particles";
 
 const ocho = "https://github.com/mapineda48/java/tree/master/ocho";
 const climate = "https://github.com/mapineda48/net-core/tree/master/climate";
@@ -68,6 +69,7 @@ export default function Web(props: Props) {
         </ul>
       </nav>
       <section ref={home} id="home" className="home">
+        <Particles id="home-particles" />
         <img
           title="Miguel Angel Pineda Vega"
           className="shadow-one"
@@ -86,6 +88,7 @@ export default function Web(props: Props) {
         </div>
       </section>
       <section ref={demos} id="demo" className="demos">
+        <Particles id="demo-particles" />
         <div className="projects">
           <Card
             title="Api Rest"
@@ -146,7 +149,7 @@ export default function Web(props: Props) {
               skill.react,
               skill.node,
               skill.java,
-              skill.springBoot
+              skill.springBoot,
             ]}
           />
           <Card
@@ -204,8 +207,8 @@ export interface Model {
     sigma: string;
     grants: string;
     rest: string;
-    ocho:string;
-    climate:string
+    ocho: string;
+    climate: string;
   };
   card: CardLabel;
   source: string;
