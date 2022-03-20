@@ -8,15 +8,15 @@ export default function define(seq: Sequelize) {
     "VapidDetail",
     {
       publicKey: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING(100),
         primaryKey: true,
       },
       privateKey: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING(100),
         allowNull: false,
       },
       subject: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING(100),
         allowNull: false,
       },
     },
