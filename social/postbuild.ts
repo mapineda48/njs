@@ -33,13 +33,12 @@ dist()
       "express",
       "@types/express",
       "socket.io",
-      "redis",
-      "@types/redis",
+      "helmet",
       "pg",
       "pg-hstore",
       "sequelize",
     ]),
-    peerDependenciesMeta: dep.meta(["@types/express", "@types/redis"]),
+    peerDependenciesMeta: dep.meta(["@types/express"]),
   })
   .complete()
   .catch((err) => console.log(err));

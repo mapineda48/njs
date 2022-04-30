@@ -1,5 +1,5 @@
+import { render } from "mp48-react/render";
 import App from "./App";
-import { render } from "../common";
-import "./styles.scss";
+import "./style.scss";
 
-render(<App />);
+render(App);

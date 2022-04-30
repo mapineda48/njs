@@ -1,4 +1,7 @@
+frontend/public/**/*.js
+frontend/public/**/*.map
 *.dev.*
+/scratch
 
 # Logs
 logs

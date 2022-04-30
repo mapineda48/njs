@@ -10,17 +10,14 @@ services:
     volumes:
       - "$PWD:/home/app"
     ports:
+      - "80:80"
       - "3000:3000"
+      - "443:443"
     depends_on:
       - db
-      - cache
   db:
     image: "postgres:14"
     environment:
       POSTGRES_PASSWORD: "mypassword"
     ports:
       - "5432:5432"
-  cache:
-    image: "redis:7.0-rc-bullseye"
-    ports:
-      - "6379:6379"

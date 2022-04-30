@@ -1,10 +1,4 @@
-import Session from "./Session";
-import Dashboard from "./Dashboard";
-import { render } from "../common";
-import "./index.scss";
+import { render } from "mp48-react/render";
+import App from "./App";
 
-render(
-  <Session>
-    <Dashboard />
-  </Session>
-);
+render(App);

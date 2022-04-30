@@ -1,0 +1,1 @@
+export const SCHEMA = "njs_social";

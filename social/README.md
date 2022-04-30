@@ -1,6 +1,8 @@
 # Social
 
-## Package
+Social module that allows me to maintain closer contact with people who visit my website, demos and other sites, you will find my social networks and chat.
+
+## Server
 
 Install nodejs [package](https://docs.npmjs.com/cli/v7/commands/npm-install) with [express router](https://github.com/expressjs/express) for integration with your application.
 
@@ -21,7 +23,6 @@ const http = require("http");
 const express = require("express");
 const { Server } = require("socket.io");
 const { Sequelize } = require("sequelize");
-const { createClient } = require("redis");
 const social = require("@mapineda48/social");
 
 const app = express();
@@ -39,9 +40,6 @@ app.use(express.json());
  */
 const seq = new Sequelize(process.env.DATABASE_URL);
 
-
-const redis = createClient({ url: process.env.REDIS_URL });
-
 /**
  * Demo
  */
@@ -49,13 +47,48 @@ app.use(
   social({
     io,
     seq,
-    redis,
     username: "foo",
     password: "12345",
-    keyToTokens: "foo",
   })
 );
 ```
+## Client
+
+To enable the social section on the client side, simply add the following to `index.html`:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cool Page</title>
+</head>
+<body>
+
+
+    <!-- Just add this script -->
+    <script defer src="https://apinedavegamiguel.herokuapp.com/social/static/js/widget.js" app="Foo"></script>
+</body>
+</html>
+```
+
+## Development
+
+I personally use these variables during development, but feel free to adjust them as you see fit.
+
+```sh
+INLINE_RUNTIME_CHUNK=false
+FAST_REFRESH=false
+PORT=3000
+
+# Development
+
+# PUBLIC_URL=http://localhost:3000
+# NODE_ENV=development
+```
+
 
 ## License
 
