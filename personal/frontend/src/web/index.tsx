@@ -1,12 +1,9 @@
 import axios from "axios";
-import { mountChat } from "@mapineda48/social/frontend/lib";
 import App from "./App";
 import { hydrate } from "./common";
 import './index.scss';
 
 import type { Data } from "./model";
-
-mountChat();
 
 axios
   .get<Data>("/model.json")

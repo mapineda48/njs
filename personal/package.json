@@ -1,6 +1,6 @@
 {
   "name": "@mapineda48/personal",
-  "version": "0.0.17",
+  "version": "0.1.0",
   "description": "Personal web page in expressjs route.",
   "keywords": [
     "expressjs",
@@ -30,7 +30,7 @@
     "frontend:dist": "yarn frontend:build && yarn frontend:model && yarn frontend:render",
     "types": "tsc --noEmit",
     "build:lib": "tsc",
-    "check:types": "tsc && tsc -P lib/tsconfig.json --noEmit",
+    "check:types": "tsc && yarn frontend:types",
     "build": "rm -rf dist && yarn build:lib && yarn frontend:dist",
     "postbuild": "ts-node postbuild.ts",
     "version": "yarn build",
@@ -43,7 +43,6 @@
     "@mapineda48/demos-api-rest": "0.0.3",
     "@mapineda48/demos-grants": "^0.0.2",
     "@mapineda48/demos-sigma": "^0.0.8",
-    "@mapineda48/social": "0.0.14",
     "@popperjs/core": "^2.9.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
