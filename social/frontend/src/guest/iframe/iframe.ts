@@ -62,6 +62,9 @@ window.addEventListener("message", (event) => {
 
   switch (payload.type) {
     case type.CONNECT: {
+      
+      document.body.style.background = "transparent";
+
       if (origin) {
         return;
       }
