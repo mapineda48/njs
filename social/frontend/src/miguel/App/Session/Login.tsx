@@ -41,62 +41,68 @@ export default function LogIn(props: Props) {
   }, []);
 
   return (
-    <form
-      className="login panel"
-      onSubmit={async (event) => {
-        event.preventDefault();
-        if (state.message) return;
-
-        login.loading();
-
-        try {
-          const session = await loginSession(state.user, state.password);
-          props.onSuccess(session);
-        } catch (error: any) {
-          login.message(error.message);
-        } finally {
-          login.loading(false);
-        }
-      }}
-      noValidate
+    <div
+      className="d-flex justify-content-center align-items-center bg-light"
+      style={{ width: "100vw", height: "100vh" }}
     >
-      <h3>Social</h3>
-      <input
-        required
-        id="user"
-        name="user"
-        placeholder="username"
-        autoComplete="Text"
-        autoFocus
-        className="form-control"
-        onChange={({ currentTarget: { value } }) => login.user(value)}
-        value={state.user}
-      />
-      <input
-        required
-        name="password"
-        type="password"
-        id="password"
-        placeholder="password"
-        autoComplete="current-password"
-        className="form-control"
-        onChange={({ currentTarget: { value } }) => login.password(value)}
-        value={state.password}
-      />
-      <button
-        type="submit"
-        color={state.message ? "secondary" : "primary"}
-        className={clsx([
-          "btn",
-          state.loading && "btn-info",
-          !state.message && !state.loading && "btn-primary",
-          state.message && "btn-danger",
-        ])}
-        disabled={state.loading || missingCredetials}
+      <form
+        style={{ height: "280px" }}
+        className="d-flex flex-column justify-content-around bg-white align-items-center border px-3 rounded"
+        onSubmit={async (event) => {
+          event.preventDefault();
+          if (state.message) return;
+
+          login.loading();
+
+          try {
+            const session = await loginSession(state.user, state.password);
+            props.onSuccess(session);
+          } catch (error: any) {
+            login.message(error.message);
+          } finally {
+            login.loading(false);
+          }
+        }}
+        noValidate
       >
-        {label}
-      </button>
-    </form>
+        <h3>Social</h3>
+        <input
+          required
+          id="user"
+          name="user"
+          placeholder="username"
+          autoComplete="Text"
+          autoFocus
+          className="form-control"
+          onChange={({ currentTarget: { value } }) => login.user(value)}
+          value={state.user}
+        />
+        <input
+          required
+          name="password"
+          type="password"
+          id="password"
+          placeholder="password"
+          autoComplete="current-password"
+          className="form-control"
+          onChange={({ currentTarget: { value } }) => login.password(value)}
+          value={state.password}
+        />
+        <button
+          type="submit"
+          color={state.message ? "secondary" : "primary"}
+          className={clsx([
+            "btn",
+            state.loading && "btn-info",
+            !state.message && !state.loading && "btn-primary",
+            state.message && "btn-danger",
+          ])}
+          disabled={state.loading || missingCredetials}
+        >
+          {label}
+        </button>
+      </form>
+    </div>
   );
 }
 
