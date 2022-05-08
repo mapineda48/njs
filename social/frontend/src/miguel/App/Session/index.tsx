@@ -1,5 +1,5 @@
 import React from "react";
-import { initAction } from "mp48-react/useState";
+import { initReducer } from "mp48-react/useState";
 import Login from "./Login";
 import { existsSession } from "../../http";
 
@@ -17,7 +17,7 @@ export function useSession() {
   return state;
 }
 
-const useState = initAction({
+const useState = initReducer({
   sync(state: State, session: Session | null): State {
     return { ...state, session, isSync: true, isLoading: false };
   },

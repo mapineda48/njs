@@ -1,0 +1,18 @@
+._ {
+}
+
+.send {
+  margin-left: 1em;
+  margin-bottom: 0 !important;
+}
+.messages {
+  overflow: auto;
+  flex-grow: 1;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  span {
+    max-width: 50%;
+  }
+}

@@ -1,9 +1,9 @@
 import { AMOUNT_PAGE } from "@socket/type";
-import { initAction } from "mp48-react/useState";
+import { initReducer } from "mp48-react/useState";
 
 import type { IMessage as Message } from "../../../components/Message";
 
-const useState = initAction({
+const useState = initReducer({
   setIframe(state: State, iframe: HostIframe): State {
     return { ...state, iframe };
   },

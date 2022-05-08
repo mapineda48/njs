@@ -1,11 +1,11 @@
 import React from "react";
-import { initAction } from "mp48-react/useState";
+import { initReducer } from "mp48-react/useState";
 import { login as loginSession } from "../../http";
 import clsx from "clsx";
 
 import type { Session } from "../../http";
 
-const useState = initAction({
+const useState = initReducer({
   message(state: State, message: string): State {
     return { ...state, message, loading: false };
   },

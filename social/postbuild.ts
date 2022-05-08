@@ -37,6 +37,7 @@ dist()
       "pg",
       "pg-hstore",
       "sequelize",
+      "helmet"
     ]),
     peerDependenciesMeta: dep.meta(["@types/express"]),
   })
