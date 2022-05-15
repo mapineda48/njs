@@ -8,6 +8,10 @@ export class ErrorRoute extends ErrorApp {
       return error;
     }
 
+    if (error instanceof ErrorUnauthorizedLogin) {
+      return new ErrorRoute(401, error.message);
+    }
+
     if (error instanceof ErrorApp) {
       return new ErrorRoute(404, error.message);
     }
@@ -41,6 +45,12 @@ export class ErrorNotFoundGuest extends ErrorApp {
 export class ErrorNotExistMiguel extends ErrorApp {
   constructor() {
     super("Miguet not exists");
+  }
+}
+
+export class ErrorUnauthorizedLogin extends ErrorApp {
+  constructor() {
+    super("Error Unauthorized Login");
   }
 }
 

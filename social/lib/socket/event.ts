@@ -13,3 +13,4 @@ export const GUEST_ORIGIN = "welcome";
 export const DISCONNECT = "disconnect";
 export const CONNECT = "connect";
 export const GET_MESSAGES = "¿you love me?";
+export const GET_GUESTS = "ok";

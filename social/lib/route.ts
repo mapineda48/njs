@@ -50,6 +50,8 @@ export function createRouteSocial(config: Options) {
         privateKey,
         publicKey,
         subject: "mailto:example@yourdomain.org",
+        lastLoginAttempt: 0,
+        loginAttempts: 0,
       });
 
       return { model, privateKey };

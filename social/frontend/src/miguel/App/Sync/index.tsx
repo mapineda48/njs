@@ -1,6 +1,6 @@
 import React from "react";
 import { useSession } from "../Session";
-import { useDispatch } from "../Store/hook";
+import { useDispatch, useSelector } from "../Store/hook";
 
 export function Sync(props: Props) {
   const session = useSession();

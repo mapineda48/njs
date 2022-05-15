@@ -1,71 +1,49 @@
 import React from "react";
 
-const Context = React.createContext<React.RefObject<HTMLDivElement>>({
-  current: null,
-});
-
-export function useLayout() {
-  return React.useContext(Context);
-}
-
-export function Layout(props: { children: React.ReactNode }) {
-  const ref = React.useRef<HTMLDivElement>(null);
-
-  return <Context.Provider value={ref}>{props.children}</Context.Provider>;
-}
-
-export function useLeftMenu<T extends HTMLElement>() {
-  const leftBar = useLayout();
+export function useSize<T extends HTMLElement>() {
   const ref = React.useRef<T>(null);
 
   React.useEffect(() => {
-    const bar = leftBar.current;
+    const el = ref.current;
 
-    const div = ref.current;
-
-    if (!bar || !div) {
+    if (!el) {
       return;
     }
 
-    const setHeight = () => {
-      const { top, right } = bar.getBoundingClientRect();
+    const setSize = () => {
+      const { top, left } = el.getBoundingClientRect();
 
-      div.style.top = top + "px";
-      div.style.left = right + "px";
-      div.style.height = `calc(100vh - ${top}px)`;
-      div.style.maxHeight = `calc(100vh - ${top}px)`;
-      div.style.maxWidth = "300px";
-      div.style.position = "fixed";
-      div.style.display = "";
+      el.style.height = `calc(100vh - ${top}px)`;
+      el.style.maxHeight = `calc(100vh - ${top}px)`;
+      el.style.width = `calc(100vw - ${left}px)`;
+      el.style.maxWidth = `calc(100vw - ${left}px)`;
     };
 
-    setHeight();
+    setSize();
 
-    window.addEventListener("resize", setHeight);
+    window.addEventListener("resize", setSize);
 
-    return () => window.removeEventListener("resize", setHeight);
-  }, [leftBar, ref]);
+    return () => window.removeEventListener("resize", setSize);
+  });
 
   return ref;
 }
 
-export function LeftBar(props: Props) {
-  const ref = useLayout();
+export function useHeight<T extends HTMLElement>() {
+  const ref = React.useRef<T>(null);
 
   React.useEffect(() => {
-    const div = ref.current;
+    const el = ref.current;
 
-    if (!div) {
+    if (!el) {
       return;
     }
 
     const setHeight = () => {
-      const { top } = div.getBoundingClientRect();
+      const { top } = el.getBoundingClientRect();
 
-      div.style.height = `calc(100vh - ${top}px)`;
-      div.style.maxHeight = `calc(100vh - ${top}px)`;
-      //div.style.minHeight = contextHeight + "px";
-      div.style.position = "fixed";
+      el.style.height = `calc(100vh - ${top}px)`;
+      el.style.maxHeight = `calc(100vh - ${top}px)`;
     };
 
     setHeight();
@@ -75,20 +53,9 @@ export function LeftBar(props: Props) {
     return () => window.removeEventListener("resize", setHeight);
   }, [ref]);
 
-  return <div {...props} style={{ width: 80 }} ref={ref} />;
+  return ref;
 }
 
-export function Main(props: Props) {
-  return (
-    <div
-      {...props}
-      style={{
-        ...props.style,
-        paddingLeft: 80,
-      }}
-    />
-  );
-}
 
 /**
  * Types

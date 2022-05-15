@@ -22,6 +22,9 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
     "paths": {
+      "@model/*": [
+        "../../lib/model/*"
+      ],
       "@socket/*": [
         "../../lib/socket/*"
       ],

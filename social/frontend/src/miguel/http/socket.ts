@@ -8,10 +8,12 @@ import {
   SAVE_SUBSCRIPTION,
   PUBLIC_KEY,
   GET_MESSAGES,
+  GET_GUESTS,
 } from "@socket/event";
 import { HOST } from "../../env";
 
 import type { Message } from "@socket/type";
+import type { Guest as ModelGuest } from "@model/Guest";
 import type { IMessage } from "../../components/Message";
 
 export function createSocket(token: string) {
@@ -52,6 +54,18 @@ export function createSocket(token: string) {
       });
     },
 
+    async getGuest(page: number) {
+      return new Promise<ModelGuest[]>((res, rej) => {
+        socket.emit(GET_GUESTS, page, (err: any, guests: ModelGuest[]) => {
+          if (err) {
+            return rej(err);
+          }
+
+          res(guests);
+        });
+      });
+    },
+
     async getMessages(room: string, page: number) {
       return new Promise<IMessage[]>((res, rej) => {
         socket.emit(
@@ -62,7 +76,6 @@ export function createSocket(token: string) {
             if (err) {
               return rej(err);
             }
-
             res(
               messages.map(({ writeBy, room, data }) => ({
                 right: writeBy === room,

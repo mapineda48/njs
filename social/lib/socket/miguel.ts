@@ -5,7 +5,7 @@ import type { PushSubscription } from "web-push";
 import type { Model } from "../model";
 import { ErrorNotExistMiguel } from "../error/Error";
 import { logError } from "../error/log";
-import { AMOUNT_PAGE } from "./type";
+import { AMOUNT_PAGE, UnhandlerError } from "./type";
 
 export function connectMiguel(socket: Socket, model: Model) {
   model.miguel
@@ -93,6 +93,7 @@ export function connectMiguel(socket: Socket, model: Model) {
 
         model.message
           .findAll({
+            order: [["createdAt", "DESC"]],
             where: {
               room,
             },
@@ -101,7 +102,23 @@ export function connectMiguel(socket: Socket, model: Model) {
           })
           .then((res) => cb(null, res))
           .catch((err) => {
-            cb("uhandler server error");
+            cb(UnhandlerError);
+            logError(err);
+          });
+      });
+
+      socket.on(e.GET_GUESTS, (page: number, cb) => {
+        const offset = AMOUNT_PAGE * (page - 1);
+
+        model.guest
+          .findAll({
+            order: [["updatedAt", "DESC"]],
+            limit: AMOUNT_PAGE,
+            offset,
+          })
+          .then((res) => cb(null, res))
+          .catch((err) => {
+            cb(UnhandlerError);
             logError(err);
           });
       });

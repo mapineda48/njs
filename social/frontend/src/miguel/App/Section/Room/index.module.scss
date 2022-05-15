@@ -1,0 +1,55 @@
+._ {
+  position: relative;
+  main {
+    flex-grow: 1;
+    overflow: auto;
+  }
+}
+
+$roomsOpen: 180px;
+$roomsClose: 50px;
+
+.roomsOpen {
+  width: $roomsOpen;
+}
+
+.roomsClose {
+  width: $roomsClose;
+}
+
+.rooms {
+  position: absolute;
+  top: 0;
+  left: 0;
+  li {
+    cursor: pointer;
+  }
+  ul {
+    flex-grow: 1;
+  }
+}
+
+.send {
+  margin-left: 1em;
+  margin-bottom: 0 !important;
+}
+
+.msgsOpen {
+  padding-left: $roomsOpen;
+}
+
+.msgsClose {
+  padding-left: $roomsClose;
+}
+
+.messages {
+  overflow: auto;
+  list-style-type: none;
+  flex-grow: 1;
+  margin: 0;
+  padding: 0;
+
+  span {
+    max-width: 50%;
+  }
+}

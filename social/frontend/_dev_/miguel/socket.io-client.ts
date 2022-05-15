@@ -37,8 +37,6 @@ function emit(event: string, ...args: any[]) {
         data: args[0],
       });
       break;
-
-    default:
     case e.GET_MESSAGES:
       const [page, cb] = args;
 
@@ -48,6 +46,8 @@ function emit(event: string, ...args: any[]) {
       }
       //cb(null, getMessages());
 
+      break;
+    default:
       break;
   }
 }

@@ -3,16 +3,24 @@ import {
   useDispatch as useDispatchCore,
   useSelector as useSelectorCore,
 } from "react-redux";
-import { Action, prepareActions } from "./action";
+import { useSession } from "../Session";
+import { action as actionSync } from "./action";
+import prepareThunk, { ActionThunk } from "./thunk";
+import { prepareDispatch } from "./util";
 
 import type { State } from "./store";
 
-const ContextDispatch = React.createContext<Action>(null as any);
+const ContextDispatch = React.createContext<ActionThunk>(null as any);
 
 export function Dispatch(props: Props) {
   const dispatch = useDispatchCore();
+  const session = useSession();
 
-  const action = React.useMemo(() => prepareActions(dispatch), [dispatch]);
+  const action = React.useMemo(() => {
+    const action = prepareThunk(session, actionSync);
+
+    return prepareDispatch(dispatch, action);
+  }, [dispatch, session]);
 
   return (
     <ContextDispatch.Provider value={action}>

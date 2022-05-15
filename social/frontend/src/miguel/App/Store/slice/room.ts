@@ -1,35 +1,58 @@
-import { IMessage } from "@frontend/components/Message";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IMessage } from "@frontend/components/Message";
 import { AMOUNT_PAGE } from "@socket/type";
 
 const slice = createSlice({
   name: "room",
   initialState: initState(),
   reducers: {
-    loadMessages(state: State, action: LoadMessages) {
+    loading({ data }: State, { payload }: LoadRoom) {
+      const state = data[payload];
+
+      if (!state) {
+        return;
+      }
+
+      state.loading = true;
+    },
+    sync({ data }: State, { payload }: SyncRoom) {
+      const state = data[payload];
+
+      if (!state) {
+        return;
+      }
+
+      state.sync = true;
+      state.loading = false;
+    },
+    loadMessages({ data }: State, action: LoadMessages) {
+      console.log({ action });
+
       const { room, messages } = action.payload;
 
-      const data = state.data[room];
+      const state = data[room];
 
       if (!data) {
         //console.error({ missRoom: room });
         return;
       }
 
-      data.canFetch = messages.length >= AMOUNT_PAGE;
-      data.page++;
-      data.loading = false;
-      data.messages = [...messages, ...data.messages];
+      state.canFetch = messages.length >= AMOUNT_PAGE;
+      state.page++;
+      state.loading = false;
+      state.messages = [...state.messages, ...messages];
     },
 
-    addMessage(state, { payload }: AddMessage) {
-      const room = state.data[payload.room];
+    addMessage({ data }, { payload }: AddMessage) {
+      const { room, message } = payload;
 
-      if (!room) {
+      const state = data[room];
+
+      if (!state) {
         return;
       }
 
-      room.messages.push(payload.message);
+      state.messages = [message, ...state.messages];
     },
 
     removeRoom(state, { payload }: RemoveRoom) {
@@ -99,6 +122,9 @@ export default slice.reducer;
 /**
  * Types
  */
+export type LoadRoom = PayloadAction<string>;
+
+export type SyncRoom = PayloadAction<string>;
 
 export type LoadMessages = PayloadAction<{
   room: string;

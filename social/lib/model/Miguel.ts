@@ -28,7 +28,15 @@ export default function define(seq: Sequelize) {
         allowNull: false,
       },
       lastNotification: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
+        allowNull: false,
+      },
+      lastLoginAttempt: {
+        type: DataTypes.BIGINT,
+        allowNull: false,
+      },
+      loginAttempts: {
+        type: DataTypes.SMALLINT,
         allowNull: false,
       },
     },
@@ -48,4 +56,6 @@ export interface Miguel {
   privateKey: string;
   subject: string;
   lastNotification: number;
+  lastLoginAttempt:number;
+  loginAttempts:number
 }
