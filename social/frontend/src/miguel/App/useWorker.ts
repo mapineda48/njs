@@ -28,6 +28,26 @@ export default function useNotify() {
   };
 }
 
+async function unregistergit() {
+  const registrations = await navigator.serviceWorker.getRegistrations();
+
+  if (!registrations.length) {
+    return;
+  }
+
+  await Promise.all(
+    registrations.map(async (reg) => {
+      const sub = await reg.pushManager.getSubscription();
+
+      if(sub){
+        await sub.unsubscribe();
+      }
+
+      await reg.unregister();
+    })
+  );
+}
+
 async function subscribe(applicationServerKey: string): Promise<Res> {
   if (process.env.NODE_ENV === "development") {
     console.log("Skip subscribe worker");
