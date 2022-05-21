@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  web:
+    image: "node:16-bullseye"
+    tty: true
+    environment:
+      GITHUB_TOKEN: "${GITHUB_TOKEN}"
+      DATABASE_URL: "postgresql://postgres:mypassword@db"
+      REDIS_URL: "redis://cache/"
+    volumes:
+      - "$PWD:/home/app"
+    ports:
+      - "80:80"
+      - "3000:3000"
+      - "443:443"
+    depends_on:
+      - db
+  db:
+    image: "postgres:14"
+    environment:
+      POSTGRES_PASSWORD: "mypassword"
+    ports:
+      - "5432:5432"

@@ -1,0 +1,94 @@
+{
+  "name": "@mapineda48/demos-sigma",
+  "version": "0.0.8",
+  "private": true,
+  "author": "Miguel Pineda <a.pinedavegamiguel@gmail.com>",
+  "license": "MIT",
+  "main": "lib",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mapineda48/njs.git",
+    "directory": "demos/sigma"
+  },
+  "description": "React Demos",
+  "bugs": {
+    "url": "https://github.com/mapineda48/njs/issues"
+  },
+  "proxy": "http://localhost:4000",
+  "dependencies": {
+    "@mapineda48/social": "^0.0.14",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^26.0.15",
+    "@types/morgan": "^1.9.3",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.3.1",
+    "@types/webpack-env": "^1.16.2",
+    "axios": "^0.21.4",
+    "bootstrap": "^5.1.1",
+    "clsx": "^1.1.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "mp48-cra": "0.0.3",
+    "mp48-react": "0.0.3",
+    "mp48-util": "^0.0.3",
+    "nodemon": "^2.0.13",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "query-string": "^7.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.2.0",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "4.0.3",
+    "sass": "^1.42.1",
+    "sequelize": "^6.9.0",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1"
+  },
+  "scripts": {
+    "version": "yarn build",
+    "release": "yarn mp48-release",
+    "postbuild": "ts-node postbuild.ts",
+    "build": "yarn lib:build && yarn frontend:build && yarn frontend:lib",
+    "types": "yarn lib:types && yarn frontend:types",
+    "lib:types": "tsc --noEmit",
+    "lib:build": "rm -rf dist && tsc",
+    "frontend:build": "rm -rf frontend/build && mp -B",
+    "frontend:types": "tsc -P frontend/tsconfig.json",
+    "frontend:lib": "tsc -P tsconfig.esm.json",
+    "frontend:start": "mp"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "ts": "ts-node -r dotenv/config"
+    }
+  }
+}

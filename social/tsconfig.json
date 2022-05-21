@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "lib": ["dom", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "module": "CommonJS",
+    "outDir": "./dist/lib",
+    "noEmit": false,
+    "declaration": true,
+    "importHelpers": true,
+    "baseUrl": ".",
+    "paths": {
+      "@socket/*": ["lib/socket/*"],
+      "@api": ["lib/api/type"],
+      "@sw": ["lib/sw/type"]
+    }
+  },
+  "include": ["lib"],
+  "exclude": ["node_modules", "frontend", "**/*.dev.ts"]
+}

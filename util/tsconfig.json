@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "target": "ES2018",
+        "lib": [
+            "ESNext"
+        ],
+        "strict": true,
+        "allowJs": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true,
+        "noFallthroughCasesInSwitch": true,
+        "declaration": true,
+        "esModuleInterop": true,
+        "importHelpers": true,
+        "resolveJsonModule": true,
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "outDir": "dist",
+    },
+    "include": [
+        "bin",
+        "lib"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.dev.ts",
+        "**/*.test.ts"
+    ]
+}

@@ -1,0 +1,84 @@
+{
+  "name": "mp48-cra",
+  "version": "0.0.5",
+  "private": true,
+  "author": "Miguel Angel Pineda Vega",
+  "license": "MIT",
+  "description": "Minimal overwrite react-scripts",
+  "bugs": {
+    "url": "https://github.com/mapineda48/njs/issues"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/mapineda48/njs.git",
+    "directory": "cra"
+  },
+  "engines": {
+    "node": ">=14",
+    "npm": ">=7",
+    "yarn": ">=1.22.5"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/fs-extra": "^9.0.5",
+    "@types/html-webpack-plugin": "^3.2.4",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
+    "@types/webpack": "^4.41.26",
+    "@types/webpack-manifest-plugin": "2.1.0",
+    "commander": "^7.0.0",
+    "fs-extra": "^9.0.1",
+    "html-webpack-plugin": "4.5.0",
+    "mp48-util": "0.0.3",
+    "nodemon": "^2.0.7",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1",
+    "ts-loader": "8.2.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.0.3",
+    "web-vitals": "^0.2.4",
+    "webpack": "4.44.2",
+    "webpack-manifest-plugin": "2.2.0"
+  },
+  "scripts": {
+    "start": "ts-node bin/index.ts",
+    "start:dist": "node dist/bin",
+    "build:bin": "tsc",
+    "build": "rm -rf dist && yarn build:bin",
+    "postbuild": "ts-node postbuild.ts",
+    "release": "yarn mp48-release",
+    "version": "yarn build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "ts": "ts-node"
+    }
+  },
+  "devDependencies": {}
+}

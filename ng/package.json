@@ -1,0 +1,67 @@
+{
+  "name": "mp48-ng",
+  "version": "0.0.1",
+  "private": true,
+  "author": "Miguel Angel Pineda Vega",
+  "license": "MIT",
+  "description": "Minimal overwrite ng cli",
+  "bugs": {
+    "url": "https://github.com/mapineda48/njs/issues"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/mapineda48/njs.git",
+    "directory": "ng"
+  },
+  "engines": {
+    "node": ">=14",
+    "npm": ">=7",
+    "yarn": ">=1.22.5"
+  },
+  "scripts": {
+    "ng": "ng",
+    "release": "yarn mp48-release",
+    "version": "yarn build",
+    "build": "tsc && rm -rf dist/app dist/angular.json",
+    "postbuild": "ts-node postbuild.ts",
+    "app:start": "ng serve",
+    "app:build": "ng build",
+    "app:watch": "ng build --watch --configuration development",
+    "app:test": "ng test"
+  },
+  "dependencies": {
+    "@angular/animations": "~12.2.0",
+    "@angular/common": "~12.2.0",
+    "@angular/compiler": "~12.2.0",
+    "@angular/core": "~12.2.0",
+    "@angular/forms": "~12.2.0",
+    "@angular/platform-browser": "~12.2.0",
+    "@angular/platform-browser-dynamic": "~12.2.0",
+    "@angular/router": "~12.2.0",
+    "@types/fs-extra": "^9.0.13",
+    "fs-extra": "^10.0.0",
+    "mp48-util": "^0.0.3",
+    "rxjs": "~6.6.0",
+    "strip-json-comments": "3.1.1",
+    "ts-node": "^10.3.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.11.4"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~12.2.7",
+    "@angular/cli": "~12.2.7",
+    "@angular/compiler-cli": "~12.2.0",
+    "@types/jasmine": "~3.8.0",
+    "@types/node": "^12.11.1",
+    "jasmine-core": "~3.8.0",
+    "karma": "~6.3.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.0.3",
+    "karma-jasmine": "~4.0.0",
+    "karma-jasmine-html-reporter": "~1.7.0",
+    "typescript": "~4.3.5"
+  }
+}

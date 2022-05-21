@@ -1,0 +1,30 @@
+@import "~bootstrap/scss/bootstrap";
+
+$widthLeftBar: 80px;
+
+.app-main {
+  margin-left: $widthLeftBar !important;
+}
+
+.app-left-bar {
+  position: fixed;
+  width: $widthLeftBar !important;
+}
+
+.btns-my {
+  font-size: 125%;
+
+  span {
+    cursor: pointer;
+  }
+}
+
+#root {
+  position: relative;
+}
+
+.navbar-sticky {
+  top: 0;
+  position: sticky;
+  z-index: 1;
+}

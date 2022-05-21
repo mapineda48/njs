@@ -1,0 +1,72 @@
+{
+  "name": "mp48-react",
+  "version": "0.0.13",
+  "private": true,
+  "author": "Miguel Angel Pineda Vega",
+  "license": "MIT",
+  "description": "React component library",
+  "bugs": {
+    "url": "https://github.com/mapineda48/njs/issues"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/mapineda48/njs.git",
+    "directory": "react"
+  },
+  "engines": {
+    "node": ">=14",
+    "yarn": ">=1.22.5"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.5.4",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
+    "mp48-cra": "0.0.2",
+    "mp48-util": "^0.0.3",
+    "nodemon": "^2.0.7",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.0.3",
+    "web-vitals": "^0.2.4"
+  },
+  "scripts": {
+    "build:lib": "tsc -P tsconfig.cjs.json && tsc -P tsconfig.mjs.json",
+    "build": "rm -rf dist && yarn build:lib",
+    "postbuild": "ts-node -P tsconfig.node.json postbuild.ts",
+    "release": "yarn mp48-release",
+    "version": "yarn build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "ts": "ts-node -P tsconfig.node.json"
+    }
+  }
+}

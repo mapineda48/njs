@@ -1,0 +1,119 @@
+{
+  "name": "@mapineda48/social",
+  "version": "0.1.8",
+  "private": true,
+  "author": "Miguel Angel Pineda Vega",
+  "license": "MIT",
+  "main": "lib",
+  "bugs": {
+    "url": "https://github.com/mapineda48/njs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/mapineda48/njs.git",
+    "directory": "social"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "dependencies": {
+    "@fvilers/disable-react-devtools": "^1.3.0",
+    "@popperjs/core": "^2.9.2",
+    "@reduxjs/toolkit": "^1.8.1",
+    "@socket.io/cluster-adapter": "^0.1.0",
+    "@socket.io/sticky": "^1.0.1",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/debug": "^4.1.5",
+    "@types/express": "^4.17.12",
+    "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^26.0.15",
+    "@types/jsonwebtoken": "^8.5.5",
+    "@types/morgan": "^1.9.2",
+    "@types/ms": "^0.7.31",
+    "@types/node": "^12.0.0",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.3",
+    "@types/redis": "^2.8.32",
+    "@types/web-push": "^3.3.2",
+    "axios": "^0.21.1",
+    "bootstrap": "^5.0.2",
+    "clsx": "^1.1.1",
+    "cors": "^2.8.5",
+    "debug": "^4.3.1",
+    "express": "^4.17.1",
+    "fs-extra": "^10.0.0",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "kill-port": "^1.6.1",
+    "morgan": "^1.10.0",
+    "mp48-cra": "0.0.4",
+    "mp48-react": "0.0.11",
+    "mp48-util": "^0.0.3",
+    "ms": "^2.1.3",
+    "node-localstorage": "^2.2.1",
+    "nodemon": "^2.0.7",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "query-string": "^7.1.1",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-draggable": "^4.4.3",
+    "react-icons": "^4.3.1",
+    "react-redux": "^8.0.1",
+    "react-scripts": "4.0.3",
+    "redis": "^3.1.2",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.1",
+    "sass": "^1.35.1",
+    "sequelize": "^6.9.0",
+    "socket.io": "^4.1.2",
+    "socket.io-client": "^4.1.2",
+    "ts-loader": "~8.2.0",
+    "ts-node": "^10.0.0",
+    "tsconfig-paths": "^3.14.1",
+    "typescript": "^4.1.2",
+    "web-push": "^3.4.5",
+    "web-vitals": "^1.0.1",
+    "webpack-cli": "^4.9.2"
+  },
+  "scripts": {
+    "postbuild": "ts-node postbuild.ts",
+    "release": "yarn mp48-release",
+    "version": "yarn build",
+    "build": "rm -rf dist && yarn frontend:dist && yarn lib:build",
+    "types": "yarn lib:types && yarn frontend:types",
+    "devServe": "nodemon --ignore frontend/ --ignore bin/client/ bin/index.ts",
+    "devClient": "nodemon --ignore lib/",
+    "lib:types": "tsc --noEmit",
+    "lib:build": "tsc",
+    "frontend:types": "tsc -P frontend/tsconfig.json --noEmit",
+    "frontend:build": "git clean -fx frontend/public && rm -rf frontend/build && mp -B -A",
+    "frontend:common": "webpack-cli -c webpack.config.ts",
+    "frontend:dist": "yarn frontend:build && yarn frontend:common"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "ts": "ts-node -r dotenv/config -r node-localstorage/register -r tsconfig-paths/register"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+._ {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+.row {
+  max-width: 200px;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transition: transform 0.5s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+}

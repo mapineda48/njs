@@ -1,0 +1,16 @@
+{
+  "app": {
+    "main": {
+      "entry": "src/index.tsx"
+    },
+    "foo": {
+      "entry": "src/foo.tsx",
+      "template": "public/some/path/index.html"
+    },
+    "bar": {
+      "entry": "src/bar.tsx"
+    }
+  },
+  "root": "app",
+  "ModuleScopePlugin": "off"
+}

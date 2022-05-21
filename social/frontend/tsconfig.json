@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+      "WebWorker"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": "src",
+    "paths": {
+      "@model/*": [
+        "../../lib/model/*"
+      ],
+      "@socket/*": [
+        "../../lib/socket/*"
+      ],
+      "@api": [
+        "../../lib/api/type"
+      ],
+      "@frontend/*": [
+        "./*"
+      ],
+      "@web-push": [
+        "../../lib/web-push/type"
+      ],
+      "@sw": [
+        "../../lib/sw/type"
+      ]
+    }
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "**/*.dev.ts",
+    "**/.test.ts"
+  ]
+}
