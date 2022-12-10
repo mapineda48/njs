@@ -1,20 +1,19 @@
 import fs from "fs-extra";
-import ManifestPlugin from "webpack-manifest-plugin";
+import { WebpackManifestPlugin } from "webpack-manifest-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { cra } from "./cra";
 import { resolveApp, path } from "./paths";
 import { getCraConfig } from "./project";
+import type { Options } from "./project";
+import type { Entry, WebpackPluginInstance as Plugin } from "webpack";
 const ModuleScopePlugin = require("react-dev-utils/ModuleScopePlugin");
 
-import type { Options } from "./project";
-import type { Entry, Plugin } from "webpack";
-
 /**
- * Used solely during development for mocker node_modules, 
+ * Used solely during development for mocker node_modules,
  * I must use jest, but this is simply an alternative
- * Inspired by 
+ * Inspired by
  * https://stackoverflow.com/questions/47486785/how-to-avoid-bundling-mock-modules-on-webpack-build
- * @param aliasJson 
+ * @param aliasJson
  */
 export function mockWithAlias(aliasJson: string) {
   const data = fs.readJSONSync(aliasJson) as { [K: string]: string };
@@ -150,7 +149,7 @@ export function removeUnnecessaryPlug(plugins: Plugin[] = []) {
   return plugins.filter(
     (plugin) =>
       !(plugin instanceof HtmlWebpackPlugin) &&
-      !(plugin instanceof ManifestPlugin)
+      !(plugin instanceof WebpackManifestPlugin)
   );
 }
 
@@ -185,18 +184,18 @@ export function removeModuleScopePlugin() {
       }
 
       if (fs.existsSync(appTsConfig)) {
-        if (config.module?.rules[1]?.oneOf?.push) {
-          // Process any TS outside of the app with ts-loader.
-          (config.module.rules[1] as any)?.oneOf.push({
-            test: /\.ts$/,
-            loader: require.resolve("ts-loader"),
-            exclude: /node_modules/,
-            options: {
-              transpileOnly: true,
-              configFile: appTsConfig,
-            },
-          });
-        }
+        const [rule] = config?.module?.rules as any;
+
+        // Process any TS outside of the app with ts-loader.
+        rule?.oneOf?.push({
+          test: /\.ts$/,
+          loader: require.resolve("ts-loader"),
+          exclude: /node_modules/,
+          options: {
+            transpileOnly: true,
+            configFile: appTsConfig,
+          },
+        });
       }
 
       return config;
