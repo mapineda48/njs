@@ -1,0 +1,67 @@
+{
+  "name": "apinedavegamiguel",
+  "version": "0.0.0",
+  "description": "host personal",
+  "repository": "https://github.com/mapineda48/heroku.git",
+  "author": "Miguel Pineda <a.pinedavegamiguel@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "nodemon bin/index.ts",
+    "build": "yarn tsc",
+    "postbuild": "ts-node postbuild.ts",
+    "pull": "rm -rf dist && heroku git:clone -a apinedavegamiguel dist",
+    "push": "yarn build && cd dist && git add . && git commit -am \"make it better\" && git push heroku master",
+    "prod:psql": "heroku pg:psql -a apinedavegamiguel",
+    "prod:logs": "heroku logs -a apinedavegamiguel",
+    "prod:restart": "heroku dyno:restart -a apinedavegamiguel",
+    "prod:ssh": "heroku ps:exec -a apinedavegamiguel"
+  },
+  "engines": {
+    "node": ">=16",
+    "yarn": ">=1.22.5"
+  },
+  "dependencies": {
+    "@mapineda48/demos-api-rest": "0.0.3",
+    "@mapineda48/demos-grants": "0.0.2",
+    "@mapineda48/demos-sigma": "0.0.8",
+    "@mapineda48/personal": "0.1.1",
+    "@mapineda48/social": "0.1.6",
+    "@socket.io/cluster-adapter": "^0.1.0",
+    "@socket.io/sticky": "^1.0.1",
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.2.0",
+    "react-router-dom": "^5.2.0",
+    "redis": "^3.1.2",
+    "sequelize": "^6.9.0",
+    "socket.io": "^4.1.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.12",
+    "@types/morgan": "^1.9.2",
+    "@types/node": "^15.6.1",
+    "@types/pg": "^8.6.0",
+    "@types/redis": "^2.8.29",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.27.0",
+    "mp48-util": "^0.0.3",
+    "nodemon": "^2.0.7",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.2"
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "ts": "ts-node -r dotenv/config"
+    }
+  }
+}
