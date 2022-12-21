@@ -1,6 +1,7 @@
+import path from "path";
+import { randomUUID } from 'crypto'
 import express from "express";
 import logger from "morgan";
-import path from "path";
 import { createAPIRoute } from "./lib/pdf";
 import { createReactAppRoute } from "./lib/react";
 
@@ -8,7 +9,7 @@ const port = 3000;
 
 const buildReactPath = path.join(__dirname, "build");
 
-const buildReactRoute = "/app/react/pdf/template";
+const buildReactRoute = "/" + randomUUID();
 const htmlReport = `http://localhost:${port}`+ buildReactRoute + "/index.html";
 
 const app = express();
