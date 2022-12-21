@@ -1,75 +1,33 @@
 import express from "express";
 import logger from "morgan";
 import path from "path";
-import puppeteer, { Page } from "puppeteer";
-import { setBaseURLHtml } from "./lib/react";
+import { createAPIRoute } from "./lib/pdf";
+import { createReactAppRoute } from "./lib/react";
 
-const host = "http://localhost:3000";
-const buildRoute = "/report/template";
-const htmlRoute = buildRoute + "/index.html";
-const baseURL = host + buildRoute;
-const htmlURL = host + htmlRoute;
+const port = 3000;
 
-const build = path.join(__dirname, "build");
+const buildReactRoute = "/app/react/pdf";
+const htmlReactRoute = buildReactRoute + "/index.html";
+const buildReactPath = path.join(__dirname, "build");
+
+const hostReport = `http://localhost:${port}`;
+const reportBaseURL = hostReport + buildReactRoute;
+const reportHtmlURL = hostReport + htmlReactRoute;
 
 const app = express();
 
 app.use(logger("dev"));
 
-app.listen(3000, () => {
-  console.log("server on port 3000");
-});
+(async function main() {
+  app.use(
+    await createReactAppRoute(reportBaseURL, buildReactPath, buildReactRoute)
+  );
 
-puppeteer
-  .launch({ args: ["--no-sandbox"] })
-  .then((browser) => {
-    app.get("/pdf", async (req, res) => {
-      const msg = req.query.msg;
+  const route = await createAPIRoute(reportHtmlURL);
 
-      const page = await browser.newPage();
+  app.use("/api", route);
 
-      await page.exposeFunction("getDataReport", () => {
-        return { template: "react", data: msg };
-      });
-
-      await Promise.all([
-        page.goto(htmlURL, {
-          waitUntil: "domcontentloaded",
-        }),
-        page.waitForNetworkIdle({ idleTime: 150 }),
-      ]);
-
-      const pdf = await page.pdf();
-      res.writeHead(200, setHeaderToPDFFile(pdf));
-      res.end(pdf);
-
-      page.close().catch(console.error);
-    });
-
-    return setBaseURLHtml(build, baseURL);
-  })
-  .then((html) => {
-    app.get(htmlRoute, (req, res) => res.send(html));
-    app.use(buildRoute, express.static(build));
-  })
-  .catch((err) => console.error(err));
-
-async function setReadyRender(page: Page) {
-  let cb = () => {};
-
-  await page.exposeFunction("readyReportRender", () => cb());
-
-  return {
-    IsReadyRender: new Promise<void>((res) => {
-      cb = res;
-    }),
-  };
-}
-
-function setHeaderToPDFFile(pdf: Buffer) {
-  return {
-    "Content-Type": "application/pdf",
-    // "Content-Disposition": "attachment; filename=file.pdf", //Uncomment to download file without preview on the browser
-    "Content-Length": pdf.length,
-  };
-}
+  app.listen(3000, () => {
+    console.log("server on port 3000");
+  });
+})().catch(console.error);
