@@ -1,5 +1,5 @@
-import express from "express";
-import { prepareMiddlewarePuppeteer } from "./puppeteer";
+import express, { NextFunction } from "express";
+import { prepareMiddlewarePuppeteer, Req, Res } from "./puppeteer";
 import { setBaseURLHtml } from "./react";
 
 export async function pdfRoute(
@@ -20,7 +20,22 @@ export async function pdfRoute(
   route.get(htmlRoute, (req, res) => res.send(reactAppHtml));
   route.use(buildRoute, express.static(buildPath));
 
+  route.get("/pdf", Example1);
+  route.get("/pdf/react/:foo", Example2);
+
   route.use("*", middlewarePuppeteer);
 
   return route;
+}
+
+export function Example2(req: Req, res: Res, next: NextFunction) {
+  req.reportPDF = { template: "react", data: req.params.foo };
+
+  next();
+}
+
+export function Example1(req: Req, res: Res, next: NextFunction) {
+  req.reportPDF = { template: "react", data: req.query.msg };
+
+  next();
 }
