@@ -3,9 +3,9 @@ import fs from "fs-extra";
 import { JSDOM } from "jsdom";
 import path from "path";
 
-export async function createReactAppRoute(baseURL: string, buildPath: string, buildRoute: string) {
+export async function createReactAppRoute(buildPath: string, buildRoute: string, baseURL = "") {
   const htmlRoute = buildRoute + "/index.html";
-  const reactAppHtml = await setBaseURLHtml(buildPath, baseURL);
+  const reactAppHtml = await setBaseURLHtml(buildPath, baseURL + buildRoute);
   const reactRoute = express.Router();
 
   reactRoute.get(htmlRoute, (req, res) => res.send(reactAppHtml));

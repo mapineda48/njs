@@ -6,24 +6,19 @@ import { createReactAppRoute } from "./lib/react";
 
 const port = 3000;
 
-const buildReactRoute = "/app/react/pdf";
-const htmlReactRoute = buildReactRoute + "/index.html";
 const buildReactPath = path.join(__dirname, "build");
 
-const hostReport = `http://localhost:${port}`;
-const reportBaseURL = hostReport + buildReactRoute;
-const reportHtmlURL = hostReport + htmlReactRoute;
+const buildReactRoute = "/app/react/pdf/template";
+const htmlReport = `http://localhost:${port}`+ buildReactRoute + "/index.html";
 
 const app = express();
 
 app.use(logger("dev"));
 
 (async function main() {
-  app.use(
-    await createReactAppRoute(reportBaseURL, buildReactPath, buildReactRoute)
-  );
+  app.use(await createReactAppRoute(buildReactPath, buildReactRoute));
 
-  const route = await createAPIRoute(reportHtmlURL);
+  const route = await createAPIRoute(htmlReport);
 
   app.use("/api", route);
 
