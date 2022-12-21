@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import Report from "./Template";
 import puppeteer from "./puppeteer";
 
-const templ = !(process.env.NODE_ENV === "development") ? undefined : "react";
+const templ = !(process.env.NODE_ENV === "development") ? undefined : "example";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
