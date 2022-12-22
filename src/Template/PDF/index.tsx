@@ -1,5 +1,6 @@
 export default function PDF(props: Props) {
-  const height = props.height ?? 100;
+  const height = props.height ?? {};
+  const { footer = 100, header = 300 } = height;
 
   return (
     <div>
@@ -8,7 +9,7 @@ export default function PDF(props: Props) {
           <thead>
             <tr>
               <td>
-                <div style={{ height }}>&nbsp;</div>
+                <div style={{ height:header }}>&nbsp;</div>
               </td>
             </tr>
           </thead>
@@ -26,17 +27,17 @@ export default function PDF(props: Props) {
           <tfoot>
             <tr>
               <td>
-                <div style={{ height }}>&nbsp;</div>
+                <div style={{ height:footer }}>&nbsp;</div>
               </td>
             </tr>
           </tfoot>
         ) : null}
       </table>
       {props.Header ? (
-        <div style={{ position: "fixed", height, top: 0 }}>{props.Header}</div>
+        <div style={{ position: "fixed", height:header, top: 0 }}>{props.Header}</div>
       ) : null}
       {props.Footer ? (
-        <div style={{ position: "fixed", height, bottom: 0 }}>
+        <div style={{ position: "fixed", height:footer, bottom: 0 }}>
           {props.Footer}
         </div>
       ) : null}
@@ -48,8 +49,13 @@ export default function PDF(props: Props) {
  * Types
  */
 export interface Props {
-  height?: number;
+  height?: HeightSection;
   Header?: JSX.Element;
   Content?: JSX.Element;
   Footer?: JSX.Element;
+}
+
+export interface HeightSection {
+  header?: number;
+  footer?: number;
 }
