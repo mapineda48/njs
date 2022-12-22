@@ -1,5 +1,5 @@
 import ReactTemplate from "./React";
-import Example from "./Example";
+import Example from "./Example2";
 import "./index.css";
 
 export default function Template(props: Props) {
