@@ -1,0 +1,36 @@
+{
+  "name": "@mapineda48/kothyz",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Demo",
+  "repository": "https://github.com/mapineda48/njs.git",
+  "author": "Miguel Pineda <a.pinedavegamiguel@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "yarn": ">=1.22.9",
+    "node": ">=16.17.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "start": "next start",
+    "lint": "next lint",
+    "build": "next build",
+    "postbuild": "node postbuild.js"
+  },
+  "dependencies": {
+    "next": "13.1.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@next/font": "13.1.6",
+    "@types/fs-extra": "^11.0.1",
+    "@types/node": "18.14.0",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "eslint": "8.34.0",
+    "eslint-config-next": "13.1.6",
+    "fs-extra": "^11.1.0",
+    "typescript": "4.9.5"
+  }
+}
