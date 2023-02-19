@@ -2,7 +2,7 @@ version: "3"
 
 services:
   app:
-    container_name: app-sigma
+    container_name: app-sigma-demo
     image: node:16
     tty: true
     volumes:
@@ -14,7 +14,7 @@ services:
     depends_on:
       - db
   db:
-    container_name: db-sigma
+    container_name: db-sigma-demo
     image: "postgres:14"
     environment:
       POSTGRES_PASSWORD: "mypassword"

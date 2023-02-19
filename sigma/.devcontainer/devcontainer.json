@@ -1,0 +1,16 @@
+{
+    "name": "Sigma Demo",
+    "dockerComposeFile": "../devops/develop/docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/home/app",
+    "postCreateCommand": "bash devops/develop/post-create.sh",
+    "shutdownAction": "stopCompose",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "esbenp.prettier-vscode",
+                "dbaeumer.vscode-eslint"
+            ]
+        }
+    }
+}
