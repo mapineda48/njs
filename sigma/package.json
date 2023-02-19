@@ -1,0 +1,26 @@
+{
+  "name": "@mapineda48/sigma",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Demo",
+  "repository": "https://github.com/mapineda48/njs.git",
+  "author": "Miguel Pineda <a.pinedavegamiguel@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "yarn": ">=1.22.9",
+    "node": ">=16.17.0"
+  },
+  "scripts": {
+    "start:frontend": "cd packages/frontend && yarn start",
+    "start:backend": "cd packages/backend && yarn start",
+    "types": "cd packages/backend && yarn types && cd ../frontend && yarn types",
+    "build": "cd packages/backend && yarn dist",
+    "postbuild": "node postbuild.js"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^6.1.0"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "protected": {
+    "model": {
+      "baseURL": "/api/model",
+      "user": "/api/model/user"
+    }
+  }
+}
