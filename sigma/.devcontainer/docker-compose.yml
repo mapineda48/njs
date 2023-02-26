@@ -6,8 +6,10 @@ services:
     image: node:16
     tty: true
     volumes:
-      - "../..:/home/app"
+      - "../..:/home/njs"
     environment:
+      GIT_EMAIL: "${GIT_EMAIL}"
+      GIT_NAME: "${GIT_NAME}"
       GITHUB_TOKEN: "${GITHUB_TOKEN}"
       NGROK_TOKEN: "${NGROK_TOKEN}"
       DATABASE_URL: "postgresql://postgres:mypassword@db"
