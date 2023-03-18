@@ -2,8 +2,8 @@
  * No backend dependencies should be imported in this file, only shared logic between
  * frontend and backend
  */
-export * from "./sequelize/type";
-export * as User from "./user/type";
+export * from "./sequelize";
+export * as User from "./user";
 
 /**
  * https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#operators
@@ -15,20 +15,14 @@ export const Op: Op;
  */
 export const findOptions: string;
 
-/**
- * route path api
- */
-export const apiPath: ApiPath;
-
-export function createModelApiPath(baseURL: string): ModelApiPath;
+export function createApiPath(baseURL: string): ModelApiPath;
 
 export interface ModelApiPath {
   create: string;
   update: string;
   destroy: string;
-  search: string;
-  findAll: string;
   count: string;
+  findAll: string;
   findAndCountAll: string;
 }
 
@@ -37,4 +31,3 @@ export interface ModelApiPath {
  */
 type Json = typeof import("./Op.json");
 type Op = { [K in keyof Json]: unique symbol };
-type ApiPath = typeof import("./apiPath.json");

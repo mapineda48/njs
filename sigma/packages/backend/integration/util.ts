@@ -7,9 +7,21 @@ export function parseQuery(query: any): any {
     return query;
   }
 
-  const { where, limit, offset, order } = JSON.parse(
-    query[frontend.findOptions]
-  );
+  const search = JSON.parse(query[frontend.findOptions]);
+
+  return parseOptions(search);
+}
+
+const OpIntegration = Object.fromEntries(
+  Object.entries(Op).map(([key, symbl]) => [(frontend as any).Op[key], symbl])
+);
+
+export function parseOptions(search: any): any {
+  if (!search) {
+    return;
+  }
+
+  const { where, limit, offset, order } = search;
 
   const findOptions = { where, limit, offset, order };
 
@@ -19,10 +31,6 @@ export function parseQuery(query: any): any {
 
   return findOptions;
 }
-
-const pipe = Object.fromEntries(
-  Object.entries(Op).map(([key, symbl]) => [(frontend as any).Op[key], symbl])
-);
 
 /**
  * https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#applying-where-clauses
@@ -38,8 +46,8 @@ export function parseWhere(where: any): any {
 
   return Object.fromEntries(
     Object.entries(where).map(([key, val]) => {
-      if (pipe[key]) {
-        return [pipe[key], val];
+      if (OpIntegration[key]) {
+        return [OpIntegration[key], val];
       }
 
       return [key, parseWhere(val)];

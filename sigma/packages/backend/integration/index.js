@@ -3,19 +3,25 @@
  * frontend and backend
  */
 
-module.exports.Op = require("./Op.json");
-module.exports.findOptions = "search";
+const Op = require("./Op.json");
+const findOptions = "search";
 
-module.exports.apiPath = require("./apiPath.json");
-
-module.exports.createModelApiPath = function createModelApiPath(baseURL) {
+createApiPath = function createApiPath(baseURL) {
   return {
-    create: baseURL,
-    update: baseURL,
-    destroy: baseURL,
-    search: baseURL,
+    create: baseURL + "/create",
+    update: baseURL + "/update",
+    destroy: baseURL + "/destroy",
     count: baseURL + "/count",
     findAll: baseURL + "/findAll",
     findAndCountAll: baseURL + "/findAndCountAll",
   };
 };
+
+
+module.exports = {
+  ...require("./sequelize"),
+  Op,
+  findOptions,
+  createApiPath,
+  User: require("./user"),
+}

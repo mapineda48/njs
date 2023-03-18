@@ -1,9 +1,9 @@
 import { Sequelize, Model, DataTypes } from "sequelize";
-import { ModelName, Model as UserModel } from "../../integration/user/type";
+import { User } from "../../integration";
 
 export default function define(seq: Sequelize) {
-  return seq.define<Model<UserModel>>(
-    ModelName,
+  return seq.define<Model<User.IModel>>(
+    User.tableName,
     {
       userId: {
         type: DataTypes.INTEGER,
@@ -41,4 +41,4 @@ export default function define(seq: Sequelize) {
 /**
  * Types
  */
-export type User = ReturnType<typeof define>;
+export type IUser = ReturnType<typeof define>;

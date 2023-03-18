@@ -1,4 +1,4 @@
-import { BaseError, ValidationError } from "sequelize";
+import { ValidationError } from "sequelize";
 import FriendlyError from "../../error";
 
 export function parseErrorModel(val: unknown): [number, string] {
