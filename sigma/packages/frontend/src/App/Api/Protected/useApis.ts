@@ -3,10 +3,10 @@ import useIsMounted from "hook/useIsMounted";
 import { useSession } from "./Session";
 import ProtectedApi from "api/protected";
 
-export default function useApiMulti<T, P extends any[]>(
+export default function useApis<T, P extends any[]>(
   cb: (api: ProtectedApi, ...args: P) => Promise<T>
 ): [(...args: P) => void, State<T>, () => void];
-export default function useApiMulti(factory: any) {
+export default function useApis(factory: any) {
   const isMounted = useIsMounted();
 
   const [state, setState] = useState(initState);

@@ -15,7 +15,8 @@ const route: RouteObject = {
 };
 
 export function CreatePerson() {
-  const [create, state, clear] = useApi((api) => api.user.create);
+  const [create, state, reset] = useApi((api) => api.user.create);
+
   const showConfirm = useConfirmModal();
 
   const [department, setDepartment] = React.useState(departments[0]);
@@ -28,7 +29,7 @@ export function CreatePerson() {
         label: "Cerrar",
       });
     }
-  }, [clear, showConfirm, state.error, state.result]);
+  }, [reset, showConfirm, state.error, state.result]);
 
   const disabledInput = Boolean(state.result);
 
@@ -40,7 +41,7 @@ export function CreatePerson() {
             Usuario creado con UserId <strong>{state.result.userId}</strong>
           </div>
           <button
-            onClick={clear}
+            onClick={reset}
             type="button"
             className="btn-close"
             aria-label="Close"

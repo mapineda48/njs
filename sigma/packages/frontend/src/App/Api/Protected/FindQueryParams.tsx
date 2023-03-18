@@ -4,7 +4,7 @@ import useIsMounted from "hook/useIsMounted";
 import { useSession } from "App/Api/Protected/Session";
 import ProtectedApi from "api/protected";
 import { paginateParams } from "api/util";
-import RequestPromise from "api/RequestPromise";
+import { IRequest } from "backend/integration";
 
 /**
  * Before reviewing this component, be sure to read the project's API documentation to try
@@ -262,8 +262,8 @@ interface Props<T extends unknown[]> {
   defaultParams: string;
   onFindAndCountAll: (
     api: ProtectedApi
-  ) => (params: string) => RequestPromise<{ rows: T; count: number }>;
-  onChangePage: (api: ProtectedApi) => (params: string) => RequestPromise<T>;
+  ) => (params: string) => IRequest<{ rows: T; count: number }>;
+  onChangePage: (api: ProtectedApi) => (params: string) => IRequest<T>;
   OnResult: (props: ResultProps<T>) => JSX.Element;
 }
 

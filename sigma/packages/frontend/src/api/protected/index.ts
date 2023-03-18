@@ -1,15 +1,23 @@
+import { createModel } from "api/model";
 import RequestPromise from "api/RequestPromise";
-import axios from "axios";
-import UsersModel from "./user";
+import axioslib, { AxiosInstance } from "axios";
+import { User } from "backend/integration";
 
 export default class ProtectedApi {
-  user: UsersModel;
+  axios: AxiosInstance;
+  user: User.IMethod;
 
-  constructor(
-    protected axiosInstance = axios.create(),
-    abortController?: AbortController
-  ) {
-    this.user = new UsersModel(axiosInstance, abortController);
+  constructor(axios: AxiosInstance, abortController?: AbortController) {
+    this.axios = axios ?? axioslib.create();
+
+    this.user = createModel<User.IMethod>({
+      axios,
+      url: User.baseURL,
+      abortController,
+      parseData(user: any) {
+        return { ...user, birthday: new Date(user.birthday) };
+      },
+    });
   }
 
   /**
@@ -17,8 +25,9 @@ export default class ProtectedApi {
    */
   multi<R>(cb: (api: ProtectedApi) => Promise<R>) {
     const abortController = new AbortController();
+    
     return new RequestPromise<R>((res, rej) => {
-      const api = new ProtectedApi(this.axiosInstance, abortController);
+      const api = new ProtectedApi(this.axios, abortController);
 
       const promise = cb(api);
 

@@ -12,7 +12,7 @@ import { useSearchUser } from "./Search";
 
 const PageSize = 20;
 
-const defaultParams = buildSearchParams<User.Record>({
+const defaultParams = buildSearchParams<User.IRecord>({
   where: {
     createdAt: {
       [Op.gte]: new Date().addDays(-60),
@@ -29,7 +29,7 @@ const route: RouteObject = {
     <PaginateParams
       pageSize={PageSize}
       defaultParams={defaultParams}
-      onChangePage={(api) => api.user.getSearch}
+      onChangePage={(api) => api.user.getFindAll}
       onFindAndCountAll={(api) => api.user.getFindAndCountAll}
       OnResult={Person}
     />
@@ -62,13 +62,13 @@ export function Person(props: Props) {
                 >
                   <ai.AiOutlineUserAdd />
                 </button>
-                {/* <button
+                <button
                   type="button"
                   className="btn btn-secondary"
                   onClick={showSearchModal}
                 >
                   <ai.AiOutlineFileSearch />
-                </button> */}
+                </button>
               </div>
             </td>
           </tr>
@@ -112,7 +112,7 @@ export function Person(props: Props) {
   );
 }
 
-export function DestroyPerson(props: User.Record & { onRemove: () => void }) {
+export function DestroyPerson(props: User.IRecord & { onRemove: () => void }) {
   const [destroy, state, clear] = useApi((api) => api.user.destroy);
   const showConfirm = useConfirmModal();
 
@@ -206,4 +206,4 @@ export default route;
 /**
  * Types
  */
-type Props = ResultProps<User.Record[]>;
+type Props = ResultProps<User.IRecord[]>;

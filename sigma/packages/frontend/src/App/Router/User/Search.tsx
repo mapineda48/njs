@@ -1,18 +1,12 @@
 import { useModal } from "Component/Modal/useModal";
 import { Props, usePortalToBody } from "Component/Portal";
 import Form from "Component/Form";
-import Input from "Component/Form/Input";
-import Select from "Component/Form/Select";
 import { buildSearchParams } from "api/util";
 import { Op, User } from "backend/integration";
 import { useNavigate } from "react-router-dom";
-import Filter, { Filters } from "Component/Form/Filter";
+import { Filters } from "Component/Form/Filter";
 
-const filters = [
-  { label: "Correo", name: "email", type: "email" },
-  { label: "Nombre", name: "fullName", type: "text" },
-  { label: "Fecha Creación", name: "createAt", type: "date" },
-];
+const filters = [{ label: "Correo", name: "email", type: "email" }];
 
 export function useSearchUser() {
   return usePortalToBody(Search);
@@ -37,17 +31,17 @@ export default function Search(props: Props) {
           stopPropagation
           preventDefault
           onSubmit={(data: any) => {
-            console.log(data);
+//            console.log(data);
 
             const PageSize = 20;
 
             const now = new Date();
 
-            const params = buildSearchParams<User.Record>({
+            const params = buildSearchParams<User.IRecord>({
               where: {
                 ...data,
                 createdAt: {
-                  [Op.gte]: now.addDays(-30),
+                  [Op.gte]: now.addDays(-60),
                 },
               },
               order: [["createdAt", "DESC"]],

@@ -2,10 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 import useIsMounted from "hook/useIsMounted";
 import { useSession } from "./Session";
 import ProtectedApi from "api/protected";
-import RequestPromise from "api/RequestPromise";
+import { IRequest } from "backend/integration";
 
 export default function useApi<T, P extends any[]>(
-  cb: (api: ProtectedApi) => (...args: P) => RequestPromise<T>
+  cb: (api: ProtectedApi) => (...args: P) => IRequest<T>
 ): [(...args: P) => void, State<T>, () => void];
 export default function useApi(factory: any) {
   const isMounted = useIsMounted();
@@ -32,7 +32,7 @@ export default function useApi(factory: any) {
     }
     const cb = factory(session);
 
-    const promise: RequestPromise<any> = cb(...params);
+    const promise: IRequest<any> = cb(...params);
 
     promise
       .then((result) => {

@@ -1,4 +1,4 @@
-import { FindOptions, findOptions } from "backend/integration";
+import { IFindSearch, findOptions, IFindAll } from "backend/integration";
 
 export function paginateParams<T extends LocationOption>(
   location: T,
@@ -14,7 +14,7 @@ export function paginateParams<T extends LocationOption>(
     return pages;
   }
 
-  const findOpt: FindOptions<{}> = JSON.parse(json);
+  const findOpt: IFindSearch<{}> = JSON.parse(json);
 
   let index = 0;
 
@@ -33,7 +33,7 @@ export function paginateParams<T extends LocationOption>(
   return pages;
 }
 
-export function getSearchParams<T = any>(params: string): FindOptions<T> {
+export function getSearchParams<T = any>(params: string): IFindSearch<T> {
   const search = new URLSearchParams(params);
 
   const json = search.get(findOptions);
@@ -47,7 +47,7 @@ export function getSearchParams<T = any>(params: string): FindOptions<T> {
   return findOpt;
 }
 
-export function buildSearchParams<T = any>(options?: FindOptions<T> | string) {
+export const buildSearchParams:IFindAll = (options:any) => {
   if (!options) {
     return "";
   }
