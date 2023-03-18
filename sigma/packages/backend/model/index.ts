@@ -1,13 +1,19 @@
 import { Sequelize, ConnectionError } from "sequelize";
 import defineUser, { User } from "./user";
 import defineSetting, { Setting } from "./setting";
+import defineEmployee, { Employee } from "./employee";
+import defineAccess, { Access } from "./access";
 
 export class Database {
   public user: User;
+  public employee: Employee;
+  public access: Access;
   public setting: Setting;
 
   private constructor(public sequelize: Sequelize) {
     this.user = defineUser(sequelize);
+    this.employee = defineEmployee(sequelize);
+    this.access = defineAccess(sequelize);
     this.setting = defineSetting(sequelize);
   }
 

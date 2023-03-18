@@ -2,12 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import useIsMounted from "hook/useIsMounted";
 import { useSession } from "./Session";
 import ProtectedApi from "api/protected";
-import RequestPromise from "api/RequestPromise";
 
-export default function useApi<T, P extends any[]>(
-  cb: (api: ProtectedApi) => (...args: P) => RequestPromise<T>
+export default function useApiMulti<T, P extends any[]>(
+  cb: (api: ProtectedApi, ...args: P) => Promise<T>
 ): [(...args: P) => void, State<T>, () => void];
-export default function useApi(factory: any) {
+export default function useApiMulti(factory: any) {
   const isMounted = useIsMounted();
 
   const [state, setState] = useState(initState);
@@ -18,7 +17,7 @@ export default function useApi(factory: any) {
         return state;
       }
 
-      return { ...initState, params }
+      return { ...initState, params };
     });
   }, []);
 
@@ -30,9 +29,8 @@ export default function useApi(factory: any) {
     if (!params) {
       return;
     }
-    const cb = factory(session);
 
-    const promise: RequestPromise<any> = cb(...params);
+    const promise = session.multi<any>((api) => factory(api, ...params));
 
     promise
       .then((result) => {
@@ -60,9 +58,9 @@ export default function useApi(factory: any) {
 
   const res = { result, error, isLoading: Boolean(params) };
 
-  const clear = useCallback(() => setState(initState), []);
+  const reset = useCallback(() => setState(initState), []);
 
-  return [setParams, res, clear] as any;
+  return [setParams, res, reset] as any;
 }
 
 export function initState(): StateHook {
@@ -70,7 +68,7 @@ export function initState(): StateHook {
     error: null,
     result: undefined,
     params: null,
-  }
+  };
 }
 
 /**
@@ -79,7 +77,7 @@ export function initState(): StateHook {
 interface State<T> {
   error: any;
   result?: T;
-  isLoading: boolean
+  isLoading: boolean;
 }
 
 interface StateHook {

@@ -3,7 +3,7 @@
  * frontend and backend
  */
 export * from "./sequelize/type";
-export * as User from "../model/user/type";
+export * as User from "./user/type";
 
 /**
  * https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#operators

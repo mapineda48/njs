@@ -1,9 +1,8 @@
 import express from "express";
 import { Database } from "../../../model";
 import { apiPath } from "../../../integration";
-import { createModelApiPath } from "../../../integration";
+import { createModelApiPath, User } from "../../../integration";
 import type { Req, Res, Next, ReqPut } from "./middleware";
-import type { Data as UserData } from "../../../model/user/type";
 
 const pathUser = createModelApiPath(apiPath.protected.model.user);
 
@@ -27,7 +26,7 @@ export function DestroyUser(req: Req, res: Res, next: Next) {
     .catch(next);
 }
 
-export function UpdateUser(req: ReqPut<UserData>, res: Res, next: Next) {
+export function UpdateUser(req: ReqPut<User.Data>, res: Res, next: Next) {
   Database.connection.user
     .update(req.body, req.query)
     .then(([, users]: unknown[]) => res.json(users))

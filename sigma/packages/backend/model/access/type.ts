@@ -1,13 +1,10 @@
 export interface Data {
-  fullName: string;
-  email: string;
-  city: string;
-  department: string;
-  birthday: Date;
+  username: string;
+  password: string;
 }
 
 export interface Model extends Data {
-  userId: number;
+  accessId: number;
 }
 
 export interface Record extends Model {

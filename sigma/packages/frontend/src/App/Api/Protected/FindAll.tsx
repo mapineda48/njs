@@ -1,4 +1,3 @@
-import RequestPromise from "api/RequestPromise";
 import useIsMounted from "hook/useIsMounted";
 import React, { useEffect } from "react";
 import ProtectedApi from "api/protected";

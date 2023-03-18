@@ -47,3 +47,11 @@ export default class CacheInStorage {
     return this.namespace + ":" + key;
   }
 }
+
+export function loadFromCache<A extends any[], R>(
+  key: string,
+  cb: (...args: A) => Promise<R>
+): Promise<R> {
+  const json = sessionStorage.getItem(key);
+  return null as any;
+}
