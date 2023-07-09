@@ -1,29 +1,26 @@
 import type { OperatorKey } from "./Op";
-import type { IRequest } from "../../frontend";
 
 export interface IMethod<D, R> {
-  destroy(opt: IDestroySearch<R>): IRequest<number>;
+  destroy(opt: IDestroySearch<R>): Promise<number>;
 
-  update(data: Partial<D>, opt: IUpdateSearch<R>): IRequest<R[]>;
+  update(data: Partial<D>, opt: IUpdateSearch<R>): Promise<R[]>;
 
-  create(data: D): IRequest<R>;
+  create(data: D): Promise<R>;
 
   findAndCountAll: {
-    <K extends keyof R>(query: IFindAttrib<R, K>): IRequest<{
+    <K extends keyof R>(query: IFindAttrib<R, K>): Promise<{
       rows: Pick<R, K>[];
       count: number;
     }>;
-    (query: IFindSearch<R>): IRequest<{ rows: R[]; count: number }>;
+    (query: IFindSearch<R>): Promise<{ rows: R[]; count: number }>;
   };
 
   findAll: {
-    <K extends keyof R>(query: IFindAttrib<R, K>): IRequest<
-      Pick<R, K>[]
-    >;
-    (query: IFindSearch<R>): IRequest<R[]>;
+    <K extends keyof R>(query: IFindAttrib<R, K>): Promise<Pick<R, K>[]>;
+    (query: IFindSearch<R>): Promise<R[]>;
   };
 
-  count(query: IFindSearch<R>): IRequest<number>;
+  count(query: IFindSearch<R>): Promise<number>;
 }
 
 export interface IFindAttrib<T, K extends keyof T> extends IFindSearch<T> {

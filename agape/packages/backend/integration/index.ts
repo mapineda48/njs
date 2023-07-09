@@ -10,4 +10,3 @@ export * as query from "./model/util/query";
 export { route as routeModel } from "./model";
 export { route as routeAgape } from "./agape/index";
 export { IFrontEnd as IAgapeApi } from "./agape/index";
-export type { IRequest } from "./frontend";

@@ -13,11 +13,7 @@ export default function uploadPublic(api: any, axios: AxiosInstance) {
     const route = path + "/" + fileName;
     const headers = getHeaders(file);
 
-    return new Request((signal) => {
-      return axios
-        .post(route, file, { signal, headers })
-        .then((res) => res.data);
-    });
+    return axios.post(route, file, { headers }).then((res) => res.data);
   };
 }
 

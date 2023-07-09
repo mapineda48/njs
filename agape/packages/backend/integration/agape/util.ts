@@ -1,5 +1,3 @@
-import { IRequest } from "../frontend";
-
 export function setBaseURL<T extends PathMap>(map: T, baseURL: string): T {
   return Object.fromEntries(
     Object.entries(map).map(([key, val]) => {
@@ -21,9 +19,9 @@ type PathMap = {
 
 export type IFrontEndMethod<T> = {
   [K in keyof T]: T[K] extends (...args: infer A) => Promise<infer R>
-    ? (...args: A) => IRequest<R>
+    ? (...args: A) => Promise<R>
     : T[K] extends (...args: infer A) => infer R
-    ? (...args: A) => IRequest<R>
+    ? (...args: A) => Promise<R>
     : T[K] extends object
     ? IFrontEndMethod<T[K]>
     : unknown;

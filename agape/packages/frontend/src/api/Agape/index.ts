@@ -1,7 +1,7 @@
 import { AxiosInstance } from "axios";
-import Request from "../Model/Util/Request";
-import { routeAgape, IAgapeApi } from "backend";
+import { routeAgape, IAgapeApi as IDashboardApi } from "backend";
 import uploadPublic from "./uploadPublic";
+import { Models } from "api/Models";
 
 export function createApi(axios: AxiosInstance, map = routeAgape): IAgapeApi {
   const api: any = Object.fromEntries(
@@ -11,9 +11,7 @@ export function createApi(axios: AxiosInstance, map = routeAgape): IAgapeApi {
       }
 
       const method = (...args: unknown[]) => {
-        return new Request((signal) => {
-          return axios.post(route, args, { signal }).then((res) => res.data);
-        });
+        return axios.post(route, args).then((res) => res.data);
       };
 
       return [methodName, method];
@@ -21,6 +19,15 @@ export function createApi(axios: AxiosInstance, map = routeAgape): IAgapeApi {
   );
 
   uploadPublic(api, axios);
-  
+
+  api.model = new Models(axios);
+
   return api;
+}
+
+/**
+ * Types
+ */
+export interface IAgapeApi extends IDashboardApi {
+  model: Models;
 }

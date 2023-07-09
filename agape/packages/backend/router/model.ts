@@ -3,12 +3,19 @@ import { ModelStatic } from "sequelize";
 import { parseOperator as parseOptions } from "../integration/model/util/where";
 import { routes } from "../integration/model";
 import Database from "../model";
+import AppError from "../error/AppError";
 
 export function createApiModel(path: string, model: ModelStatic<any>) {
   const router = express.Router();
 
   //Delete Record
   router.delete(path, (req, res, next) => {
+    const { where } = req.body;
+
+    if (!where || !Object.keys(where).length) {
+      throw new AppError(400, "missing filter");
+    }
+
     model
       .destroy(parseOptions(req.body))
       .then((val) => res.json(val))
@@ -18,6 +25,14 @@ export function createApiModel(path: string, model: ModelStatic<any>) {
   // Update
   router.put(path, (req, res, next) => {
     const [data, opt] = req.body;
+
+    const { where } = opt;
+
+    if (!where || !Object.keys(where).length) {
+      throw new AppError(400, "missing filter");
+    }
+
+    opt.returning = true;
 
     model
       .update(data, parseOptions(opt))
