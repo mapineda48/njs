@@ -1,21 +1,25 @@
 import { route as employee, IEmployee } from "./employee";
-import { IFrontEndMethod } from "./util";
+import { IFrontEndMethod, IRoute, setBaseURL } from "./util";
 
-export const route = {
-  helloWorld: "/api/agape/helloWorld",
-  greet: "/api/agape/greet",
-  uploadPublic: "/api/agape/uploadPublic",
+export const baseApi = "/api/dashboard/protected/";
+
+export const path: IRoute<IBackend> = {
+  helloWorld: "helloWorld",
+  greet: "greet",
+  uploadPublic: "upload/public",
   employee,
-} as const;
+};
+
+export const route = setBaseURL(path, baseApi);
 
 /**
  * Types
  */
-export interface IAgapeBackend {
+export interface IBackend {
   helloWorld(): string;
   greet(name: string): string;
-  uploadPublic(filename: string, file: File): string;
+  uploadPublic(file: File, filename: string): string;
   employee: IEmployee;
 }
 
-export type IAgapeFrontEnd = IFrontEndMethod<IAgapeBackend>;
+export type IFrontEnd = IFrontEndMethod<IBackend>;

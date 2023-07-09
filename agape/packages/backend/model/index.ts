@@ -1,63 +1,64 @@
-import { Sequelize } from "sequelize";
-import defineUser, { IUser } from "./user";
-import defineEmployee, { IEmployee } from "./employee";
-import defineRole, { IRole } from "./role";
+import { Sequelize, Transaction } from "sequelize";
+import * as user from "./user";
+import * as employee from "./employee";
+import * as role from "./role";
 
-export class Database {
-  public user: IUser;
-  public employee: IEmployee;
-  public role: IRole;
+const DatabaseNotReady = "database not init";
+export default class Database {
+  private static seq: Sequelize;
 
-  private constructor(public sequelize: Sequelize) {
-    this.user = defineUser(sequelize);
-    this.role = defineRole(sequelize);
-    this.employee = defineEmployee(sequelize);
-  }
-
-  private static instance: Database | null = null;
-
-  static async init(sequelize: Sequelize) {
+  public static async init(sequelize: Sequelize) {
     await sequelize.authenticate();
 
-    const instance = new Database(sequelize);
+    user.create(sequelize);
+    role.create(sequelize);
+    employee.create(sequelize);
 
     await sequelize.sync();
 
-    return (this.instance = instance);
+    this.seq = sequelize;
   }
 
-  public static get connection() {
-    if (this.instance) {
-      return this.instance;
-    }
-
-    throw new Error("no exists connection");
+  public static get user(): user.IUser {
+    return Database.seq.models[user.NameModel];
   }
-}
 
-export async function waitAuthenticate(seq: Sequelize): Promise<void> {
-  try {
-    await seq.authenticate();
+  public static get role(): role.IRole {
+    return Database.seq.models[role.NameModel];
+  }
+
+  public static get employee(): employee.IEmployee {
+    return Database.seq.models[employee.NameModel];
+  }
+
+  public static transaction<T>(autoCallback: AutoCallBack<T>) {
+    return Database.seq.transaction(autoCallback);
+  }
+
+  public static withTransaction<T extends CallBack>(cb: T): T {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    const code = error?.original?.code;
+    const thunk: any = (...args: unknown[]) =>
+      Database.seq.transaction(() => cb(...args));
 
-    if (code !== "57P03" && code !== "ECONNREFUSED") {
-      throw error;
+    return thunk;
+  }
+  
+  public static get sequelize() {
+    if (this.seq) {
+      return this.seq;
     }
 
-    /**
-     * In docker compose maybe database is not ready when try connect
-     * try again
-     */
-    console.log("the database system is starting up");
-    await wait(500);
-    return waitAuthenticate(seq);
+    throw new Error(DatabaseNotReady);
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  private constructor() {}
 }
 
-export async function wait(time: number) {
-  return new Promise((res) => {
-    setTimeout(res, time);
-  });
-}
+/**
+ * Types
+ */
+
+type CallBack = (...args: unknown[]) => PromiseLike<unknown>;
+
+type AutoCallBack<T> = (t: Transaction) => PromiseLike<T>;

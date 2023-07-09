@@ -1,8 +1,9 @@
 import * as employee from "../model/employee";
+import { IRoute } from "./util";
 
-export const route = {
-  findAll: "/api/agape/employee/findAll",
-} as const;
+export const route: IRoute<IEmployee> = {
+  findAll: "employee/findAll",
+};
 
 /**
  * Types

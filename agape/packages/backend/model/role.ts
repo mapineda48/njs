@@ -1,7 +1,7 @@
 import { Sequelize, Model, DataTypes } from "sequelize";
 import { NameModel, IModel } from "../integration/model/role";
 
-export default function define(seq: Sequelize) {
+export function create(seq: Sequelize) {
   const role = seq.define<Model<IModel>>(
     NameModel,
     {
@@ -23,7 +23,9 @@ export default function define(seq: Sequelize) {
   return role;
 }
 
+export { NameModel };
+
 /**
  * Types
  */
-export type IRole = ReturnType<typeof define>;
+export type IRole = ReturnType<typeof create>;

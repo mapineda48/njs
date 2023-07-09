@@ -1,7 +1,7 @@
 import { Sequelize, Model, DataTypes } from "sequelize";
 import { NameModel, IModel } from "../integration/model/user";
 
-export default function define(seq: Sequelize) {
+export function create(seq: Sequelize) {
   return seq.define<Model<IModel>>(
     NameModel,
     {
@@ -38,7 +38,9 @@ export default function define(seq: Sequelize) {
   );
 }
 
+export { NameModel };
+
 /**
  * Types
  */
-export type IUser = ReturnType<typeof define>;
+export type IUser = ReturnType<typeof create>;

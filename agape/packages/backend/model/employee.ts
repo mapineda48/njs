@@ -4,7 +4,7 @@ import { NameModel as RoleModel } from "../integration/model/role";
 import { NameModel as RoleEmployeeModel } from "../integration/model/employeeRole";
 import { NameModel, IModel } from "../integration/model/employee";
 
-export default function define(seq: Sequelize) {
+export function create(seq: Sequelize) {
   const user = seq.models[UserModel];
   const role = seq.models[RoleModel];
 
@@ -31,7 +31,9 @@ export default function define(seq: Sequelize) {
   return employee;
 }
 
+export { NameModel };
+
 /**
  * Types
  */
-export type IEmployee = ReturnType<typeof define>;
+export type IEmployee = ReturnType<typeof create>;

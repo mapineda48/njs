@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
-import { Database, waitAuthenticate } from "../model";
+import { waitAuthenticate } from ".";
+import Database from "..";
 import userMock from "./user.json";
 
 const end = new Date();
@@ -11,8 +12,8 @@ const users: any[] = userMock.map((user) => ({
   createdAt: randomDate(start, end),
 }));
 
-export async function populateDemoData(db: Database) {
-  await Promise.all(users.map((user) => db.user.create(user)));
+export async function populateDemoData() {
+  await Promise.all(users.map((user) => Database.user.create(user)));
 }
 
 export function randomDate(start: Date, end: Date) {

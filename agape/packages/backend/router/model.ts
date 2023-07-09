@@ -2,7 +2,7 @@ import express from "express";
 import { ModelStatic } from "sequelize";
 import { parseOperator as parseOptions } from "../integration/model/util/where";
 import { routes } from "../integration/model";
-import { Database } from "../model";
+import Database from "../model";
 
 export function createApiModel(path: string, model: ModelStatic<any>) {
   const router = express.Router();
@@ -63,7 +63,7 @@ export function createApiModel(path: string, model: ModelStatic<any>) {
 export function createApiModels() {
   const router = express.Router();
 
-  const seq = Database.connection.sequelize;
+  const seq = Database.sequelize;
 
   routes.forEach(({ NameModel, Path }) => {
     router.use(createApiModel(Path, seq.models[NameModel]));
