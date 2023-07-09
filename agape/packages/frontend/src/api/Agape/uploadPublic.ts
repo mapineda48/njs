@@ -1,6 +1,5 @@
 import { AxiosInstance } from "axios";
 import { routeAgape } from "backend";
-import Request from "../Model/Util/Request";
 
 export default function uploadPublic(api: any, axios: AxiosInstance) {
   const path = routeAgape.uploadPublic;
