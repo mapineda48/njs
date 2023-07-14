@@ -10,12 +10,12 @@ interface Date {
    * @returns string
    * ej: 2023-01-18T23:03
    */
-  toInputDateTimeString(): string;
+  toDateTimeString(): string;
 
   /**
    * https://github.com/react-hook-form/react-hook-form/discussions/4718
    */
-  toInputDateString(): string;
+  toDateString(): string;
 
   addDays(days: number): Date;
 }

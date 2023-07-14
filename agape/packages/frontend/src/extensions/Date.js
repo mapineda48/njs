@@ -1,20 +1,20 @@
 /* eslint-disable no-extend-native */
 
-Date.prototype.toInputDateString = function toInputDateString() {
-  return this.toLocalDateTimeString().slice(0, 10);
-};
-
 /**
  * https://stackoverflow.com/questions/30166338/setting-value-of-datetime-local-from-date
  * @returns string
  * ej: 2023-01-18T23:03
  */
-Date.prototype.toInputDateTimeString = function toInputDateTimeString() {
+Date.prototype.toDateTimeString = function toDateTimeString() {
   const datetime = new Date(this);
 
   datetime.setMinutes(datetime.getMinutes() - datetime.getTimezoneOffset());
 
   return datetime.toISOString().slice(0, 16);
+};
+
+Date.prototype.toDateString = function toDateString() {
+  return this.toDateTimeString().split("T")[0];
 };
 
 Date.prototype.addDays = function addDays(days) {
@@ -24,6 +24,6 @@ Date.prototype.addDays = function addDays(days) {
 };
 
 
-Date.prototype.toAppDateString = function toAppDateString(){
+Date.prototype.toAppDateString = function toAppDateString() {
   return this.toLocaleDateString() + ' ' + this.toLocaleTimeString()
 }

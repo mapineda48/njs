@@ -4,6 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import TestUploadFile from "./api/Agape/react.dev";
+import FormTest from "Form.v5/index.dev";
 
 //import { foo } from "backend/build/foo";
 import { Op } from "backend";
@@ -18,7 +19,7 @@ function App() {
  * https://github.com/facebook/react/issues/24502
  */
 const element = isDev ? (
-  <TestUploadFile />
+  <FormTest />
 ) : (
   <React.StrictMode>
     <App />

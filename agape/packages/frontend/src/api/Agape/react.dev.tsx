@@ -62,7 +62,7 @@ export function App() {
   };
 
   return (
-    <div>
+    <form>
       <input
         type="text"
         value={filename}
@@ -85,7 +85,7 @@ export function App() {
         }}
       />
       <button onClick={submitFile}>Submit</button>
-    </div>
+    </form>
   );
 }
 
