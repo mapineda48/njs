@@ -1,10 +1,10 @@
-import { useRefForm } from "..";
+import { useForm } from "..";
 import { useSection } from "./Section";
 import React from "react";
 
 export function useField(props: OptField) {
   const sectionName = useSection();
-  const { current } = useRefForm();
+  const { current } = useForm();
   const state = React.useRef(null);
 
   const { fieldName, onChange: cb, listIndex } = props;

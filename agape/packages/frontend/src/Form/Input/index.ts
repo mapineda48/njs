@@ -5,6 +5,7 @@ import Radios, { InputRadio as Radio } from "./Radio";
 import CheckBox from "./CheckBox";
 import Section, { SectionArray as List } from "./Section";
 import Select from "./Select";
+import File from "./File";
 
 const Input = {
   Text,
@@ -16,6 +17,7 @@ const Input = {
   Select,
   Section,
   List,
+  File,
 };
 
 export default Input;

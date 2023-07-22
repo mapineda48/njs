@@ -1,16 +1,25 @@
-import { useRefForm } from "..";
-import React, { ReactNode, useContext } from "react";
+import { parseForm, setForm } from "Form/util";
+import { useForm } from "..";
+import React, {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
-const Context = React.createContext("");
+const Context = createContext("");
 
 export function useSection() {
   return useContext(Context);
 }
 
 export function SectionProvider(props: Props) {
-  const sectionName = React.useContext(Context);
+  const sectionName = useContext(Context);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!sectionName) {
       return;
     }
@@ -28,15 +37,17 @@ export function SectionProvider(props: Props) {
 export default function Section(props: Props) {
   const { fieldName, children } = props;
 
-  const { current } = useRefForm();
+  const { current } = useForm();
 
   if (!current[fieldName]) {
     current[fieldName] = {};
   }
 
-  const ref = React.useRef(current[fieldName]);
+  const ref = useRef(
+    useMemo(() => setForm(current[fieldName]), [current, fieldName])
+  );
 
-  const memo = React.useMemo(() => {
+  const memo = useMemo(() => {
     return {
       getField() {
         return ref.current;
@@ -50,7 +61,7 @@ export default function Section(props: Props) {
 
   const { getField, setField } = memo;
 
-  React.useEffect(() => {
+  useEffect(() => {
     let getState: any = getField;
     let setState: any = setField;
 
@@ -81,31 +92,33 @@ export default function Section(props: Props) {
 
 export function SectionArray(props: PropsArray) {
   const { fieldName, children } = props;
-  const { current } = useRefForm();
-  const state = React.useRef(null);
+  const { current } = useForm();
+  const state = useRef(null);
 
   if (!current[fieldName]) {
     current[fieldName] = [];
   }
 
-  const [list, setList] = React.useState(current[fieldName]);
+  const [list, setList] = useState(current[fieldName]);
   state.current = list;
 
-  const memo = React.useMemo(() => {
+  const memo = useMemo(() => {
     return {
       getField() {
-        return state.current;
+        return parseForm(state.current);
       },
 
       setField(value: any[]) {
-        setList(JSON.parse(JSON.stringify(value)));
+        const state = JSON.parse(JSON.stringify(value));
+
+        setList(state.map(setForm));
       },
     };
   }, []);
 
   const { getField, setField } = memo;
 
-  React.useEffect(() => {
+  useEffect(() => {
     let getState: any = getField;
     let setState: any = setField;
 

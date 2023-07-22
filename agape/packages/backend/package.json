@@ -9,7 +9,7 @@
     "frontend:build": "cd ../frontend && yarn build",
     "types": "tsc --noEmit",
     "build": "tsc",
-    "dist": "yarn frontend:build && yarn build && yarn ts-node postbuild.ts",
+    "dist": "yarn frontend:build && yarn build && ts-node postbuild.ts",
     "integration": "yarn tsc --declaration --outDir ./build/ ./integration/index.ts --watch"
   },
   "dependencies": {

@@ -34,5 +34,3 @@ fs.outputJSONSync("dist/package.json", pckg, optionsJson);
 fs.outputJSONSync("dist/setting.json", settingProduction, optionsJson);
 
 fs.moveSync("../frontend/build", "dist/frontend", { overwrite: true });
-
-fs.copySync("./integration/index.js", "dist/integration/index.js");

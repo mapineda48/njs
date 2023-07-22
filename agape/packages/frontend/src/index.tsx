@@ -1,13 +1,17 @@
+import "./index.scss";
 import "./extensions";
 import "bootstrap";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import TestUploadFile from "./api/Agape/react.dev";
-import FormTest from "Form.v5/index.dev";
+import FormTest from "Form/index.dev";
+import Menu from "./Agape/Menu";
+import PersonTest from "Form/person.dev";
 
 //import { foo } from "backend/build/foo";
 import { Op } from "backend";
+import ContentPage from "Agape/Context";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -19,10 +23,15 @@ function App() {
  * https://github.com/facebook/react/issues/24502
  */
 const element = isDev ? (
-  <FormTest />
+  // <>
+  //   <Menu />
+  //   <ContentPage />
+  // </>
+  // <FormTest />
+  <PersonTest />
 ) : (
   <React.StrictMode>
-    <App />
+    <PersonTest />
   </React.StrictMode>
 );
 
