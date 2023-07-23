@@ -1,13 +1,13 @@
 import { useForm } from "..";
 import { useSection } from "./Section";
-import React from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 export function useField(props: OptField) {
   const sectionName = useSection();
   const { current } = useForm();
-  const state = React.useRef(null);
+  const state = useRef(null);
 
-  const { fieldName, onChange: cb, listIndex } = props;
+  const { fieldName, onChange: cb, listIndex, initialState } = props;
 
   let form = sectionName ? current[sectionName] : current;
 
@@ -15,10 +15,10 @@ export function useField(props: OptField) {
     form = form[listIndex];
   }
 
-  const [value, setValue] = React.useState<any>(form[fieldName]);
+  const [value, setValue] = useState<any>(form[fieldName] ?? initialState);
   state.current = value;
 
-  const memo = React.useMemo(() => {
+  const memo = useMemo(() => {
     return {
       getField(): any {
         return state.current;
@@ -31,11 +31,15 @@ export function useField(props: OptField) {
 
   const { getField, setField } = memo;
 
-  React.useEffect(() => {
-    if (state.current !== form[fieldName]) {
-      setField(form[fieldName]);
+  useMemo(() => {
+    if (form[fieldName] === state.current) {
+      return;
     }
 
+    setField(form[fieldName]);
+  }, [form, fieldName, setField]);
+
+  useEffect(() => {
     let getState: any = getField;
     let setState: any = setField;
 
@@ -72,4 +76,5 @@ interface OptField {
   fieldName: string;
   listIndex?: number;
   onChange?: (val: any) => any;
+  initialState?: unknown;
 }

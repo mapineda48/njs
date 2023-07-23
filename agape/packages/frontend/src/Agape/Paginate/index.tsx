@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useMemo } from "react";
-import { useContextApi } from "./Session";
+import { useContextApi } from "../Session";
 import { IAgapeApi } from "api/Agape";
-import { usePromise } from "hook/usePromise.v2";
-import useState from "./Paginate.v2.state";
+import { usePromise } from "hook/usePromise";
+import useState from "./state";
 import React from "react";
+import { initState, paginate } from "./util";
+import { useTask } from "hook/useTask";
 
 /**
  * Before reviewing this component, be sure to read the project's API documentation to try
@@ -21,20 +23,21 @@ export default function setPaginate(opt: any) {
     /**
      * Variables
      */
-    const { query = defaultQuery, source, OnResult, size } = opt;
+    const { query = defaultQuery, source, OnResult } = opt;
 
     const api = useContextApi();
     const model = useMemo(() => source(api), [source, api]);
     const [total, countRecords]: any = usePromise(model.count);
-    const [page, findPage]: any = usePromise({
-      cb: model.findAll,
-      keepResult: true,
-      initialState: [],
+    const [page, findPage]: any = useTask({
+      onCall: model.findAll,
+      notReset: true,
     });
 
-    const [state, paginate, setState] = useState(initState);
+    const [state, pagination] = useState(initState);
 
+    //console.log(pagination);
     //console.log({ total, page, state });
+    //console.log(state.query);
 
     const initCount = total.result === undefined;
 
@@ -45,10 +48,8 @@ export default function setPaginate(opt: any) {
         };
       }
 
-      const { page, pages, current } = paginate(query, size, total.result);
-
-      setState({ query: page[current], page, pages, current });
-    }, [initCount, query, size, total.result, setState]);
+      pagination.init(paginate(query, total.result));
+    }, [initCount, query, total.result]);
 
     const refresh = useCallback(
       () => findPage(state.query),
@@ -65,7 +66,9 @@ export default function setPaginate(opt: any) {
         return;
       }
 
-      countRecords(query);
+      const { limit, offset, ...rest } = query;
+
+      countRecords(rest);
     }, [countRecords, initCount, query, total.loading]);
 
     useEffect(() => {
@@ -78,20 +81,18 @@ export default function setPaginate(opt: any) {
 
     const currentPage = state.current;
     useEffect(() => {
-      if (page.result.length || currentPage <= 1) {
+      if (!page.result || page.result.length || currentPage <= 1) {
         return;
       }
 
-      paginate.deletePage(currentPage);
-    }, [page.result.length, currentPage, paginate]);
+      pagination.deletePage();
+    }, [page.result, currentPage, pagination]);
 
     if (initCount && !total.loading) {
       return null;
     }
 
-    console.log(page);
-    if (total.loading) {
-      console.log(page);
+    if (total.loading || !page.result) {
       return (
         <div
           style={{
@@ -110,7 +111,6 @@ export default function setPaginate(opt: any) {
     }
 
     if (total.error) {
-      console.log(total.error);
       return <div>Unhandler Error...</div>;
     }
 
@@ -120,7 +120,7 @@ export default function setPaginate(opt: any) {
         pages={state.pages}
         page={state.current}
         rows={page.result}
-        goPage={paginate.changePage}
+        goPage={pagination.changePage}
         reload={total.reset}
         refresh={refresh}
       />
@@ -148,59 +148,11 @@ export function useRef() {
   }, []);
 }
 
-export function paginate(query: any, pageSize: number, amount: number) {
-  const { limit, offset, ...findOpt } = query;
-
-  const page: any = {};
-  let index = 0;
-  let noPage = 1;
-  let current = 1;
-
-  while (index < amount) {
-    page[noPage] = { ...findOpt };
-
-    page[noPage].limit = pageSize;
-    page[noPage].offset = index;
-
-    if (limit === pageSize && offset === index) {
-      current = page;
-    }
-
-    index = index + pageSize;
-    noPage++;
-  }
-
-  return {
-    page,
-    pages: Object.keys(page).map(parseInt),
-    current,
-  };
-}
-
-function initState(): State {
-  return {
-    query: null,
-    current: 0,
-    page: {},
-    pages: [],
-  };
-}
-
 /**
  * Types
  */
-interface State {
-  query: any;
-  current: number;
-  page: {
-    [K: number]: any;
-  };
-  pages: number[];
-}
-
 interface Options<T extends unknown[], Q extends unknown[]> {
-  size: number;
-  query?: Q[0];
+  query: Q[0];
   source: (api: IAgapeApi) => {
     count: (...args: Q) => Promise<number>;
     findAll: (...args: Q) => Promise<T>;

@@ -1,7 +1,7 @@
 import { useApi, useSubmit } from "Agape/Session";
 import Form from "Form";
 import Input from "Form/Input";
-import setPaginate, { useRef, Ref } from "Agape/Paginate.v2";
+import setPaginate, { useRef, Ref } from "Agape/Paginate";
 import { useEffect } from "react";
 
 export default function Configuration() {
@@ -60,6 +60,8 @@ function DocumentType(props: { table: Ref }) {
 function SaveDocumentType(props: { table: Ref }) {
   const task = useSubmit((api) => api.model.documentType.create);
 
+  console.log(task);
+
   useEffect(() => {
     if (!task.result || !props.table) {
       return;
@@ -91,22 +93,31 @@ function DeleteDocumentType(props: { id: number; onDelete: () => void }) {
   }, [onDelete, task.result]);
 
   return (
-    <button
-      disabled={task.loading}
+    <span
       onClick={() => {
+        if (task.loading) {
+          return;
+        }
+
         destroy({
           where: props,
         });
       }}
+      style={{ cursor: task.loading ? "progress" : "pointer" }}
+      className="text-danger"
     >
-      X
-    </button>
+      <i className="bi bi-x-circle-fill"></i>
+    </span>
   );
 }
 
 const Records = setPaginate({
-  size: 20,
   source: (api) => api.model.documentType,
+  query: {
+    order: [["updatedAt", "DESC"]],
+    limit: 20,
+    offset: 0,
+  },
   OnResult(props) {
     if (!props.rows.length) {
       return <div>Sin Registros</div>;
@@ -114,33 +125,34 @@ const Records = setPaginate({
 
     return (
       <>
-        <table className="border p1">
+        <table className="table">
           <thead>
             <tr>
-              <td>Id</td>
-              <td>Nombre Documento</td>
-              <td>Código</td>
-              <td>Habilitado</td>
-              <td>Fecha Modificación</td>
-              <td>
-                <button onClick={props.reload} type="button">
-                  refresh
-                </button>
-              </td>
+              <th scope="col">#</th>
+              <th scope="col">Nombre Documento</th>
+              <th scope="col">Código</th>
+              <th scope="col">Habilitado</th>
+              <th scope="col">Fecha Modificación</th>
+              <th scope="col">
+                <span style={{ cursor: "pointer" }} onClick={props.reload}>
+                  <i className="bi bi-arrow-clockwise"></i>
+                </span>
+              </th>
             </tr>
           </thead>
           <tbody>
             {props.rows.map((row, index) => {
               return (
                 <tr key={index}>
-                  <td>{row.id}</td>
+                  <th scope="row">{row.id}</th>
                   <td>{row.fullName}</td>
                   <td>{row.code}</td>
                   <td>
                     <input
                       type="checkbox"
                       disabled
-                      defaultChecked={row.isEnabled}
+                      checked={row.isEnabled}
+                      onChange={() => {}}
                     />
                   </td>
                   <td>{row.updatedAt.toLocaleTimeString()}</td>

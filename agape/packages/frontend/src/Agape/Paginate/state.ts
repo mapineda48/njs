@@ -1,7 +1,8 @@
 import { initReducer } from "hook/useState";
+import { Pagination } from "./util";
 
-export function deletePage(state: State, noPage: number): State {
-  const pages = state.pages.filter((page) => page >= noPage);
+export function deletePage(state: State): State {
+  const pages = state.pages.filter((page) => page >= state.current);
 
   const page = Object.fromEntries(
     pages.map((page) => [page, state.page[page]])
@@ -22,12 +23,18 @@ export function changePage(state: State, noPage: number): State {
   return { ...state, query, current: noPage };
 }
 
-export default initReducer({ changePage, deletePage });
+export function init(state: State, pagination: Pagination): State {
+  const { page, current, pages } = pagination;
+
+  return { query: page[current], page, pages, current };
+}
+
+export default initReducer({ changePage, deletePage, init });
 
 /**
  * Types
  */
-interface State {
+export interface State {
   query: any;
   current: number;
   page: {

@@ -21,12 +21,8 @@ export function parseForm(form: any): any {
 
   const descriptors = Object.getOwnPropertyDescriptors(form);
 
-  Object.entries(descriptors).forEach(([key, value]) => {
-    if (!value.get) {
-      return;
-    }
-
-    const current = value.get();
+  Object.entries(descriptors).forEach(([key, descriptor]) => {
+    const current = descriptor.get ? descriptor.get() : descriptor.value;
 
     if (Array.isArray(current)) {
       res[key] = current.map(parseForm);
@@ -42,4 +38,27 @@ export function parseForm(form: any): any {
   });
 
   return res;
+}
+
+export function bindForm(target: any, source: any): any {
+  if (!isForm(target)) {
+    return;
+  }
+
+  if (Array.isArray(target)) {
+    target.forEach((target, index) => bindForm(target, source[index]));
+  }
+
+  const descriptors = Object.getOwnPropertyDescriptors(target);
+
+  Object.entries(descriptors).forEach(([key, descriptor]) => {
+    const current = descriptor.get ? descriptor.get() : descriptor.value;
+
+    if (Array.isArray(current) || isForm(current)) {
+      bindForm(current, source[key]);
+      return;
+    }
+
+    target[key] = source[key];
+  });
 }

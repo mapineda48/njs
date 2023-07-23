@@ -56,6 +56,7 @@ export default function FormProvider<T>(props: Props<T>) {
           onSubmit={(event) => {
             event.preventDefault();
             const data = parseForm(ref.current);
+            console.log(data);
             onSubmit?.current(data);
           }}
         >

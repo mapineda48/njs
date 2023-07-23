@@ -7,6 +7,7 @@ export default function InputCheckbox(props: Props) {
   const [state, setState] = useField({
     fieldName,
     listIndex,
+    initialState: false,
   });
 
   return (

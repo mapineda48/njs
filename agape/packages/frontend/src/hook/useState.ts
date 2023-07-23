@@ -33,7 +33,7 @@ export function initReducer(red: any): any {
       );
     }, [setState]);
 
-    return [state, setState, action];
+    return [state, action, setState];
   };
 }
 

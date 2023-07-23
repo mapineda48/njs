@@ -1,31 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 
-const initState: State = {
-  args: null,
-  error: undefined,
-  result: undefined,
-};
-
 export function usePromise<T>(
   cb: T
 ): T extends (...args: infer A) => Promise<infer R> ? Task<A, R> : unknown;
 export function usePromise(cb: any): any {
-  const [state, setState] = useState<State>({ ...initState });
+  const [state, setState] = useState<State>({});
 
-  const setArgs: any = useCallback(
-    (...args: unknown[]) => setState({ ...initState, args }),
-    []
-  );
-
-  const setResult = useCallback(
-    (result: unknown) => setState({ ...initState, result }),
-    []
-  );
-
-  const setError = useCallback(
-    (error: unknown) => setState({ ...initState, error }),
-    []
-  );
+  const setArgs: any = useCallback((...args: Args) => setState({ args }), []);
+  const setResult = useCallback((result?: unknown) => setState({ result }), []);
+  const setError = useCallback((error: unknown) => setState({ error }), []);
 
   const { args, error, result } = state;
 
@@ -51,7 +34,7 @@ export function usePromise(cb: any): any {
     result,
     loading: Boolean(args),
     error,
-    reset: () => setResult(undefined),
+    reset: () => setResult(),
   };
 
   return [task, setArgs];
@@ -75,7 +58,9 @@ export type Task<A extends unknown[], R> = [
 type Callback = ((val: unknown) => void) | null;
 
 interface State {
-  args: unknown[] | null;
-  error: unknown;
-  result: unknown;
+  args?: unknown[];
+  error?: unknown;
+  result?: unknown;
 }
+
+type Args = unknown[];
