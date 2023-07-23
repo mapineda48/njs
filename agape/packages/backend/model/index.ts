@@ -2,6 +2,7 @@ import { Sequelize, Transaction } from "sequelize";
 import * as user from "./user";
 import * as employee from "./employee";
 import * as role from "./role";
+import * as documentType from "./documentType";
 
 const DatabaseNotReady = "database not init";
 export default class Database {
@@ -10,6 +11,7 @@ export default class Database {
   public static async init(sequelize: Sequelize) {
     await sequelize.authenticate();
 
+    documentType.create(sequelize);
     user.create(sequelize);
     role.create(sequelize);
     employee.create(sequelize);
@@ -17,6 +19,10 @@ export default class Database {
     await sequelize.sync();
 
     this.seq = sequelize;
+  }
+
+  public static get documentType(): documentType.IDocumentType {
+    return Database.seq.models[documentType.NameModel];
   }
 
   public static get user(): user.IUser {
@@ -42,7 +48,7 @@ export default class Database {
 
     return thunk;
   }
-  
+
   public static get sequelize() {
     if (this.seq) {
       return this.seq;

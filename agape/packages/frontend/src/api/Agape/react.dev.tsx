@@ -36,9 +36,9 @@ async function uploadTest(api: IAgapeApi, file: File, filename: string) {
 export function App() {
   const [filename, setFileName] = useState("");
   const [file, setFile] = useState<null | File>(null);
-  const uploadFile = useApis(uploadTest);
+  const [task, uploadFile] = useApis(uploadTest);
 
-  const { loading, error, result } = uploadFile;
+  const { loading, error, result } = task;
 
   if (loading) {
     return <div>Loading...</div>;

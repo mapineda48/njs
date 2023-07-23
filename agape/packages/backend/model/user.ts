@@ -1,8 +1,11 @@
 import { Sequelize, Model, DataTypes } from "sequelize";
+import { NameModel as DocumentType } from "../integration/model/documentType";
 import { NameModel, IModel } from "../integration/model/user";
 
 export function create(seq: Sequelize) {
-  return seq.define<Model<IModel>>(
+  const documentType = seq.models[DocumentType];
+
+  const user = seq.define<Model<IModel>>(
     NameModel,
     {
       id: {
@@ -17,7 +20,6 @@ export function create(seq: Sequelize) {
       email: {
         type: DataTypes.STRING(50),
         allowNull: false,
-        unique: true,
       },
       city: {
         type: DataTypes.STRING(50),
@@ -31,11 +33,25 @@ export function create(seq: Sequelize) {
         type: DataTypes.DATE,
         allowNull: false,
       },
+      documentNumber: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {
       //paranoid: true
     }
   );
+
+  documentType.hasMany(user);
+  user.belongsTo(documentType, {
+    foreignKey: {
+      name: "documentTypeId",
+      allowNull: false,
+    },
+  });
+
+  return user;
 }
 
 export { NameModel };

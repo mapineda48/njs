@@ -1,29 +1,54 @@
 import { useCallback, useEffect, useState } from "react";
 
-const initState: State = {
-  args: null,
-  error: undefined,
-  result: undefined,
-};
-
+export function usePromise<T, R>(opt: {
+  onCall: T;
+  notReset?: boolean;
+  initial?: R;
+}): T extends (...args: infer A) => Promise<infer R> ? Task<A, R> : unknown;
 export function usePromise<T>(
-  cb: T
+  onCall: T
 ): T extends (...args: infer A) => Promise<infer R> ? Task<A, R> : unknown;
-export function usePromise(cb: any): any {
-  const [state, setState] = useState<State>({ ...initState });
+export function usePromise(opt: any): any {
+  const {
+    onCall,
+    notReset = false,
+    initial = undefined,
+  } = typeof opt === "function" ? { onCall: opt } : opt;
+
+  const [state, setState] = useState<State>({
+    args: null,
+    notReset,
+    initial,
+    result: initial,
+  });
 
   const setArgs: any = useCallback(
-    (...args: unknown[]) => setState({ ...initState, args }),
+    (...args: unknown[]) =>
+      setState(({ notReset, result, initial }) => {
+        return { initial, notReset, result: notReset ? result : initial, args };
+      }),
     []
   );
 
   const setResult = useCallback(
-    (result: unknown) => setState({ ...initState, result }),
+    (result: unknown) =>
+      setState(({ notReset, initial }) => ({
+        notReset,
+        initial,
+        result: result ?? initial,
+        args: null,
+      })),
     []
   );
 
   const setError = useCallback(
-    (error: unknown) => setState({ ...initState, error }),
+    (error: unknown) =>
+      setState(({ notReset, initial }) => ({
+        notReset,
+        initial,
+        error,
+        args: null,
+      })),
     []
   );
 
@@ -37,7 +62,7 @@ export function usePromise(cb: any): any {
     let onSuccess: Callback = setResult;
     let onError: Callback = setError;
 
-    cb(...args)
+    onCall(...args)
       .then((res: unknown) => onSuccess && onSuccess(res))
       .catch((err: unknown) => onError && onError(err));
 
@@ -45,7 +70,7 @@ export function usePromise(cb: any): any {
       onSuccess = null;
       onError = null;
     };
-  }, [args, cb, setError, setResult]);
+  }, [args, onCall, setError, setResult]);
 
   const task = {
     result,
@@ -76,6 +101,8 @@ type Callback = ((val: unknown) => void) | null;
 
 interface State {
   args: unknown[] | null;
-  error: unknown;
-  result: unknown;
+  error?: unknown;
+  result?: unknown;
+  notReset?: boolean;
+  initial?: unknown;
 }

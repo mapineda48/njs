@@ -8,8 +8,10 @@ export interface IRecord extends ORM.Record {
   city: string;
   department: string;
   birthday: Date;
+  documentNumber: number;
+  documentTypeId: number;
 }
 
-export type IModel = ORM.Model<IRecord>;
+export type IModel = ORM.Model<IRecord, "documentTypeId">;
 
 export type IData = ORM.Model<IRecord, "id">;

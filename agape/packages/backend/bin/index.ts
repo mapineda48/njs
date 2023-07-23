@@ -41,11 +41,11 @@ const minio = new Minio.Client({
   /**
    * Database
    */
-  await clearDataDemo(seq);
+  //await clearDataDemo(seq);
 
   await Database.init(seq);
 
-  await populateDemoData();
+  //await populateDemoData();
 
   /**
    * Storage

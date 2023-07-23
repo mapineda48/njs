@@ -1,17 +1,20 @@
-import React, { DependencyList, ReactNode, useMemo } from "react";
-import { isForm, parseForm, setForm } from "./util";
+import {
+  MutableRefObject,
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
+import { parseForm, setForm } from "./util";
 
-export const Submit = React.createContext<React.MutableRefObject<any> | null>(
-  null
-);
+export const Submit = createContext<MutableRefObject<any> | null>(null);
 
-export function useSubmit<S = any>(
-  onSubmit: (form: S) => void,
-  deps?: DependencyList
-) {
-  const cb = React.useContext(Submit);
+export function useSubmit<S = any>(onSubmit: (form: S) => void) {
+  const cb = useContext(Submit);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!cb) {
       return;
     }
@@ -25,16 +28,13 @@ export function useSubmit<S = any>(
     return () => {
       cb.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps);
+  }, [cb, onSubmit]);
 }
 
-export const Form = React.createContext<React.MutableRefObject<any> | null>(
-  null
-);
+export const Form = createContext<MutableRefObject<any> | null>(null);
 
 export function useForm() {
-  const ref = React.useContext(Form);
+  const ref = useContext(Form);
 
   if (!ref) {
     throw new Error("Missing form context");
@@ -45,9 +45,9 @@ export function useForm() {
 
 export default function FormProvider<T>(props: Props<T>) {
   const { state } = props;
-  const ref = React.useRef<any>(useMemo(() => setForm(state), [state]));
+  const ref = useRef<any>(useMemo(() => setForm(state), [state]));
 
-  const onSubmit = React.useRef<any>(props.onSubmit);
+  const onSubmit = useRef<any>(props.onSubmit);
 
   return (
     <Submit.Provider value={onSubmit}>
