@@ -60,8 +60,6 @@ function DocumentType(props: { table: Ref }) {
 function SaveDocumentType(props: { table: Ref }) {
   const task = useSubmit((api) => api.model.documentType.create);
 
-  console.log(task);
-
   useEffect(() => {
     if (!task.result || !props.table) {
       return;

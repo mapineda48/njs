@@ -2,10 +2,12 @@ import {
   MutableRefObject,
   ReactNode,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
   useRef,
+  useState,
 } from "react";
 import { parseForm, setForm } from "./util";
 
@@ -31,32 +33,42 @@ export function useSubmit<S = any>(onSubmit: (form: S) => void) {
   }, [cb, onSubmit]);
 }
 
-export const Form = createContext<MutableRefObject<any> | null>(null);
+export const Form = createContext<any>(null);
 
-export function useForm() {
+export function useForm<S = any>() {
   const ref = useContext(Form);
 
   if (!ref) {
     throw new Error("Missing form context");
   }
 
-  return ref;
+  return ref as [IForm<S>, (data: S) => void];
 }
 
 export default function FormProvider<T>(props: Props<T>) {
-  const { state } = props;
-  const ref = useRef<any>(useMemo(() => setForm(state), [state]));
+  const [state, setState] = useState(setForm);
+
+  const updateForm = useCallback((form: any) => setState(setForm(form)), []);
+
+  useMemo(() => {
+    if (!props.state) {
+      return;
+    }
+
+    updateForm(props.state);
+  }, [props.state, updateForm]);
 
   const onSubmit = useRef<any>(props.onSubmit);
 
   return (
     <Submit.Provider value={onSubmit}>
-      <Form.Provider value={ref}>
+      <Form.Provider value={[state, updateForm]}>
         <form
           onSubmit={(event) => {
             event.preventDefault();
-            const data = parseForm(ref.current);
-            console.log(data);
+            //console.log(state);
+            const data = parseForm(state);
+            //console.log(data);
             onSubmit?.current(data);
           }}
         >
@@ -75,4 +87,13 @@ interface Props<T> {
   children: ReactNode;
   state?: T;
   onSubmit?: (state: T) => void;
+}
+
+export type IForm<T> = {
+  [K in keyof T]: T[K] extends (infer I)[] ? FormArray<I> : T[K];
+};
+
+export interface FormArray<T> extends Array<T> {
+  addItem: (...values: T[]) => void;
+  removeIndex: (index: number) => void;
 }

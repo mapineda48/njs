@@ -3,7 +3,8 @@ import Number from "./Number";
 import Date from "./Date";
 import Radios, { InputRadio as Radio } from "./Radio";
 import CheckBox from "./CheckBox";
-import Section, { SectionArray as List } from "./Section";
+import Section from "./Section";
+import List from "./Section/Array";
 import Select from "./Select";
 import File from "./File";
 

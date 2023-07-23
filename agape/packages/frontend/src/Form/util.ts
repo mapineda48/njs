@@ -1,6 +1,6 @@
 const form = Symbol();
 
-export function setForm(val: any): any {
+export function setForm(val?: any): any {
   return { ...val, [form]: true };
 }
 

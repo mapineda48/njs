@@ -1,11 +1,11 @@
 import { useForm } from "..";
-import { useSection } from "./Section";
+import { useSection } from "./Section/Provider";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 export function useField(props: OptField) {
   const sectionName = useSection();
-  const { current } = useForm();
-  const state = useRef(null);
+  const [current] = useForm();
+  const ref = useRef(null);
 
   const { fieldName, onChange: cb, listIndex, initialState } = props;
 
@@ -15,16 +15,16 @@ export function useField(props: OptField) {
     form = form[listIndex];
   }
 
-  const [value, setValue] = useState<any>(form[fieldName] ?? initialState);
-  state.current = value;
+  const [state, setState] = useState<any>(form[fieldName] ?? initialState);
+  ref.current = state;
 
   const memo = useMemo(() => {
     return {
       getField(): any {
-        return state.current;
+        return ref.current;
       },
       setField(val: any): any {
-        setValue(cb ? cb(val) : val);
+        setState(cb ? cb(val) : val);
       },
     };
   }, [cb]);
@@ -32,7 +32,7 @@ export function useField(props: OptField) {
   const { getField, setField } = memo;
 
   useMemo(() => {
-    if (form[fieldName] === state.current) {
+    if (form[fieldName] === ref.current) {
       return;
     }
 
@@ -65,7 +65,7 @@ export function useField(props: OptField) {
     };
   }, [fieldName, form, getField, setField]);
 
-  return [value, setField];
+  return [state, setField];
 }
 
 /**

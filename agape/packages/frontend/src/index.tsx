@@ -1,7 +1,7 @@
 import "./index.scss";
 import "./extensions";
 import "bootstrap";
-import React from "react";
+import React, { ReactNode } from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import TestUploadFile from "./api/Agape/react.dev";
@@ -13,32 +13,25 @@ import PersonTest from "Agape/Form/Config.dev";
 import { Op } from "backend";
 import ContentPage from "Agape/Context";
 
-const isDev = process.env.NODE_ENV === "development";
-
-function App() {
-  return <div>Hello World!!!</div>;
-}
-
 /**
  * https://github.com/facebook/react/issues/24502
  */
-const element = isDev ? (
-  // <>
-  //   <Menu />
-  //   <ContentPage />
-  // </>
-  // <FormTest />
-  <PersonTest />
-) : (
-  <React.StrictMode>
-    <PersonTest />
-  </React.StrictMode>
-);
+function App(props: { children: ReactNode }) {
+  if (process.env.NODE_ENV === "development") {
+    return <>{props.children}</>;
+  }
+
+  return <React.StrictMode>{props.children}</React.StrictMode>;
+}
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
-root.render(element);
+root.render(
+  <App>
+    <PersonTest />
+  </App>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

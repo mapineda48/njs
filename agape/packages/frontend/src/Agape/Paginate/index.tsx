@@ -61,15 +61,16 @@ export default function setPaginate(opt: any) {
       props.onRef.current.reload = total.reset;
     }
 
+    const count = !total.loading && !total.error && initCount;
     useEffect(() => {
-      if (total.loading || !initCount) {
+      if (!count) {
         return;
       }
 
       const { limit, offset, ...rest } = query;
 
       countRecords(rest);
-    }, [countRecords, initCount, query, total.loading]);
+    }, [count, countRecords, initCount, query]);
 
     useEffect(() => {
       if (!state.query) {
@@ -87,6 +88,10 @@ export default function setPaginate(opt: any) {
 
       pagination.deletePage();
     }, [page.result, currentPage, pagination]);
+
+    if (total.error) {
+      return <div>Unhandler Error...</div>;
+    }
 
     if (initCount && !total.loading) {
       return null;
@@ -108,10 +113,6 @@ export default function setPaginate(opt: any) {
           </div>
         </div>
       );
-    }
-
-    if (total.error) {
-      return <div>Unhandler Error...</div>;
     }
 
     return (
