@@ -16,7 +16,7 @@ export function create(seq: Sequelize) {
         unique: true,
       },
       code: {
-        type: DataTypes.STRING(2),
+        type: DataTypes.STRING(3),
         allowNull: false,
         unique: true,
       },

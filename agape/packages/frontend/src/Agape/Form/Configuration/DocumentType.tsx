@@ -17,48 +17,51 @@ export default function Configuration() {
 
 function DocumentType(props: { table: Ref }) {
   return (
-    <fieldset className="border p-2">
-      <legend>Tipos de Documento</legend>
-      <Form>
-        <div className="row">
-          <div className="col">
-            <Input.Text
-              fieldName="fullName"
-              className="form-control"
-              placeholder="Documento"
+    <Form className="mb-3">
+      <div className="row">
+        <div className="col">
+          <Input.Text
+            fieldName="fullName"
+            className="form-control"
+            placeholder="Documento"
+          />
+        </div>
+        <div className="col-2">
+          <Input.Text
+            fieldName="code"
+            maxLength={2}
+            className="form-control"
+            placeholder="Código"
+          />
+        </div>
+        <div className="col-2 d-flex align-items-center">
+          <div className="form-check form-check-inline">
+            <Input.CheckBox
+              fieldName="isEnabled"
+              className="form-check-input"
+              id="inlineCheckbox1"
             />
+            Habilitado
+            <label
+              className="form-check-label"
+              htmlFor="inlineCheckbox1"
+            ></label>
           </div>
-          <div className="col">
-            <Input.Text
-              fieldName="code"
-              maxLength={2}
-              className="form-control"
-              placeholder="Código"
-            />
-          </div>
-          <div className="col">
-            <div className="form-check form-check-inline">
-              <Input.CheckBox
-                fieldName="isEnabled"
-                className="form-check-input"
-                id="inlineCheckbox1"
-              />
-              Habilitado
-              <label
-                className="form-check-label"
-                htmlFor="inlineCheckbox1"
-              ></label>
-            </div>
-          </div>
+        </div>
+        <div className="col-2 d-flex flex-row-reverse">
           <SaveDocumentType table={props.table} />
         </div>
-      </Form>
-    </fieldset>
+      </div>
+    </Form>
   );
 }
 
 function SaveDocumentType(props: { table: Ref }) {
   const task = useSubmit((api) => api.model.documentType.create);
+
+  if (task.error) {
+    console.log(task.error);
+  }
 
   useEffect(() => {
     if (!task.result || !props.table) {
@@ -69,11 +72,9 @@ function SaveDocumentType(props: { table: Ref }) {
   });
 
   return (
-    <div className="col">
-      <button type="submit" className="btn btn-primary">
-        Agregar
-      </button>
-    </div>
+    <button type="submit" className="btn btn-primary">
+      Agregar
+    </button>
   );
 }
 

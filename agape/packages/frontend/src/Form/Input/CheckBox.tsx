@@ -14,7 +14,7 @@ export default function InputCheckbox(props: Props) {
     <input
       {...inputProps}
       type="checkbox"
-      checked={state ?? false}
+      checked={state}
       name={fieldName}
       onChange={({ target }) => {
         setState(target.checked);

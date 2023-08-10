@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import TestUploadFile from "./api/Agape/react.dev";
 import FormTest from "Form/index.dev";
 import Menu from "./Agape/Menu";
-import PersonTest from "Agape/Form/Config.dev";
+import PersonTest from "Agape/Form/Configuration/index.dev";
 
 //import { foo } from "backend/build/foo";
 import { Op } from "backend";

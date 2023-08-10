@@ -15,7 +15,8 @@ export function useField(props: OptField) {
     form = form[listIndex];
   }
 
-  const [state, setState] = useState<any>(form[fieldName] ?? initialState);
+  const initState = () => (form[fieldName] = form[fieldName] ?? initialState);
+  const [state, setState] = useState<any>(initState);
   ref.current = state;
 
   const memo = useMemo(() => {

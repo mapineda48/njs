@@ -46,6 +46,8 @@ export function useForm<S = any>() {
 }
 
 export default function FormProvider<T>(props: Props<T>) {
+  const { state: initialState, onSubmit, ...formProps } = props;
+
   const [state, setState] = useState(setForm);
 
   const updateForm = useCallback((form: any) => setState(setForm(form)), []);
@@ -58,22 +60,21 @@ export default function FormProvider<T>(props: Props<T>) {
     updateForm(props.state);
   }, [props.state, updateForm]);
 
-  const onSubmit = useRef<any>(props.onSubmit);
+  const ref = useRef<any>(onSubmit);
 
   return (
-    <Submit.Provider value={onSubmit}>
+    <Submit.Provider value={ref}>
       <Form.Provider value={[state, updateForm]}>
         <form
+          {...formProps}
           onSubmit={(event) => {
             event.preventDefault();
-            //console.log(state);
+            // console.log(state);
             const data = parseForm(state);
-            //console.log(data);
-            onSubmit?.current(data);
+            // console.log(data);
+            ref?.current(data);
           }}
-        >
-          {props.children}
-        </form>
+        />
       </Form.Provider>
     </Submit.Provider>
   );
@@ -83,12 +84,6 @@ export default function FormProvider<T>(props: Props<T>) {
  * Types
  */
 
-interface Props<T> {
-  children: ReactNode;
-  state?: T;
-  onSubmit?: (state: T) => void;
-}
-
 export type IForm<T> = {
   [K in keyof T]: T[K] extends (infer I)[] ? FormArray<I> : T[K];
 };
@@ -97,3 +92,10 @@ export interface FormArray<T> extends Array<T> {
   addItem: (...values: T[]) => void;
   removeIndex: (index: number) => void;
 }
+
+interface Props<T> extends CoreProps {
+  state?: T;
+  onSubmit?: (state: T) => void;
+}
+
+type CoreProps = Omit<JSX.IntrinsicElements["form"], "ref" | "onSubmit">;
