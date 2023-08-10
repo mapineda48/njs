@@ -2,8 +2,8 @@
   "name": "backend",
   "version": "1.0.0",
   "license": "MIT",
-  "main": "build/index.js",
-  "types": "build",
+  "main": "integration/index.ts",
+  "types": "integration",
   "scripts": {
     "start": "ts-node bin/index.ts",
     "frontend:build": "cd ../frontend && yarn build",

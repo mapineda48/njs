@@ -1,4 +1,4 @@
-import { IMethod } from "backend/build/model/util/query";
+import { IMethod } from "backend/integration/model/util/query";
 
 import type { AxiosInstance } from "axios";
 

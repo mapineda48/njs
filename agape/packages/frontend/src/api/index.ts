@@ -1,4 +1,4 @@
 import axios from "axios";
-import { routeAgape } from "backend/build";
+import { routeAgape } from "backend";
 
 console.log(routeAgape);
