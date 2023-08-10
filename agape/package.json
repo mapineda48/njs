@@ -14,7 +14,7 @@
     "start:frontend": "cd packages/frontend && yarn start",
     "start:backend": "cd packages/backend && yarn start",
     "types": "cd packages/backend && yarn types && cd ../frontend && yarn types",
-    "build": "cd packages/backend && yarn dist",
+    "build": "cd packages/backend && yarn build",
     "postbuild": "node postbuild.js"
   },
   "workspaces": [

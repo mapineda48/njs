@@ -1,7 +1,8 @@
+process.env.NODE_ENV = process.env.NODE_ENV ?? 'production' 
+
 const configExport = require("react-scripts/config/webpack.config");
 const configCache = require.resolve("react-scripts/config/webpack.config");
 const configMod = require.cache[configCache];
-
 
 function setConfig(env) {
     const paths = require("react-scripts/config/paths");
