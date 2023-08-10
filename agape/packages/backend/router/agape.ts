@@ -1,5 +1,5 @@
 import express from "express";
-import { route as routeApi, baseApi } from "../integration/agape";
+import { route as routeApi, baseUrl } from "../integration/agape";
 import path from "path";
 
 const agape = path.join(__dirname, "../agape");
@@ -73,7 +73,7 @@ function getImports(routeMap: any = routeApi, result: Entries = []) {
       return;
     }
 
-    const relativePath = apiPath.replace(baseApi, "");
+    const relativePath = apiPath.replace(baseUrl, "");
     const fnPath = path.join(agape, relativePath);
 
     result.push({ apiPath, fnPath });

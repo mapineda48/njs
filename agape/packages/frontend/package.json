@@ -32,8 +32,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "node -r ./config.js -e \"require('react-scripts/scripts/start')\"",
-    "build": "node -r ./config.js -e \"require('react-scripts/scripts/build')\"",
+    "start": "node cra.js --start",
+    "build": "node cra.js --build",
     "test": "react-scripts test",
     "types": "tsc --noEmit"
   },

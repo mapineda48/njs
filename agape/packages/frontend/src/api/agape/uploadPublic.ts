@@ -1,7 +1,7 @@
 import { AxiosInstance } from "axios";
 import { routeAgape } from "backend";
 
-export default function uploadPublic(api: any, axios: AxiosInstance) {
+export default function setNotJsonRequest(api: any, axios: AxiosInstance) {
   const path = routeAgape.uploadPublic;
 
   api.uploadPublic = (file: File, fileName: string) => {

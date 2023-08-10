@@ -26,3 +26,16 @@ require.cache[configCache] = {
     ...configMod,
     exports: setConfig,
 };
+
+
+/**
+ * Scripts
+ */
+const args = process.argv;
+
+if (args.includes("--start")) {
+    require('react-scripts/scripts/start');
+}
+else if (args.includes("--build")) {
+    require('react-scripts/scripts/build')
+}

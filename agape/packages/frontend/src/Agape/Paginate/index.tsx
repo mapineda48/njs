@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { useContextApi } from "../Session";
-import { IAgapeApi } from "api/Agape";
+import { IDashboard } from "api/agape";
 import { usePromise } from "hook/usePromise";
 import useState from "./state";
 import React from "react";
@@ -154,7 +154,7 @@ export function useRef() {
  */
 interface Options<T extends unknown[], Q extends unknown[]> {
   query: Q[0];
-  source: (api: IAgapeApi) => {
+  source: (api: IDashboard) => {
     count: (...args: Q) => Promise<number>;
     findAll: (...args: Q) => Promise<T>;
   };

@@ -6,15 +6,13 @@
   "types": "integration",
   "scripts": {
     "start": "ts-node bin/index.ts",
-    "frontend:build": "cd ../frontend && yarn build",
     "types": "tsc --noEmit",
-    "build": "tsc",
-    "dist": "yarn frontend:build && yarn build && ts-node postbuild.ts",
-    "integration": "yarn tsc --declaration --outDir ./build/ ./integration/index.ts --watch"
+    "build:frontend": "cd ../frontend && yarn build",
+    "build:backend": "tsc",
+    "build": "yarn build:backend && yarn build:frontend",
+    "postbuild": "ts-node postbuild.ts"
   },
   "dependencies": {
-    "@types/cls-hooked": "^4.3.4",
-    "@types/multer": "^1.4.7",
     "cls-hooked": "^4.2.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
@@ -25,9 +23,12 @@
     "pg-hstore": "^2.3.4",
     "raw-body": "^2.5.2",
     "sequelize": "^6.28.0",
-    "tslib": "^2.5.0"
+    "tslib": "^2.5.0",
+    "fs-extra": "^11.1.0"
   },
   "devDependencies": {
+    "@types/cls-hooked": "^4.3.4",
+    "@types/multer": "^1.4.7",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.14",
     "@types/fs-extra": "^9.0.13",
@@ -36,7 +37,6 @@
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
     "eslint": "^8.30.0",
-    "fs-extra": "^11.1.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4"
   }

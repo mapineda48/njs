@@ -1,11 +1,9 @@
 import React, { ReactNode } from "react";
-import axios from "axios";
 import { usePromise, Task } from "hook/usePromise";
-import { createApi, IAgapeApi } from "api/Agape";
+import { initApi, IDashboard } from "api";
 import { useSubmit as useFormSubmit } from "Form";
 
-const baseURL = "http://localhost:5000";
-const Context = React.createContext<null | IAgapeApi>(null);
+const Context = React.createContext<null | IDashboard>(null);
 
 export class ApiNotReadyError extends Error {
   constructor() {
@@ -14,13 +12,9 @@ export class ApiNotReadyError extends Error {
 }
 
 export default function AgapeApiContext(props: Props) {
-  const instance = axios.create({
-    baseURL,
-  });
-
-  const api = createApi(instance);
-
-  return <Context.Provider value={api}>{props.children}</Context.Provider>;
+  return (
+    <Context.Provider value={initApi()}>{props.children}</Context.Provider>
+  );
 }
 
 export function useContextApi() {
@@ -34,10 +28,10 @@ export function useContextApi() {
 }
 
 export function useApi<
-  T extends (api: IAgapeApi) => (...args: any[]) => Promise<any>
+  T extends (api: IDashboard) => (...args: any[]) => Promise<any>
 >(
   cb: T
-): T extends (api: IAgapeApi) => (...args: infer A) => Promise<infer R>
+): T extends (api: IDashboard) => (...args: infer A) => Promise<infer R>
   ? Task<A, R>
   : unknown;
 export function useApi(cb: any): any {
@@ -47,10 +41,10 @@ export function useApi(cb: any): any {
 }
 
 export function useApis<
-  T extends (api: IAgapeApi, ...args: any[]) => Promise<any>
+  T extends (api: IDashboard, ...args: any[]) => Promise<any>
 >(
   cb: T
-): T extends (api: IAgapeApi, ...args: infer A) => Promise<infer R>
+): T extends (api: IDashboard, ...args: infer A) => Promise<infer R>
   ? Task<A, R>
   : unknown;
 export function useApis(cb: any): any {
@@ -63,10 +57,10 @@ export function useApis(cb: any): any {
 }
 
 export function useSubmit<
-  T extends (api: IAgapeApi) => (...args: any[]) => Promise<any>
+  T extends (api: IDashboard) => (...args: any[]) => Promise<any>
 >(
   cb: T
-): T extends (api: IAgapeApi) => (...args: infer A) => Promise<infer R>
+): T extends (api: IDashboard) => (...args: infer A) => Promise<infer R>
   ? Task<A, R>[0]
   : unknown;
 export function useSubmit(cb: any): any {
@@ -77,10 +71,10 @@ export function useSubmit(cb: any): any {
 }
 
 export function useSubmitApis<
-  T extends (api: IAgapeApi, ...args: any[]) => Promise<any>
+  T extends (api: IDashboard, ...args: any[]) => Promise<any>
 >(
   cb: T
-): T extends (api: IAgapeApi, ...args: infer A) => Promise<infer R>
+): T extends (api: IDashboard, ...args: infer A) => Promise<infer R>
   ? Task<A, R>[0]
   : unknown;
 export function useSubmitApis(cb: any): any {

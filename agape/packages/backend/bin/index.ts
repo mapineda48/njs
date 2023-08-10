@@ -8,14 +8,9 @@ import * as Minio from "minio";
 import Storage from "../storage";
 import Database from "../model";
 import appRouter from "../router";
-import setting from "../setting.json";
 import { clearDataDemo, populateDemoData } from "../model/util/demo";
 
-const isDev = process.env.NODE_ENV !== "production";
-const port = parseInt(process.env.PORT ?? "5000");
-
-const origin = isDev ? "http://localhost:3000" : undefined; // Dev React App
-const reactApp = !isDev ? path.resolve(setting.frontendPath) : undefined;
+export const isDev = !(process.env.NODE_ENV === "production");
 
 /**
  * PostreSQL
@@ -37,6 +32,22 @@ const minio = new Minio.Client({
   useSSL: !isDev,
 });
 
+/**
+ * AgapeApp - React
+ */
+const origin = isDev ? "http://localhost:3000" : undefined; // Dev React App
+const agapeApp = !isDev
+  ? path.resolve(isDev ? "../frontend/build" : "frontend")
+  : undefined;
+
+/**
+ * Server App
+ */
+const port = parseInt(env("PORT", "5000"));
+
+/**
+ * Boot App
+ */
 (async function main() {
   /**
    * Database
@@ -63,13 +74,16 @@ const minio = new Minio.Client({
 
   app.use(logger("dev"));
 
-  app.use(appRouter(reactApp));
+  app.use(appRouter(agapeApp));
 
   app.listen(port, () => console.log(`server on port ${port}`));
 })().catch(console.error);
 
-export function env(key: keyof NodeJS.ProcessEnv) {
-  const value = process.env[key];
+/**
+ * Get value from enviroment process
+ */
+export function env(key: keyof NodeJS.ProcessEnv, defaultValue?: string) {
+  const value = process.env[key] ?? defaultValue;
 
   if (value) {
     return value;

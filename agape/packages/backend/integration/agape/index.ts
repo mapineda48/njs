@@ -1,7 +1,7 @@
 import { route as employee, IEmployee } from "./employee";
 import { IFrontEndMethod, IRoute, setBaseURL } from "./util";
 
-export const baseApi = "/api/dashboard/protected/";
+export const baseUrl = "/api/dashboard/protected/";
 
 export const path: IRoute<IBackend> = {
   helloWorld: "helloWorld",
@@ -10,7 +10,7 @@ export const path: IRoute<IBackend> = {
   employee,
 };
 
-export const route = setBaseURL(path, baseApi);
+export const route = setBaseURL(path, baseUrl);
 
 /**
  * Types

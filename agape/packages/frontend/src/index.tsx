@@ -1,36 +1,25 @@
 import "./index.scss";
 import "./extensions";
 import "bootstrap";
-import React, { ReactNode } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
-import TestUploadFile from "./api/Agape/react.dev";
-import FormTest from "Form/index.dev";
-import Menu from "./Agape/Menu";
 import PersonTest from "Agape/Form/Configuration/index.dev";
-
-//import { foo } from "backend/build/foo";
-import ContentPage from "Agape/Context";
-import { Op } from "backend";
 
 /**
  * https://github.com/facebook/react/issues/24502
  */
-function App(props: { children: ReactNode }) {
-  if (process.env.NODE_ENV === "development") {
-    return <>{props.children}</>;
-  }
+const EnvMode =
+  process.env.NODE_ENV === "development" ? React.Fragment : React.StrictMode;
 
-  return <React.StrictMode>{props.children}</React.StrictMode>;
-}
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <App>
+  <EnvMode>
     <PersonTest />
-  </App>
+  </EnvMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
