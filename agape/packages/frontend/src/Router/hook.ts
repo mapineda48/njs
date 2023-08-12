@@ -2,25 +2,21 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { history, parsePath, ParsePath } from "./util";
 
 export function usePathname(opt: ParsePath) {
-  const initState = () => {
-    return {
-      current: parsePath(opt),
-    };
-  };
+  const [state, setState] = useState<State>(() => parsePath(opt));
+  const ref = useRef<Ref>({ opt, state });
 
-  const [state, setState] = useState<State>(initState);
-  const ref = useRef<Ref>({ opt, ...state });
-  ref.current = { opt, ...state };
+  const { baseUrl } = ref.current;
+  ref.current = { baseUrl, opt, state };
 
   // console.log(ref.current);
 
   useEffect(() => {
     return history.listen(() => {
-      const { opt, current, baseUrl } = ref.current;
+      const { opt, state, baseUrl } = ref.current;
 
       const route = parsePath(opt);
 
-      if (current.pattern === route.pattern) {
+      if (state.pattern === route.pattern) {
         return;
       }
 
@@ -29,29 +25,29 @@ export function usePathname(opt: ParsePath) {
         return;
       }
 
-      setState({ current: route });
+      setState(route);
+      delete ref.current.baseUrl;
     });
   }, []);
 
   const setBaseUrl = useCallback((baseUrl: RegExp) => {
-    setState((state) => ({ ...state, baseUrl }));
+    ref.current.baseUrl = baseUrl;
   }, []);
 
-  return [state.current, setBaseUrl] as const;
+  return [state, setBaseUrl] as const;
 }
 
 /**
  * Types
  */
-interface Ref extends State {
+interface Ref {
   opt: ParsePath;
+  state: State;
+  baseUrl?: RegExp;
 }
 
 interface State {
-  baseUrl?: RegExp;
-  current: {
-    pathname: string;
-    param: {};
-    pattern?: string;
-  };
+  pathname: string;
+  param: {};
+  pattern?: string;
 }
