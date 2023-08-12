@@ -11,22 +11,26 @@ export { history };
  *
  */
 export function parsePath(opt: ParsePath) {
-  const { parent: omit = "", routes } = opt;
+  const { parent = "", routes } = opt;
 
-  const pathname = history.location.pathname.replace(omit, "");
+  const pathname = history.location.pathname;
 
-  const route = routes.find((route) => route.test(pathname));
+  const chunk = pathname.replace(parent, "");
+
+  const route = routes.find((route) => route.test(chunk));
 
   if (!route) {
     return {
       pathname,
+      chunk,
       param: {},
     };
   }
 
   return {
-    pattern: route.pattern,
     pathname,
+    chunk,
+    pattern: route.pattern,
     param: extractParams(pathname, route.pattern),
   };
 }

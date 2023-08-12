@@ -23,32 +23,33 @@ export function Router(): Route {
 
     console.log(`render in parent ${parent.pattern}`);
 
-    const [route, setBaseUrl] = useRoute({
+    const [current, setBaseUrl] = useRoute({
       routes,
       parent: parent?.startWith,
     });
 
     const { Route, BaseUrl } = useMemo(() => {
-      const Component = map.get(route.pattern) ?? map.get("*") ?? MissingPath;
+      const Component = map.get(current.pattern) ?? map.get("*") ?? MissingPath;
 
       if (!isRoute(Component)) {
-        const Route = () => <Component param={route.param} />;
+        const Route = () => <Component param={current.param} />;
 
         return { Route };
       }
 
-      const baseUrl: RouteExp = Component.baseUrl;
-      setBaseUrl(baseUrl.startWith);
-
+      const route: RouteExp = Component.baseUrl;
       const Route = Component[key];
-      const root = new RouteExp(parent.pattern + baseUrl.pattern);
 
+      const [baseUrl] = current.chunk.match(route.startWith) ?? [];
+      setBaseUrl(baseUrl);
+
+      const root = new RouteExp(parent.pattern + route.pattern);
       const Nested = () => <Route root={root} />;
 
-      const BaseUrl = map.get(baseUrl.pattern);
+      const BaseUrl = map.get(route.pattern);
 
       return { Route: Nested, BaseUrl };
-    }, [route, setBaseUrl, parent]);
+    }, [current, setBaseUrl, parent]);
 
     if (!BaseUrl) {
       return <Route />;

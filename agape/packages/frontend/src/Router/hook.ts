@@ -20,8 +20,7 @@ export function usePathname(opt: ParsePath) {
         return;
       }
 
-      //Warning: if update any param in parent route are ingnore
-      if (baseUrl?.test(route.pathname)) {
+      if (baseUrl && route.chunk.startsWith(baseUrl)) {
         return;
       }
 
@@ -30,7 +29,7 @@ export function usePathname(opt: ParsePath) {
     });
   }, []);
 
-  const setBaseUrl = useCallback((baseUrl: RegExp) => {
+  const setBaseUrl = useCallback((baseUrl?: string) => {
     ref.current.baseUrl = baseUrl;
   }, []);
 
@@ -43,10 +42,11 @@ export function usePathname(opt: ParsePath) {
 interface Ref {
   opt: ParsePath;
   state: State;
-  baseUrl?: RegExp;
+  baseUrl?: string;
 }
 
 interface State {
+  chunk: string;
   pathname: string;
   param: {};
   pattern?: string;
