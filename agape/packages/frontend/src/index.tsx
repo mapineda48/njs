@@ -5,6 +5,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import PersonTest from "Agape/Form/Configuration/index.dev";
+import RouterTest from "Router/index.dev";
 
 /**
  * https://github.com/facebook/react/issues/24502
@@ -12,13 +13,12 @@ import PersonTest from "Agape/Form/Configuration/index.dev";
 const EnvMode =
   process.env.NODE_ENV === "development" ? React.Fragment : React.StrictMode;
 
-
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <EnvMode>
-    <PersonTest />
+    <RouterTest />
   </EnvMode>
 );
 
