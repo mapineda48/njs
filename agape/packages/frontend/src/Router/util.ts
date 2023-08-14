@@ -1,3 +1,4 @@
+import path from "path-browserify";
 import history from "history/browser";
 import RouteExp from "./RouteExp";
 
@@ -19,6 +20,8 @@ export function parsePath(opt: ParsePath) {
 
   const route = routes.find((route) => route.test(chunk));
 
+  //console.log({ opt, pathname, chunk, route });
+
   if (!route) {
     return {
       pathname,
@@ -31,7 +34,7 @@ export function parsePath(opt: ParsePath) {
     pathname,
     chunk,
     pattern: route.pattern,
-    param: extractParams(pathname, route.pattern),
+    param: extractParams(chunk, route.pattern),
   };
 }
 
@@ -46,6 +49,20 @@ export function extractParams(pathname: string, pattern: string): Param {
     .map(([key, value]) => [key.replace(":", ""), value]);
 
   return Object.fromEntries(entries);
+}
+
+export function pathJoin(baseUrl: string, ...paths: string[]) {
+  if (paths.includes(".*")) {
+    return baseUrl + ".*";
+  }
+
+  const pipe = paths.filter(Boolean);
+
+  return path.join(baseUrl, ...pipe);
+}
+
+export function relative(...paths: string[]) {
+  return path.join(history.location.pathname, "../", ...paths);
 }
 
 /**

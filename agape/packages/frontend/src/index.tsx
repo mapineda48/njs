@@ -4,8 +4,9 @@ import "bootstrap";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
-import PersonTest from "Agape/Form/Configuration/index.dev";
+//import PersonTest from "Agape/Form/Configuration/index.dev";
 import RouterTest from "Router/index.dev";
+import FooTest from "App";
 
 /**
  * https://github.com/facebook/react/issues/24502
@@ -18,7 +19,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <EnvMode>
-    <RouterTest />
+    <FooTest />
   </EnvMode>
 );
 

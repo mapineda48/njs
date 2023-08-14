@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from "react";
-import { history, parsePath, ParsePath } from "./util";
+import history from "history/browser";
+import { parsePath, ParsePath } from "./util";
 
 export function usePathname(opt: ParsePath) {
   const [state, setState] = useState<State>(() => parsePath(opt));
@@ -16,7 +17,7 @@ export function usePathname(opt: ParsePath) {
 
       const route = parsePath(opt);
 
-      if (state.pattern === route.pattern) {
+      if (state.chunk === route.chunk) {
         return;
       }
 
