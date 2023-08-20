@@ -1,6 +1,6 @@
 import * as ORM from "./util/orm";
 
-export const NameModel = "DocumentType";
+export const ModelName = "documentType"; 
 
 export interface IRecord extends ORM.Record {
   fullName: string;

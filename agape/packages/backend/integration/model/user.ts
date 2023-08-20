@@ -1,6 +1,6 @@
 import * as ORM from "./util/orm";
 
-export const NameModel = "User";
+export const ModelName = "user";
 
 export interface IRecord extends ORM.Record {
   fullName: string;
@@ -8,10 +8,10 @@ export interface IRecord extends ORM.Record {
   city: string;
   department: string;
   birthday: Date;
-  documentNumber: number;
+  documentNumber: string;
   documentTypeId: number;
 }
 
-export type IModel = ORM.Model<IRecord, "documentTypeId">;
+export type IModel = ORM.Model<IRecord>;
 
 export type IData = ORM.Model<IRecord, "id">;

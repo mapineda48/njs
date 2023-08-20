@@ -1,9 +1,12 @@
 import * as ORM from "./util/orm";
 
-export const ModelName = "employee";
+export const ModelName = "access";
 
 export interface IRecord extends ORM.Record {
-  userId: number;
+  employeeId: number;
+  username: string;
+  password: string;
+  isEnabled: boolean;
 }
 
 export type IModel = ORM.Model<IRecord>;

@@ -1,12 +1,14 @@
-import { Sequelize, Model, DataTypes } from "sequelize";
-import { NameModel as DocumentType } from "../integration/model/documentType";
-import { NameModel, IModel } from "../integration/model/user";
+import { Sequelize, Model, DataTypes, ModelStatic } from "sequelize";
+import { ModelName as DocumentType } from "./documentType";
+import * as Integration from "../integration/model/user";
 
-export function create(seq: Sequelize) {
+export const { ModelName } = Integration;
+
+export function define(seq: Sequelize) {
   const documentType = seq.models[DocumentType];
 
-  const user = seq.define<Model<IModel>>(
-    NameModel,
+  const user = seq.define<Model<Integration.IModel>>(
+    ModelName,
     {
       id: {
         type: DataTypes.INTEGER,
@@ -34,8 +36,15 @@ export function create(seq: Sequelize) {
         allowNull: false,
       },
       documentNumber: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+      },
+
+      // foreignKey
+      documentTypeId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        unique: true,
       },
     },
     {
@@ -44,19 +53,13 @@ export function create(seq: Sequelize) {
   );
 
   documentType.hasMany(user);
-  user.belongsTo(documentType, {
-    foreignKey: {
-      name: "documentTypeId",
-      allowNull: false,
-    },
-  });
+  user.belongsTo(documentType);
 
   return user;
 }
 
-export { NameModel };
-
 /**
  * Types
  */
-export type IUser = ReturnType<typeof create>;
+export type IModel = Model<Integration.IRecord, Integration.IData>;
+export type IModelStatic = ModelStatic<IModel>;

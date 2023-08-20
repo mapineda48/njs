@@ -26,3 +26,12 @@ export async function wait(time: number) {
     setTimeout(res, time);
   });
 }
+
+export function defineGet(target: unknown, key: string, value: unknown) {
+  console.log(`define ${key}`);
+  Object.defineProperty(target, key, {
+    configurable: false,
+    value,
+  });
+}
+

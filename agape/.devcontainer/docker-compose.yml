@@ -20,6 +20,7 @@ services:
       STORAGE_ENDPOINT: "minio"
       STORAGE_ACCESKEY: "minio"
       STORAGE_ACCESSECRET: "minio123"
+      JWT_SECRET: development
     depends_on:
       - db
   db:

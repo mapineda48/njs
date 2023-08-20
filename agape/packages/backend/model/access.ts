@@ -1,16 +1,13 @@
 import { Sequelize, Model, DataTypes, ModelStatic } from "sequelize";
-import { ModelName as User } from "./user";
-import { ModelName as Role } from "./role";
-import { ModelName as EmployeeRole } from "./employeeRole";
-import * as Integration from "../integration/model/employee";
+import * as Integration from "../integration/model/access";
+import { ModelName as Employee } from "./employee";
 
 export const { ModelName } = Integration;
 
 export function define(seq: Sequelize) {
-  const user = seq.models[User];
-  const role = seq.models[Role];
+  const employee = seq.models[Employee];
 
-  const employee = seq.define<Model<Integration.IModel>>(
+  const access = seq.define<Model<Integration.IModel>>(
     ModelName,
     {
       id: {
@@ -18,9 +15,21 @@ export function define(seq: Sequelize) {
         autoIncrement: true,
         primaryKey: true,
       },
+      username: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+      },
+      isEnabled: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
 
       // foreignKey
-      userId: {
+      employeeId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
@@ -31,13 +40,10 @@ export function define(seq: Sequelize) {
     }
   );
 
-  user.hasOne(employee);
-  employee.belongsTo(user);
+  employee.hasOne(access);
+  access.belongsTo(employee);
 
-  employee.belongsToMany(role, { through: EmployeeRole });
-  role.belongsToMany(employee, { through: EmployeeRole });
-
-  return employee;
+  return access;
 }
 
 /**

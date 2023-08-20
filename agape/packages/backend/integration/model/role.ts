@@ -1,9 +1,10 @@
 import * as ORM from "./util/orm";
 
-export const NameModel = "Role";
+export const ModelName = "role";
 
 export interface IRecord extends ORM.Record {
   fullName: string;
+  isEnabled: boolean;
 }
 
 export type IModel = ORM.Model<IRecord>;

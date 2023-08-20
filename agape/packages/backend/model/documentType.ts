@@ -1,9 +1,11 @@
-import { Sequelize, Model, DataTypes } from "sequelize";
-import { NameModel, IModel } from "../integration/model/documentType";
+import { Sequelize, Model, DataTypes, ModelStatic } from "sequelize";
+import * as Integration from "../integration/model/documentType";
 
-export function create(seq: Sequelize) {
-  const documentType = seq.define<Model<IModel>>(
-    NameModel,
+export const { ModelName } = Integration;
+
+export function define(seq: Sequelize) {
+  const documentType = seq.define<Model<Integration.IModel>>(
+    ModelName,
     {
       id: {
         type: DataTypes.INTEGER,
@@ -33,9 +35,8 @@ export function create(seq: Sequelize) {
   return documentType;
 }
 
-export { NameModel };
-
 /**
  * Types
  */
-export type IDocumentType = ReturnType<typeof create>;
+export type IModel = Model<Integration.IRecord, Integration.IData>;
+export type IModelStatic = ModelStatic<IModel>;

@@ -1,25 +1,23 @@
 import { route as employee, IEmployee } from "./employee";
-import { IFrontEndMethod, IRoute, setBaseURL } from "./util";
+import { IApi, toRoute } from "./util";
 
-export const baseUrl = "/api/dashboard/protected/";
+export const baseUrl = "/api/dashboard";
 
-export const path: IRoute<IBackend> = {
-  helloWorld: "helloWorld",
-  greet: "greet",
+export const route = toRoute<IBackend>(baseUrl, {
+  helloWorld: null,
+  greet: null,
   uploadPublic: "upload/public",
   employee,
-};
-
-export const route = setBaseURL(path, baseUrl);
+});
 
 /**
  * Types
  */
+export type IFrontEnd = IApi<IBackend>;
+
 export interface IBackend {
   helloWorld(): string;
   greet(name: string): string;
   uploadPublic(file: File, filename: string): string;
   employee: IEmployee;
 }
-
-export type IFrontEnd = IFrontEndMethod<IBackend>;

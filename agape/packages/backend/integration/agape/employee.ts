@@ -1,9 +1,9 @@
 import * as employee from "../model/employee";
-import { IRoute } from "./util";
+import { toRoute } from "./util";
 
-export const route: IRoute<IEmployee> = {
-  findAll: "employee/findAll",
-};
+export const route = toRoute<IEmployee>("agape/employee", {
+  findAll: null,
+});
 
 /**
  * Types

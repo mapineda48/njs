@@ -1,5 +1,5 @@
 import { Sequelize, Model, DataTypes, ModelStatic } from "sequelize";
-import * as Integration from "../integration/model/role";
+import * as Integration from "../integration/model/setting";
 
 export const { ModelName } = Integration;
 
@@ -12,12 +12,13 @@ export function define(seq: Sequelize) {
         autoIncrement: true,
         primaryKey: true,
       },
-      fullName: {
+      key: {
         type: DataTypes.STRING(50),
+        unique: true,
         allowNull: false,
       },
-      isEnabled: {
-        type: DataTypes.BOOLEAN,
+      value: {
+        type: DataTypes.JSONB,
         allowNull: false,
       },
     },

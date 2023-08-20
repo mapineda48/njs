@@ -9,6 +9,8 @@ export const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
   res.status(code).json({ message });
 };
 
+
+
 /**
  * Types
  */

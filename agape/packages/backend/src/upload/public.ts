@@ -7,9 +7,9 @@ import AppError from "../../error/AppError";
 const ContentType = "content-type";
 const ContentLenght = "content-length";
 
-export const extPath = "/*";
+export const path = "*";
 
-export async function onReq(req: Req, res: Res, next: Next) {
+export async function onRequest(req: Req, res: Res, next: Next) {
   const contentType = req.headers[ContentType];
   const contentLength = req.headers[ContentLenght];
   const url = req.originalUrl;

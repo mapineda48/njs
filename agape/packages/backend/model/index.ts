@@ -1,70 +1,85 @@
 import { Sequelize, Transaction } from "sequelize";
+import { defineGet } from "./util";
+import { sync } from "./util/sync";
+import * as setting from "./setting";
 import * as user from "./user";
 import * as employee from "./employee";
 import * as role from "./role";
 import * as documentType from "./documentType";
+import * as access from "./access";
+import * as employeeRole from "./employeeRole";
+  
 
-const DatabaseNotReady = "database not init";
-export default class Database {
-  private static seq: Sequelize;
+const models = [setting, documentType, role, user, employee, access];
 
-  public static async init(sequelize: Sequelize) {
-    await sequelize.authenticate();
+export interface Database {
+  readonly setting: setting.IModelStatic;
+  readonly documentType: documentType.IModelStatic;
+  readonly user: user.IModelStatic;
+  readonly role: role.IModelStatic;
+  readonly employee: employee.IModelStatic;
+  readonly employeeRole: employeeRole.IModelStatic;
+  readonly access: access.IModelStatic;
 
-    documentType.create(sequelize);
-    user.create(sequelize);
-    role.create(sequelize);
-    employee.create(sequelize);
-
-    await sequelize.sync();
-
-    this.seq = sequelize;
-  }
-
-  public static get documentType(): documentType.IDocumentType {
-    return Database.seq.models[documentType.NameModel];
-  }
-
-  public static get user(): user.IUser {
-    return Database.seq.models[user.NameModel];
-  }
-
-  public static get role(): role.IRole {
-    return Database.seq.models[role.NameModel];
-  }
-
-  public static get employee(): employee.IEmployee {
-    return Database.seq.models[employee.NameModel];
-  }
-
-  public static transaction<T>(autoCallback: AutoCallBack<T>) {
-    return Database.seq.transaction(autoCallback);
-  }
-
-  public static withTransaction<T extends CallBack>(cb: T): T {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const thunk: any = (...args: unknown[]) =>
-      Database.seq.transaction(() => cb(...args));
-
-    return thunk;
-  }
-
-  public static get sequelize() {
-    if (this.seq) {
-      return this.seq;
-    }
-
-    throw new Error(DatabaseNotReady);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private constructor() {}
+  readonly init: (sequelize: Sequelize, version: string) => Promise<void>;
+  readonly transaction: <T>(autoCallback: AutoCallBack<T>) => Promise<T>;
+  readonly withTransaction: <T extends CallBack>(cb: T) => T;
+  readonly models: Sequelize["models"];
 }
+
+const db: unknown = {};
+
+function defineModels(sequelize: Sequelize) {
+  /**
+   *
+   */
+  models.forEach((model) => {
+    model.define(sequelize);
+  });
+
+  /**
+   *
+   */
+  Object.keys(sequelize.models).forEach((model) => {
+    defineGet(db, model, sequelize.models[model]);
+  });
+
+  /**
+   *
+   */
+  defineGet(db, "models", sequelize.models);
+
+  /**
+   *
+   */
+  defineGet(db, "transaction", (cb: AutoCallBack<unknown>) =>
+    sequelize.transaction(cb)
+  );
+
+  /**
+   *
+   */
+  defineGet(db, "withTransaction", (cb: CallBack) => {
+    return (...args: unknown[]) => sequelize.transaction(() => cb(...args));
+  });
+}
+
+async function init(sequelize: Sequelize, version: string) {
+  await sequelize.authenticate();
+
+  defineModels(sequelize);
+
+  await sequelize.sync();
+
+  await sync(version);
+}
+
+defineGet(db, "init", init);
+
+export default db as Database;
 
 /**
  * Types
  */
-
 type CallBack = (...args: unknown[]) => PromiseLike<unknown>;
-
 type AutoCallBack<T> = (t: Transaction) => PromiseLike<T>;

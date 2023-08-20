@@ -1,0 +1,16 @@
+{
+  "role": {
+    "fullName": "Super Usuario",
+    "isEnabled": false
+  },
+  "person": {
+    "fullName": "Miguel Pineda",
+    "email": "mapineda48@indiatimes.com",
+    "city": "Wafang",
+    "department": "Desa Werasari",
+    "birthday": "1993-08-18T04:08:07Z",
+    "createdAt": "1993-08-18T04:08:07Z",
+    "updatedAt": "1993-08-18T04:08:07Z",
+    "documentNumber": "-1"
+  }
+}

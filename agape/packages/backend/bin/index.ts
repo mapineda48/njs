@@ -1,3 +1,4 @@
+import pckg from "../package.json";
 import express from "express";
 import cors from "cors";
 import logger from "morgan";
@@ -7,6 +8,7 @@ import cls from "cls-hooked";
 import * as Minio from "minio";
 import Storage from "../storage";
 import Database from "../model";
+import * as jwt from "../src/authentication/jwt";
 import appRouter from "../router";
 import { clearDataDemo, populateDemoData } from "../model/util/demo";
 
@@ -33,6 +35,11 @@ const minio = new Minio.Client({
 });
 
 /**
+ * Json Web Token
+ */
+jwt.setSecret(env("JWT_SECRET"));
+
+/**
  * AgapeApp - React
  */
 const origin = isDev ? "http://localhost:3000" : undefined; // Dev React App
@@ -54,9 +61,9 @@ const port = parseInt(env("PORT", "5000"));
    */
   await clearDataDemo(seq);
 
-  await Database.init(seq);
+  await Database.init(seq, pckg.version);
 
-  await populateDemoData();
+  //await populateDemoData();
 
   /**
    * Storage

@@ -1,5 +1,5 @@
 import { IMethod } from "./util/query";
-import { IRoute, setBaseURL as setRoute } from "./util/route";
+import { toRoute } from "./util/route";
 import * as DocumentType from "./documentType";
 import * as Role from "./role";
 import * as User from "./user";
@@ -8,21 +8,13 @@ import * as Employee from "./employee";
 
 export const baseUrl = "/api/model/";
 
-export const model: IRoute<IFrontEnd> = {
-  documentType: DocumentType.NameModel,
-  user: User.NameModel,
-  role: Role.NameModel,
-  employee: Employee.NameModel,
-  employeeRole: EmployeeRole.NameModel,
-};
-
-export const route = setRoute(model, baseUrl);
-
-export const routes: RouteModel[] = Object.entries(route).map((entrie) => {
-  const [key, route] = entrie as Entrie;
-
-  return { NameModel: model[key], Path: route };
-});
+export const route = toRoute<IFrontEnd>(baseUrl, [
+  DocumentType.ModelName,
+  User.ModelName,
+  Role.ModelName,
+  EmployeeRole.ModelName,
+  Employee.ModelName,
+]);
 
 /**
  * Types
@@ -35,10 +27,3 @@ export interface IFrontEnd {
   employeeRole: IMethod<EmployeeRole.IData, EmployeeRole.IRecord>;
   employee: IMethod<Employee.IData, Employee.IRecord>;
 }
-
-export interface RouteModel {
-  NameModel: string;
-  Path: string;
-}
-
-type Entrie = [keyof typeof model, string];
