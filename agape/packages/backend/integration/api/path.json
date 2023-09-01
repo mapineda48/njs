@@ -1,0 +1,1 @@
+{"welcome":{"helloWorld":"/api/welcome/_/hello-world","greet":"/api/welcome/_/greet"},"shop":{"greet":"/api/shop/_/greet"},"authenticate":"/api/authenticate/","agape":{"upload":"/api/agape/upload/*","employee":{"findAll":"/api/agape/employee/find-all"},"client":{"employee":{"findAll":"/api/agape/client/employee/find-all"}}}}

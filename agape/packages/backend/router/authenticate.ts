@@ -2,7 +2,7 @@ import express from "express";
 import { AgapeHeader } from "../integration";
 import { baseUrl as agape } from "../integration/agape";
 import { baseUrl as model } from "../integration/model";
-import { verify } from "../src/authentication/authenticate";
+import { getVerify as verify } from "./api/authenticate/app";
 import path from "path";
 
 export default function authenticate() {

@@ -8,9 +8,9 @@ import cls from "cls-hooked";
 import * as Minio from "minio";
 import Storage from "../storage";
 import Database from "../model";
-import * as jwt from "../src/authentication/jwt";
+import * as jwt from "../jwt";
 import appRouter from "../router";
-import { clearDataDemo, populateDemoData } from "../model/util/demo";
+import { clearDataDemo } from "../model/util/demo";
 
 export const isDev = !(process.env.NODE_ENV === "production");
 

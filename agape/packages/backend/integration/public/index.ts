@@ -2,6 +2,8 @@ import { IApi, toRoute } from "../agape/util";
 
 export const baseUrl = "/api";
 
+export const field = {};
+
 export const route = toRoute<IBackend>(baseUrl, {
   authenticate: "authentication/authenticate",
 });

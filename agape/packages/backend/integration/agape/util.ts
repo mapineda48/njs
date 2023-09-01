@@ -41,8 +41,10 @@ export type IRoute<T> = {
 
 export type IPath<T> = {
   readonly [K in keyof T]: T[K] extends (...args: any[]) => any
-    ? string | null
+    ? Mod
     : T[K] extends object
     ? IRoute<T[K]>
     : unknown;
 };
+
+type Mod = null | string;

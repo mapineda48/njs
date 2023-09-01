@@ -3,6 +3,10 @@ import { IApi, toRoute } from "./util";
 
 export const baseUrl = "/api/dashboard";
 
+export const field = {
+  helloWorld: ["foo"],
+};
+
 export const route = toRoute<IBackend>(baseUrl, {
   helloWorld: null,
   greet: null,

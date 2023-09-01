@@ -13,4 +13,7 @@ interface Api {
   route: {
     [K: string]: string | { [K: string]: string };
   };
+  field: {
+    [K: string]: string[] | { [K: string]: string[] };
+  };
 }

@@ -1,3 +1,6 @@
 const path = require("path");
 
-console.log(path.join("/foo/bar/", "*"))
+
+const res = path.relative(path.resolve("integration/agape/client/employee/index.ts"), "tmp");
+
+console.log(res);

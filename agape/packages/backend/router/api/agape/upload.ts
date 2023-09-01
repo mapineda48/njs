@@ -1,8 +1,8 @@
 import rawBody from "raw-body";
-import Storage from "../../storage";
-import { Req, Res, Next } from "../../router/error";
-import { route } from "../../integration/agape";
-import AppError from "../../error/AppError";
+import Storage from "../../../storage";
+import { Req, Res, Next } from "../../error";
+import { route } from "../../../integration/agape";
+import AppError from "../../../error/AppError";
 
 const ContentType = "content-type";
 const ContentLenght = "content-length";

@@ -16,6 +16,7 @@ let delemiter = "";
  * Set current secret to sign JWT
  */
 export function setSecret(key: string) {
+  console.log({ key });
   delemiter = key;
 }
 
