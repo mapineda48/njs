@@ -2,7 +2,7 @@ import { Sequelize, Model, DataTypes, ModelStatic } from "sequelize";
 import { ModelName as User } from "./user";
 import { ModelName as Role } from "./role";
 import { ModelName as EmployeeRole } from "./employeeRole";
-import * as Integration from "../integration/model/employee";
+import * as Integration from "../api/model/employee";
 
 export const { ModelName } = Integration;
 

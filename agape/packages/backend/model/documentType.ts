@@ -1,5 +1,5 @@
 import { Sequelize, Model, DataTypes, ModelStatic } from "sequelize";
-import * as Integration from "../integration/model/documentType";
+import * as Integration from "../api/model/documentType";
 
 export const { ModelName } = Integration;
 

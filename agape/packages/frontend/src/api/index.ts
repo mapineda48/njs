@@ -1,20 +1,25 @@
-import axios from "axios";
-import { initApi as initAgapeApi, IDashboard } from "./agape";
+import { initClient } from "backend/api";
+import { AgapeHeader, ShopHeader } from "backend/api/client";
 
-const baseURL =
-  process.env.NODE_ENV === "production" ? "/" : "http://localhost:5000";
+const api = initClient();
 
-export function initApi() {
-  const instance = axios.create({
-    baseURL,
-  });
+api.onSigIn((app, token) => {
+  localStorage.setItem(app, token);
+});
 
-  const api = initAgapeApi(instance);
+api.onExit((app) => {
+  localStorage.removeItem(app);
+});
 
-  return api;
+const agape = localStorage.getItem(AgapeHeader);
+const shop = localStorage.getItem(ShopHeader);
+
+if (agape) {
+  api.authenticate({ agape });
 }
 
-/**
- * Types
- */
-export type { IDashboard };
+if (shop) {
+  api.authenticate({ shop });
+}
+
+export default api;

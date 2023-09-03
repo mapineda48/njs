@@ -3,104 +3,61 @@ import path from "path";
 import express from "express";
 import cls from "cls-hooked";
 import { Next, Req, Res } from "../error";
+import { ModelStatic } from "sequelize";
+import { parseOperator as parseOptions } from "../../api/model/util/where";
+import { route as model } from "../../api/model";
+import Database from "../../model";
+import AppError from "../../error/AppError";
 
+/**
+ * Load Api
+ */
 const index = path.basename(__filename);
 const ext = path.extname(__filename);
 const pattern = `**/*${ext}`;
-const regExp = new RegExp(`${ext}$`);
-
-export const baseUrl = "/api";
 
 export default async function api(route: express.Router) {
+  Object.entries(model).forEach(([modelName, path]) => {
+    route.use(initModel(path, Database.models[modelName]));
+  })
+
   const handlers = await importApis();
 
   handlers.forEach(({ path, fn }) => route.post(path, fn));
 }
-
-// export async function importApi() {
-//   const res = await glob(pattern, { cwd: __dirname });
-//   const basenames = res.filter((path) => path !== index);
-
-//   const tasks = basenames.map(async (basename) => ({
-//     keys: parsePath(basename).split("/").filter(Boolean),
-//     path: path.join(baseUrl, parsePath(basename)),
-//     mod: await import(path.join(__dirname, basename)),
-//   }));
-
-//   const modules = await Promise.all(tasks);
-
-//   const handlers = modules
-//     .filter(({ mod }) => isSupport(mod))
-//     .map(toHandler)
-//     .flat();
-
-//   const routes: Route[] = [];
-//   const client: Json = {};
-
-//   handlers.forEach(({ keys, path, fn }) => {
-//     routes.push({ path, fn });
-//     toJson(keys, path, client);
-//   });
-
-//   if (isDev) {
-//     await fs.outputJSON(pathJson, client);
-//   }
-
-//   return routes;
-// }
 
 export async function importApis() {
   const res = await glob(pattern, { cwd: __dirname });
   const basenames = res.filter((path) => path !== index);
 
   const tasks = basenames.map(async (basename) => ({
-    filename: path.join(__dirname, basename),
-    keys: parsePath(basename).split("/").filter(Boolean),
-    path: path.join(baseUrl, parsePath(basename)),
+    path: path.join(__dirname, basename),
     mod: await import(path.join(__dirname, basename)),
   }));
 
   const results = await Promise.all(tasks);
 
   return results
-    .filter(({ mod }) => isSupport(mod))
+    .filter(({ mod }) => isMethod(mod))
     .map(toHandler)
     .flat();
 }
 
 function toHandler(data: IImport) {
-  const { keys, path: route, mod, filename } = data;
+  const { mod, path } = data;
 
-  if (isOnRequest(mod)) {
-    return {
-      keys,
-      path: toBaseName(path.join(route, mod.path ?? "")),
-      fn: mod.onRequest,
-      filename
-    };
+  const fn = mod.onApi ? toHandlerReq(mod.onApi) : mod.onReq;
+
+  if (!fn) {
+    throw new Error("unsupport module" + path);
   }
 
-  if (!isMethod(mod)) {
-    throw new Error("unsupport module " + route);
-  }
+  console.log(`load api\n\tfrom: ${path}\n\tto: ${mod.path}`);
 
-  if (typeof mod.default === "function") {
-    return {
-      keys,
-      path: toBaseName(route),
-      fn: toHandlerReq(mod.default),
-      filename
-    };
-  }
-
-  return Object.entries(mod.default).map(([field, fn]: [string, IMethod]) => {
-    return {
-      keys: [...keys, field],
-      path: toBaseName(path.join(route, "_", field)),
-      fn: toHandlerReq(fn),
-      filename
-    };
-  });
+  return {
+    path: mod.path,
+    fn,
+  };
 }
 
 export const session = cls.createNamespace("api");
@@ -129,23 +86,13 @@ function toHandlerReq(method: IMethod) {
   };
 }
 
-function isOnRequest(mod: object): mod is IRequest {
-  return "onRequest" in mod && typeof mod.onRequest === "function";
-}
-
-function isMethod(mod: object): mod is IModule {
+function isMethod(mod: object): mod is IApiModule {
   return (
-    "default" in mod &&
-    (typeof mod.default === "object" || typeof mod.default === "function")
+    "path" in mod &&
+    typeof mod.path === "string" &&
+    (("onApi" in mod && typeof mod.onApi === "function") ||
+      ("onReq" in mod && typeof mod.onReq === "function"))
   );
-}
-
-function isSupport(mod: object) {
-  return "onRequest" in mod || "default" in mod;
-}
-
-function parsePath(value: string) {
-  return value.replace(index, "").replace(regExp, "");
 }
 
 export function toBaseName(modelName: string) {
@@ -155,29 +102,95 @@ export function toBaseName(modelName: string) {
     .replace(/^-/, ""); // Elimina el guión al inicio si existe
 }
 
-//importApi().catch(console.error);
+
+
+/**
+ * Models
+ */
+
+export function initModel(path: string, model: ModelStatic<any>) {
+  const router = express.Router();
+
+  //Delete Record
+  router.delete(path, (req, res, next) => {
+    const { where } = req.body;
+
+    if (!where || !Object.keys(where).length) {
+      throw new AppError(400, "missing filter");
+    }
+
+    model
+      .destroy(parseOptions(req.body))
+      .then((val) => res.json(val))
+      .catch(next);
+  });
+
+  // Update
+  router.put(path, (req, res, next) => {
+    const [data, opt] = req.body;
+
+    const { where } = opt;
+
+    if (!where || !Object.keys(where).length) {
+      throw new AppError(400, "missing filter");
+    }
+
+    opt.returning = true;
+
+    model
+      .update(data, parseOptions(opt))
+      .then(([, users]: unknown[]) => res.json(users))
+      .catch(next);
+  });
+
+  // Create
+  router.post(path, (req, res, next) => {
+    model
+      .create(req.body)
+      .then((user) => res.json(user))
+      .catch(next);
+  });
+
+  // FindAll
+  router.post(`${path}/findAll`, (req, res, next) => {
+    model
+      .findAll(parseOptions(req.body))
+      .then((users) => res.json(users))
+      .catch(next);
+  });
+
+  // Count
+  router.post(`${path}/count`, (req, res, next) => {
+    model
+      .count(parseOptions(req.body))
+      .then((amount) => res.json(amount))
+      .catch(next);
+  });
+
+  // FindAndCount
+  router.post(`${path}/findAndCountAll`, (req, res, next) => {
+    model
+      .findAndCountAll(parseOptions(req.body))
+      .then((data) => res.json(data))
+      .catch(next);
+  });
+
+  return router;
+}
+
 
 /**
  * Types
  */
 interface IImport {
-  keys: string[];
-  mod: object;
+  mod: IApiModule;
   path: string;
-  filename: string;
 }
 
-interface IRequest {
-  path?: string;
-  onRequest: (req: Req, res: Res, next: Next) => void;
+interface IApiModule {
+  path: string;
+  onApi?: IMethod;
+  onReq?: (req: Req, res: Res, next: Next) => void;
 }
-
-interface IModule {
-  default: IMethod | IDefault;
-}
-
-type IDefault = {
-  [K: string]: IMethod;
-};
 
 type IMethod = (...args: unknown[]) => unknown;
