@@ -1,7 +1,7 @@
 import { useRelative } from "Router";
 
 export default function DetailShop(props: any) {
-  const {changeTo} = useRelative();
+  const changeTo = useRelative();
 
   const next = parseInt(props.param.id) + 1;
 

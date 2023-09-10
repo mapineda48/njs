@@ -1,60 +1,14 @@
-import { Authentication } from "../../api/public";
-import { AgapeHeader, ShopHeader, Auth } from "../../api/client";
-import * as jwt from "../../jwt";
-import Unauthorized from "../../error/Unauthorized";
-import { verify as loginApp } from "./app";
-import { session } from "../api";
+import path from "path";
+import express from "express";
+import { baseUrl } from "../../api/baseUrl";
+import { verify as agape } from "./agape";
 
-export async function sign(credential: Authentication) {
-  const userAgent: string = session.get("userAgent");
+export default function authenticate() {
+  const route = express.Router();
 
-  if (!userAgent) {
-    throw new Unauthorized();
-  }
+  route.use(path.join(baseUrl.agape, "*"), agape);
+  route.use(path.join(baseUrl.model, "*"), agape);
+  //route.use(path.join(baseUrl.shop, "*"), verify(ShopHeader));
 
-  const { app, authentication } = getAuthentication(credential);
-
-  let token: string;
-
-  if (!authentication.includes(Auth)) {
-    const payload = await jwt.verify(authentication, app, userAgent);
-
-    if(typeof payload !== "string"){
-      delete payload.exp;
-      delete payload.iat;
-    }
-
-    // refresh token
-    token = await jwt.sign(payload, app, userAgent);
-  } else {
-    const [username, password] = authentication.split(Auth);
-
-    const payload = await loginApp(app, username, password);
-
-    token = await jwt.sign(payload, app, userAgent);
-  }
-
-  return token;
-}
-
-function getAuthentication({ agape, shop }: Authentication) {
-  if (agape && shop) {
-    throw new Unauthorized();
-  }
-
-  if (agape) {
-    return {
-      app: AgapeHeader,
-      authentication: agape,
-    };
-  }
-
-  if (shop) {
-    return {
-      app: ShopHeader,
-      authentication: shop,
-    };
-  }
-
-  throw new Unauthorized();
+  return route;
 }

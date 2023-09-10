@@ -1,6 +1,7 @@
 import baseUrl from "./pathname.json";
 
 export const pblic = factoryApi(baseUrl.public);
+export const auth = factoryApi(baseUrl.auth);
 export const shop = factoryApi(baseUrl.shop);
 export const agape = factoryApi(baseUrl.agape);
 export const model = factoryApi(baseUrl.model);

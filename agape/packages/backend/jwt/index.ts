@@ -50,7 +50,7 @@ export function sign(payload: object | string, ...secrets: string[]) {
 /**
  * verify token
  */
-export function verify(payload: string, ...secrets: string[]) {
+export function verify(token: string, ...secrets: string[]) {
   if (!delemiter) {
     throw new Error("Unhandler jwt.verify");
   }
@@ -61,15 +61,19 @@ export function verify(payload: string, ...secrets: string[]) {
 
   const secret = secrets.join(delemiter);
 
-  return new Promise<JwtPayload | string>((res, rej) => {
-    jwt.verify(payload, secret, (err, token) => {
+  return new Promise<JwtPayload>((res, rej) => {
+    jwt.verify(token, secret, (err, payload) => {
       if (err) return rej(err);
 
-      if (!token) {
+      if (!payload) {
         return rej(new Error("Unhandler jwt.sign"));
       }
 
-      res(token);
+      if (typeof payload === "string") {
+        return rej(new Error("unsupport string payload twt"));
+      }
+
+      res(payload);
     });
   });
 }

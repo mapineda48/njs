@@ -1,27 +1,30 @@
+import { useSession } from "App/Agape/Session";
 import { Outlet, useRelative } from "Router";
 
 export default function Menu() {
-  const { changeTo, outletTo } = useRelative();
+  const { user } = useSession();
+  const changeTo = useRelative();
 
   return (
     <div>
+      <span>Welcome: {user.fullName}</span>
       <button
         onClick={() => {
-          outletTo("home");
+          changeTo("home");
         }}
       >
         home
       </button>
       <button
         onClick={() => {
-          outletTo("setting");
+          changeTo("setting");
         }}
       >
         setting
       </button>
       <button
         onClick={() => {
-          changeTo("login");
+          
         }}
       >
         login

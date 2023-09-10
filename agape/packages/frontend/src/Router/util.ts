@@ -20,7 +20,7 @@ export function parsePath(opt: ParsePath) {
 
   const route = routes.find((route) => route.test(chunk));
 
-  //console.log({ opt, pathname, chunk, route });
+  console.log({ opt, pathname, chunk, route });
 
   if (!route) {
     return {
@@ -59,10 +59,6 @@ export function pathJoin(baseUrl: string, ...paths: string[]) {
   const pipe = paths.filter(Boolean);
 
   return path.join(baseUrl, ...pipe);
-}
-
-export function relative(...paths: string[]) {
-  return path.join(history.location.pathname, "../", ...paths);
 }
 
 /**

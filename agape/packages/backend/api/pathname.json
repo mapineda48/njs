@@ -1,5 +1,6 @@
 {
   "public": "/api/public/",
+  "auth": "/api/authenticate/app/",
   "shop": "/api/shop/client/dashboard/",
   "agape": "/api/agape/employee/dashboard/",
   "model": "/api/model/"

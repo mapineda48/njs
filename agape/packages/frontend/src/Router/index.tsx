@@ -3,120 +3,93 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useMemo,
+  useRef,
+  useState,
 } from "react";
 import history from "history/browser";
-import { usePathname as useRoute } from "./hook";
-import { Routes, pathJoin, relative } from "./util";
+import { Routes, extractParams, pathJoin } from "./util";
 import RouteExp from "./RouteExp";
 
-export function MissingRoute() {
-  return <div>Missing Path...</div>;
-}
-
 const key = Symbol();
+const Context = createContext<IContext>({ baseUrl: "", Outlet: null });
+const initState = {} as State;
 
-const Context = {
-  Outlet: createContext<ContextValue>(null),
-  BaseUrl: createContext({ baseUrl: "", outlet: "" }),
-};
-
-export function Outlet() {
-  const Component = useContext(Context.Outlet);
-
-  if (!Component) {
-    return null;
-  }
-
-  return <Component />;
-}
-
-export function useRelative() {
-  const { baseUrl, outlet } = useContext(Context.BaseUrl);
-
-  return useMemo(() => {
-    const changeTo = (path: string) => {
-      history.push(!baseUrl ? relative(path) : pathJoin(baseUrl, path));
-    };
-
-    const outletTo = (path: string) => {
-      if (!outlet) {
-        throw new Error("missing outlet path");
-      }
-
-      history.push(pathJoin(outlet, path));
-    };
-
-    return { changeTo, outletTo };
-  }, [baseUrl, outlet]);
-}
-
-export function Router(
-  baseUrl?: string,
-  BaseUrl?: (props: any) => JSX.Element
-): Route {
+export function Router(BaseUrl?: FComponent): Route {
   const map = new Map();
   const routes: Routes = [];
 
-  const relative: any[] = [];
+  const sync = ({ state, parent: nested }: Sync) => {
+    const root = new RouteExp(nested);
+    const pathname = history.location.pathname.replace(root.startWith, "");
+
+    const match = routes.find((route) => route.test(pathname));
+
+    const Match = map.get(match?.pattern) ?? MissingRoute;
+    const isNested = isRoute(Match);
+
+    const pattern = !isNested ? pathname : Match.pattern;
+
+    if (state.pattern === pattern && pathname.startsWith(state.chunk)) {
+      return null;
+    }
+
+    const [chunk = ""] = !isNested
+      ? [pathname]
+      : pathname.match(new RouteExp(pattern).startWith) ?? [];
+
+    const parent = isNested ? root.pattern + chunk : root.pattern;
+
+    const param = isNested ? {} : extractParams(pathname, match?.pattern ?? "");
+
+    const Element = isNested ? Match[key] : () => <Match param={param} />;
+
+    const Provider = () => (
+      <Context.Provider
+        value={{ baseUrl: parent, Outlet: !BaseUrl ? null : Element }}
+      >
+        {BaseUrl ? <BaseUrl /> : <Element />}
+      </Context.Provider>
+    );
+
+    return {
+      Element: Provider,
+      chunk,
+      pattern,
+    };
+  };
 
   /**
    * Function Component
    */
-  const Route: any = (props: { root: RouteExp }) => {
-    const parent = useMemo(() => props.root ?? { pattern: "" }, [props.root]);
-    console.log(`render in parent ${parent.pattern}`);
+  const Route: any = () => {
+    const parent = useContext(Context).baseUrl;
 
-    const [current, setBaseUrl] = useRoute({
-      routes,
-      parent: parent?.startWith,
-    });
+    const [state, setState] = useState<State>(
+      () => sync({ state: initState, parent }) ?? initState
+    );
 
-    const Handler = map.get(current.pattern) ?? MissingRoute;
+    const ref = useRef({ parent, state });
+    ref.current.parent = parent;
+    ref.current.state = state;
 
-    const Element = useMemo(() => {
-      if (!isRoute(Handler)) {
-        return (props: any) => <Handler {...props} />;
-      }
+    console.log(`render in baseUrl '${parent}' chunk '${state.chunk}'`);
+    //console.log(state);
 
-      const Route = Handler[key];
-      const BaseUrl = Route.BaseUrl;
-      const baseUrl: RouteExp = Route.baseUrl;
+    useEffect(() => {
+      return history.listen(() => {
+        const state = sync(ref.current);
 
-      const route: RouteExp = Handler.route;
+        if (state) {
+          setState(state);
+        }
+      });
+    }, []);
 
-      const [baseChunk] = current.chunk.match(route.startWith) ?? [];
-      setBaseUrl(baseChunk);
+    if (state.Element) {
+      return <state.Element />;
+    }
 
-      const pattern = pathJoin(parent.pattern, route.pattern);
-      const root = new RouteExp(pattern);
-
-      const [pathname = ""] = current.pathname.match(root.startWith) ?? [];
-
-      const Current = (props: any) => (
-        <Context.BaseUrl.Provider value={{ baseUrl: pathname, outlet: "" }}>
-          <Route {...props} root={root} />
-        </Context.BaseUrl.Provider>
-      );
-
-      if (!baseUrl || !BaseUrl) {
-        return Current;
-      }
-
-      const basePath = pathname.replace(baseUrl.endWith, "");
-
-      return () => (
-        <Context.BaseUrl.Provider
-          value={{ baseUrl: basePath, outlet: pathname }}
-        >
-          <Context.Outlet.Provider value={Current}>
-            <BaseUrl />
-          </Context.Outlet.Provider>
-        </Context.BaseUrl.Provider>
-      );
-    }, [Handler, setBaseUrl, current.chunk, current.pathname, parent.pattern]);
-
-    return <Element param={current.param} />;
+    return null;
   };
 
   /**
@@ -126,13 +99,7 @@ export function Router(
   Object.defineProperty(Route, key, {
     configurable: false,
     get() {
-      return routes.map((route) => {
-        if (!baseUrl) {
-          return route.pattern;
-        }
-
-        return pathJoin(baseUrl, route.pattern);
-      });
+      return routes.map((route) => route.pattern);
     },
   });
 
@@ -142,16 +109,6 @@ export function Router(
   Route.use = (pattern: string, Handler: any) => {
     if (typeof Handler !== "function") {
       throw new Error("Only support function components");
-    }
-
-    /**
-     * si es ralativo, se guarda en el arreglo para que se agregue desde la
-     * ruta raiz
-     */
-    if (pattern.includes("../")) {
-      relative.push({ Handler, paths: [baseUrl, pattern] });
-
-      return;
     }
 
     /**
@@ -175,80 +132,32 @@ export function Router(
     }
 
     /**
-     * Por el momento estos patrones de ruta no son soportados,
-     * aun no se ha probado todos los escenarios
-     */
-    if (
-      pattern.endsWith(".*") ||
-      !pattern.startsWith("/") ||
-      pattern.endsWith("/")
-    ) {
-      throw new Error("unsupport pattern");
-    }
-
-    /**
      * Recuperando los patrones de la ruta unidades agregamos en esta ruta superior
      * los manejadores de para esta
      */
+
     const patterns = Handler[key].map((route: string) => {
       return pathJoin(pattern, route);
     });
 
-    const route = new RouteExp(
-      pathJoin(pattern, Handler.baseUrl?.pattern ?? "")
-    );
+    patterns.forEach((route: string) => {
+      routes.push(new RouteExp(route));
 
-    patterns.forEach((pattern: string) => {
-      routes.push(new RouteExp(pattern));
-
-      map.set(pattern, { route, [key]: Handler });
+      map.set(route, { pattern, [key]: Handler });
     });
-
-    /**
-     * Agregamos los rutas relativas de la ruta anidada con el patron actual
-     * sera recuperadas por el metodo root y agregadas
-     */
-    Handler.relative.forEach(({ paths, Handler }: any) => {
-      relative.push({
-        paths: [pattern, ...paths],
-        Handler,
-      });
-    });
-  };
-
-  Route.relative = relative;
-  Route.BaseUrl = BaseUrl;
-  Route.baseUrl = baseUrl ? new RouteExp(baseUrl) : undefined;
-
-  /**
-   * Indica que es la ruta raiz y carga todas las rutas relativas
-   */
-  Route.root = () => {
-    const last = routes.pop();
-
-    relative.forEach((route) => {
-      const { paths, Handler } = route;
-      const pattern = pathJoin("/", ...paths);
-
-      Route.use(pattern, Handler);
-    });
-
-    if (!last) {
-      return;
-    }
-
-    routes.push(last);
   };
 
   return Route;
 }
 
 export function Redirect(props: { relative?: boolean; to: string }) {
-  const { baseUrl } = useContext(Context.BaseUrl);
+  const { baseUrl } = useContext(Context);
+
+  //console.log({ props, baseUrl });
 
   const path = pathJoin(baseUrl, props.to);
 
-  console.log(`redirect to ${path}`);
+  //console.log(`redirect to ${path}`);
 
   useEffect(() => {
     setTimeout(() => history.replace(path));
@@ -261,6 +170,33 @@ function isRoute(fn: any) {
   return key in fn;
 }
 
+export function MissingRoute() {
+  return <div>Missing Path...</div>;
+}
+
+export function Outlet() {
+  const Component = useContext(Context).Outlet;
+
+  //console.log({ Outlet: Component });
+
+  if (!Component) {
+    return null;
+  }
+
+  return <Component />;
+}
+
+export function useRelative() {
+  const { baseUrl } = useContext(Context);
+
+  return useCallback(
+    (...paths: string[]) => {
+      history.push(pathJoin(baseUrl, ...paths));
+    },
+    [baseUrl]
+  );
+}
+
 export default Router;
 
 export { history };
@@ -268,10 +204,25 @@ export { history };
 /**
  * Type
  */
-type ContextValue = ((props: any) => JSX.Element) | null;
+interface IContext {
+  baseUrl: string;
+  Outlet: null | (() => JSX.Element);
+}
+
+interface State {
+  Element: (() => JSX.Element) | null;
+  chunk: string;
+  pattern: string;
+}
+
+interface Sync {
+  state: State;
+  parent: string;
+}
 
 type Route = {
   (): JSX.Element;
-  use: (path: string, Component: (props: any) => JSX.Element) => void;
-  root: () => void;
+  use: (pattern: string, Component: FComponent) => void;
 };
+
+type FComponent = (props: unknown) => JSX.Element;

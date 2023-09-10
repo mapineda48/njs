@@ -1,7 +1,7 @@
 import { useRelative } from "Router";
 
 export default function HomeShop() {
-  const { changeTo } = useRelative();
+  const changeTo = useRelative();
 
   return (
     <div>
