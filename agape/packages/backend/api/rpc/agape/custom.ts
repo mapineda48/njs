@@ -1,12 +1,16 @@
-import { route as agape } from ".";
-import type { AxiosInstance } from "axios";
+import type { AxiosInstance as Axios } from "axios";
 
-export function uploadFile(axios: AxiosInstance, file: File, fileName: string) {
+export function uploadFile(
+  path: Path,
+  axios: Axios,
+  file: File,
+  fileName: string
+) {
   if (!withExt(fileName) && withExt(file.name)) {
     fileName = fileName + getExt(file.name);
   }
 
-  const route = agape.uploadFile + "/" + fileName;
+  const route = path.uploadFile + "/" + fileName;
   const headers = getHeaders(file);
 
   return axios.post(route, file, { headers }).then((res) => res.data);
@@ -31,3 +35,10 @@ function getExt(fileName: string) {
 
   return fileName.substring(dotIndex);
 }
+
+export default { uploadFile };
+
+/**
+ * Types
+ */
+type Path = { [K: string]: string };

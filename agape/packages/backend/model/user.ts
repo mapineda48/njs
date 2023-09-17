@@ -2,7 +2,7 @@ import { Sequelize, Model, DataTypes, ModelStatic } from "sequelize";
 import { ModelName as DocumentType } from "./documentType";
 import * as Integration from "../api/model/user";
 
-export const { ModelName } = Integration;
+export const ModelName = "user";
 
 export function define(seq: Sequelize) {
   const documentType = seq.models[DocumentType];

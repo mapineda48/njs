@@ -2,7 +2,7 @@ import { Sequelize, Model, DataTypes, ModelStatic } from "sequelize";
 import * as Integration from "../api/model/access";
 import { ModelName as Employee } from "./employee";
 
-export const { ModelName } = Integration;
+export const ModelName = "access";
 
 export function define(seq: Sequelize) {
   const employee = seq.models[Employee];

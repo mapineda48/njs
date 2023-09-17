@@ -1,7 +1,5 @@
 import * as ORM from "./util/orm";
 
-export const ModelName = "setting";
-
 export interface IRecord extends ORM.Record {
   key: string;
   value: unknown;

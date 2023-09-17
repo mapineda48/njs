@@ -1,7 +1,5 @@
 import * as ORM from "./util/orm";
 
-export const ModelName = "role";
-
 export interface IRecord extends ORM.Record {
   fullName: string;
   isEnabled: boolean;

@@ -3,7 +3,7 @@ version: "3"
 services:
   app:
     container_name: app-agape
-    image: node:16
+    image: node:18
     tty: true
     volumes:
       - "../..:/home/njs"

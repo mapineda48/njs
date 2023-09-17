@@ -1,7 +1,7 @@
 import { Sequelize, Model, DataTypes, ModelStatic } from "sequelize";
 import * as Integration from "../api/model/setting";
 
-export const { ModelName } = Integration;
+export const ModelName = "setting";
 
 export function define(seq: Sequelize) {
   const role = seq.define<Model<Integration.IModel>>(

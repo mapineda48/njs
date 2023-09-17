@@ -1,7 +1,5 @@
 import * as ORM from "./util/orm";
 
-export const ModelName = "employee";
-
 export interface IRecord extends ORM.Record {
   userId: number;
 }

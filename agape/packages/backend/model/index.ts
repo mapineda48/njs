@@ -8,7 +8,6 @@ import * as role from "./role";
 import * as documentType from "./documentType";
 import * as access from "./access";
 import * as employeeRole from "./employeeRole";
-  
 
 const models = [setting, documentType, role, user, employee, access];
 
@@ -26,6 +25,14 @@ export interface Database {
   readonly withTransaction: <T extends CallBack>(cb: T) => T;
   readonly models: Sequelize["models"];
 }
+
+export const apis = [
+  documentType.ModelName,
+  user.ModelName,
+  role.ModelName,
+  employeeRole.ModelName,
+  employee.ModelName,
+];
 
 const db: unknown = {};
 

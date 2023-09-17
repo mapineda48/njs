@@ -1,5 +1,3 @@
-class AppError {
+export default class RouteError {
   constructor(public code: number, public message: string) {}
 }
-
-export default AppError;

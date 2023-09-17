@@ -1,5 +1,6 @@
 import { ValidationErrorItem } from "sequelize";
-import AppError from "./AppError";
+import RouteError from "./RouteError";
+import { JwtError } from "../../../jwt";
 
 export function tryParseError(val: unknown): [number, string] {
   const validationError = logSequelizeError(val);
@@ -8,8 +9,13 @@ export function tryParseError(val: unknown): [number, string] {
     return [400, validationError];
   }
 
-  if (val instanceof AppError) {
+  if (val instanceof RouteError) {
     return [val.code, val.message];
+  }
+
+  if (val instanceof JwtError) {
+    logUnkownError(val);
+    return [401, "Unauthorized"];
   }
 
   logUnkownError(val);
@@ -41,11 +47,4 @@ function logUnkownError(val: unknown) {
   console.log("------------------Unknown error-------------------------");
   console.error(val);
   console.log("-------------------------------------------------------");
-}
-
-/**
- * Types
- */
-interface ErrorInterface<T extends Error = Error> {
-  new (name: string): T;
 }

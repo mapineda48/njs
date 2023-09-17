@@ -1,6 +1,6 @@
-import { AxiosInstance } from "../axios";
+import { AxiosInstance as Axios } from "axios";
 
-export function initApi(axios: AxiosInstance, map: IMap) {
+export function initApi<T>(axios: Axios, map: IMap, path: IMap) {
   const api: unknown = Object.fromEntries(
     Object.entries(map).map(([methodName, route]: any) => {
       if (typeof route === "string") {
@@ -12,14 +12,15 @@ export function initApi(axios: AxiosInstance, map: IMap) {
       }
 
       if (typeof route === "function") {
-        return [methodName, (...args: unknown[]) => route(axios, ...args)];
+        const method = (...args: unknown[]) => route(path, axios, ...args);
+        return [methodName, method];
       }
 
-      return [methodName, initApi(axios, route)];
+      return [methodName, initApi(axios, route, path)];
     })
   );
 
-  return api;
+  return api as T;
 }
 
 /**

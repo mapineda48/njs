@@ -1,14 +1,12 @@
 import Database from "../../model";
 import * as jwt from "../../jwt";
-import Unauthorized from "../../error/Unauthorized";
-import { tryParseError } from "../../error";
-import { session } from "../api";
-import { route, Authenticate, User } from "../../api/auth/type/agape";
-import { Req, Res, Next } from "../error";
+import Unauthorized from "../rpc/error/Unauthorized";
+import { tryParseError } from "../rpc/error";
+import { session, Req, Res, Next } from "../rpc";
+import type SigIng from "../../api/auth/agape";
+import type { User } from "../../api/auth/agape";
 
-export { route };
-
-export const authenticate: Authenticate = async (...args: string[]) => {
+const sigIn: SigIng = async (...args: string[]) => {
   const [username, password] = args;
   const userAgent: string = session.get("userAgent");
 
@@ -52,11 +50,9 @@ export function verify(req: Req, res: Res, next: Next) {
   jwt
     .verify(token, "app", userAgent)
     .then((payload) => {
-      //console.log({ payload });
+      next();
     })
-    .catch((err) => console.error(err));
-
-  return next();
+    .catch((error) => next(error))
 }
 
 export async function getUser(id: number): Promise<User> {
@@ -100,3 +96,5 @@ export async function auth(username: string, password: string) {
 
   return employee.toJSON();
 }
+
+export default sigIn;

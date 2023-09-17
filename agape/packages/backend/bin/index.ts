@@ -9,7 +9,7 @@ import * as Minio from "minio";
 import Storage from "../storage";
 import Database from "../model";
 import * as jwt from "../jwt";
-import appRouter from "../router";
+import appRouter from "../src/rpc";
 import { clearDataDemo } from "../model/util/demo";
 
 export const isDev = !(process.env.NODE_ENV === "production");
@@ -81,7 +81,7 @@ const port = parseInt(env("PORT", "5000"));
 
   app.use(logger("dev"));
 
-  app.use(appRouter(agapeApp));
+  app.use(appRouter());
 
   app.listen(port, () => console.log(`server on port ${port}`));
 })().catch(console.error);

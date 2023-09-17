@@ -1,7 +1,7 @@
 import { Model, ModelStatic } from "sequelize";
-import { ModelName, IData, IRecord } from "../api/model/employeeRole";
+import { IData, IRecord } from "../api/model/employeeRole";
 
-export { ModelName };
+export const ModelName = "employeeRole";
 
 /**
  * Types

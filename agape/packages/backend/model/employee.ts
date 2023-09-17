@@ -4,7 +4,7 @@ import { ModelName as Role } from "./role";
 import { ModelName as EmployeeRole } from "./employeeRole";
 import * as Integration from "../api/model/employee";
 
-export const { ModelName } = Integration;
+export const ModelName = "employee";
 
 export function define(seq: Sequelize) {
   const user = seq.models[User];

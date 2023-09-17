@@ -1,11 +1,4 @@
-import { auth as api } from "../../baseUrl";
-
-export const route = api("agape");
-
-/**
- * Types
- */
-export interface Authenticate {
+export default interface SigIn {
   (token: string): Promise<Auth>;
   (username: string, password: string): Promise<Auth>;
 }

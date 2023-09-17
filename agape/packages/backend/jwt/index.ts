@@ -25,7 +25,7 @@ export function setSecret(key: string) {
  */
 export function sign(payload: object | string, ...secrets: string[]) {
   if (!delemiter) {
-    throw new Error("Unhandler jwt.sign");
+    throw new JwtError("Unhandler jwt.sign");
   }
 
   if (secrets.length < 2) {
@@ -39,7 +39,7 @@ export function sign(payload: object | string, ...secrets: string[]) {
       if (err) return rej(err);
 
       if (!token) {
-        return rej(new Error("Unhandler jwt.sign"));
+        return rej(new JwtError("Unhandler jwt.sign"));
       }
 
       res(token);
@@ -52,7 +52,7 @@ export function sign(payload: object | string, ...secrets: string[]) {
  */
 export function verify(token: string, ...secrets: string[]) {
   if (!delemiter) {
-    throw new Error("Unhandler jwt.verify");
+    throw new JwtError("Unhandler jwt.verify");
   }
 
   if (secrets.length < 2) {
@@ -66,14 +66,20 @@ export function verify(token: string, ...secrets: string[]) {
       if (err) return rej(err);
 
       if (!payload) {
-        return rej(new Error("Unhandler jwt.sign"));
+        return rej(new JwtError("Unhandler jwt.sign"));
       }
 
       if (typeof payload === "string") {
-        return rej(new Error("unsupport string payload twt"));
+        return rej(new JwtError("unsupport string payload twt"));
       }
 
       res(payload);
     });
   });
+}
+
+export class JwtError extends Error {
+  constructor(message: string) {
+    super(message);
+  }
 }
