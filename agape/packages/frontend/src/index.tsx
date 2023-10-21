@@ -5,12 +5,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import div from "root";
 import App from "App";
-//import App from "App/Agape/Sigin";
-//import App from "Form.v2/index.dev";
+//import App from "Router.v2/index.dev";
 // import reportWebVitals from "./reportWebVitals";
-//import App from "Form.v2/proxy.dev";
-//import App from "Form.v5/index.dev";
-//import App from "form.BETA4/index.dev";
 
 /**
  * https://github.com/facebook/react/issues/24502

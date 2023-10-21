@@ -7,18 +7,22 @@ import {
   useState,
 } from "react";
 import history from "history/browser";
-import { Routes, extractParams, pathJoin } from "./util";
+import { extractParams, pathJoin } from "./util";
 import RouteExp from "./RouteExp";
 
 const key = Symbol();
-const Context = createContext<IContext>({ baseUrl: "", Outlet: null });
-const initState = {} as State;
 
-export function Router(BaseUrl?: FComponent): Route {
+const initState = {};
+const Context = {
+  BaseUrl: createContext(""),
+  Outlet: createContext(null),
+};
+
+export function Router(BaseUrl) {
   const map = new Map();
-  const routes: Routes = [];
+  const routes = [];
 
-  const sync = ({ state, parent: nested }: Sync) => {
+  const sync = ({ state, parent: nested }) => {
     const root = new RouteExp(nested);
     const pathname = history.location.pathname.replace(root.startWith, "");
 
@@ -43,28 +47,21 @@ export function Router(BaseUrl?: FComponent): Route {
 
     const Element = isNested ? Match[key] : () => <Match param={param} />;
 
-    const Provider = () => (
-      <Context.Provider
-        value={{ baseUrl: parent, Outlet: !BaseUrl ? null : Element }}
-      >
-        {BaseUrl ? <BaseUrl /> : <Element />}
-      </Context.Provider>
-    );
-
     return {
-      Element: Provider,
       chunk,
       pattern,
+      baseUrl: parent,
+      Element,
     };
   };
 
   /**
    * Function Component
    */
-  const Route: any = () => {
-    const parent = useContext(Context).baseUrl;
+  let Route = () => {
+    const parent = useContext(Context.BaseUrl);
 
-    const [state, setState] = useState<State>(
+    const [state, setState] = useState(
       () => sync({ state: initState, parent }) ?? initState
     );
 
@@ -85,12 +82,26 @@ export function Router(BaseUrl?: FComponent): Route {
       });
     }, []);
 
-    if (state.Element) {
-      return <state.Element />;
+    if (!state.Element) {
+      return null;
     }
 
-    return null;
+    return (
+      <Context.BaseUrl.Provider value={state.baseUrl}>
+        <state.Element />
+      </Context.BaseUrl.Provider>
+    );
   };
+
+  if (BaseUrl) {
+    const Element = Route;
+
+    Route = () => (
+      <Context.Outlet.Provider value={Element}>
+        <BaseUrl />
+      </Context.Outlet.Provider>
+    );
+  }
 
   /**
    * Cuando se anidan las rutas esto permite a la ruta superior saber cuales son las
@@ -106,7 +117,7 @@ export function Router(BaseUrl?: FComponent): Route {
   /**
    * Intentando imitar el comportamiendo de expressjs, agregar los manejadores de cada ruta
    */
-  Route.use = (pattern: string, Handler: any) => {
+  Route.use = (pattern, Handler) => {
     if (typeof Handler !== "function") {
       throw new Error("Only support function components");
     }
@@ -136,11 +147,11 @@ export function Router(BaseUrl?: FComponent): Route {
      * los manejadores de para esta
      */
 
-    const patterns = Handler[key].map((route: string) => {
+    const patterns = Handler[key].map((route) => {
       return pathJoin(pattern, route);
     });
 
-    patterns.forEach((route: string) => {
+    patterns.forEach((route) => {
       routes.push(new RouteExp(route));
 
       map.set(route, { pattern, [key]: Handler });
@@ -150,8 +161,8 @@ export function Router(BaseUrl?: FComponent): Route {
   return Route;
 }
 
-export function Redirect(props: { relative?: boolean; to: string }) {
-  const { baseUrl } = useContext(Context);
+export function Redirect(props) {
+  const baseUrl = useContext(Context.BaseUrl);
 
   //console.log({ props, baseUrl });
 
@@ -166,7 +177,7 @@ export function Redirect(props: { relative?: boolean; to: string }) {
   return null;
 }
 
-function isRoute(fn: any) {
+function isRoute(fn) {
   return key in fn;
 }
 
@@ -175,9 +186,7 @@ export function MissingRoute() {
 }
 
 export function Outlet() {
-  const Component = useContext(Context).Outlet;
-
-  //console.log({ Outlet: Component });
+  const Component = useContext(Context.Outlet);
 
   if (!Component) {
     return null;
@@ -187,10 +196,10 @@ export function Outlet() {
 }
 
 export function useRelative() {
-  const { baseUrl } = useContext(Context);
+  const baseUrl = useContext(Context.BaseUrl);
 
   return useCallback(
-    (...paths: string[]) => {
+    (...paths) => {
       history.push(pathJoin(baseUrl, ...paths));
     },
     [baseUrl]
@@ -200,29 +209,3 @@ export function useRelative() {
 export default Router;
 
 export { history };
-
-/**
- * Type
- */
-interface IContext {
-  baseUrl: string;
-  Outlet: null | (() => JSX.Element);
-}
-
-interface State {
-  Element: (() => JSX.Element) | null;
-  chunk: string;
-  pattern: string;
-}
-
-interface Sync {
-  state: State;
-  parent: string;
-}
-
-type Route = {
-  (): JSX.Element;
-  use: (pattern: string, Component: FComponent) => void;
-};
-
-type FComponent = (props: unknown) => JSX.Element;
