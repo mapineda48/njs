@@ -2,7 +2,7 @@ import { useSession } from "App/Agape/Session";
 import { Outlet, useRelative } from "Router";
 
 export default function Menu() {
-  const { user } = useSession();
+  const { user, logout } = useSession();
   const changeTo = useRelative();
 
   return (
@@ -22,13 +22,7 @@ export default function Menu() {
       >
         setting
       </button>
-      <button
-        onClick={() => {
-          
-        }}
-      >
-        login
-      </button>
+      <button onClick={logout}>logout</button>
       <div>
         <Outlet />
       </div>

@@ -6,18 +6,19 @@ import cls from "cls-hooked";
 import { verify as agape } from "../auth/agape";
 import initModels, { baseUrl as model } from "./model";
 import { toJsonApi } from "./util";
+import onError from "./error/route";
 
 const src = path.resolve("src");
 
-export default function main() {
+export default async function main() {
   const route = express.Router();
 
   route.use("/api/agape", agape);
   route.use(model, agape);
 
-  loadApi(route).catch((error) => {
-    throw error;
-  });
+  await loadApi(route);
+
+  route.use(onError);
 
   return route;
 }
@@ -46,7 +47,7 @@ async function loadApi(router: express.Router) {
   //console.log(api);
 
   api = api.map(([file, mod]: any) => {
-    const path = "/api/" + file.replace(ext,"");
+    const path = "/api/" + file.replace(ext, "");
 
     if ("default" in mod) {
       router.post(path, toHandlerReq(mod.default));

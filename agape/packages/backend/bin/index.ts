@@ -9,8 +9,8 @@ import * as Minio from "minio";
 import Storage from "../storage";
 import Database from "../model";
 import * as jwt from "../jwt";
-import appRouter from "../src/rpc";
 import { clearDataDemo } from "../model/util/demo";
+import initRcp from "../src/rpc";
 
 export const isDev = !(process.env.NODE_ENV === "production");
 
@@ -71,6 +71,11 @@ const port = parseInt(env("PORT", "5000"));
   await Storage.Init(minio);
 
   /**
+   * Remote procedure call
+   */
+  const rcp = await initRcp();
+
+  /**
    * Http Server
    */
   const app = express();
@@ -81,7 +86,7 @@ const port = parseInt(env("PORT", "5000"));
 
   app.use(logger("dev"));
 
-  app.use(appRouter());
+  app.use(rcp);
 
   app.listen(port, () => console.log(`server on port ${port}`));
 })().catch(console.error);
