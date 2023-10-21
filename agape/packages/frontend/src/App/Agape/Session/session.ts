@@ -1,5 +1,5 @@
 import authenticate, { Session } from "backend/api/rpc/agape";
-import initForm, { FormState, FormError } from "form.BETA4";
+import initForm, { FormState, FormError } from "form";
 import initCache from "./storage";
 
 let current: Omit<Session, "token"> | undefined;

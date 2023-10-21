@@ -1,7 +1,7 @@
 import { Outlet } from "Router";
 import { createContext, useContext } from "react";
 import useForm, { Session as User } from "./session";
-import Input from "form.BETA4/Input";
+import Input from "form/Input";
 import useToolTip from "hook/bootstrap/useTooltip";
 
 const Context = createContext<Session | null>(null);
