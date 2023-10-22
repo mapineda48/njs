@@ -5,18 +5,30 @@ const task = Symbol("task");
 const error = Symbol("error");
 const skipPayload = error;
 
-export default function initForm(prototype, log) {
-  const { onInit, onError, ...proxy } = prototype;
+export default class Form {
+  static createHook(log) {
+    const instance = new this();
 
-  const entries = Object.entries(proxy);
+    if (!isForm(instance, Form)) {
+      throw new Error("unsopport form");
+    }
 
-  const methods = entries.filter(([, val]) => typeof val === "function");
+    return initForm(instance, log);
+  }
+}
 
-  const initState = Object.fromEntries(
-    entries.filter(([, val]) => typeof val !== "function")
-  );
+export function isForm(obj, Form) {
+  return Object.getPrototypeOf(Object.getPrototypeOf(obj)) === Form.prototype;
+}
 
-  return function useForm(init) {
+export function initForm(src, log) {
+  const { onError, onInit } = src;
+
+  const methods = getReducer(src);
+
+  const initState = getState(src);
+
+  return function useForm(init, ext) {
     const [state, setState] = useState(() => {
       let state = typeof init === "function" ? init() : init;
 
@@ -43,7 +55,7 @@ export default function initForm(prototype, log) {
     ref.current = state;
 
     const form = useMemo(() => {
-      const current = {};
+      const current = { ...ext };
 
       let get = (target, propName) => {
         if (propName === "isLoading" && ref.current[task]) {
@@ -132,7 +144,7 @@ export default function initForm(prototype, log) {
       }
 
       return proxy;
-    }, []);
+    }, [ext]);
 
     useEffect(() => {
       return () => {
@@ -196,4 +208,24 @@ function deleteRef(obj) {
   if (task in obj) {
     delete obj[task];
   }
+}
+
+function getState(obj) {
+  const entries = Object.entries(obj).filter(
+    ([, val]) => typeof val !== "function"
+  );
+
+  return Object.fromEntries(entries);
+}
+
+const skipReducers = ["constructor", "onError", "onInit"];
+
+function getReducer(obj) {
+  const prototype = Object.getPrototypeOf(obj);
+
+  return Object.getOwnPropertyNames(prototype)
+    .filter(
+      (name) => typeof obj[name] === "function" && !skipReducers.includes(name)
+    )
+    .map((name) => [name, obj[name]]);
 }

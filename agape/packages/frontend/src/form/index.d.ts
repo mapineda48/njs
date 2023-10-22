@@ -2,10 +2,7 @@ import type { AxiosError as FormError } from "axios";
 
 export type { FormError };
 
-export default function initForm<T, S = State<T>>(
-  form: T,
-  log?: boolean
-): (init?: Partial<S> | (() => Partial<S>)) => S &
+type Hook<T, S> = (init?: Partial<S> | (() => Partial<S>)) => S &
   Omit<Reducer<S, T>, InternalKey> & {
     set: (state: Partial<S>) => void;
     get: () => S;
@@ -39,3 +36,17 @@ type NonFunctionProperties<T> = {
 type FormEvent = React.FormEvent<HTMLFormElement>;
 
 export type FormState<T> = State<T>;
+
+export function initForm<T, S = State<T>>(
+  prototype: T,
+  log?: boolean
+): Hook<T, S>;
+
+export default class Form {
+  isLoading: boolean;
+
+  static createHook<T extends Form, S = State<T>>(
+    this: new () => T,
+    log?: boolean
+  ): Hook<T, S>;
+}

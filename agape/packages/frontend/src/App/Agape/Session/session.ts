@@ -1,18 +1,18 @@
 import authenticate, { Session } from "backend/api/rpc/agape";
-import initForm, { FormState, FormError } from "form";
+import Form, { FormState, FormError } from "form";
 import initCache from "./storage";
 
 let current: Omit<Session, "token"> | undefined;
 
 const cache = initCache("session");
 
-const proto = {
-  username: "",
-  password: "",
-  login: false,
-  rememberMe: false,
-  session: current,
-  error: "",
+class Login extends Form {
+  username = "";
+  password = "";
+  login = false;
+  rememberMe = false;
+  session = current;
+  error = "";
 
   async submit() {
     this.error = "";
@@ -28,7 +28,7 @@ const proto = {
     }
 
     this.session = current = session;
-  },
+  }
 
   logout() {
     this.username = "";
@@ -39,7 +39,7 @@ const proto = {
     this.session = current = undefined;
 
     cache.remove();
-  },
+  }
 
   onError(error: FormError) {
     if (error.response?.status === 401) {
@@ -48,7 +48,7 @@ const proto = {
     }
 
     this.error = "Error desconocido";
-  },
+  }
 
   onInit() {
     if (current) {
@@ -64,8 +64,8 @@ const proto = {
     }
 
     return remember(token);
-  },
-};
+  }
+}
 
 async function remember(user: string) {
   try {
@@ -82,10 +82,10 @@ async function remember(user: string) {
   }
 }
 
-export default initForm(proto);
+export default Login.createHook(true);
 
 /**
  * Types
  */
 export type { Session };
-export type State = FormState<typeof proto>;
+export type State = FormState<Login>;

@@ -41,7 +41,15 @@ export default function UserSession() {
   return (
     <div className="d-flex justify-content-center align-items-center h-100 w-100">
       <div className="form-signin text-center">
-        <form onSubmit={form.submit}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            console.log(form);
+            form.submit();
+          }}
+        >
           <img
             className="mb-4"
             src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg"
