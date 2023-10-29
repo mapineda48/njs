@@ -1,4 +1,4 @@
-import Database from "../../model";
+import db from "../../models";
 import * as jwt from "../../jwt";
 import Unauthorized from "../rpc/error/Unauthorized";
 import { tryParseError } from "../rpc/error";
@@ -52,11 +52,11 @@ export function verify(req: Req, res: Res, next: Next) {
     .then((payload) => {
       next();
     })
-    .catch((error) => next(error))
+    .catch((error) => next(error));
 }
 
 export async function getUser(id: number): Promise<User> {
-  const user = await Database.user.findOne({ where: { id } });
+  const user = await db.user.findOne({ where: { id } });
 
   if (!user) {
     throw new Unauthorized();
@@ -73,7 +73,7 @@ export async function auth(username: string, password: string) {
   let employeeId = 0;
 
   try {
-    const access = await Database.access.findOne({
+    const access = await db.employee.access.findOne({
       where: { username, password, isEnabled: true },
     });
 
@@ -86,7 +86,7 @@ export async function auth(username: string, password: string) {
     throw new Unauthorized();
   }
 
-  const employee = await Database.employee.findOne({
+  const employee = await db.employee.associate.findOne({
     where: { id: employeeId },
   });
 

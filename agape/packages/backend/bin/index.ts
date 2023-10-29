@@ -7,9 +7,9 @@ import { Sequelize } from "sequelize";
 import cls from "cls-hooked";
 import * as Minio from "minio";
 import Storage from "../storage";
-import Database from "../model";
+import Database from "../models";
 import * as jwt from "../jwt";
-import { clearDataDemo } from "../model/util/demo";
+import { clearDataDemo } from "@util/demo";
 import initRcp from "../src/rpc";
 
 export const isDev = !(process.env.NODE_ENV === "production");

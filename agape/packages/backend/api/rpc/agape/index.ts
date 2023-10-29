@@ -16,7 +16,7 @@ export const sigin: SigIn = async (...args: string[]) => {
 
 const authenticate: Authenticate = async (...args: [string]) => {
   const { user, token } = await sigin(...args);
-  const { model, agape } = await api();
+  const { models, agape } = await api();
 
   const session = create({ headers: { token } });
 
@@ -25,7 +25,7 @@ const authenticate: Authenticate = async (...args: [string]) => {
   return {
     token,
     user,
-    model: initModels(session, model),
+    models: initModels(session, models),
     api: initApi<IAgape>(session, foo, agape),
   };
 };
@@ -44,6 +44,6 @@ export interface Authenticate {
 export interface Session {
   token: string;
   user: User;
-  model: IModel;
+  models: IModel;
   api: IAgape;
 }

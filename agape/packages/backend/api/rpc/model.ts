@@ -1,12 +1,15 @@
 import type { AxiosInstance as Axios } from "axios";
-import type IModel from "../model";
+import type IModel from "../models";
 
 export default function initModels(axios: Axios, route: IApi) {
   const api: unknown = Object.fromEntries(
-    Object.entries(route).map(([modelName, path]) => [
-      modelName,
-      initModel(axios, path),
-    ])
+    Object.entries(route).map(([modelName, path]) => {
+      if (typeof path === "string") {
+        return [modelName, initModel(axios, path)];
+      }
+
+      return [modelName, initModels(axios, path)];
+    })
   );
 
   return api as IModel;

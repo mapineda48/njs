@@ -1,6 +1,6 @@
 import axios from "./axios";
 import type IAuth from "../auth";
-import type IModel from "../model";
+import type IModel from "../models";
 import type IAgape from "../agape";
 
 let cache: IRoute | null = null;
@@ -21,7 +21,7 @@ export type { IModel };
 
 export type IRoute = ToRoute<{
   auth: IAuth;
-  model: {
+  models: {
     [K in keyof IModel]: string;
   };
   agape: IAgape

@@ -5,7 +5,7 @@
   "main": "api/index.ts",
   "types": "api",
   "scripts": {
-    "start": "ts-node bin/index.ts",
+    "start": "ts-node -r tsconfig-paths/register bin/index.ts",
     "types": "tsc --noEmit",
     "build:frontend": "cd ../frontend && yarn build",
     "build:backend": "tsc",
@@ -26,6 +26,7 @@
     "pg-hstore": "^2.3.4",
     "raw-body": "^2.5.2",
     "sequelize": "^6.28.0",
+    "tsconfig-paths": "^4.2.0",
     "tslib": "^2.5.0"
   },
   "devDependencies": {

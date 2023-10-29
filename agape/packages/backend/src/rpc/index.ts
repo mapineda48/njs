@@ -60,7 +60,7 @@ async function loadApi(router: express.Router) {
 
   api = toJsonApi(api);
 
-  api.model = initModels(router);
+  api.models = initModels(router);
 
   console.log(api);
 
