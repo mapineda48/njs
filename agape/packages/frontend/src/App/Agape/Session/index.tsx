@@ -1,20 +1,12 @@
 import { Outlet } from "Router";
 import { createContext, useContext } from "react";
-import useForm, { Session as User } from "./session";
 import Input from "form/Input";
 import useToolTip from "hook/bootstrap/useTooltip";
+import { usePromise, Task } from "hook/usePromise";
+import Loading from "App/Loading";
+import useForm, { Session as User } from "./session";
 
 const Context = createContext<Session | null>(null);
-
-export function useSession() {
-  const session = useContext(Context);
-
-  if (!session) {
-    throw new Error("missing session api");
-  }
-
-  return session;
-}
 
 export default function UserSession() {
   const form = useForm();
@@ -30,7 +22,7 @@ export default function UserSession() {
 
   if (!form.login) {
     if (form.isLoading) {
-      return <div>loading...</div>;
+      return <Loading />;
     }
 
     if (form.error) {
@@ -39,7 +31,7 @@ export default function UserSession() {
   }
 
   return (
-    <div className="d-flex justify-content-center align-items-center h-100 w-100">
+    <div className="d-flex justify-content-center align-items-center h-100 w-100 position-absolute">
       <div className="form-signin text-center">
         <form
           onSubmit={(e) => {
@@ -104,6 +96,29 @@ export default function UserSession() {
       </div>
     </div>
   );
+}
+
+export function useSession() {
+  const session = useContext(Context);
+
+  if (!session) {
+    throw new Error("missing session api");
+  }
+
+  return session;
+}
+
+export function useApi<
+  T extends (api: Session) => (...args: any[]) => Promise<any>
+>(
+  cb: T
+): T extends (api: Session) => (...args: infer A) => Promise<infer R>
+  ? Task<A, R>
+  : unknown;
+export function useApi(cb: any): any {
+  const api = useSession();
+
+  return usePromise(cb(api));
 }
 
 /**

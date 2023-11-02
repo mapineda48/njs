@@ -9,7 +9,13 @@ type Hook<T, S> = (init?: Partial<S> | (() => Partial<S>)) => S &
     isLoading: boolean;
   } & ("submit" extends keyof T ? { submit: (e?: FormEvent) => void } : {});
 
-type InternalKey = "set" | "get" | "submit" | "onInit" | "onError";
+type InternalKey =
+  | "set"
+  | "get"
+  | "submit"
+  | "onInit"
+  | "onError"
+  | "onDestroy";
 
 type Reducer<S, R> = {
   [K in IsReducer<S, R>]: R[K] extends (...args: infer A) => any
@@ -35,7 +41,7 @@ type NonFunctionProperties<T> = {
 
 type FormEvent = React.FormEvent<HTMLFormElement>;
 
-export type FormState<T> = State<T>;
+export type IState<T> = State<T>;
 
 export function initForm<T, S = State<T>>(
   prototype: T,
@@ -49,4 +55,7 @@ export default class Form {
     this: new () => T,
     log?: boolean
   ): Hook<T, S>;
+
+  set<T extends Form, S = State<T>>(this: T, state: Partial<S>): void;
+  get<T extends Form, S = State<T>>(this: T): S;
 }

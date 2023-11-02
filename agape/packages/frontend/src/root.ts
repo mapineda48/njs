@@ -1,8 +1,8 @@
 const root = document.getElementById("root") as HTMLDivElement;
 
 const resize = () => {
-  root.style.height = `${window.innerHeight}px`;
-  root.style.width = `${window.innerWidth}px`;
+  root.style.minHeight = window.innerHeight + "px";
+  //root.style.width = `${window.innerWidth}px`;
 };
 
 resize();

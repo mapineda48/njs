@@ -3,6 +3,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -204,6 +205,42 @@ export function useRelative() {
     },
     [baseUrl]
   );
+}
+
+export function useRoute(...paths) {
+  const [state, setState] = useState(false);
+  const baseUrl = useContext(Context.BaseUrl);
+  const ref = useRef(state);
+  ref.current = state;
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const url = useMemo(() => pathJoin(baseUrl, ...paths), [baseUrl, ...paths]);
+
+  const changeTo = useCallback(() => {
+    if (ref.current) {
+      return;
+    }
+
+    history.push(url);
+  }, [url]);
+
+  const inRoute = useCallback(() => {
+    const state = history.location.pathname.startsWith(url);
+
+    if (state === ref.current) {
+      return;
+    }
+
+    setState(state);
+  }, [url]);
+
+  useEffect(() => {
+    inRoute();
+
+    return history.listen(inRoute);
+  }, [inRoute]);
+
+  return { changeTo, inRoute: state };
 }
 
 export default Router;

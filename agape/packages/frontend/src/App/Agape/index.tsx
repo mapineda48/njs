@@ -1,6 +1,7 @@
 import Router, { Redirect } from "Router";
 import Session from "./Session";
 import Dashboard from "./Dashboard";
+import "./index.scss";
 
 const Agape = Router(Session);
 

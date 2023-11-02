@@ -22,38 +22,72 @@ export function isForm(obj, Form) {
 }
 
 export function initForm(src, log) {
-  const { onError, onInit } = src;
+  const { onError, onInit, onDestroy } = src;
 
   const methods = getReducer(src);
 
   const initState = getState(src);
 
   return function useForm(init, ext) {
+    /**
+     * onInitEvent
+     */
     const [state, setState] = useState(() => {
       let state = typeof init === "function" ? init() : init;
 
       state = { ...initState, ...state };
 
-      const res = onInit && onInit.call(state);
+      const proxy = new Proxy(
+        {},
+        {
+          set(target, propName, value) {
+            if (propName in state) {
+              state[propName] = value;
+            }
 
-      if (!res) {
-        return state;
-      }
+            return true;
+          },
+
+          get(target, propName) {
+            if (propName in state) {
+              return state[propName];
+            }
+
+            if (propName in ext) {
+              return ext[propName];
+            }
+
+            if (propName === "set") {
+              return (partial) => {
+                state = { ...state, ...partial };
+              };
+            }
+          },
+        }
+      );
+
+      const res = onInit && onInit.call(proxy);
 
       if (res instanceof Promise) {
         state[task] = res;
       }
 
-      return { ...state, ...res };
+      return state;
     });
 
     if (log) {
       console.log(state);
     }
 
+    /**
+     * Ref State
+     */
     const ref = useRef(state);
     ref.current = state;
 
+    /**
+     * Proxy
+     */
     const form = useMemo(() => {
       const current = { ...ext };
 
@@ -146,12 +180,35 @@ export function initForm(src, log) {
       return proxy;
     }, [ext]);
 
+    /**
+     * Clean all ref when form unmount
+     */
     useEffect(() => {
       return () => {
         form[mount] = false;
       };
     }, [form]);
 
+    /**
+     * Detroy event
+     */
+    useEffect(() => {
+      if (!onDestroy) {
+        return;
+      }
+
+      return () => {
+        try {
+          onDestroy(structuredClone(ref.current));
+        } catch (error) {
+          console.error(error);
+        }
+      };
+    }, []);
+
+    /**
+     * Async Methods
+     */
     const promise = state[task];
 
     useEffect(() => {
@@ -218,7 +275,7 @@ function getState(obj) {
   return Object.fromEntries(entries);
 }
 
-const skipReducers = ["constructor", "onError", "onInit"];
+const skipReducers = ["constructor", "onError", "onInit", "onDestroy"];
 
 function getReducer(obj) {
   const prototype = Object.getPrototypeOf(obj);

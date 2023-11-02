@@ -1,5 +1,10 @@
 export function useRelative(): (...paths: string[]) => void;
 
+export function useRoute(...paths: string[]): {
+  changeTo: () => void;
+  inRoute: boolean;
+};
+
 export function Redirect(props: {
   relative?: boolean;
   to: string;

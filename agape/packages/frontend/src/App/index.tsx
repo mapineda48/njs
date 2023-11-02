@@ -1,4 +1,6 @@
 import Router, { Redirect } from "Router";
+import lazy from "Lazy";
+
 import Agape from "./Agape";
 import Shop from "./Shop";
 

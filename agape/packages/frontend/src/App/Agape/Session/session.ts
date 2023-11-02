@@ -1,5 +1,5 @@
 import authenticate, { Session } from "backend/api/rpc/agape";
-import Form, { FormState, FormError } from "form";
+import Form, { IState, FormError } from "form";
 import initCache from "./storage";
 
 let current: Omit<Session, "token"> | undefined;
@@ -88,4 +88,4 @@ export default Login.createHook(true);
  * Types
  */
 export type { Session };
-export type State = FormState<Login>;
+export type State = IState<Login>;
