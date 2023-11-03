@@ -17,40 +17,13 @@ const initState = {};
 const Context = {
   BaseUrl: createContext(""),
   Outlet: createContext(null),
-  Sync: createContext(null),
 };
-
-const State = createContext({
-  baseUrl: "",
-  startWith: "",
-  getChunckPathname() {
-    return history.location.search;
-  },
-  sync() {
-    throw new Error("ups...");
-  },
-});
 
 export function Router(BaseUrl) {
   const map = new Map();
   const routes = [];
 
-  const sync2 = (setState) => {
-    return ({ current, parent }, force = false) => {
-      const pathname = parent.getChunckPathname();
-
-      const match = routes.find(({ pattern }) => pattern.test(pathname));
-
-      if (!match) {
-        throw Error("missing match route");
-      }
-
-      const { Component } = match;
-
-    };
-  };
-
-  const sync = ({ state, parent: nested }, force = false) => {
+  const sync = ({ state, parent: nested }) => {
     const root = new RouteExp(nested);
     const pathname = history.location.pathname.replace(root.startWith, "");
 
@@ -61,11 +34,7 @@ export function Router(BaseUrl) {
 
     const pattern = !isNested ? pathname : Match.pattern;
 
-    if (
-      state.pattern === pattern &&
-      pathname.startsWith(state.chunk) &&
-      !force
-    ) {
+    if (state.pattern === pattern && pathname.startsWith(state.chunk)) {
       return null;
     }
 
@@ -114,18 +83,14 @@ export function Router(BaseUrl) {
       });
     }, []);
 
-    const force = useCallback(() => setState(sync(ref.current, true)), []);
-
     if (!state.Element) {
       return null;
     }
 
     return (
-      <Context.Sync.Provider value={force}>
-        <Context.BaseUrl.Provider value={state.baseUrl}>
-          <state.Element />
-        </Context.BaseUrl.Provider>
-      </Context.Sync.Provider>
+      <Context.BaseUrl.Provider value={state.baseUrl}>
+        <state.Element />
+      </Context.BaseUrl.Provider>
     );
   };
 
@@ -149,45 +114,6 @@ export function Router(BaseUrl) {
       return routes.map((route) => route.pattern);
     },
   });
-
-  Route.lazy = (pattern, dynamicImport) => {
-    const matchAll = pattern + ".*";
-
-    const route = new RouteExp(matchAll);
-
-    routes.push(route);
-
-    const Lazy = () => {
-      const sync = useSync();
-
-      useEffect(() => {
-        let refresh = sync;
-
-        dynamicImport()
-          .then((mod) => {
-            routes.slice(routes.indexOf(route), 1);
-            map.delete(route);
-
-            Route.use(pattern, mod.default);
-
-            console.log(mod);
-
-            if (refresh) {
-              refresh();
-            }
-          })
-          .catch(console.error);
-
-        return () => {
-          refresh = null;
-        };
-      }, [sync]);
-
-      return "Loading...";
-    };
-
-    map.set(matchAll, Lazy);
-  };
 
   /**
    * Intentando imitar el comportamiendo de expressjs, agregar los manejadores de cada ruta
@@ -234,10 +160,6 @@ export function Router(BaseUrl) {
   };
 
   return Route;
-}
-
-export function useSync() {
-  return useContext(Context.Sync);
 }
 
 export function Redirect(props) {

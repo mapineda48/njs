@@ -2,7 +2,7 @@ import lodash from "lodash";
 import path from "path";
 import { Model, ModelCtor } from "sequelize";
 
-const delimiter = ".";
+export const delimiter = "_";
 
 export function toMap(models: Models) {
   const entries = Object.entries(models).map(([ModelName, model]) => {

@@ -17,7 +17,6 @@ export default function Router(BaseUrl?: FComponent): Route;
 type Route = {
   (): JSX.Element;
   use: (pattern: string, Component: FComponent) => void;
-  lazy: (pattern: string, lazy: () => Promise<unknown>) => void;
 };
 
 type FComponent = (props: unknown) => JSX.Element;

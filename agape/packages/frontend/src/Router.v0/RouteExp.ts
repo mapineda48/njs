@@ -1,6 +1,3 @@
-import toRegexp from "path-to-regexp";
-
-
 export default class RouteExp extends RegExp {
   public readonly pattern: string;
   public readonly startWith: RegExp;

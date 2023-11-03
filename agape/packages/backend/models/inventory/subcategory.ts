@@ -36,7 +36,7 @@ export function define(seq: Sequelize) {
     }
   );
 
-  category.hasMany(subcategory, { foreignKey: "categoryId" });
+  category.hasMany(subcategory, { foreignKey: "categoryId", as: "subcategories" });
   subcategory.belongsTo(category, { foreignKey: "categoryId" });
 
   return subcategory;

@@ -21,7 +21,10 @@ export interface IMethod<D, R> {
     (): Promise<R[]>;
   };
 
-  count(query: IFindSearch<R>): Promise<number>;
+  count: {
+    (): Promise<number>;
+    (query: IFindSearch<R>): Promise<number>;
+  };
 }
 
 export interface IFindAttrib<T, K extends keyof T> extends IFindSearch<T> {

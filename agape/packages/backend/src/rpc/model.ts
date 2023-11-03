@@ -2,6 +2,7 @@ import { Router } from "express";
 import { Model, ModelStatic, Op as OpSeq } from "sequelize";
 import Database, { apis } from "../../models";
 import { Op as OpApi } from "@api/models";
+import { delimiter } from "@util/models/toMap";
 import RouteError from "./error/RouteError";
 import path from "path";
 import lodash from "lodash";
@@ -10,7 +11,7 @@ export const baseUrl = "/api/models";
 
 export default function initModels(router: Router) {
   const coll = apis.map((modelName) => {
-    const keys = modelName.split(".");
+    const keys = modelName.split(delimiter);
     const api = path.join(baseUrl, ...keys);
     const model = Database.models[modelName];
 
