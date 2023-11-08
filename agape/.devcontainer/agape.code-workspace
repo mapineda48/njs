@@ -2,12 +2,6 @@
 	"folders": [
 		{
 			"path": ".."
-		},
-		{
-			"path": "../packages/backend"
-		},
-		{
-			"path": "../packages/frontend"
 		}
 	],
 	"settings": {}

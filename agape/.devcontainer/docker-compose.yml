@@ -17,9 +17,7 @@ services:
       # Required
       NODE_ENV: development
       DATABASE_URL: "postgresql://postgres:mypassword@db"
-      STORAGE_ENDPOINT: "minio"
-      STORAGE_ACCESKEY: "minio"
-      STORAGE_ACCESSECRET: "minio123"
+      STORAGE_URL: "http://minio:minio123@minio:9000"
       JWT_SECRET: development
     depends_on:
       - db
