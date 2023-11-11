@@ -4,6 +4,9 @@ FROM node:20 AS builder
 # Create app directory
 WORKDIR /usr/src/builder
 
+ENV DATABASE_URL ''
+ENV STORAGE ''
+
 COPY . .
 
 RUN yarn install && yarn build
