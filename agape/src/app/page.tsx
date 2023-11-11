@@ -1,6 +1,7 @@
 import db from "@/models";
 import Carousel from "./Carousel";
 import type { IRecord } from "@/models/inventory/product";
+export { dynamic } from "@/next";
 
 export default async function Home() {
   const products: IRecord[] = (await db.inventory.product.findAll({

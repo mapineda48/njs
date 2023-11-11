@@ -16,7 +16,7 @@ export async function waitAuthenticate(seq: Sequelize): Promise<void> {
      * try again
      */
     console.log("the database system is starting up");
-    await wait(500);
+    await wait(1000);
     return waitAuthenticate(seq);
   }
 }
@@ -34,11 +34,3 @@ export function defineGet(target: unknown, key: string, value: unknown) {
     value,
   });
 }
-
-export async function clearDataDemo(seq: Sequelize) {
-  await waitAuthenticate(seq);
-  await seq.dropSchema("public", {});
-  await seq.createSchema("public", {});
-  return seq;
-}
-

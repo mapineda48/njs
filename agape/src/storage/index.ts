@@ -3,7 +3,7 @@ import { URL } from "url";
 import policy from "./policyPublic.json";
 import { ReadStream } from "fs";
 import { PassThrough } from "stream";
-import { env } from "@/util/env";
+import { env } from "../util/env";
 
 const url = new URL(env("STORAGE_URL"));
 

@@ -3,14 +3,14 @@ version: "3"
 services:
   app:
     container_name: app-agape
-    image: node:18
+    image: node:20
     tty: true
     volumes:
       - "../..:/home/njs"
     environment:
       # Testing
-      GIT_EMAIL: "${GIT_EMAIL}"
-      GIT_NAME: "${GIT_NAME}"
+      GITHUB_EMAIL: "${GITHUB_EMAIL}"
+      GITHUB_USER: "${GITHUB_USER}"
       GITHUB_TOKEN: "${GITHUB_TOKEN}"
       NGROK_TOKEN: "${NGROK_TOKEN}"
 
@@ -51,5 +51,3 @@ services:
     ports:
       - 9000:9000
       - 9090:9090
-
-

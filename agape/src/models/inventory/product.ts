@@ -1,8 +1,8 @@
 import { Sequelize, Model, DataTypes, ModelStatic } from "sequelize";
-import * as ORM from "@/util/models/orm";
-import { toModelName } from "@/util/models/toMap";
 import { ModelName as Category } from "./category";
 import { ModelName as SubCategory } from "./subcategory";
+import * as ORM from "../../util/models/orm";
+
 
 export const ModelName = "inventory_product";
 
@@ -47,6 +47,7 @@ export function define(seq: Sequelize) {
     },
     {
       //paranoid: true
+      
     }
   );
 

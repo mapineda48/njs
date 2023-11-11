@@ -1,7 +1,6 @@
 import { Sequelize, Model, DataTypes, ModelStatic } from "sequelize";
-import * as ORM from "@/util/models/orm";
-import { toModelName } from "@/util/models/toMap";
 import { ModelName as DocumentType } from "./documentType";
+import * as ORM from "../util/models/orm";
 
 export const ModelName = "user";
 
@@ -49,7 +48,7 @@ export function define(seq: Sequelize) {
       },
     },
     {
-      //paranoid: true
+      //paranoid: true,
     }
   );
 

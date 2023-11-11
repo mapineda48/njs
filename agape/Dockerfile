@@ -1,7 +1,5 @@
 ########################################## Builder ########################################
-FROM node:16 AS builder
-
-ENV GENERATE_SOURCEMAP 'false'
+FROM node:20 AS builder
 
 # Create app directory
 WORKDIR /usr/src/builder
@@ -11,7 +9,7 @@ COPY . .
 RUN yarn install && yarn build
 
 ######################################### Production #######################################
-FROM node:16-alpine
+FROM node:20-alpine
 
 ENV NODE_ENV 'production'
 

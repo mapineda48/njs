@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
 import documentsType from "./documentType.json";
-import db from "../../models";
+import db from "../../../models";
 
 export default async function populateData() {
   const [dni] = await Promise.all(

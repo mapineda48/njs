@@ -1,8 +1,8 @@
 import { DataTypes, Model, ModelStatic, Sequelize } from "sequelize";
-import * as ORM from "@/util/models/orm";
-import { toModelName } from "@/util/models/toMap";
 import { ModelName as Role } from "./role";
 import { ModelName as Associate } from "./associate";
+import * as ORM from "../../util/models/orm";
+
 
 export const ModelName = "employee_associateRole";
 

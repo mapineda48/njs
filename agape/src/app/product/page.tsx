@@ -2,6 +2,7 @@ import { createProduct } from "./action";
 import Input from "@/form/Input";
 import db from "@/models";
 import Test, { Props } from "./client/Category";
+export { dynamic } from "@/next";
 
 export default async function Page() {
   const { categories } = await getState();
