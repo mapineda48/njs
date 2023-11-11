@@ -4,8 +4,8 @@ FROM node:20 AS builder
 # Create app directory
 WORKDIR /usr/src/builder
 
-ENV DATABASE_URL ''
-ENV STORAGE ''
+ENV DATABASE_URL 'postgresql://postgres:mypassword@db'
+ENV STORAGE_URL 'http://minio:minio123@minio:9000'
 
 COPY . .
 
