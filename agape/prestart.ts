@@ -6,6 +6,7 @@ const isDev = process.env.NODE_ENV !== "production";
 
 sync(isDev, version)
   .then(() => Storage.Init())
+  .then(() => process.exit())
   .catch((err) => {
     throw err;
   });

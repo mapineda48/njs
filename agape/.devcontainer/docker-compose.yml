@@ -9,7 +9,8 @@ services:
       - "../..:/home/njs"
     environment:
       # Testing
-      GITHUB_EMAIL: "${GITHUB_EMAIL}"
+      GIT_USER: "${GIT_NAME}"
+      GIT_EMAIL: "${GIT_EMAIL}"
       GITHUB_USER: "${GITHUB_USER}"
       GITHUB_TOKEN: "${GITHUB_TOKEN}"
       NGROK_TOKEN: "${NGROK_TOKEN}"
