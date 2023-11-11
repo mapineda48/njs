@@ -26,5 +26,5 @@ jobs:
       # I just want to keep the latest version for demos 
       - working-directory: agape
         run: |
-          docker build . -t mapineda48/agape-dev
-          docker push mapineda48/agape-dev
+          docker build . -t mapineda48/agape@develop
+          docker push mapineda48/agape@develop
